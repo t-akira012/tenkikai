@@ -1,0 +1,22 @@
+[Info]
+name = "TENKIKAI"
+displayname = "TENKIKAI"
+versiondate = 03,14,2026
+mugenversion = 04,14,2002
+author = "pkrs"
+pal.defaults = 1
+
+[Files]
+cmd     = t.cmd   ;Command set
+cns     = t.cns   ;Constants
+st      = t.cns   ;States
+stcommon = common1.cns ;Common states
+sprite  = t.sff   ;Sprite
+anim    = t.air   ;Animation
+sound   = t.snd   ;Sound
+pal1    = t.act
+pal2    = t.act
+pal3    = t.act
+pal4    = t.act
+pal5    = t.act
+pal6    = t.act
