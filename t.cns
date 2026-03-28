@@ -2825,14 +2825,14 @@ ignorehitpause=1
 [state ,floating]
 type=posset
 trigger1=!ishelper
-y=sin(gametime*0.06)*6
+y=sin(3.75*animtime*0.2)*3
 ignorehitpause=1
 postype = screen
 [state ,bind to body]
 type=posset
 trigger1=ishelper(1)
 x=root,pos x
-y=root,pos y - 61 + sin(gametime*0.1)*1
+y=root,pos y-61
 ignorehitpause=1
 [state ]
 type=trans
@@ -2860,7 +2860,7 @@ ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
-[State 0]
+[state afterimage for Head and Body]
 type=afterimage
 trigger1=!ishelper
 trigger1=time=0
