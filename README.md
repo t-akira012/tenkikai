@@ -14,3 +14,20 @@
 ## このキャラについて
 
 - バーサスに登場するマダラー星人です。
+
+## 技
+
+### 通常技
+
+### 必殺技
+
+### 超必殺
+
+
+## 転載など
+
+- 好きにしてください
+- 連絡先:
+    - 以下のどちらかにどうぞ
+    - [GitHub Issues](https://github.com/t-akira012/tenkikai)
+    - [Twitter @raya77x2](https:/x.com/raya77x2)
