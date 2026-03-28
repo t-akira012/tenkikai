@@ -2816,6 +2816,9 @@ type=null
 trigger1=1
 
 [Statedef -2]
+;TODO create changetype,a,c,s
+;create sound and effect man-pu .. myonmyon
+
 [state ,anti helper hijacking]
 type=selfstate
 trigger1=ishelper
@@ -2825,14 +2828,14 @@ ignorehitpause=1
 [state ,floating]
 type=posset
 trigger1=!ishelper
-y=sin(3.75*animtime*0.2)*3
+y=sin(gametime*0.08)*3
 ignorehitpause=1
 postype = screen
 [state ,bind to body]
 type=posset
 trigger1=ishelper(1)
 x=root,pos x
-y=root,pos y-61
+y=root,pos y-61+sin(gametime*0.11)*1
 ignorehitpause=1
 [state ]
 type=trans
