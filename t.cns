@@ -29,10 +29,10 @@ shadowoffset = 0
 draw.offset = 0,-25
 
 [Velocity]
-walk.fwd  = 2.4
-walk.back = -2.2
-run.fwd  = 4.6, 0
-run.back = -4.5,-3.8
+walk.fwd  = 6
+walk.back = -4
+run.fwd  = 0, 0
+run.back = 0, 0
 jump.neu = 0,-8.4
 jump.back = -2.55
 jump.fwd = 2.5
@@ -61,28 +61,104 @@ crouch.friction = .82
 ; type=null
 ; trigger1=0
 
+;------------------------------------------
+; Front Dash
 [Statedef 100]
-type = S
-ctrl = 0
-anim = 100
-velset = 0,0
+type=S
+ctrl=0
+anim=100
+velset=0,0
 
 [state ]
-type = ChangeState
-trigger1 = AnimTime = 0
-value = 101
+type=angledraw
+trigger1=animelemno(0)=[1,3]
+scale=1+animelemtime(1)*0.05,1
+
+[state ]
+type=angledraw
+trigger1=animelemno(0)=[4,5]
+scale=1+animelemtime(4)*0.1,1-(animelemtime(4)*0.01)
+
+[state ]
+type=posadd
+trigger1=animtime=0
+x=100
+
+[state ]
+type=changestate
+trigger1=animtime=0
+value=102
+
+[Statedef 102]
+type=S
+ctrl=0
+velset=0,0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=changestate
+trigger1=time>=10
+value=101
 
 [Statedef 101]
-type = S
-ctrl = 0
-anim = 101
-velset = 0,0
+type=S
+ctrl=0
+anim=101
+velset=0,0
 
 [state ]
-type = ChangeState
-trigger1 = AnimTime = 0
-value = 0
-ctrl = 1
+type=changestate
+trigger1=animtime=0
+value=0
+ctrl=1
+;------------------------------------------
+; Back Step
+[statedef 105]
+type=s
+ctrl=0
+anim=105
+velset=0,0
+
+[state ]
+type=posadd
+trigger1=animtime=0
+x=-100
+
+[state ]
+type=changestate
+trigger1=animtime=0
+value=107
+
+[statedef 107]
+type=s
+ctrl=0
+velset=0,0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=changestate
+trigger1=time>=10
+value=106
+
+[statedef 106]
+type=s
+ctrl=0
+anim=106
+velset=0,0
+
+[state ]
+type=changestate
+trigger1=animtime=0
+value=0
+ctrl=1
 
 ;---------------------------------------------------------------------------
 ; Win state decider
@@ -2834,6 +2910,9 @@ ignorehitpause=1
 [statedef 99001]
 anim=99001
 [state ]
+type=Turn
+trigger1=facing!=root,facing
+[state ]
 type=null
 trigger1=1
 
@@ -2885,16 +2964,24 @@ ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
+[state head invisible]
+type=AssertSpecial
+trigger1=root,stateno=[100,107]
+flag=invisible
+
 [state afterimage for Head and Body]
 type=afterimage
 trigger1=!ishelper
-trigger1=time=0
+trigger1=!var(0)
+trigger1=var(0):=1||1
 trigger2=ishelper(1)
 trigger2=!var(0)
 trigger2=var(0):=1||1
+trigger3=ishelper(1)||!ishelper
+trigger3=!(gametime%600)
 time=-1
-length=18
-trans=add1
+length=64
+trans=add
 palcolor=128
 palbright=15,15,45
 palcontrast=88,88,188
