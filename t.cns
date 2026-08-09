@@ -1,6 +1,5 @@
 [Data]
 life = 1000
-;UŒ‚ƒ_ƒ[ƒW
 attack = 100
 defence = 100
 fall.defence_up = 50
@@ -51,16 +50,16 @@ stand.friction = .85  ;Friction coefficient when standing
 crouch.friction = .82 ;Friction coefficient when crouching
 
 
-[Statedef 0]
-type = S
-ctrl = 0
-anim = 0
-velset = 0,0
-
-
-[state ]
-type=null
-trigger1=0
+; [Statedef 0]
+; type = S
+; ctrl = 0
+; anim = 0
+; velset = 0,0
+; 
+; 
+; [state ]
+; type=null
+; trigger1=0
 
 ;---------------------------------------------------------------------------
 ; Win state decider
