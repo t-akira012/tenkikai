@@ -13,41 +13,41 @@ IntPersistIndex = 60
 FloatPersistIndex = 40
 
 [Size]
-xscale = 0.5           ;Horizontal scaling factor.
-yscale = 0.5           ;Vertical scaling factor.
-ground.back = 15     ;Player width (back, ground)
-ground.front = 16    ;Player width (front, ground)
-air.back = 12        ;Player width (back, air)
-air.front = 12       ;Player width (front, air)
-height = 60          ;Height of player (for opponent to jump over)
-attack.dist = 160    ;Default attack distance
-proj.attack.dist = 90 ;Default attack distance for projectiles
-proj.doscale = 0     ;Set to 1 to scale projectiles too
-head.pos = -5, -90   ;Approximate position of head
-mid.pos = -5, -60    ;Approximate position of midsection
-shadowoffset = 0     ;Number of pixels to vertically offset the shadow
-draw.offset = 0,-25    ;Player drawing offset in pixels (x, y)
+xscale = 0.5
+yscale = 0.5
+ground.back = 15
+ground.front = 16
+air.back = 12
+air.front = 12
+height = 60
+attack.dist = 160
+proj.attack.dist = 90
+proj.doscale = 0
+head.pos = -5, -90
+mid.pos = -5, -60
+shadowoffset = 0
+draw.offset = 0,-25
 
 [Velocity]
-walk.fwd  = 2.4      ;Walk forward
-walk.back = -2.2     ;Walk backward
-run.fwd  = 4.6, 0    ;Run forward (x, y)
-run.back = -4.5,-3.8 ;Hop backward (x, y)
-jump.neu = 0,-8.4    ;Neutral jumping velocity (x, y)
-jump.back = -2.55    ;Jump back Speed (x, y)
-jump.fwd = 2.5       ;Jump forward Speed (x, y)
-runjump.back = -2.55,-8.1 ;Running jump speeds (opt)
-runjump.fwd = 4,-8.1      ;.
-airjump.neu = 0,-8.1      ;.
-airjump.back = -2.55      ;Air jump speeds (opt)
-airjump.fwd = 2.5         ;.
+walk.fwd  = 2.4
+walk.back = -2.2
+run.fwd  = 4.6, 0
+run.back = -4.5,-3.8
+jump.neu = 0,-8.4
+jump.back = -2.55
+jump.fwd = 2.5
+runjump.back = -2.55,-8.1
+runjump.fwd = 4,-8.1
+airjump.neu = 0,-8.1
+airjump.back = -2.55
+airjump.fwd = 2.5
 
 [Movement]
-airjump.num = 1      ;Number of air jumps allowed (opt)
-airjump.height = 35  ;Minimum distance from ground before you can air jump (opt)
-yaccel = .44         ;Vertical acceleration
-stand.friction = .85  ;Friction coefficient when standing
-crouch.friction = .82 ;Friction coefficient when crouching
+airjump.num = 1
+airjump.height = 35
+yaccel = .44
+stand.friction = .85
+crouch.friction = .82
 
 
 ; [Statedef 0]
@@ -60,6 +60,29 @@ crouch.friction = .82 ;Friction coefficient when crouching
 ; [state ]
 ; type=null
 ; trigger1=0
+
+[Statedef 100]
+type = S
+ctrl = 0
+anim = 100
+velset = 0,0
+
+[state ]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 101
+
+[Statedef 101]
+type = S
+ctrl = 0
+anim = 101
+velset = 0,0
+
+[state ]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
 
 ;---------------------------------------------------------------------------
 ; Win state decider
