@@ -41,6 +41,7 @@ uv run python -B scripts/formatter.py
 - `tenkikai.def` の分割ファイル参照を正規化する。
 - `cns/common1.cns` にも他のCNSファイルと同じ整形規則を適用する。
 - `cns/common1.cns` と他のステートファイルで重複するStateDefを、`cns/common1.cns` 側から削除する。
+- `docs/state/*.md` のステート記述は、挙動をH2見出し、各StateDefの機能をH3見出し `StateDef NUM: 機能名` とする。挙動とStateDefが1対1の場合もこの階層を省略しない。
 
 整形前後の有効な定義を内部で比較し、コメントと書式以外の内容が変化した場合はエラーで終了する。
 

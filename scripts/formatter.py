@@ -11,6 +11,7 @@ STATEDEF_PATTERN = re.compile(r"^\s*\[statedef\s+(-?\d+)\s*\]\s*$", re.IGNORECAS
 STATE_PATTERN = re.compile(r"^\s*\[state(?:\s+[^\]]*)?\]\s*$", re.IGNORECASE)
 SECTION_PATTERN = re.compile(r"^\s*\[[^\]]+\]\s*$")
 CANONICAL_STATEDEF_PATTERN = re.compile(r"^\[statedef\s+(-?\d+)\]$")
+DOCUMENT_STATEDEF_PATTERN = re.compile(r"^### StateDef -?\d+: .+$")
 OPERATOR_WITH_SPACES_PATTERN = re.compile(
     r"[ \t]*(\*\*|&&|\|\||\^\^|:=|!=|>=|<=|[=<>+\-*/%&|^])[ \t]*"
 )
@@ -406,6 +407,28 @@ def normalize_text_line_endings(reporter: Reporter) -> None:
         reporter.write_bytes(path, data)
 
 
+def verify_state_document_headings() -> None:
+    documents = (
+        "docs/state/state-default.md",
+        "docs/state/state-attack.md",
+        "docs/state/state-superattack.md",
+        "docs/state/state-helper.md",
+        "docs/state/state-stcommon.md",
+        "docs/state/explod-list.md",
+    )
+    for name in documents:
+        has_behavior = False
+        for number, line in enumerate(read_lines(ROOT / name), start=1):
+            if line.startswith("## "):
+                has_behavior = not line.startswith("## StateDef ")
+                if not has_behavior:
+                    raise RuntimeError(f"StateDefをH2に置けません: {name}:{number}")
+            elif line.startswith("### StateDef "):
+                if not has_behavior or not DOCUMENT_STATEDEF_PATTERN.match(line):
+                    raise RuntimeError(f"StateDef見出しの階層が不正です: {name}:{number}")
+    print("検証完了: ステート文書のH2/H3階層")
+
+
 def verify_result() -> None:
     for name in DEFINITION_FILES:
         path = ROOT / name
@@ -495,6 +518,7 @@ def verify_result() -> None:
         elif in_info and " " in line:
             raise RuntimeError(f"[Info]に半角スペースが残っています: tenkikai.def:{number}")
 
+    verify_state_document_headings()
     print("検証完了: コメント、罫線、改行、StateDef配置、DEF参照")
 
 
