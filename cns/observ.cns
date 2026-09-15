@@ -152,8 +152,10 @@ trigger1=var(10):=1||1
 trigger2=ishelper(99001)
 trigger2=!var(10)
 trigger2=var(10):=1||1
-trigger3=ishelper(99001)||!ishelper
-trigger3=!(root,var(0)%600)
+trigger3=!ishelper
+trigger3=!(var(0)%600)
+trigger4=ishelper(99001)
+trigger4=!(root,var(0)%600)
 time=-1
 length=64
 trans=add
