@@ -21,7 +21,7 @@ Gitによるチェックアウトやコミットで改行コードが変化し�
 *.act binary
 ```
 
-`t.sff`、`t.snd`、`t.act` はバイナリファイルとして扱い、改行コード変換の対象にしない。
+`binary/sprite.sff`、`binary/sound.snd`、`binary/pal1.act` から `binary/pal6.act` はバイナリファイルとして扱い、改行コード変換の対象にしない。
 
 ## コメント
 
@@ -95,11 +95,11 @@ x=-100
 
 ## 定数とInfoの半角スペース
 
-`t-constants.cns` は、セクション見出しを含むファイル全体からASCII半角スペースを除去する。
+`cns/constants.cns` は、セクション見出しを含むファイル全体からASCII半角スペースを除去する。
 
 `tenkikai.def` は、`[Info]` セクション内からASCII半角スペースを除去する。
 
-`t-command.cmd` は、コマンド定義部分からASCII半角スペースを除去する。`[statedef -1]` 以下では、`p2bodydist X` などMUGEN構文上必要な区切りの空白を維持する。
+`cns/command.cmd` は、コマンド定義部分からASCII半角スペースを除去する。`[statedef -1]` 以下では、`p2bodydist X` などMUGEN構文上必要な区切りの空白を維持する。
 
 ```ini
 [Info]
@@ -115,30 +115,38 @@ versiondate=03,14,2026
 
 | ファイル | 内容 |
 | --- | --- |
-| `t-constants.cns` | `[Data]`、`[Size]`、`[Velocity]`、`[Movement]` などのキャラクター定数 |
-| `t-command.cmd` | コマンド定義と `[statedef -1]` |
-| `t-state.cns` | 0以上9999以下のStatedef |
-| `t-observ.cns` | `[statedef -2]` と `[statedef -3]` |
-| `t-helper.cns` | 10000以上のStatedef |
-| `t-common1.cns` | WinMUGENの `common1.cns` をキャラクター側で管理する共有ステート |
+| `cns/constants.cns` | `[Data]`、`[Size]`、`[Velocity]`、`[Movement]` などのキャラクター定数 |
+| `cns/command.cmd` | コマンド定義と `[statedef -1]` |
+| `cns/state.cns` | 0以上9999以下のStatedef |
+| `cns/observ.cns` | `[statedef -2]` と `[statedef -3]` |
+| `cns/helper.cns` | 10000以上のStatedef |
+| `cns/common1.cns` | WinMUGENの `common1.cns` をキャラクター側で管理する共有ステート |
+| `binary/animation.air` | Action定義 |
+| `binary/sprite.sff` | スプライト |
+| `binary/sound.snd` | サウンド |
+| `binary/pal1.act`～`binary/pal6.act` | パレット |
 
-現在の `[statedef 99000]` と `[statedef 99001]` は、`t-helper.cns` に配置する。
+現在の `[statedef 99000]` と `[statedef 99001]` は、`cns/helper.cns` に配置する。
 
-`t-common1.cns` と他のステートファイルに同じStateDef番号が存在する場合は、他のステートファイルを優先する。重複するStateDefブロックは、`t-common1.cns` 側から削除する。
+`cns/common1.cns` と他のステートファイルに同じStateDef番号が存在する場合は、他のステートファイルを優先する。重複するStateDefブロックは、`cns/common1.cns` 側から削除する。
 
 `tenkikai.def` の `[Files]` では、分割したファイルを次のように参照する。
 
 ```ini
 [Files]
-cmd=t-command.cmd
-cns=t-constants.cns
-st=t-state.cns
-st1=t-observ.cns
-st2=t-helper.cns
-stcommon=t-common1.cns
+cmd=cns/command.cmd
+cns=cns/constants.cns
+st=cns/state.cns
+st1=cns/observ.cns
+st2=cns/helper.cns
+stcommon=cns/common1.cns
+sprite=binary/sprite.sff
+anim=binary/animation.air
+sound=binary/sound.snd
+pal1=binary/pal1.act
 ```
 
-`sprite`、`anim`、`sound`、`pal1` から `pal6` までの既存の参照は維持する。
+`pal2` から `pal6` は、それぞれ同じ番号の `binary/palN.act` を参照する。
 
 ## 変更後の確認
 
@@ -149,11 +157,11 @@ stcommon=t-common1.cns
 - 罫線コメントがすべて、`;` 1文字と `-` 49文字からなる合計50文字の行になっていること。
 - 罫線コメント以外の行コメントと行末コメントが残っていないこと。
 - 全Statedef番号が分割前後で一致すること。
-- `t-common1.cns` と他のステートファイルに重複するStateDef番号がないこと。
+- `cns/common1.cns` と他のステートファイルに重複するStateDef番号がないこと。
 - Stateコントローラーの数と順序が分割前後で一致すること。
 - `tenkikai.def` からすべての分割ファイルを参照できること。
-- `t-constants.cns` と `[Info]` にASCII半角スペースが残っていないこと。
-- `t-command.cmd` のコマンド定義部分にASCII半角スペースが残っていないこと。
+- `cns/constants.cns` と `[Info]` にASCII半角スペースが残っていないこと。
+- `cns/command.cmd` のコマンド定義部分にASCII半角スペースが残っていないこと。
 - StatedefとStateブロックの `type=` の値に大文字が残っていないこと。
 - StatedefとStateブロックの演算子前後にASCII半角スペースが残っていないこと。
 - 定義内容に意図しない変更がないこと。

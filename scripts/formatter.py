@@ -17,20 +17,20 @@ OPERATOR_WITH_SPACES_PATTERN = re.compile(
 
 DEFINITION_FILES = (
     "tenkikai.def",
-    "t.air",
-    "t-command.cmd",
-    "t-constants.cns",
-    "t-common1.cns",
-    "t-state.cns",
-    "t-observ.cns",
-    "t-helper.cns",
+    "binary/animation.air",
+    "cns/command.cmd",
+    "cns/constants.cns",
+    "cns/common1.cns",
+    "cns/state.cns",
+    "cns/observ.cns",
+    "cns/helper.cns",
 )
 STATE_FORMAT_FILES = {
-    "t-command.cmd",
-    "t-common1.cns",
-    "t-state.cns",
-    "t-observ.cns",
-    "t-helper.cns",
+    "cns/command.cmd",
+    "cns/common1.cns",
+    "cns/state.cns",
+    "cns/observ.cns",
+    "cns/helper.cns",
 }
 
 
@@ -243,7 +243,7 @@ def remove_duplicate_common_states(
         index for index, line in enumerate(common_lines) if statedef_number(line) is not None
     ]
     if not header_indexes:
-        raise RuntimeError("t-common1.cnsにStateDefがありません")
+        raise RuntimeError("common1.cnsにStateDefがありません")
 
     starts: list[int] = []
     for header_index in header_indexes:
@@ -289,15 +289,23 @@ def update_def(lines: list[str]) -> list[str]:
                 key_lower = key.lower()
 
                 if key_lower == "cmd":
-                    output.append("cmd=t-command.cmd")
+                    output.append("cmd=cns/command.cmd")
                 elif key_lower == "cns":
-                    output.append("cns=t-constants.cns")
+                    output.append("cns=cns/constants.cns")
                 elif key_lower == "st":
-                    output.extend(("st=t-state.cns", "st1=t-observ.cns", "st2=t-helper.cns"))
+                    output.extend(("st=cns/state.cns", "st1=cns/observ.cns", "st2=cns/helper.cns"))
                 elif key_lower in ("st1", "st2"):
                     continue
                 elif key_lower == "stcommon":
-                    output.append("stcommon=t-common1.cns")
+                    output.append("stcommon=cns/common1.cns")
+                elif key_lower == "sprite":
+                    output.append("sprite=binary/sprite.sff")
+                elif key_lower == "anim":
+                    output.append("anim=binary/animation.air")
+                elif key_lower == "sound":
+                    output.append("sound=binary/sound.snd")
+                elif re.fullmatch(r"pal[1-6]", key_lower):
+                    output.append(f"{key_lower}=binary/{key_lower}.act")
                 else:
                     output.append(f"{key}={value}")
                 continue
@@ -342,10 +350,10 @@ def format_legacy_cns(reporter: Reporter) -> None:
     if semantic_lines(original, True) != semantic_lines(combined, True):
         raise RuntimeError("t.cnsの分割によって有効な定義が変化しました")
 
-    reporter.write_lines(ROOT / "t-constants.cns", constants)
-    reporter.write_lines(ROOT / "t-state.cns", states)
-    reporter.write_lines(ROOT / "t-observ.cns", observers)
-    reporter.write_lines(ROOT / "t-helper.cns", helpers)
+    reporter.write_lines(ROOT / "cns/constants.cns", constants)
+    reporter.write_lines(ROOT / "cns/state.cns", states)
+    reporter.write_lines(ROOT / "cns/observ.cns", observers)
+    reporter.write_lines(ROOT / "cns/helper.cns", helpers)
     legacy_path.unlink()
     reporter.changed += 1
     print("削除完了: t.cns")
@@ -360,13 +368,13 @@ def format_definition(path: Path, format_states: bool, reporter: Reporter) -> No
 
 
 def format_common_states(reporter: Reporter) -> None:
-    path = ROOT / "t-common1.cns"
+    path = ROOT / "cns/common1.cns"
     if not path.exists():
-        raise RuntimeError("対象ファイルがありません: t-common1.cns")
+        raise RuntimeError("対象ファイルがありません: cns/common1.cns")
 
-    print("対象: t-common1.cns")
+    print("対象: cns/common1.cns")
     result = transform_definition(read_lines(path), format_states=True)
-    other_names = ("t-command.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
+    other_names = ("cns/command.cmd", "cns/state.cns", "cns/observ.cns", "cns/helper.cns")
     other_state_numbers = {
         number
         for name in other_names
@@ -376,7 +384,7 @@ def format_common_states(reporter: Reporter) -> None:
     result, removed = remove_duplicate_common_states(result, other_state_numbers)
 
     for number in removed:
-        print(f"重複削除: t-common1.cns StateDef {number}")
+        print(f"重複削除: cns/common1.cns StateDef {number}")
     reporter.write_lines(path, result)
 
 
@@ -388,7 +396,7 @@ def normalize_text_line_endings(reporter: Reporter) -> None:
         ROOT / "Makefile",
         ROOT / "README.md",
     }
-    paths.update((ROOT / "docs").glob("*.md"))
+    paths.update((ROOT / "docs").rglob("*.md"))
     paths.update((ROOT / "scripts").glob("*.py"))
 
     for path in sorted(paths):
@@ -420,9 +428,9 @@ def verify_result() -> None:
                         raise RuntimeError(f"演算子の前後に空白が残っています: {name}:{number}")
 
     expected = {
-        "t-state.cns": lambda number: 0 <= number <= 9_999,
-        "t-observ.cns": lambda number: number in (-2, -3),
-        "t-helper.cns": lambda number: number >= 10_000,
+        "cns/state.cns": lambda number: 0 <= number <= 9_999,
+        "cns/observ.cns": lambda number: number in (-2, -3),
+        "cns/helper.cns": lambda number: number >= 10_000,
     }
     for name, valid_number in expected.items():
         for line in read_lines(ROOT / name):
@@ -432,41 +440,53 @@ def verify_result() -> None:
 
     common_numbers = {
         number
-        for line in read_lines(ROOT / "t-common1.cns")
+        for line in read_lines(ROOT / "cns/common1.cns")
         if (number := statedef_number(line)) is not None
     }
     other_numbers = {
         number
-        for name in ("t-command.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
+        for name in ("cns/command.cmd", "cns/state.cns", "cns/observ.cns", "cns/helper.cns")
         for line in read_lines(ROOT / name)
         if (number := statedef_number(line)) is not None
     }
     duplicates = sorted(common_numbers & other_numbers)
     if duplicates:
-        raise RuntimeError(f"t-common1.cnsに重複StateDefがあります: {duplicates}")
+        raise RuntimeError(f"cns/common1.cnsに重複StateDefがあります: {duplicates}")
 
     def_data = (ROOT / "tenkikai.def").read_text(encoding="ascii")
     required = (
-        "cmd=t-command.cmd",
-        "cns=t-constants.cns",
-        "st=t-state.cns",
-        "st1=t-observ.cns",
-        "st2=t-helper.cns",
-        "stcommon=t-common1.cns",
+        "cmd=cns/command.cmd",
+        "cns=cns/constants.cns",
+        "st=cns/state.cns",
+        "st1=cns/observ.cns",
+        "st2=cns/helper.cns",
+        "stcommon=cns/common1.cns",
+        "sprite=binary/sprite.sff",
+        "anim=binary/animation.air",
+        "sound=binary/sound.snd",
+        "pal1=binary/pal1.act",
+        "pal2=binary/pal2.act",
+        "pal3=binary/pal3.act",
+        "pal4=binary/pal4.act",
+        "pal5=binary/pal5.act",
+        "pal6=binary/pal6.act",
     )
     for line in required:
         if def_data.splitlines().count(line) != 1:
             raise RuntimeError(f"DEF参照が不正です: {line}")
+        referenced_path = ROOT / line.split("=", 1)[1]
+        if not referenced_path.is_file():
+            raise RuntimeError(f"DEF参照先がありません: {referenced_path.relative_to(ROOT)}")
 
     inside_command_state = False
-    for number, line in enumerate(read_lines(ROOT / "t-command.cmd"), start=1):
+    for number, line in enumerate(read_lines(ROOT / "cns/command.cmd"), start=1):
         if CANONICAL_STATEDEF_PATTERN.match(line):
             inside_command_state = True
         elif not inside_command_state and " " in line:
-            raise RuntimeError(f"CMD定義に半角スペースが残っています: t-command.cmd:{number}")
+            raise RuntimeError(f"CMD定義に半角スペースが残っています: cns/command.cmd:{number}")
 
-    if " " in (ROOT / "t-constants.cns").read_text(encoding="ascii"):
-        raise RuntimeError("t-constants.cnsに半角スペースが残っています")
+    if " " in (ROOT / "cns/constants.cns").read_text(encoding="ascii"):
+        raise RuntimeError("cns/constants.cnsに半角スペースが残っています")
 
     in_info = False
     for number, line in enumerate(def_data.splitlines(), start=1):
@@ -483,19 +503,19 @@ def main() -> None:
     reporter = Reporter()
 
     format_legacy_cns(reporter)
-    command_path = ROOT / "t-command.cmd"
-    print("対象: t-command.cmd")
+    command_path = ROOT / "cns/command.cmd"
+    print("対象: cns/command.cmd")
     command_lines = transform_definition(read_lines(command_path), format_states=True)
     command_lines = remove_ascii_spaces_from_command_definitions(command_lines)
     reporter.write_lines(command_path, command_lines)
-    format_definition(ROOT / "t.air", format_states=False, reporter=reporter)
-    format_definition(ROOT / "t-state.cns", format_states=True, reporter=reporter)
-    format_definition(ROOT / "t-observ.cns", format_states=True, reporter=reporter)
-    format_definition(ROOT / "t-helper.cns", format_states=True, reporter=reporter)
+    format_definition(ROOT / "binary/animation.air", format_states=False, reporter=reporter)
+    format_definition(ROOT / "cns/state.cns", format_states=True, reporter=reporter)
+    format_definition(ROOT / "cns/observ.cns", format_states=True, reporter=reporter)
+    format_definition(ROOT / "cns/helper.cns", format_states=True, reporter=reporter)
     format_common_states(reporter)
 
-    constants_path = ROOT / "t-constants.cns"
-    print("対象: t-constants.cns")
+    constants_path = ROOT / "cns/constants.cns"
+    print("対象: cns/constants.cns")
     constants = transform_definition(read_lines(constants_path), format_states=True)
     reporter.write_lines(constants_path, remove_ascii_spaces(constants))
 

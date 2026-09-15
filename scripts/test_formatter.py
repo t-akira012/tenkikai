@@ -103,12 +103,12 @@ class FormatterTest(unittest.TestCase):
             actual,
             [
                 "[Files]",
-                "cmd=t-command.cmd",
-                "cns=t-constants.cns",
-                "st=t-state.cns",
-                "st1=t-observ.cns",
-                "st2=t-helper.cns",
-                "stcommon=t-common1.cns",
+                "cmd=cns/command.cmd",
+                "cns=cns/constants.cns",
+                "st=cns/state.cns",
+                "st1=cns/observ.cns",
+                "st2=cns/helper.cns",
+                "stcommon=cns/common1.cns",
             ],
         )
 

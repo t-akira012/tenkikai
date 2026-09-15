@@ -6,7 +6,7 @@
 
 | 項目 | 定義 |
 | --- | --- |
-| 生成元 | `t-observ.cns` のStateDef `-3` |
+| 生成元 | `cns/observ.cns` のStateDef `-3` |
 | 生成条件 | 本体であり、ID `99001` のヘルパーが存在しないとき |
 | 名前 | `the_head` |
 | ID | `99001` |

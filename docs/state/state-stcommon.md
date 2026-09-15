@@ -1,64 +1,40 @@
 # stcommon共有ステート
 
-この文書は、`t-common1.cns` に置いたWinMUGEN 2002.04.14系の共有ステートを説明する。名称は[Elecbyte CNS形式の特殊State番号表](https://www.elecbyte.com/mugendocs/cns.html)を基準に日本語化している。
+この文書は、`cns/common1.cns` に置いたWinMUGEN 2002.04.14系の共有ステートを説明する。名称は[Elecbyte CNS形式の特殊State番号表](https://www.elecbyte.com/mugendocs/cns.html)を基準に日本語化している。
 
-StateDef `100`、`105`、`106`、`191` はTENKIKAI固有実装と重複するため、`t-common1.cns` から削除されている。これらは[デフォルトステート](state-default.md)を参照する。
+StateDef `100`、`105`、`106`、`191` はTENKIKAI固有実装と重複するため、`cns/common1.cns` から削除されている。これらは[デフォルトステート](state-default.md)を参照する。
 
-## StateDef 0: 立ち
+## StateDef 0: 浮遊待機
 
-地上で操作を受け付ける基本姿勢である。Action `0` を表示し、振り向きAction `5` の終了後も立ちへ戻す。開始時にY速度を0へ戻し、X速度が2未満または4tick経過で水平移動を止める。死亡している場合はStateDef `5050` へ移る。
+操作を受け付ける基本姿勢である。Action `0` を表示し、振り向きAction `5` の終了後も待機へ戻す。開始時にY速度を0へ戻し、X速度が2未満または4tick経過で水平移動を止める。死亡している場合はStateDef `5050` へ移る。
 
-## しゃがみ
+## しゃがみ入力の安全処理
 
-### StateDef 10: 立ちからしゃがみ
+通常操作としてのしゃがみは持たない。WinMUGENによる暗黙遷移や外部ステートからの参照を安全に処理するため、次の入口だけを残す。
 
-Action `10` を再生し、開始時のX速度を75%へ減衰する。アニメーション終了時にStateDef `11` へ移る。
+### StateDef 10: しゃがみ開始拒否
 
-### StateDef 11: しゃがみ
+Actionや移動を行わず、直ちにStateDef `0` へ戻して操作を返す。
 
-Action `11` でしゃがみ続ける。しゃがみ中の振り向きAction `6` が終わった場合もAction `11` へ戻す。
+### StateDef 11: しゃがみ待機拒否
 
-### StateDef 12: しゃがみから立ち
+Actionや移動を行わず、直ちにStateDef `0` へ戻して操作を返す。
 
-Action `12` を再生し、終了時にStateDef `0` へ移る。
+### StateDef 12: 立ち戻り互換
 
-## StateDef 20: 歩き
+Actionや移動を行わず、直ちにStateDef `0` へ戻して操作を返す。
+
+## StateDef 20: 前後歩き
 
 前入力では定数 `velocity.walk.fwd.x`、後ろ入力では `velocity.walk.back.x` をX速度へ設定する。移動方向に応じてAction `20` または `21` を選び、振り向きAction `5` の終了後も適切な歩行Actionへ移す。
 
-## ジャンプ
+## StateDef 40: ジャンプ入力拒否
 
-### StateDef 40: ジャンプ開始
+通常操作としてのジャンプは持たない。WinMUGENからジャンプ開始を要求された場合、Actionや移動を行わず、直ちにStateDef `0` へ戻して操作を返す。
 
-地上ジャンプの準備Action `40` を再生する。方向入力を `sysvar(1)` に保存し、アニメーション終了時に中立・前・後ろ用のジャンプ速度を設定する。前方ダッシュから前ジャンプした場合はランジャンプ速度を使い、StateDef `50` へ移る。
+## StateDef 52: 空中着地の安全処理
 
-### StateDef 45: 空中ジャンプ開始
-
-Action `44` があれば使用し、なければAction `41` を使う。方向入力を保存し、2tick目に空中ジャンプ速度を設定してStateDef `50` へ移る。
-
-### StateDef 50: ジャンプ中
-
-空中物理を適用する。開始時のX速度に応じて中立Action `41`、前Action `42`、後ろAction `43` を選ぶ。Y速度が-2より大きくなり下降へ移ると、対応する番号+3の下降Actionが存在する場合に切り替える。
-
-### StateDef 51: ジャンプ下降互換枠
-
-処理を持たない `null` ステートである。共有番号との互換用に残されているが、このファイル内からは遷移しない。
-
-### StateDef 52: ジャンプ着地
-
-Action `47` を再生し、Y位置とY速度を0へ戻す。3tick目に操作を返し、アニメーション終了時にStateDef `0` へ移る。
-
-## 未使用のZ軸移動
-
-WinMUGEN標準の特殊State番号表には掲載されない。現在の `t-command.cmd` からも遷移しないため、互換用の未使用ステートとして扱う。
-
-### StateDef 110: Z軸負方向移動
-
-Action `110` を再生し、Z速度-7から毎tick 80%へ減衰させる。30tickの間は投げ属性だけを受け付け、終了前にZ速度を止めてStateDef `0` へ戻る。
-
-### StateDef 115: Z軸正方向移動
-
-StateDef `110` と同じ処理をZ速度7で行い、反対側へ移動する。終了時にStateDef `0` へ戻る。
+相手の攻撃などで空中へ移された後の着地入口として残す。Y速度とY座標を0へ補正し、直ちにStateDef `0` へ戻して操作を返す。
 
 ## ガード
 

@@ -43,7 +43,7 @@ airjump.back=-2.55
 airjump.fwd=2.5
 
 [Movement]
-airjump.num=1
+airjump.num=0
 airjump.height=35
 yaccel=.44
 stand.friction=.85

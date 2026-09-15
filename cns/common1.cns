@@ -30,44 +30,47 @@ value=5050
 ;-------------------------------------------------
 
 [statedef 10]
-type=c
-physics=C
-anim=10
-
-[state ]
-type=velmul
-trigger1=Time=0
-x=.75
+type=s
+movetype=I
+physics=S
+anim=0
+ctrl=0
 
 [state ]
 type=changestate
-trigger1=AnimTime=0
-value=11
+trigger1=1
+value=0
+ctrl=1
 
 ;-------------------------------------------------
 
 [statedef 11]
-type=c
-physics=C
-anim=11
-sprpriority=0
+type=s
+movetype=I
+physics=S
+anim=0
+ctrl=0
 
 [state ]
-type=changeanim
-trigger1=Anim=6&&AnimTime=0
-value=11
+type=changestate
+trigger1=1
+value=0
+ctrl=1
 
 ;-------------------------------------------------
 
 [statedef 12]
 type=s
+movetype=I
 physics=S
-anim=12
+anim=0
+ctrl=0
 
 [state ]
 type=changestate
-trigger1=AnimTime=0
+trigger1=1
 value=0
+ctrl=1
 
 ;-------------------------------------------------
 
@@ -104,247 +107,41 @@ value=21
 
 [statedef 40]
 type=s
+movetype=I
 physics=S
-anim=40
+anim=0
 ctrl=0
-sprpriority=1
-
-[state ]
-type=varset
-trigger1=Time=0
-sysvar(1)=0
-
-[state ]
-type=varset
-trigger1=command="holdfwd"
-sysvar(1)=1
-
-[state ]
-type=varset
-trigger1=command="holdback"
-sysvar(1)=-1
-
-[state ]
-type=velset
-trigger1=AnimTime=0
-x=ifelse(sysvar(1)=0, const(velocity.jump.neu.x), ifelse(sysvar(1)=1, const(velocity.jump.fwd.x), const(velocity.jump.back.x)))
-y=const(velocity.jump.y)
-
-[state ]
-type=velset
-trigger1=AnimTime=0
-trigger1=prevstateno=100
-trigger1=sysvar(1)=1
-x=const(velocity.runjump.fwd.x)
 
 [state ]
 type=changestate
-trigger1=AnimTime=0
-value=50
-ctrl=1
-
-;-------------------------------------------------
-
-[statedef 45]
-type=a
-physics=N
-ctrl=0
-velset=0,0
-
-[state ]
-type=changeanim
-trigger1=SelfAnimExist(44)
-value=44
-
-[state ]
-type=changeanim
-trigger1=!SelfAnimExist(44)
-value=41
-
-[state ]
-type=varset
-trigger1=Time=0
-sysvar(1)=0
-
-[state ]
-type=varset
-trigger1=command="holdfwd"
-sysvar(1)=1
-
-[state ]
-type=varset
-trigger1=command="holdback"
-sysvar(1)=-1
-
-[state ]
-type=velset
-trigger1=Time=2
-x=ifelse(sysvar(1)=0, const(velocity.airjump.neu.x), ifelse(sysvar(1)=1, const(velocity.airjump.fwd.x), const(velocity.airjump.back.x)))
-y=const(velocity.airjump.y)
-
-[state ]
-type=changestate
-trigger1=Time=2
-value=50
-ctrl=1
-
-;-------------------------------------------------
-
-[statedef 50]
-type=a
-physics=A
-
-[state ]
-type=varset
-trigger1=Time=0
-sysvar(1)=0
-
-[state ]
-type=changeanim
-trigger1=Time=0
-value=ifelse((vel x)=0, 41, ifelse((vel x)>0, 42, 43))
-
-[state ]
-type=changeanim
-trigger1=Vel y>-2
-trigger1=SelfAnimExist(anim+3)
-persistent=0
-value=Anim+3
-
-;-------------------------------------------------
-
-[statedef 51]
-type=a
-physics=A
-
-[state ]
-type=null
 trigger1=1
+value=0
+ctrl=1
 
 ;-------------------------------------------------
 
 [statedef 52]
 type=s
+movetype=I
 physics=S
+anim=0
 ctrl=0
-anim=47
 
 [state ]
 type=velset
-trigger1=Time=0
+trigger1=1
 y=0
 
 [state ]
 type=posset
-trigger1=Time=0
+trigger1=1
 y=0
 
 [state ]
-type=ctrlset
-trigger1=Time=3
-value=1
-
-[state ]
 type=changestate
-trigger1=AnimTime=0
+trigger1=1
 value=0
 ctrl=1
-
-;-------------------------------------------------
-
-[statedef 110]
-type=s
-physics=N
-
-[state ]
-type=ctrlset
-trigger1=Time=0
-value=0
-
-[state ]
-type=changeanim
-trigger1=Time=0
-value=110
-
-[state ]
-type=hitby
-trigger1=Time=0
-value=SCA, NT, ST, HT
-time=30
-
-[state ]
-type=velset
-trigger1=Time=0
-x=0
-z=-7
-
-[state ]
-type=velmul
-trigger1=1
-z=0.8
-
-[state ]
-type=velset
-trigger1=AnimTime=-8
-z=0
-
-[state ]
-type=ctrlset
-trigger1=AnimTime=0
-value=1
-
-[state ]
-type=changestate
-trigger1=AnimTime=0
-value=0
-
-;-------------------------------------------------
-
-[statedef 115]
-type=s
-physics=N
-
-[state ]
-type=ctrlset
-trigger1=Time=0
-value=0
-
-[state ]
-type=changeanim
-trigger1=Time=0
-value=110
-
-[state ]
-type=hitby
-trigger1=Time=0
-value=SCA, NT, ST, HT
-time=30
-
-[state ]
-type=velset
-trigger1=Time=0
-x=0
-z=7
-
-[state ]
-type=velmul
-trigger1=1
-z=0.8
-
-[state ]
-type=velset
-trigger1=AnimTime=-8
-z=0
-
-[state ]
-type=ctrlset
-trigger1=AnimTime=0
-value=1
-
-[state ]
-type=changestate
-trigger1=AnimTime=0
-value=0
 
 ;-------------------------------------------------
 
