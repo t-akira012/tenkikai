@@ -18,7 +18,7 @@ StateDef `-2` で本体のゲーム開始直後に `0` へ初期化し、その�
 
 通常変数 `var(1)` を `private-time` として使用する。StateDef `-2` で本体の `time=0` を検知した直後に `0` へ初期化し、その後は毎tick `1` 加算する。StateDef内の `time` の代用品として使用する。
 
-`private-gametime`、`private-time`、およびAfterImage制御に使用する `var(10)` はラウンド間で持ち越さない。`cns/constants.cns` の `IntPersistIndex=60` により、これらを含む変数スロット `var(0)`～`var(59)` はラウンド開始時に0へリセットされる。別の試合へも持ち越さない。
+`private-gametime`、`private-time`、およびAfterImage制御に使用する `var(10)` はラウンド間で持ち越さない。`cns/constants.cns` の `IntPersistIndex=50` により、これらを含む変数スロット `var(0)`～`var(49)` はラウンド開始時に0へリセットされる。別の試合へも持ち越さない。
 
 ## 結果
 
