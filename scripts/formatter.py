@@ -11,17 +11,27 @@ STATEDEF_PATTERN = re.compile(r"^\s*\[statedef\s+(-?\d+)\s*\]\s*$", re.IGNORECAS
 STATE_PATTERN = re.compile(r"^\s*\[state(?:\s+[^\]]*)?\]\s*$", re.IGNORECASE)
 SECTION_PATTERN = re.compile(r"^\s*\[[^\]]+\]\s*$")
 CANONICAL_STATEDEF_PATTERN = re.compile(r"^\[statedef\s+(-?\d+)\]$")
+OPERATOR_WITH_SPACES_PATTERN = re.compile(
+    r"[ \t]*(\*\*|&&|\|\||\^\^|:=|!=|>=|<=|[=<>+\-*/%&|^])[ \t]*"
+)
 
 DEFINITION_FILES = (
     "tenkikai.def",
     "t.air",
-    "t.cmd",
+    "t-command.cmd",
     "t-constants.cns",
     "t-common1.cns",
     "t-state.cns",
     "t-observ.cns",
     "t-helper.cns",
 )
+STATE_FORMAT_FILES = {
+    "t-command.cmd",
+    "t-common1.cns",
+    "t-state.cns",
+    "t-observ.cns",
+    "t-helper.cns",
+}
 
 
 def read_lines(path: Path) -> list[str]:
@@ -85,7 +95,10 @@ def canonicalize_states(lines: list[str]) -> list[str]:
 
         if inside_state and line:
             line = line.strip()
-            line = re.sub(r"[ \t]*=[ \t]*", "=", line)
+            line = OPERATOR_WITH_SPACES_PATTERN.sub(r"\1", line)
+            type_match = re.match(r"^type=(.+)$", line, re.IGNORECASE)
+            if type_match:
+                line = f"type={type_match.group(1).lower()}"
 
         result.append(line)
 
@@ -103,6 +116,44 @@ def normalize_blank_lines(lines: list[str]) -> list[str]:
 
     while result and not result[-1]:
         result.pop()
+
+    return result
+
+
+def remove_ascii_spaces(lines: list[str]) -> list[str]:
+    return [line.replace(" ", "") for line in lines]
+
+
+def remove_ascii_spaces_from_sections(
+    lines: list[str], section_names: set[str]
+) -> list[str]:
+    result: list[str] = []
+    compact = False
+
+    for line in lines:
+        if SECTION_PATTERN.match(line):
+            compact = line.strip()[1:-1].lower() in section_names
+            result.append(line.strip())
+        elif compact:
+            result.append(line.replace(" ", ""))
+        else:
+            result.append(line)
+
+    return result
+
+
+def remove_ascii_spaces_from_command_definitions(lines: list[str]) -> list[str]:
+    result: list[str] = []
+    inside_state = False
+
+    for line in lines:
+        if CANONICAL_STATEDEF_PATTERN.match(line):
+            inside_state = True
+
+        if inside_state:
+            result.append(line)
+        else:
+            result.append(line.replace(" ", ""))
 
     return result
 
@@ -238,7 +289,7 @@ def update_def(lines: list[str]) -> list[str]:
                 key_lower = key.lower()
 
                 if key_lower == "cmd":
-                    output.append("cmd=t.cmd")
+                    output.append("cmd=t-command.cmd")
                 elif key_lower == "cns":
                     output.append("cns=t-constants.cns")
                 elif key_lower == "st":
@@ -315,7 +366,7 @@ def format_common_states(reporter: Reporter) -> None:
 
     print("対象: t-common1.cns")
     result = transform_definition(read_lines(path), format_states=True)
-    other_names = ("t.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
+    other_names = ("t-command.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
     other_state_numbers = {
         number
         for name in other_names
@@ -358,6 +409,16 @@ def verify_result() -> None:
             if ";" in raw_line and raw_line != DIVIDER:
                 raise RuntimeError(f"規約外コメントが残っています: {name}:{number}")
 
+            if name in STATE_FORMAT_FILES and not SECTION_PATTERN.match(raw_line):
+                type_match = re.match(r"^type=(.+)$", raw_line, re.IGNORECASE)
+                if type_match and type_match.group(1) != type_match.group(1).lower():
+                    raise RuntimeError(f"type値に大文字が残っています: {name}:{number}")
+
+                if OPERATOR_WITH_SPACES_PATTERN.search(raw_line):
+                    normalized = OPERATOR_WITH_SPACES_PATTERN.sub(r"\1", raw_line)
+                    if normalized != raw_line:
+                        raise RuntimeError(f"演算子の前後に空白が残っています: {name}:{number}")
+
     expected = {
         "t-state.cns": lambda number: 0 <= number <= 9_999,
         "t-observ.cns": lambda number: number in (-2, -3),
@@ -376,7 +437,7 @@ def verify_result() -> None:
     }
     other_numbers = {
         number
-        for name in ("t.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
+        for name in ("t-command.cmd", "t-state.cns", "t-observ.cns", "t-helper.cns")
         for line in read_lines(ROOT / name)
         if (number := statedef_number(line)) is not None
     }
@@ -386,6 +447,7 @@ def verify_result() -> None:
 
     def_data = (ROOT / "tenkikai.def").read_text(encoding="ascii")
     required = (
+        "cmd=t-command.cmd",
         "cns=t-constants.cns",
         "st=t-state.cns",
         "st1=t-observ.cns",
@@ -396,6 +458,23 @@ def verify_result() -> None:
         if def_data.splitlines().count(line) != 1:
             raise RuntimeError(f"DEF参照が不正です: {line}")
 
+    inside_command_state = False
+    for number, line in enumerate(read_lines(ROOT / "t-command.cmd"), start=1):
+        if CANONICAL_STATEDEF_PATTERN.match(line):
+            inside_command_state = True
+        elif not inside_command_state and " " in line:
+            raise RuntimeError(f"CMD定義に半角スペースが残っています: t-command.cmd:{number}")
+
+    if " " in (ROOT / "t-constants.cns").read_text(encoding="ascii"):
+        raise RuntimeError("t-constants.cnsに半角スペースが残っています")
+
+    in_info = False
+    for number, line in enumerate(def_data.splitlines(), start=1):
+        if SECTION_PATTERN.match(line):
+            in_info = line.lower() == "[info]"
+        elif in_info and " " in line:
+            raise RuntimeError(f"[Info]に半角スペースが残っています: tenkikai.def:{number}")
+
     print("検証完了: コメント、罫線、改行、StateDef配置、DEF参照")
 
 
@@ -404,18 +483,28 @@ def main() -> None:
     reporter = Reporter()
 
     format_legacy_cns(reporter)
-    format_definition(ROOT / "t.cmd", format_states=True, reporter=reporter)
+    command_path = ROOT / "t-command.cmd"
+    print("対象: t-command.cmd")
+    command_lines = transform_definition(read_lines(command_path), format_states=True)
+    command_lines = remove_ascii_spaces_from_command_definitions(command_lines)
+    reporter.write_lines(command_path, command_lines)
     format_definition(ROOT / "t.air", format_states=False, reporter=reporter)
-    format_definition(ROOT / "t-constants.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "t-state.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "t-observ.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "t-helper.cns", format_states=True, reporter=reporter)
     format_common_states(reporter)
 
+    constants_path = ROOT / "t-constants.cns"
+    print("対象: t-constants.cns")
+    constants = transform_definition(read_lines(constants_path), format_states=True)
+    reporter.write_lines(constants_path, remove_ascii_spaces(constants))
+
     def_path = ROOT / "tenkikai.def"
     print("対象: tenkikai.def")
     def_lines = transform_definition(read_lines(def_path), format_states=False)
-    reporter.write_lines(def_path, update_def(def_lines))
+    def_lines = update_def(def_lines)
+    def_lines = remove_ascii_spaces_from_sections(def_lines, {"info"})
+    reporter.write_lines(def_path, def_lines)
 
     print("対象: テキストファイルのLF統一")
     normalize_text_line_endings(reporter)

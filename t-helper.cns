@@ -2,7 +2,7 @@
 
 [state ]
 type=selfstate
-trigger1=ishelper(1)
+trigger1=ishelper(99001)
 value=99001
 ignorehitpause=1
 
@@ -10,7 +10,7 @@ ignorehitpause=1
 anim=99001
 
 [state ]
-type=Turn
+type=turn
 trigger1=facing!=root,facing
 
 [state ]

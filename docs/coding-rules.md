@@ -85,11 +85,29 @@ x=-100
 - Statedef番号は変更しない。
 - セクション内の定義は行頭にそろえ、インデントしない。
 - `=` の前後の空白を削除する。
+- `&&`、`||`、比較演算子、算術演算子など、演算子の前後にあるASCII半角スペースを削除する。
+- `type=` の値は、`type=assertspecial` のようにすべて小文字にする。
 - 各Statedefブロックおよび各Stateブロックの間には、空行を1行置く。
 - トリガー、式、値、Stateコントローラーの順序は変更しない。
 - `[Data]`、`[Size]`、`[Command]`、`[Files]` など、StatedefとState以外のセクション名は、この書式統一による変更対象にしない。
 
 書式変更のみを目的とし、キャラクターの挙動は変更しない。
+
+## 定数とInfoの半角スペース
+
+`t-constants.cns` は、セクション見出しを含むファイル全体からASCII半角スペースを除去する。
+
+`tenkikai.def` は、`[Info]` セクション内からASCII半角スペースを除去する。
+
+`t-command.cmd` は、コマンド定義部分からASCII半角スペースを除去する。`[statedef -1]` 以下では、`p2bodydist X` などMUGEN構文上必要な区切りの空白を維持する。
+
+```ini
+[Info]
+name="TENKIKAI"
+versiondate=03,14,2026
+```
+
+全角スペースや、他のDEFセクションに対する追加の空白除去は、この規則の対象外とする。
 
 ## ファイル構成
 
@@ -98,7 +116,7 @@ x=-100
 | ファイル | 内容 |
 | --- | --- |
 | `t-constants.cns` | `[Data]`、`[Size]`、`[Velocity]`、`[Movement]` などのキャラクター定数 |
-| `t.cmd` | コマンド定義と `[statedef -1]` |
+| `t-command.cmd` | コマンド定義と `[statedef -1]` |
 | `t-state.cns` | 0以上9999以下のStatedef |
 | `t-observ.cns` | `[statedef -2]` と `[statedef -3]` |
 | `t-helper.cns` | 10000以上のStatedef |
@@ -112,7 +130,7 @@ x=-100
 
 ```ini
 [Files]
-cmd=t.cmd
+cmd=t-command.cmd
 cns=t-constants.cns
 st=t-state.cns
 st1=t-observ.cns
@@ -134,4 +152,8 @@ stcommon=t-common1.cns
 - `t-common1.cns` と他のステートファイルに重複するStateDef番号がないこと。
 - Stateコントローラーの数と順序が分割前後で一致すること。
 - `tenkikai.def` からすべての分割ファイルを参照できること。
+- `t-constants.cns` と `[Info]` にASCII半角スペースが残っていないこと。
+- `t-command.cmd` のコマンド定義部分にASCII半角スペースが残っていないこと。
+- StatedefとStateブロックの `type=` の値に大文字が残っていないこと。
+- StatedefとStateブロックの演算子前後にASCII半角スペースが残っていないこと。
 - 定義内容に意図しない変更がないこと。

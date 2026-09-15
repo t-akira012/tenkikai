@@ -1,13 +1,13 @@
 [Info]
-name = "TENKIKAI"
-displayname = "TENKIKAI"
-versiondate = 03,14,2026
-mugenversion = 04,14,2002
-author = "pkrs"
-pal.defaults = 1
+name="TENKIKAI"
+displayname="TENKIKAI"
+versiondate=03,14,2026
+mugenversion=04,14,2002
+author="pkrs"
+pal.defaults=1
 
 [Files]
-cmd=t.cmd
+cmd=t-command.cmd
 cns=t-constants.cns
 st=t-state.cns
 st1=t-observ.cns

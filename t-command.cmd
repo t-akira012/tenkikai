@@ -1,173 +1,173 @@
 ;-------------------------------------------------
 [Remap]
-x = x
-y = y
-z = z
-a = a
-b = b
-c = c
-s = s
+x=x
+y=y
+z=z
+a=a
+b=b
+c=c
+s=s
 
 ;-------------------------------------------------
 [Defaults]
-command.time = 15
+command.time=15
 
-command.buffer.time = 1
-
-;-------------------------------------------------
-[Command]
-name = "TripleKFPalm"
-command = ~D, DF, F, D, DF, F, x
-time = 20
-
-[Command]
-name = "TripleKFPalm"
-command = ~D, DF, F, D, DF, F, y
-time = 20
-
-[Command]
-name = "SmashKFUpper"
-command = ~D, DB, B, D, DB, B, x
-time = 20
-
-[Command]
-name = "SmashKFUpper"
-command = ~D, DB, B, D, DB, B, y
-time = 20
+command.buffer.time=1
 
 ;-------------------------------------------------
 [Command]
-name = "upper_x"
-command = ~F, D, DF, x
+name="TripleKFPalm"
+command=~D,DF,F,D,DF,F,x
+time=20
 
 [Command]
-name = "upper_y"
-command = ~F, D, DF, y
+name="TripleKFPalm"
+command=~D,DF,F,D,DF,F,y
+time=20
 
 [Command]
-name = "upper_xy"
-command = ~F, D, DF, x+y
+name="SmashKFUpper"
+command=~D,DB,B,D,DB,B,x
+time=20
 
 [Command]
-name = "QCF_x"
-command = ~D, DF, F, x
-
-[Command]
-name = "QCF_y"
-command = ~D, DF, F, y
-
-[Command]
-name = "QCF_xy"
-command = ~D, DF, F, x+y
-
-[Command]
-name = "QCB_x"
-command = ~D, DB, B, x
-
-[Command]
-name = "QCB_y"
-command = ~D, DB, B, y
-
-[Command]
-name = "QCB_xy"
-command = ~D, DB, B, x+y
-
-[Command]
-name = "FF_ab"
-command = F, F, a+b
-
-[Command]
-name = "FF_a"
-command = F, F, a
-
-[Command]
-name = "FF_b"
-command = F, F, b
+name="SmashKFUpper"
+command=~D,DB,B,D,DB,B,y
+time=20
 
 ;-------------------------------------------------
 [Command]
-name = "FF"
-command = F, F
-time = 10
+name="upper_x"
+command=~F,D,DF,x
 
 [Command]
-name = "BB"
-command = B, B
-time = 10
-
-;-------------------------------------------------
-[Command]
-name = "recovery"
-command = x+y
-time = 1
-
-;-------------------------------------------------
-[Command]
-name = "down_a"
-command = /$D,a
-time = 1
+name="upper_y"
+command=~F,D,DF,y
 
 [Command]
-name = "down_b"
-command = /$D,b
-time = 1
-
-;-------------------------------------------------
-[Command]
-name = "a"
-command = a
-time = 1
+name="upper_xy"
+command=~F,D,DF,x+y
 
 [Command]
-name = "b"
-command = b
-time = 1
+name="QCF_x"
+command=~D,DF,F,x
 
 [Command]
-name = "c"
-command = c
-time = 1
+name="QCF_y"
+command=~D,DF,F,y
 
 [Command]
-name = "x"
-command = x
-time = 1
+name="QCF_xy"
+command=~D,DF,F,x+y
 
 [Command]
-name = "y"
-command = y
-time = 1
+name="QCB_x"
+command=~D,DB,B,x
 
 [Command]
-name = "z"
-command = z
-time = 1
+name="QCB_y"
+command=~D,DB,B,y
 
 [Command]
-name = "start"
-command = s
-time = 1
+name="QCB_xy"
+command=~D,DB,B,x+y
+
+[Command]
+name="FF_ab"
+command=F,F,a+b
+
+[Command]
+name="FF_a"
+command=F,F,a
+
+[Command]
+name="FF_b"
+command=F,F,b
 
 ;-------------------------------------------------
 [Command]
-name = "holdfwd"
-command = /$F
-time = 1
+name="FF"
+command=F,F
+time=10
 
 [Command]
-name = "holdback"
-command = /$B
-time = 1
+name="BB"
+command=B,B
+time=10
+
+;-------------------------------------------------
+[Command]
+name="recovery"
+command=x+y
+time=1
+
+;-------------------------------------------------
+[Command]
+name="down_a"
+command=/$D,a
+time=1
 
 [Command]
-name = "holdup"
-command = /$U
-time = 1
+name="down_b"
+command=/$D,b
+time=1
+
+;-------------------------------------------------
+[Command]
+name="a"
+command=a
+time=1
 
 [Command]
-name = "holddown"
-command = /$D
-time = 1
+name="b"
+command=b
+time=1
+
+[Command]
+name="c"
+command=c
+time=1
+
+[Command]
+name="x"
+command=x
+time=1
+
+[Command]
+name="y"
+command=y
+time=1
+
+[Command]
+name="z"
+command=z
+time=1
+
+[Command]
+name="start"
+command=s
+time=1
+
+;-------------------------------------------------
+[Command]
+name="holdfwd"
+command=/$F
+time=1
+
+[Command]
+name="holdback"
+command=/$B
+time=1
+
+[Command]
+name="holdup"
+command=/$U
+time=1
+
+[Command]
+name="holddown"
+command=/$D
+time=1
 
 ;-------------------------------------------------
 
@@ -177,59 +177,59 @@ time = 1
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=3050
 triggerall=command="SmashKFUpper"
-triggerall=power >=1000
-triggerall=statetype !=A
+triggerall=power>=1000
+triggerall=statetype!=A
 trigger1=ctrl
 trigger2=hitdefattr=SC, NA, SA, HA
-trigger2=stateno !=[3050,3100)
+trigger2=stateno!=[3050,3100)
 trigger2=movecontact
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=3000
 triggerall=command="TripleKFPalm"
-triggerall=power >=1000
+triggerall=power>=1000
 trigger1=statetype=S
 trigger1=ctrl
-trigger2=statetype !=A
+trigger2=statetype!=A
 trigger2=hitdefattr=SC, NA, SA, HA
-trigger2=stateno !=[3000,3050)
+trigger2=stateno!=[3000,3050)
 trigger2=movecontact
 
 ;-------------------------------------------------
 
 [state ]
-type=VarSet
+type=varset
 trigger1=1
 var(1)=0
 
 [state ]
-type=VarSet
-trigger1=statetype !=A
+type=varset
+trigger1=statetype!=A
 trigger1=ctrl
-trigger2=(stateno=[200,299]) || (stateno=[400,499])
-trigger2=stateno !=440
+trigger2=(stateno=[200,299])||(stateno=[400,499])
+trigger2=stateno!=440
 trigger2=movecontact
 var(1)=1
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1070
 triggerall=command="FF_ab"
-triggerall=power >=330
+triggerall=power>=330
 trigger1=var(1)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1050
 triggerall=command="FF_a"
 trigger1=var(1)
@@ -237,7 +237,7 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1060
 triggerall=command="FF_b"
 trigger1=var(1)
@@ -245,16 +245,16 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1020
 triggerall=command="QCF_xy"
-triggerall=power >=330
+triggerall=power>=330
 trigger1=var(1)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1000
 triggerall=command="QCF_x"
 trigger1=var(1)
@@ -262,7 +262,7 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1010
 triggerall=command="QCF_y"
 trigger1=var(1)
@@ -270,16 +270,16 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1120
 triggerall=command="upper_xy"
-triggerall=power >=330
+triggerall=power>=330
 trigger1=var(1)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1100
 triggerall=command="upper_x"
 trigger1=var(1)
@@ -287,7 +287,7 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1110
 triggerall=command="upper_y"
 trigger1=var(1)
@@ -295,16 +295,16 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1220
 triggerall=command="QCB_xy"
-triggerall=power >=330
+triggerall=power>=330
 trigger1=var(1)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1200
 triggerall=command="QCB_x"
 trigger1=var(1)
@@ -312,7 +312,7 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=1210
 triggerall=command="QCB_y"
 trigger1=var(1)
@@ -321,7 +321,7 @@ trigger1=var(1)
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=100
 trigger1=command="FF"
 trigger1=statetype=S
@@ -330,7 +330,7 @@ trigger1=ctrl
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=105
 trigger1=command="BB"
 trigger1=statetype=S
@@ -339,83 +339,83 @@ trigger1=ctrl
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=800
 triggerall=command="y"
 triggerall=statetype=S
 triggerall=ctrl
-triggerall=stateno !=100
+triggerall=stateno!=100
 trigger1=command="holdfwd"
-trigger1=p2bodydist X < 3
-trigger1=(p2statetype=S) || (p2statetype=C)
-trigger1=p2movetype !=H
+trigger1=p2bodydist X<3
+trigger1=(p2statetype=S)||(p2statetype=C)
+trigger1=p2movetype!=H
 trigger2=command="holdback"
-trigger2=p2bodydist X < 5
-trigger2=(p2statetype=S) || (p2statetype=C)
-trigger2=p2movetype !=H
+trigger2=p2bodydist X<5
+trigger2=(p2statetype=S)||(p2statetype=C)
+trigger2=p2movetype!=H
 
 ;-------------------------------------------------
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=200
 triggerall=command="x"
-triggerall=command !="holddown"
+triggerall=command!="holddown"
 trigger1=statetype=S
 trigger1=ctrl
 trigger2=stateno=200
-trigger2=time > 6
+trigger2=time>6
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=210
 triggerall=command="y"
-triggerall=command !="holddown"
+triggerall=command!="holddown"
 trigger1=statetype=S
 trigger1=ctrl
-trigger2=(stateno=200) && time > 5
-trigger3=(stateno=230) && time > 6
+trigger2=(stateno=200)&&time>5
+trigger3=(stateno=230)&&time>6
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=230
 triggerall=command="a"
-triggerall=command !="holddown"
+triggerall=command!="holddown"
 trigger1=statetype=S
 trigger1=ctrl
-trigger2=(stateno=200) && time > 7
-trigger3=(stateno=230) && time > 9
+trigger2=(stateno=200)&&time>7
+trigger3=(stateno=230)&&time>9
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=240
 triggerall=command="b"
-triggerall=command !="holddown"
+triggerall=command!="holddown"
 trigger1=statetype=S
 trigger1=ctrl
-trigger2=(stateno=200) && time > 5
-trigger3=(stateno=230) && time > 6
+trigger2=(stateno=200)&&time>5
+trigger3=(stateno=230)&&time>6
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=195
 triggerall=command="start"
-trigger1=statetype !=A
+trigger1=statetype!=A
 trigger1=ctrl
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=400
 triggerall=command="x"
 triggerall=command="holddown"
@@ -425,67 +425,67 @@ trigger1=ctrl
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=410
 triggerall=command="y"
 triggerall=command="holddown"
 trigger1=statetype=C
 trigger1=ctrl
-trigger2=(stateno=400) || (stateno=430)
-trigger2=(time > 9) || (movecontact && time > 5)
+trigger2=(stateno=400)||(stateno=430)
+trigger2=(time>9)||(movecontact&&time>5)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=430
 triggerall=command="a"
 triggerall=command="holddown"
 trigger1=statetype=C
 trigger1=ctrl
-trigger2=(stateno=400) || (stateno=430)
-trigger2=(time > 9) || (movecontact && time > 5)
+trigger2=(stateno=400)||(stateno=430)
+trigger2=(time>9)||(movecontact&&time>5)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=440
 triggerall=command="b"
 triggerall=command="holddown"
 trigger1=statetype=C
 trigger1=ctrl
-trigger2=(stateno=400) || (stateno=430)
-trigger2=(time > 9) || (movecontact && time > 5)
+trigger2=(stateno=400)||(stateno=430)
+trigger2=(time>9)||(movecontact&&time>5)
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=600
 triggerall=command="x"
 trigger1=statetype=A
 trigger1=ctrl
 trigger2=stateno=600
-trigger2=statetime >=7
+trigger2=statetime>=7
 trigger3=stateno=1350
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=610
 triggerall=command="y"
 trigger1=statetype=A
 trigger1=ctrl
-trigger2=stateno=600 || stateno=630
+trigger2=stateno=600||stateno=630
 trigger2=movecontact
 trigger3=stateno=1350
 
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=630
 triggerall=command="a"
 trigger1=statetype=A
@@ -495,11 +495,11 @@ trigger2=stateno=1350
 ;-------------------------------------------------
 
 [state ]
-type=ChangeState
+type=changestate
 value=640
 triggerall=command="b"
 trigger1=statetype=A
 trigger1=ctrl
-trigger2=stateno=600 || stateno=630
+trigger2=stateno=600||stateno=630
 trigger2=movecontact
 trigger3=stateno=1350

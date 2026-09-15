@@ -32,7 +32,12 @@ uv run python -B scripts/formatter.py
 - Statedef見出しを `[statedef NUM]` に統一する。
 - State見出しを `[state ]` に統一する。
 - StatedefとState内のインデントおよび `=` 前後の空白を削除する。
+- StatedefとState内の演算子前後にあるASCII半角スペースを削除する。
+- StatedefとState内の `type=` の値をすべて小文字にする。
 - StatedefブロックとStateブロックの間へ空行を1行置く。
+- `t-constants.cns` 全体からASCII半角スペースを除去する。
+- `t-command.cmd` のコマンド定義からASCII半角スペースを除去する。
+- `tenkikai.def` の `[Info]` セクションからASCII半角スペースを除去する。
 - `tenkikai.def` の分割ファイル参照を正規化する。
 - `t-common1.cns` にも他のCNSファイルと同じ整形規則を適用する。
 - `t-common1.cns` と他のステートファイルで重複するStateDefを、`t-common1.cns` 側から削除する。
@@ -70,13 +75,13 @@ StateDef番号が重複する場合の優先順位は、次のとおりとする
 他のステートファイル > t-common1.cns
 ```
 
-`t.cmd`、`t-state.cns`、`t-observ.cns`、`t-helper.cns` のいずれかに同じ番号がある場合、フォーマッターは `t-common1.cns` 側のStateDefブロックを削除する。
+`t-command.cmd`、`t-state.cns`、`t-observ.cns`、`t-helper.cns` のいずれかに同じ番号がある場合、フォーマッターは `t-common1.cns` 側のStateDefブロックを削除する。
 
 共通ステートの挙動は、今後 `state-stcommon.md` に記載する。
 
 ## テスト
 
-フォーマッターの単体テストは次のコマンドで実行する。
+フォーマッターの単体テストと、StateDef文書および生成物一覧と実装の対応検査は、次のコマンドで実行する。
 
 ```console
 make test-fmt
