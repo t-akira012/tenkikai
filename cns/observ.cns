@@ -91,14 +91,14 @@ type=veladd
 trigger1=!ishelper
 trigger1=command!="holdup"
 trigger1=pos y<0
-y=const(movement.yaccel)
+y=const(movement.yaccel)*0.1
 ignorehitpause=1
 
 [state ]
 type=veladd
 trigger1=!ishelper
 trigger1=pos y<=-400
-y=const(movement.yaccel)
+y=const(movement.yaccel)*0.1
 ignorehitpause=1
 
 [state ]
