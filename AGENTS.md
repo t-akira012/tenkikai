@@ -23,3 +23,7 @@ M.U.G.E.N コーディングに関する共通規約は、このファイルへ�
 - 共通Agent規約（日本語）: `~/src/github.com/t-akira012/mugen-docs-coding-agents/AGENTS.ja.md`
 - CNS中核仕様: `~/src/github.com/t-akira012/mugen-docs-coding-agents/docs/CNS_CORE.md`
 - 互換性方針: `~/src/github.com/t-akira012/mugen-docs-coding-agents/docs/COMPATIBILITY.md`
+
+## `do-not-read-coding-agent.md`
+
+ユーザー作業用ファイルであり、Coding AgentsはRead/Write禁止
