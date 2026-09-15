@@ -73,3 +73,17 @@ value=105
 trigger1=command="BB"
 trigger1=statetype=S
 trigger1=ctrl
+
+[state ]
+type=changestate
+value=60
+trigger1=statetype=A
+trigger1=stateno!=60
+trigger1=command="holdfwd"
+
+[state ]
+type=changestate
+value=61
+trigger1=statetype=A
+trigger1=stateno!=61
+trigger1=command="holdback"

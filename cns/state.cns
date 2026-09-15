@@ -1,5 +1,85 @@
 ;-------------------------------------------------
 
+[statedef 60]
+type=a
+movetype=I
+physics=N
+ctrl=1
+
+[state ]
+type=velset
+trigger1=1
+x=0
+
+[state ]
+type=posadd
+trigger1=command="holdfwd"
+x=const(velocity.walk.fwd.x)
+
+[state ]
+type=changeanim
+trigger1=command="holdfwd"
+value=20
+
+[state ]
+type=changeanim
+trigger1=command!="holdfwd"
+trigger1=command!="holdback"
+value=0
+
+[state ]
+type=changestate
+trigger1=command="holdback"
+value=61
+
+[state ]
+type=changestate
+trigger1=pos y>=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 61]
+type=a
+movetype=I
+physics=N
+ctrl=1
+
+[state ]
+type=velset
+trigger1=1
+x=0
+
+[state ]
+type=posadd
+trigger1=command="holdback"
+x=const(velocity.walk.back.x)
+
+[state ]
+type=changeanim
+trigger1=command="holdback"
+value=21
+
+[state ]
+type=changeanim
+trigger1=command!="holdfwd"
+trigger1=command!="holdback"
+value=0
+
+[state ]
+type=changestate
+trigger1=command="holdfwd"
+value=60
+
+[state ]
+type=changestate
+trigger1=pos y>=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
 [statedef 100]
 type=s
 ctrl=0

@@ -80,26 +80,33 @@ physics=S
 sprpriority=0
 
 [state ]
-type=velset
+type=posadd
 trigger1=command="holdfwd"
 x=const(velocity.walk.fwd.x)
 
 [state ]
-type=velset
+type=posadd
 trigger1=command="holdback"
 x=const(velocity.walk.back.x)
 
 [state ]
+type=velset
+trigger1=1
+x=0
+
+[state ]
 type=changeanim
-triggerall=vel x>0
+trigger1=command="holdfwd"
 trigger1=Anim!=20&&Anim!=5
+trigger2=command="holdfwd"
 trigger2=Anim=5&&AnimTime=0
 value=20
 
 [state ]
 type=changeanim
-triggerall=vel x<0
+trigger1=command="holdback"
 trigger1=Anim!=21&&Anim!=5
+trigger2=command="holdback"
 trigger2=Anim=5&&AnimTime=0
 value=21
 
