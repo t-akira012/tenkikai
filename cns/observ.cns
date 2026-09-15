@@ -1,6 +1,32 @@
 [statedef -2]
 
 [state ]
+type=varset
+trigger1=!ishelper
+trigger1=!var(0)
+var(0)=0
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=!ishelper
+var(0)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=time=0
+var(1)=0
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=!ishelper
+var(1)=1
+ignorehitpause=1
+
+[state ]
 type=selfstate
 trigger1=ishelper
 trigger1=!ishelper(99001)
@@ -10,7 +36,7 @@ ignorehitpause=1
 [state ]
 type=posset
 trigger1=!ishelper
-y=sin(gametime*0.08)*3
+y=sin(var(0)*0.08)*3
 ignorehitpause=1
 postype=screen
 
@@ -18,7 +44,7 @@ postype=screen
 type=posset
 trigger1=ishelper(99001)
 x=root,pos x
-y=root,pos y-61+sin(gametime*0.11)*1
+y=root,pos y-61+sin(root,var(0)*0.11)*1
 ignorehitpause=1
 
 [state ]
@@ -57,13 +83,13 @@ flag=invisible
 [state ]
 type=afterimage
 trigger1=!ishelper
-trigger1=!var(0)
-trigger1=var(0):=1||1
+trigger1=!var(10)
+trigger1=var(10):=1||1
 trigger2=ishelper(99001)
-trigger2=!var(0)
-trigger2=var(0):=1||1
+trigger2=!var(10)
+trigger2=var(10):=1||1
 trigger3=ishelper(99001)||!ishelper
-trigger3=!(gametime%600)
+trigger3=!(root,var(0)%600)
 time=-1
 length=64
 trans=add

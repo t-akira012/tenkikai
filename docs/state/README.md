@@ -16,6 +16,7 @@ CNS/CMDの実装と挙動文書のどちらをマスターとするかは定め�
 - [ヘルパー一覧](helper-list.md): `Helper` コントローラーが生成するヘルパー
 - [Explod一覧](explod-list.md): `Explod` コントローラーが生成する演出物
 - [Projectile一覧](projectile-list.md): `Projectile` コントローラーが生成する飛び道具
+- [変数一覧](var-list.md): CNSで使用する通常変数とシステム変数
 
 ## 記述規則
 
