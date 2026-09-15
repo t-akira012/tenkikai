@@ -42,13 +42,6 @@ ignorehitpause=1
 
 [state ]
 type=posset
-trigger1=!ishelper
-y=sin(var(0)*0.08)*3
-ignorehitpause=1
-postype=screen
-
-[state ]
-type=posset
 trigger1=ishelper(99001)
 x=root,pos x
 y=root,pos y-61+sin(root,var(0)*0.11)*1
@@ -69,6 +62,70 @@ value=99000
 ignorehitpause=1
 
 [statedef -3]
+
+[state ]
+type=posset
+trigger1=!ishelper
+trigger1=pos y>=0
+trigger1=command!="holdup"
+y=0
+ignorehitpause=1
+
+[state ]
+type=velset
+trigger1=!ishelper
+trigger1=pos y>=0
+trigger1=command!="holdup"
+y=0
+ignorehitpause=1
+
+[state ]
+type=velset
+trigger1=!ishelper
+trigger1=command="holdup"
+y=-const(velocity.walk.fwd.x)
+ignorehitpause=1
+
+[state ]
+type=veladd
+trigger1=!ishelper
+trigger1=command!="holdup"
+trigger1=pos y<0
+y=const(movement.yaccel)
+ignorehitpause=1
+
+[state ]
+type=veladd
+trigger1=!ishelper
+trigger1=pos y<=-400
+y=const(movement.yaccel)
+ignorehitpause=1
+
+[state ]
+type=statetypeset
+trigger1=!ishelper
+trigger1=pos y<0
+statetype=a
+physics=n
+ignorehitpause=1
+
+[state ]
+type=statetypeset
+trigger1=!ishelper
+trigger1=pos y>=0
+trigger1=command="holddown"
+statetype=c
+physics=c
+ignorehitpause=1
+
+[state ]
+type=statetypeset
+trigger1=!ishelper
+trigger1=pos y>=0
+trigger1=command!="holddown"
+statetype=s
+physics=s
+ignorehitpause=1
 
 [state ]
 type=helper
