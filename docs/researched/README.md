@@ -6,5 +6,5 @@
 
 ## 調査項目
 
-- [Varのラウンド持ち越し](var.md)
+- [Variables](variables.md)
 - [State Controller](state-controller.md)
