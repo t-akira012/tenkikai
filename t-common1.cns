@@ -1,0 +1,1961 @@
+;-------------------------------------------------
+
+[statedef 0]
+type=S
+physics=S
+sprpriority=0
+
+[state ]
+type=ChangeAnim
+trigger1=Anim !=0 && Anim !=5
+trigger2=Anim=5 && AnimTime=0
+value=0
+
+[state ]
+type=VelSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=VelSet
+trigger1=abs(vel x) < 2
+trigger2=Time=4
+x=0
+
+[state ]
+type=ChangeState
+trigger1=!alive
+value=5050
+
+;-------------------------------------------------
+
+[statedef 10]
+type=C
+physics=C
+anim=10
+
+[state ]
+type=VelMul
+trigger1=Time=0
+x=.75
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=11
+
+;-------------------------------------------------
+
+[statedef 11]
+type=C
+physics=C
+anim=11
+sprpriority=0
+
+[state ]
+type=ChangeAnim
+trigger1=Anim=6 && AnimTime=0
+value=11
+
+;-------------------------------------------------
+
+[statedef 12]
+type=S
+physics=S
+anim=12
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=0
+
+;-------------------------------------------------
+
+[statedef 20]
+type=S
+physics=S
+sprpriority=0
+
+[state ]
+type=VelSet
+trigger1=command="holdfwd"
+x=const(velocity.walk.fwd.x)
+
+[state ]
+type=VelSet
+trigger1=command="holdback"
+x=const(velocity.walk.back.x)
+
+[state ]
+type=ChangeAnim
+triggerall=vel x > 0
+trigger1=Anim !=20 && Anim !=5
+trigger2=Anim=5 && AnimTime=0
+value=20
+
+[state ]
+type=ChangeAnim
+triggerall=vel x < 0
+trigger1=Anim !=21 && Anim !=5
+trigger2=Anim=5 && AnimTime=0
+value=21
+
+;-------------------------------------------------
+
+[statedef 40]
+type=S
+physics=S
+anim=40
+ctrl=0
+sprpriority=1
+
+[state ]
+type=VarSet
+trigger1=Time=0
+sysvar(1)=0
+
+[state ]
+type=VarSet
+trigger1=command="holdfwd"
+sysvar(1)=1
+
+[state ]
+type=VarSet
+trigger1=command="holdback"
+sysvar(1)=-1
+
+[state ]
+type=VelSet
+trigger1=AnimTime=0
+x=ifelse(sysvar(1)=0, const(velocity.jump.neu.x), ifelse(sysvar(1)=1, const(velocity.jump.fwd.x), const(velocity.jump.back.x)))
+y=const(velocity.jump.y)
+
+[state ]
+type=VelSet
+trigger1=AnimTime=0
+trigger1=prevstateno=100
+trigger1=sysvar(1)=1
+x=const(velocity.runjump.fwd.x)
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=50
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 45]
+type=A
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=SelfAnimExist(44)
+value=44
+
+[state ]
+type=ChangeAnim
+trigger1=!SelfAnimExist(44)
+value=41
+
+[state ]
+type=VarSet
+trigger1=Time=0
+sysvar(1)=0
+
+[state ]
+type=VarSet
+trigger1=command="holdfwd"
+sysvar(1)=1
+
+[state ]
+type=VarSet
+trigger1=command="holdback"
+sysvar(1)=-1
+
+[state ]
+type=VelSet
+trigger1=Time=2
+x=ifelse(sysvar(1)=0, const(velocity.airjump.neu.x), ifelse(sysvar(1)=1, const(velocity.airjump.fwd.x), const(velocity.airjump.back.x)))
+y=const(velocity.airjump.y)
+
+[state ]
+type=ChangeState
+trigger1=Time=2
+value=50
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 50]
+type=A
+physics=A
+
+[state ]
+type=VarSet
+trigger1=Time=0
+sysvar(1)=0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=ifelse((vel x)=0, 41, ifelse((vel x)>0, 42, 43))
+
+[state ]
+type=ChangeAnim
+trigger1=Vel y > -2
+trigger1=SelfAnimExist(anim + 3)
+persistent=0
+value=Anim + 3
+
+;-------------------------------------------------
+
+[statedef 51]
+type=A
+physics=A
+
+[state ]
+type=Null
+trigger1=1
+
+;-------------------------------------------------
+
+[statedef 52]
+type=S
+physics=S
+ctrl=0
+anim=47
+
+[state ]
+type=VelSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=PosSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=CtrlSet
+trigger1=Time=3
+value=1
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 110]
+type=S
+physics=N
+
+[state ]
+type=CtrlSet
+trigger1=Time=0
+value=0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=110
+
+[state ]
+type=HitBy
+trigger1=Time=0
+value=SCA, NT, ST, HT
+time=30
+
+[state ]
+type=VelSet
+trigger1=Time=0
+x=0
+z=-7
+
+[state ]
+type=VelMul
+trigger1=1
+z=0.8
+
+[state ]
+type=VelSet
+trigger1=AnimTime=-8
+z=0
+
+[state ]
+type=CtrlSet
+trigger1=AnimTime=0
+value=1
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=0
+
+;-------------------------------------------------
+
+[statedef 115]
+type=S
+physics=N
+
+[state ]
+type=CtrlSet
+trigger1=Time=0
+value=0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=110
+
+[state ]
+type=HitBy
+trigger1=Time=0
+value=SCA, NT, ST, HT
+time=30
+
+[state ]
+type=VelSet
+trigger1=Time=0
+x=0
+z=7
+
+[state ]
+type=VelMul
+trigger1=1
+z=0.8
+
+[state ]
+type=VelSet
+trigger1=AnimTime=-8
+z=0
+
+[state ]
+type=CtrlSet
+trigger1=AnimTime=0
+value=1
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=0
+
+;-------------------------------------------------
+
+[statedef 120]
+type=U
+physics=U
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=120 + (statetype=C) + (statetype=A)*2
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=S
+physics=S
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=A
+physics=A
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=130 + (statetype=C) + (statetype=A)*2
+
+[state ]
+type=ChangeState
+trigger1=command !="holdback"
+trigger2=!inguarddist
+value=140
+
+;-------------------------------------------------
+
+[statedef 130]
+type=S
+physics=S
+
+[state ]
+type=ChangeAnim
+trigger1=Anim !=130
+value=130
+
+[state ]
+type=ChangeState
+trigger1=command="holddown"
+value=131
+
+[state ]
+type=ChangeState
+trigger1=command !="holdback"
+trigger2=!inguarddist
+value=140
+
+;-------------------------------------------------
+
+[statedef 131]
+type=C
+physics=C
+
+[state ]
+type=ChangeAnim
+trigger1=Anim !=131
+value=131
+
+[state ]
+type=ChangeState
+trigger1=command !="holddown"
+value=130
+
+[state ]
+type=ChangeState
+trigger1=command !="holdback"
+trigger2=!inguarddist
+value=140
+
+;-------------------------------------------------
+
+[statedef 132]
+type=A
+physics=N
+
+[state ]
+type=ChangeAnim
+trigger1=Anim !=132
+value=132
+
+[state ]
+type=VelAdd
+trigger1=1
+y=Const(movement.yaccel)
+
+[state ]
+type=VarSet
+trigger1=1
+sysvar(0)=(pos y >=0) && (vel y > 0)
+
+[state ]
+type=VelSet
+trigger1=sysvar(0)
+y=0
+
+[state ]
+type=PosSet
+trigger1=sysvar(0)
+y=0
+
+[state ]
+type=ChangeState
+trigger1=sysvar(0)
+trigger1=command="holdback"
+trigger1=inguarddist
+value=130
+
+[state ]
+type=ChangeState
+trigger1=sysvar(0)
+value=52
+
+[state ]
+type=ChangeState
+trigger1=command !="holdback"
+trigger2=!inguarddist
+value=140
+
+;-------------------------------------------------
+
+[statedef 140]
+type=U
+physics=U
+ctrl=1
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=140 + (statetype=C) + (statetype=A)*2
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=S
+physics=S
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0 && statetype=A
+physics=A
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+;-------------------------------------------------
+
+[statedef 150]
+type=S
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=1
+value=150
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=151 + 2*(command="holddown")
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+[state ]
+type=ForceFeedback
+trigger1=time=0
+waveform=square
+time=3
+
+;-------------------------------------------------
+
+[statedef 151]
+type=S
+movetype=H
+physics=S
+anim=150
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+
+[state ]
+type=VelSet
+trigger1=Time=GetHitVar(slidetime)
+trigger2=HitOver
+x=0
+
+[state ]
+type=CtrlSet
+trigger1=Time=GetHitVar(ctrltime)
+value=1
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+[state ]
+type=ChangeState
+trigger1=HitOver
+value=130
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 152]
+type=C
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=1
+value=151
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=151 + 2*(command="holddown")
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+[state ]
+type=ForceFeedback
+trigger1=time=0
+waveform=square
+time=4
+
+;-------------------------------------------------
+
+[statedef 153]
+type=C
+movetype=H
+physics=C
+anim=151
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+
+[state ]
+type=VelSet
+trigger1=Time=GetHitVar(slidetime)
+trigger2=HitOver
+x=0
+
+[state ]
+type=CtrlSet
+trigger1=Time=GetHitVar(ctrltime)
+value=1
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=S && command="holddown"
+statetype=C
+physics=C
+
+[state ]
+type=StateTypeSet
+trigger1=statetype=C && command !="holddown"
+statetype=S
+physics=S
+
+[state ]
+type=ChangeState
+trigger1=HitOver
+value=131
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 154]
+type=A
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=1
+value=152
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=155
+
+[state ]
+type=ForceFeedback
+trigger1=time=0
+waveform=square
+time=4
+
+;-------------------------------------------------
+
+[statedef 155]
+type=A
+movetype=H
+physics=N
+anim=152
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+y=1
+
+[state ]
+type=VelAdd
+trigger1=1
+y=Const(movement.yaccel)
+
+[state ]
+type=CtrlSet
+trigger1=Time=GetHitVar(ctrltime)
+value=1
+
+[state ]
+type=VarSet
+trigger1=1
+sysvar(0)=(pos y >=0) && (vel y > 0)
+
+[state ]
+type=VelSet
+trigger1=sysvar(0)
+y=0
+
+[state ]
+type=PosSet
+trigger1=sysvar(0)
+y=0
+
+[state ]
+type=ChangeState
+trigger1=sysvar(0)
+trigger1=command="holdback"
+trigger1=inguarddist
+value=130
+
+[state ]
+type=ChangeState
+trigger1=sysvar(0)
+value=52
+
+;-------------------------------------------------
+
+[statedef 170]
+type=S
+ctrl=0
+anim=170
+velset=0,0
+
+[state ]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+;-------------------------------------------------
+
+[statedef 175]
+type=S
+ctrl=0
+velset=0,0
+
+[state ]
+type=ChangeState
+trigger1=Time=0
+trigger1=!SelfAnimExist(175)
+value=170
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+value=175
+
+[state ]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+;-------------------------------------------------
+
+[statedef 190]
+type=S
+ctrl=0
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=SelfAnimExist(190)
+value=190
+
+[state ]
+type=ChangeState
+trigger1=Time=0
+value=191
+
+;-------------------------------------------------
+
+[statedef 5000]
+type=S
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype) !=[3,5]
+value=ifelse((GetHitVar(groundtype)=1),5000,5010) + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype)=[3,5]
+value=5030
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=(GetHitVar(animtype)=[4,5]) && (SelfAnimExist(5047 + GetHitVar(animtype)))
+value=5047 + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time > 0
+value=anim
+
+[state ]
+type=StateTypeSet
+trigger1=Time=0
+trigger1=GetHitVar(yvel) !=0 || GetHitVar(fall)
+trigger2=Pos Y !=0
+statetype=a
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+trigger1=GetHitVar(yvel)=0 && !GetHitVar(fall)
+value=5001
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=5030
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5000
+trigger2=anim=5010
+persistent=0
+time=6
+waveform=square
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5001
+trigger2=anim=5011
+persistent=0
+time=8
+waveform=sinesquare
+ampl=110,-1,-.3
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5012
+trigger2=anim=5002
+trigger3=anim=5030
+persistent=0
+time=15
+waveform=sinesquare
+ampl=140
+
+;-------------------------------------------------
+
+[statedef 5001]
+type=S
+movetype=H
+physics=S
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+
+[state ]
+type=ChangeAnim
+trigger1=AnimTime=0
+value=5005 + GetHitVar(animtype) + (GetHitVar(groundtype)=2)*10
+
+[state ]
+type=VelMul
+trigger1=Time >=GetHitVar(slidetime)
+x=.6
+
+[state ]
+type=VelSet
+trigger1=HitOver
+x=0
+
+[state ]
+type=DefenceMulSet
+trigger1=HitOver
+value=1
+
+[state ]
+type=ChangeState
+trigger1=HitOver
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 5010]
+type=C
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype) !=[3,5]
+value=5020 + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype)=[3,5]
+value=5030
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=(GetHitVar(animtype)=[4,5]) && (SelfAnimExist(5047 + GetHitVar(animtype)))
+value=5047 + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time > 0
+value=anim
+
+[state ]
+type=StateTypeSet
+triggerall=Time=0
+trigger1=GetHitVar(yvel) !=0 || GetHitVar(fall)
+trigger2=Pos Y !=0
+statetype=a
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+trigger1=GetHitVar(yvel)=0 && !GetHitVar(fall)
+value=5011
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=5030
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5020
+persistent=0
+time=6
+waveform=square
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5021
+persistent=0
+time=8
+waveform=sinesquare
+ampl=110,-1,-.3
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5022
+persistent=0
+time=15
+waveform=sinesquare
+ampl=140
+
+;-------------------------------------------------
+
+[statedef 5011]
+type=C
+movetype=H
+physics=C
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+
+[state ]
+type=ChangeAnim
+trigger1=AnimTime=0
+value=5025 + GetHitVar(animtype)
+
+[state ]
+type=VelMul
+trigger1=Time >=GetHitVar(slidetime)
+x=.6
+
+[state ]
+type=VelSet
+trigger1=HitOver
+x=0
+
+[state ]
+type=DefenceMulSet
+trigger1=HitOver
+value=1
+
+[state ]
+type=ChangeState
+trigger1=HitOver
+value=11
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 5020]
+type=A
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype) !=[3,5]
+value=ifelse((GetHitVar(airtype)=1),5000,5010) + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=GetHitVar(animtype)=[3,5]
+value=5030
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=(GetHitVar(animtype)=[4,5]) && (SelfAnimExist(5047 + GetHitVar(animtype)))
+value=5047 + GetHitVar(animtype)
+
+[state ]
+type=ChangeAnim
+trigger1=Time > 0
+value=anim
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=5030
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5000
+trigger2=anim=5010
+persistent=0
+time=6
+waveform=square
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5001
+trigger2=anim=5011
+persistent=0
+time=8
+waveform=sinesquare
+ampl=110,-1,-.3
+
+[state ]
+type=ForceFeedback
+trigger1=anim=5012
+trigger2=anim=5002
+trigger3=anim=5030
+trigger4=anim=[5051,5059]
+persistent=0
+time=15
+waveform=sinesquare
+ampl=140
+
+;-------------------------------------------------
+
+[statedef 5030]
+type=A
+movetype=H
+physics=N
+ctrl=0
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+y=1
+
+[state ]
+type=ChangeState
+triggerall=!HitFall
+trigger1=HitOver
+trigger2=Vel Y > 0
+trigger2=Pos Y >=10
+value=5040
+
+[state ]
+type=ChangeState
+triggerall=HitFall
+trigger1=HitOver
+trigger2=Vel Y > 0
+trigger2=Pos Y >=10
+value=5050
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=5035
+
+;-------------------------------------------------
+
+[statedef 5035]
+type=A
+movetype=H
+physics=N
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=SelfAnimExist(5035)
+trigger1=Anim !=[5051,5059]
+trigger1=Anim !=5090
+value=5035
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+type=ChangeState
+triggerall=!HitFall
+trigger1=HitOver
+trigger2=AnimTime=0
+trigger3=Vel Y > 0
+trigger3=Pos Y >=10
+trigger4=Time=0
+trigger4=Anim !=5035
+value=5040
+
+[state ]
+type=ChangeState
+triggerall=HitFall
+trigger1=HitOver
+trigger2=AnimTime=0
+trigger3=Vel Y > 0
+trigger3=Pos Y >=10
+trigger4=Time=0
+trigger4=Anim !=5035
+value=5050
+
+;-------------------------------------------------
+
+[statedef 5040]
+type=A
+movetype=H
+physics=N
+
+[state ]
+type=ChangeState
+trigger1=!Alive
+value=5050
+
+[state ]
+type=ChangeAnim
+trigger1=AnimTime=0
+trigger1=Anim !=5040
+trigger2=Time=0
+trigger2=Anim !=5035
+value=5040
+
+[state ]
+type=CtrlSet
+trigger1=HitOver
+value=1
+
+[state ]
+type=StateTypeSet
+trigger1=HitOver
+movetype=I
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+type=ChangeState
+trigger1=Vel Y > 0
+trigger1=Pos Y >=0
+value=52
+
+;-------------------------------------------------
+
+[statedef 5050]
+type=A
+movetype=H
+physics=N
+
+[state ]
+type=ChangeAnim
+trigger1=AnimTime=0
+trigger1=Anim=5035
+trigger2=Time=0
+trigger2=Anim !=5035
+trigger2=(Anim !=[5051, 5059]) && (Anim !=[5061, 5069])
+trigger2=Anim !=5090
+value=5050
+
+[state ]
+type=ChangeAnim
+trigger1=anim=[5050,5059]
+trigger1=Vel Y >=ifelse(anim=5050, 1, -2)
+trigger1=SelfAnimExist(anim+10)
+value=anim+10
+persistent=0
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+type=ChangeState
+triggerall=Vel Y > 0
+triggerall=Pos Y >=-20
+triggerall=alive
+triggerall=CanRecover
+trigger1=Command="recovery"
+value=5200
+
+[state ]
+type=ChangeState
+triggerall=Vel Y > -1
+triggerall=alive
+triggerall=CanRecover
+trigger1=Command="recovery"
+value=5210
+
+[state ]
+type=ChangeState
+trigger1=Vel Y > 0
+trigger1=Pos Y >=ifelse((anim=[5051,5059]) || (anim=[5061,5069]), 0, 25)
+value=5100
+
+;-------------------------------------------------
+
+[statedef 5070]
+type=A
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=1
+value=5070
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+value=5071
+
+[state ]
+type=ForceFeedback
+trigger1=time=0
+time=12
+waveform=sinesquare
+ampl=140
+
+;-------------------------------------------------
+
+[statedef 5071]
+type=A
+movetype=H
+physics=N
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+y=1
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+trigger1=Vel Y > 0
+trigger1=Pos Y >=15
+type=ChangeState
+value=5110
+
+;-------------------------------------------------
+
+[statedef 5080]
+type=L
+movetype=H
+physics=N
+velset=0,0
+
+[state ]
+type=VarSet
+trigger1=time=0
+sysvar(2)=ifelse (GetHitVar(yvel)=0, 5080, 5090)
+
+[state ]
+type=VarAdd
+trigger1=time=0
+trigger1=(anim=[5081,5089]) || (anim=[5111,5119])
+trigger1=SelfAnimExist(sysvar(2) + (anim % 10))
+sysvar(2)=anim % 10
+
+[state ]
+type=VarSet
+trigger1=time=0
+trigger1=sysvar(2)=5090
+trigger1=!SelfAnimExist(5090)
+sysvar(2)=5030
+
+[state ]
+type=ChangeAnim
+trigger1=1
+value=sysvar(2)
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+trigger1=GetHitVar(yvel)=0
+value=5081
+
+[state ]
+type=ChangeState
+trigger1=HitShakeOver
+trigger1=GetHitVar(yvel) !=0
+value=5030
+
+;-------------------------------------------------
+
+[statedef 5081]
+type=L
+movetype=H
+physics=C
+
+[state ]
+type=HitVelSet
+trigger1=Time=0
+x=1
+
+[state ]
+type=VelSet
+trigger1=HitOver
+x=0
+
+[state ]
+type=VarSet
+trigger1=Time=0
+sysvar(0)=1
+
+[state ]
+type=ChangeState
+trigger1=HitOver
+value=5110
+
+;-------------------------------------------------
+
+[statedef 5100]
+type=L
+movetype=H
+physics=N
+
+[state ]
+type=VelSet
+trigger1=Time=0
+trigger1=GetHitVar(fall.yvel)=0
+trigger1=vel x > 1
+x=1
+
+[state ]
+type=FallEnvShake
+trigger1=Time=0
+
+[state ]
+type=VarSet
+trigger1=Time=0
+sysvar(1)=floor(vel y)
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+trigger1=(anim !=[5051,5059]) && (anim !=[5061,5069])
+trigger2=!SelfAnimExist(5100 + (anim % 10))
+value=5100
+
+[state ]
+type=ChangeAnim
+trigger1=time=0
+trigger1=(anim=[5051,5059]) || (anim=[5061,5069])
+trigger1=SelfAnimExist(5100 + (anim % 10))
+value=5100 + (anim % 10)
+
+[state ]
+type=PosSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=VelSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=VelMul
+trigger1=Time=0
+x=0.75
+
+[state ]
+type=ChangeState
+trigger1=Time=0
+trigger1=GetHitVar(fall.yvel)=0
+value=5110
+
+[state ]
+type=GameMakeAnim
+trigger1=Time=1
+value=60 + (sysvar(1) > 5) + (sysvar(1) > 14)
+pos=0, 0
+under=sysvar(1) <=14
+
+[state ]
+type=HitFallDamage
+trigger1=Time=3
+
+[state ]
+type=PlaySnd
+trigger1=Time=1
+value=F7, (sysvar(1) > 5) + (sysvar(1) > 14)
+
+[state ]
+type=PosFreeze
+trigger1=1
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=5101
+
+[state ]
+type=ForceFeedback
+trigger1=Time=0
+waveform=sinesquare
+ampl=128,-3,-.2,.005
+time=20
+
+;-------------------------------------------------
+
+[statedef 5101]
+type=L
+movetype=H
+physics=N
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+trigger1=anim !=[5101,5109]
+trigger2=!SelfAnimExist(5160 + (anim % 10))
+value=5160
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+trigger1=anim=[5101,5109]
+trigger1=SelfAnimExist(5160 + (anim % 10))
+value=5160 + (anim % 10)
+
+[state ]
+type=HitFallVel
+trigger1=Time=0
+
+[state ]
+type=PosSet
+trigger1=Time=0
+y=20
+
+[state ]
+type=VelAdd
+trigger1=1
+y=.4
+
+[state ]
+trigger1=Vel Y > 0
+trigger1=Pos Y >=12
+type=ChangeState
+value=5110
+
+;-------------------------------------------------
+
+[statedef 5110]
+type=L
+movetype=H
+physics=N
+
+[state ]
+type=FallEnvShake
+trigger1=Time=0
+
+[state ]
+type=ChangeAnim
+persistent=0
+trigger1=SelfAnimExist(5110 + (anim % 10))
+trigger1=anim=[5081,5089]
+value=5110 + (anim % 10)
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+triggerall=anim !=[5110,5119]
+trigger1=anim !=[5161,5169]
+trigger2=!SelfAnimExist(5170 + (anim % 10))
+value=5170
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+triggerall=anim !=[5110,5119]
+trigger1=anim=[5161,5169]
+trigger1=SelfAnimExist(5170 + (anim % 10))
+value=5170 + (anim % 10)
+
+[state ]
+type=HitFallDamage
+trigger1=Time=0
+
+[state ]
+type=PosSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=VarSet
+trigger1=Time=0
+trigger1=GetHitVar(fall.yvel) !=0
+sysvar(1)=floor(vel y)
+
+[state ]
+type=PlaySnd
+trigger1=Time=0
+trigger1=!SysVar(0)
+value=F7, (sysvar(1) > 5) + (sysvar(1) > 14)
+
+[state ]
+type=GameMakeAnim
+trigger1=Time=0
+trigger1=!SysVar(0)
+value=60 + (sysvar(1) > 5) + (sysvar(1) > 14)
+pos=0, 0
+under=sysvar(1) <=14
+
+[state ]
+type=VelSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=ChangeAnim
+persistent=0
+triggerall=anim=[5171,5179]
+triggerall=SelfAnimExist(5110 + (anim % 10))
+trigger1=AnimTime=0
+trigger2=SysVar(0)
+value=5110 + (anim % 10)
+
+[state ]
+type=ChangeAnim
+persistent=0
+triggerall=Anim !=[5111,5119]
+trigger1=AnimTime=0
+trigger2=SysVar(0)
+value=5110
+
+[state ]
+type=ChangeState
+triggerall=!alive
+trigger1=AnimTime=0
+trigger2=SysVar(0)
+trigger3=Anim=[5110,5119]
+value=5150
+
+[state ]
+type=VarSet
+trigger1=SysVar(0)
+trigger1=Time=0
+sysvar(0)=0
+
+[state ]
+type=VelMul
+trigger1=1
+x=0.85
+
+[state ]
+type=ForceFeedback
+trigger1=alive
+trigger1=Time=0
+time=8
+ampl=240
+waveform=sine
+
+[state ]
+type=ForceFeedback
+trigger1=!alive
+trigger1=Time=0
+ampl=200, 7, -.467
+time=30
+waveform=sine
+
+;-------------------------------------------------
+
+[statedef 5120]
+type=L
+movetype=I
+physics=N
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+trigger1=anim !=[5111,5119]
+trigger2=!SelfAnimExist(5120 + (anim % 10))
+value=5120
+
+[state ]
+type=ChangeAnim
+triggerall=time=0
+trigger1=anim=[5111,5119]
+trigger1=SelfAnimExist(5120 + (anim % 10))
+value=5120 + (anim % 10)
+
+[state ]
+type=VelSet
+trigger1=Time=0
+x=0
+
+[state ]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[state ]
+type=HitFallSet
+trigger1=AnimTime=0
+value=1
+
+[state ]
+type=NotHitBy
+trigger1=AnimTime=0
+value=, NT,ST,HT
+time=12
+
+[state ]
+type=NotHitBy
+trigger1=AnimTime=0
+value2=SCA
+time=3
+
+[state ]
+type=ChangeState
+trigger1=AnimTime=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 5150]
+type=L
+movetype=H
+physics=N
+sprpriority=-3
+
+[state ]
+type=ChangeAnim
+triggerall=Time=0
+triggerall=SelfAnimExist(5140)
+trigger1=(anim !=[5111,5119]) && (anim !=[5171,5179])
+trigger2=!SelfAnimExist(5140 + (anim % 10))
+value=5140
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=(anim=[5111,5119]) || (anim=[5171,5179])
+trigger1=SelfAnimExist(5140 + (anim % 10))
+value=5140 + (anim % 10)
+
+[state ]
+type=ChangeAnim
+persistent=0
+trigger1=MatchOver=1
+trigger1=Anim=[5140,5149]
+trigger1=SelfAnimExist(anim+10)
+value=anim+10
+
+[state ]
+type=ChangeAnim
+trigger1=Time=0
+trigger1=Anim !=[5140,5159]
+trigger1=Anim !=[5110,5119]
+value=5110
+
+[state ]
+type=VelMul
+trigger1=1
+x=0.85
+
+[state ]
+type=VelSet
+trigger1=Vel x < .05
+persistent=0
+x=0
+
+[state ]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+;-------------------------------------------------
+
+[statedef 5200]
+type=A
+movetype=H
+physics=N
+
+[state ]
+type=ChangeAnim
+trigger1=Anim=5035
+trigger1=AnimTime=0
+value=5050
+
+[state ]
+type=VelAdd
+trigger1=1
+y=GetHitVar(yaccel)
+
+[state ]
+type=SelfState
+trigger1=Vel Y > 0
+trigger1=Pos Y >=10
+value=5201
+
+;-------------------------------------------------
+
+[statedef 5201]
+type=A
+movetype=H
+physics=A
+anim=5200
+
+[state ]
+type=Turn
+trigger1=Time=0
+trigger1=p2dist X < -5
+
+[state ]
+type=VelSet
+trigger1=Time=0
+x=-.15
+y=-3.5
+
+[state ]
+type=PosSet
+trigger1=Time=0
+y=0
+
+[state ]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[state ]
+type=PalFX
+trigger1=Time=0
+time=3
+add=128,128,128
+
+[state ]
+type=GameMakeAnim
+trigger1=Time=1
+value=60
+pos=0, 0
+under=1
+
+;-------------------------------------------------
+
+[statedef 5210]
+type=A
+movetype=I
+physics=N
+anim=5210
+ctrl=0
+
+[state ]
+type=PalFX
+trigger1=Time=0
+time=3
+add=128,128,128
+
+[state ]
+type=PosFreeze
+trigger1=Time=0
+value=4
+
+[state ]
+type=Turn
+trigger1=Time=0
+trigger1=p2dist X < -20
+
+[state ]
+type=VelMul
+trigger1=Time=4
+x=.8
+y=.8
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+y=-4.5
+
+[state ]
+type=VelMul
+trigger1=Time=4
+trigger1=Vel Y > 0
+y=.5
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+trigger1=Vel Y > -3
+y=-2
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+trigger1=Vel Y > -2
+y=-1
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+trigger1=Command="holdup"
+y=-2
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+trigger1=Command="holddown"
+y=1.5
+
+[state ]
+type=VelMul
+trigger1=Time=4
+trigger1=Command="holdfwd"
+x=1
+
+[state ]
+type=VelAdd
+trigger1=Time=4
+trigger1=Command="holdback"
+x=-1
+
+[state ]
+type=NotHitBy
+trigger1=Time=0
+value=SCA
+time=15
+
+[state ]
+type=CtrlSet
+trigger1=Time=20
+value=1
+
+[state ]
+type=VelAdd
+trigger1=Time >=4
+y=.35
+
+[state ]
+type=ChangeState
+trigger1=Vel Y > 0
+trigger1=Pos Y >=0
+value=52
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 5500]
+type=S
+ctrl=0
+anim=5300
+velset=0,0
+
+[state ]
+type=ChangeAnim
+trigger1=time=0
+trigger1=SelfAnimExist(5500)
+value=5500
+
+;-------------------------------------------------
+
+[statedef 5900]
+type=S
+
+[state ]
+type=VarRangeSet
+trigger1=roundsexisted=0
+value=0
+
+[state ]
+type=VarRangeSet
+trigger1=roundsexisted=0
+fvalue=0
+
+[state ]
+type=ChangeState
+trigger1=roundno=1
+value=190

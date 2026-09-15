@@ -1,4 +1,11 @@
-.PHONY: commit
+.PHONY: fmt test-fmt commit
+
+fmt:
+	uv run python -B scripts/formatter.py
+
+test-fmt:
+	uv run python -B -m unittest discover -s scripts -p 'test_*.py'
+
 commit: # sync to git
 	git pull origin main
 	git add --all
@@ -8,4 +15,3 @@ commit: # sync to git
 	else \
 		echo "no changes." ; \
 	fi
-

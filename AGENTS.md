@@ -5,3 +5,4 @@
 作業時は、次の文書に従ってください。
 
 - [コーディング規約](docs/coding-rules.md)
+- [フォーマッター](docs/formatter.md)

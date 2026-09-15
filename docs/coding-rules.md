@@ -6,6 +6,8 @@
 
 キャラクターの動作を変えずに、改行コード、コメント、書式、ファイル構成を統一し、可読性を高めることを目的とする。
 
+自動整形の実行方法は、[フォーマッター](formatter.md)を参照する。
+
 ## 改行コード
 
 テキストファイルの改行コードは、Windows版MUGENと現行macOSの双方で扱えるLFに統一する。
@@ -100,8 +102,11 @@ x=-100
 | `t-state.cns` | 0以上9999以下のStatedef |
 | `t-observ.cns` | `[statedef -2]` と `[statedef -3]` |
 | `t-helper.cns` | 10000以上のStatedef |
+| `t-common1.cns` | WinMUGENの `common1.cns` をキャラクター側で管理する共有ステート |
 
 現在の `[statedef 99000]` と `[statedef 99001]` は、`t-helper.cns` に配置する。
+
+`t-common1.cns` と他のステートファイルに同じStateDef番号が存在する場合は、他のステートファイルを優先する。重複するStateDefブロックは、`t-common1.cns` 側から削除する。
 
 `tenkikai.def` の `[Files]` では、分割したファイルを次のように参照する。
 
@@ -112,7 +117,7 @@ cns=t-constants.cns
 st=t-state.cns
 st1=t-observ.cns
 st2=t-helper.cns
-stcommon=common1.cns
+stcommon=t-common1.cns
 ```
 
 `sprite`、`anim`、`sound`、`pal1` から `pal6` までの既存の参照は維持する。
@@ -126,6 +131,7 @@ stcommon=common1.cns
 - 罫線コメントがすべて、`;` 1文字と `-` 49文字からなる合計50文字の行になっていること。
 - 罫線コメント以外の行コメントと行末コメントが残っていないこと。
 - 全Statedef番号が分割前後で一致すること。
+- `t-common1.cns` と他のステートファイルに重複するStateDef番号がないこと。
 - Stateコントローラーの数と順序が分割前後で一致すること。
 - `tenkikai.def` からすべての分割ファイルを参照できること。
 - 定義内容に意図しない変更がないこと。
