@@ -409,11 +409,11 @@ def normalize_text_line_endings(reporter: Reporter) -> None:
 
 def verify_state_document_headings() -> None:
     documents = (
-        "docs/state/state-default.md",
-        "docs/state/state-attack.md",
-        "docs/state/state-superattack.md",
-        "docs/state/state-helper.md",
-        "docs/state/state-stcommon.md",
+        "docs/state/default.md",
+        "docs/state/attack.md",
+        "docs/state/superattack.md",
+        "docs/state/observ.md",
+        "docs/state/stcommon.md",
         "docs/state/explod-list.md",
     )
     for name in documents:

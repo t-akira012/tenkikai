@@ -10,11 +10,11 @@ CNS/CMDの実装と挙動文書のどちらをマスターとするかは定め�
 
 ## 文書一覧
 
-- [デフォルトステート](state-default.md): TENKIKAI固有の移動、登場、勝利、入力遷移
-- [アタックステート](state-attack.md): 通常技、通常投げ、必殺技
-- [超必殺技ステート](state-superattack.md): 超必殺技
-- [ヘルパーステート](state-helper.md): 常時監視と頭部ヘルパー
-- [stcommon共有ステート](state-stcommon.md): `cns/common1.cns` にあるWinMUGEN共有ステート
+- [デフォルトステート](default.md): TENKIKAI固有の移動、登場、勝利、入力遷移
+- [アタックステート](attack.md): 通常技、通常投げ、必殺技
+- [超必殺技ステート](superattack.md): 超必殺技
+- [常時監視・ヘルパーステート](observ.md): 常時監視と頭部ヘルパー
+- [stcommon共有ステート](stcommon.md): `cns/common1.cns` にあるWinMUGEN共有ステート
 - [ヘルパー一覧](helper-list.md): `Helper` コントローラーが生成するヘルパー
 - [Explod一覧](explod-list.md): `Explod` コントローラーが生成する演出物
 - [Projectile一覧](projectile-list.md): `Projectile` コントローラーが生成する飛び道具

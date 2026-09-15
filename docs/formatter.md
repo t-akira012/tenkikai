@@ -78,7 +78,7 @@ StateDef番号が重複する場合の優先順位は、次のとおりとする
 
 `cns/command.cmd`、`cns/state.cns`、`cns/observ.cns`、`cns/helper.cns` のいずれかに同じ番号がある場合、フォーマッターは `cns/common1.cns` 側のStateDefブロックを削除する。
 
-共通ステートの挙動は、`docs/state/state-stcommon.md` に記載する。
+共通ステートの挙動は、`docs/state/stcommon.md` に記載する。
 
 ## テスト
 

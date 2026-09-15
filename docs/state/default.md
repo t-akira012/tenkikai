@@ -1,6 +1,6 @@
 # デフォルトステート
 
-この文書は、`cns/command.cmd` と `cns/state.cns` にあるTENKIKAI固有の移動、登場、勝利を説明する。WinMUGENの共有ステートは[stcommon共有ステート](state-stcommon.md)を参照する。
+この文書は、`cns/command.cmd` と `cns/state.cns` にあるTENKIKAI固有の移動、登場、勝利を説明する。WinMUGENの共有ステートは[stcommon共有ステート](stcommon.md)を参照する。
 
 ## 入力によるステート遷移
 

@@ -45,12 +45,12 @@ class DocumentationTest(unittest.TestCase):
     def test_state_documents_cover_each_source_state_once(self) -> None:
         state_numbers = source_state_numbers("cns/state.cns")
         expected = {
-            "docs/state/state-default.md": {-1} | state_numbers,
-            "docs/state/state-attack.md": set(),
-            "docs/state/state-superattack.md": set(),
-            "docs/state/state-helper.md": source_state_numbers("cns/observ.cns")
+            "docs/state/default.md": {-1} | state_numbers,
+            "docs/state/attack.md": set(),
+            "docs/state/superattack.md": set(),
+            "docs/state/observ.md": source_state_numbers("cns/observ.cns")
             | source_state_numbers("cns/helper.cns"),
-            "docs/state/state-stcommon.md": source_state_numbers("cns/common1.cns"),
+            "docs/state/stcommon.md": source_state_numbers("cns/common1.cns"),
         }
 
         actual_all: list[int] = []
@@ -72,22 +72,22 @@ class DocumentationTest(unittest.TestCase):
 
     def test_state_document_titles(self) -> None:
         expected = {
-            "docs/state/state-default.md": "# デフォルトステート",
-            "docs/state/state-attack.md": "# アタックステート",
-            "docs/state/state-superattack.md": "# 超必殺技ステート",
-            "docs/state/state-helper.md": "# ヘルパーステート",
-            "docs/state/state-stcommon.md": "# stcommon共有ステート",
+            "docs/state/default.md": "# デフォルトステート",
+            "docs/state/attack.md": "# アタックステート",
+            "docs/state/superattack.md": "# 超必殺技ステート",
+            "docs/state/observ.md": "# ヘルパーステート",
+            "docs/state/stcommon.md": "# stcommon共有ステート",
         }
         for relative_path, title in expected.items():
             self.assertEqual(read_text(relative_path).splitlines()[0], title)
 
     def test_state_document_headings_use_behavior_h2_and_statedef_h3(self) -> None:
         documents = (
-            "docs/state/state-default.md",
-            "docs/state/state-attack.md",
-            "docs/state/state-superattack.md",
-            "docs/state/state-helper.md",
-            "docs/state/state-stcommon.md",
+            "docs/state/default.md",
+            "docs/state/attack.md",
+            "docs/state/superattack.md",
+            "docs/state/observ.md",
+            "docs/state/stcommon.md",
             "docs/state/explod-list.md",
         )
         for relative_path in documents:

@@ -2,7 +2,7 @@
 
 この文書は、`cns/common1.cns` に置いたWinMUGEN 2002.04.14系の共有ステートを説明する。名称は[Elecbyte CNS形式の特殊State番号表](https://www.elecbyte.com/mugendocs/cns.html)を基準に日本語化している。
 
-StateDef `100`、`105`、`106`、`191` はTENKIKAI固有実装と重複するため、`cns/common1.cns` から削除されている。これらは[デフォルトステート](state-default.md)を参照する。
+StateDef `100`、`105`、`106`、`191` はTENKIKAI固有実装と重複するため、`cns/common1.cns` から削除されている。これらは[デフォルトステート](default.md)を参照する。
 
 ## 浮遊待機
 
