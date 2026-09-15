@@ -27,6 +27,13 @@ var(1)=1
 ignorehitpause=1
 
 [state ]
+type=displaytoclipboard
+trigger1=!ishelper
+text="private-gametime: %d\nprivate-time: %d"
+params=var(0),var(1)
+ignorehitpause=1
+
+[state ]
 type=selfstate
 trigger1=ishelper
 trigger1=!ishelper(99001)
