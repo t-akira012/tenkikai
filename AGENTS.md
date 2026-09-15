@@ -13,3 +13,13 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [キャラクターデザイン](docs/DESIGN.md)
 - [ステートドキュメント](docs/state/README.md)
 - [設計判断記録](docs/ADR/)
+
+## 共通規約の参照
+
+M.U.G.E.N コーディングに関する共通規約は、このファイルへ転載せず、次の外部文書を参照すること。
+トークンを節約するため、共通規約のウェブ文書は参照せず、ローカル文書を厳守すること。
+
+- GitHub文書: <https://github.com/t-akira012/mugen-docs-coding-agents>
+- 共通Agent規約（日本語）: `~/src/github.com/t-akira012/mugen-docs-coding-agents/AGENTS.ja.md`
+- CNS中核仕様: `~/src/github.com/t-akira012/mugen-docs-coding-agents/docs/CNS_CORE.md`
+- 互換性方針: `~/src/github.com/t-akira012/mugen-docs-coding-agents/docs/COMPATIBILITY.md`
