@@ -128,6 +128,21 @@ physics=s
 ignorehitpause=1
 
 [state ]
+type=posadd
+trigger1=!ishelper
+trigger1=movetype!=h
+trigger1=statetype!=c
+trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(statetype=a)
+y=sin(var(0)*0.08)*20-var(2)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+var(2)=sin(var(0)*0.08)*20
+ignorehitpause=1
+
+[state ]
 type=helper
 trigger1=!ishelper
 trigger1=!numhelper(99001)
