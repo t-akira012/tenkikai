@@ -12,6 +12,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [フォーマッター](docs/formatter.md)
 - [キャラクターデザイン](docs/DESIGN.md)
 - [ステートドキュメント](docs/state/README.md)
+- [ステート文書の作業規則](docs/state/AGENTS.md)
 - [設計判断記録](docs/ADR/)
 - [公式ドキュメント未記載のユーザー調査情報](docs/researched/README.md)
 
