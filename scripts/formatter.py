@@ -413,6 +413,7 @@ def verify_state_document_headings() -> None:
         "docs/state/attack.md",
         "docs/state/superattack.md",
         "docs/state/observ.md",
+        "docs/state/helper.md",
         "docs/state/stcommon.md",
         "docs/state/explod-list.md",
     )

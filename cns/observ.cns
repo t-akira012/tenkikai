@@ -163,4 +163,4 @@ palcontrast=88,88,188
 palpostbright=0,0,0
 paladd=0,0,0
 palmul=1.1,1.1,1.1
-ignorehitpase=1
+ignorehitpause=1

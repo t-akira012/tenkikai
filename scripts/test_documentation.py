@@ -48,8 +48,8 @@ class DocumentationTest(unittest.TestCase):
             "docs/state/default.md": {-1} | state_numbers,
             "docs/state/attack.md": set(),
             "docs/state/superattack.md": set(),
-            "docs/state/observ.md": source_state_numbers("cns/observ.cns")
-            | source_state_numbers("cns/helper.cns"),
+            "docs/state/observ.md": source_state_numbers("cns/observ.cns"),
+            "docs/state/helper.md": source_state_numbers("cns/helper.cns"),
             "docs/state/stcommon.md": source_state_numbers("cns/common1.cns"),
         }
 
@@ -75,7 +75,8 @@ class DocumentationTest(unittest.TestCase):
             "docs/state/default.md": "# デフォルトステート",
             "docs/state/attack.md": "# アタックステート",
             "docs/state/superattack.md": "# 超必殺技ステート",
-            "docs/state/observ.md": "# ヘルパーステート",
+            "docs/state/observ.md": "# 常時監視ステート",
+            "docs/state/helper.md": "# ヘルパーステート",
             "docs/state/stcommon.md": "# stcommon共有ステート",
         }
         for relative_path, title in expected.items():
@@ -87,6 +88,7 @@ class DocumentationTest(unittest.TestCase):
             "docs/state/attack.md",
             "docs/state/superattack.md",
             "docs/state/observ.md",
+            "docs/state/helper.md",
             "docs/state/stcommon.md",
             "docs/state/explod-list.md",
         )

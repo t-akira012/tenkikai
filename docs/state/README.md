@@ -13,7 +13,8 @@ CNS/CMDの実装と挙動文書のどちらをマスターとするかは定め�
 - [デフォルトステート](default.md): TENKIKAI固有の移動、登場、勝利、入力遷移
 - [アタックステート](attack.md): 通常技、通常投げ、必殺技
 - [超必殺技ステート](superattack.md): 超必殺技
-- [常時監視・ヘルパーステート](observ.md): 常時監視と頭部ヘルパー
+- [常時監視ステート](observ.md): `cns/observ.cns` のStateDef `-2` と `-3`
+- [ヘルパーステート](helper.md): `cns/helper.cns` の頭部ヘルパー用StateDef
 - [stcommon共有ステート](stcommon.md): `cns/common1.cns` にあるWinMUGEN共有ステート
 - [ヘルパー一覧](helper-list.md): `Helper` コントローラーが生成するヘルパー
 - [Explod一覧](explod-list.md): `Explod` コントローラーが生成する演出物
