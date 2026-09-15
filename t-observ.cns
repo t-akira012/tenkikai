@@ -1,0 +1,76 @@
+[statedef -2]
+
+[state ]
+type=selfstate
+trigger1=ishelper
+trigger1=!ishelper(1)
+value=5150
+ignorehitpause=1
+
+[state ]
+type=posset
+trigger1=!ishelper
+y=sin(gametime*0.08)*3
+ignorehitpause=1
+postype=screen
+
+[state ]
+type=posset
+trigger1=ishelper(1)
+x=root,pos x
+y=root,pos y-61+sin(gametime*0.11)*1
+ignorehitpause=1
+
+[state ]
+type=trans
+trigger1=!ishelper
+trigger2=ishelper(1)
+trans=addalpha
+alpha=256,55
+ignorehitpause=1
+
+[state ]
+type=selfstate
+trigger1=ishelper
+value=99000
+ignorehitpause=1
+
+[statedef -3]
+
+[state ]
+type=helper
+trigger1=!ishelper
+trigger1=!numhelper(1)
+name="the_head"
+id=1
+anim=99001
+helpertype=player
+ignorehitpause=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=AssertSpecial
+trigger1=root,stateno=[100,107]
+flag=invisible
+
+[state ]
+type=afterimage
+trigger1=!ishelper
+trigger1=!var(0)
+trigger1=var(0):=1||1
+trigger2=ishelper(1)
+trigger2=!var(0)
+trigger2=var(0):=1||1
+trigger3=ishelper(1)||!ishelper
+trigger3=!(gametime%600)
+time=-1
+length=64
+trans=add
+palcolor=128
+palbright=15,15,45
+palcontrast=88,88,188
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=1.1,1.1,1.1
+ignorehitpase=1

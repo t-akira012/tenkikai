@@ -95,7 +95,7 @@ x=-100
 
 | ファイル | 内容 |
 | --- | --- |
-| `t.cns` | `[Data]`、`[Size]`、`[Velocity]`、`[Movement]` などのキャラクター定数 |
+| `t-constants.cns` | `[Data]`、`[Size]`、`[Velocity]`、`[Movement]` などのキャラクター定数 |
 | `t.cmd` | コマンド定義と `[statedef -1]` |
 | `t-state.cns` | 0以上9999以下のStatedef |
 | `t-observ.cns` | `[statedef -2]` と `[statedef -3]` |
@@ -108,7 +108,7 @@ x=-100
 ```ini
 [Files]
 cmd=t.cmd
-cns=t.cns
+cns=t-constants.cns
 st=t-state.cns
 st1=t-observ.cns
 st2=t-helper.cns

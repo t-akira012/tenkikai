@@ -1,0 +1,18 @@
+[statedef 99000]
+
+[state ]
+type=selfstate
+trigger1=ishelper(1)
+value=99001
+ignorehitpause=1
+
+[statedef 99001]
+anim=99001
+
+[state ]
+type=Turn
+trigger1=facing!=root,facing
+
+[state ]
+type=null
+trigger1=1
