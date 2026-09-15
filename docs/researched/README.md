@@ -8,3 +8,5 @@
 
 - [Variables](variables.md)
 - [State Controller](state-controller.md)
+- [Target](target.md)
+- [TargetStateとステート奪取](target-state.md)
