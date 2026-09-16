@@ -23,7 +23,7 @@ Y座標が0では `stand`、地上で↓入力中は `crunch`、0より上に浮
 ### 上下移動
 
 - 上昇：`PosAdd Y = -6 / frame`
-- 空中下降：`PosAdd Y = 6 / frame`
+- 空中下降：空中↓入力中、`Pos Y < 0` の間 `PosAdd Y = 6 / frame`
 - 上昇・能動下降中のY速度：`Vel Y = 0`
 - 重力加算条件：`Pos Y < -40` かつ下方向入力なし
 - 重力加算：`const(movement.yaccel) * 0.1 = 0.044 / frame`

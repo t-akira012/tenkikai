@@ -115,7 +115,7 @@ type=posadd
 trigger1=!ishelper
 trigger1=var(3)=0
 trigger1=var(4)=1
-trigger1=pos y<-40
+trigger1=pos y<0
 y=6
 ignorehitpause=1
 
@@ -131,6 +131,13 @@ ignorehitpause=1
 type=velset
 trigger1=!ishelper
 trigger1=var(3)=1
+y=0
+ignorehitpause=1
+
+[state ]
+type=velset
+trigger1=!ishelper
+trigger1=var(4)=1
 y=0
 ignorehitpause=1
 
