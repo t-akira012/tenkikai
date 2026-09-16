@@ -1,5 +1,7 @@
 [statedef -2]
 
+;; 変数更新とデバッグ表示
+
 [state ]
 type=varset
 trigger1=!ishelper
@@ -46,12 +48,16 @@ trigger1=!ishelper(99001)
 value=5150
 ignorehitpause=1
 
+;; 頭部ヘルパー位置
+
 [state ]
 type=posset
 trigger1=ishelper(99001)
 x=root,pos x
 y=root,pos y-61
 ignorehitpause=1
+
+;; 表示とヘルパー振り分け
 
 [state ]
 type=offset
@@ -86,6 +92,8 @@ value=99000
 ignorehitpause=1
 
 [statedef -3]
+
+;; 浮遊移動と状態変更
 
 [state ]
 type=posset
@@ -160,6 +168,8 @@ statetype=s
 physics=s
 ignorehitpause=1
 
+;; 浮遊表示
+
 [state ]
 type=offset
 trigger1=!ishelper
@@ -178,6 +188,8 @@ trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(statet
 y=0
 ignorehitpause=1
 
+;; 頭部ヘルパー生成
+
 [state ]
 type=helper
 trigger1=!ishelper
@@ -190,9 +202,11 @@ ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
+;; 不可視化
+
 [state ]
 type=assertspecial
-trigger1=ishelper
+trigger1=ishelper(99001)
 trigger1=root,stateno=[100,107]
 flag=invisible
 

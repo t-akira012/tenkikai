@@ -6,6 +6,42 @@ import formatter
 
 
 class FormatterTest(unittest.TestCase):
+    def test_double_semicolon_comments_are_preserved(self) -> None:
+        source = [
+            "; 通常コメント",
+            ";; 浮遊移動: trigger1 = 1 && trigger2 = 2",
+            "[Statedef 105]",
+            ";; 表示機能",
+            "[State 105, move]",
+            "type = PosAdd",
+        ]
+
+        actual = formatter.transform_definition(source, format_states=True)
+
+        self.assertEqual(
+            actual,
+            [
+                ";; 浮遊移動: trigger1 = 1 && trigger2 = 2",
+                "",
+                "[statedef 105]",
+                ";; 表示機能",
+                "",
+                "[state ]",
+                "type=posadd",
+            ],
+        )
+
+    def test_quoted_state_values_are_not_operator_normalized(self) -> None:
+        source = [
+            "[Statedef -2]",
+            "[State -2, debug]",
+            'text = "private-time: %d\\npos y: %f"',
+        ]
+
+        actual = formatter.transform_definition(source, format_states=True)
+
+        self.assertIn('text="private-time: %d\\npos y: %f"', actual)
+
     def test_comments_and_state_format_are_normalized(self) -> None:
         source = [
             "; 説明",

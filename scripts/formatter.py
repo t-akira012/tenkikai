@@ -57,6 +57,10 @@ def strip_comments(lines: list[str], keep_dividers: bool = True) -> list[str]:
         line = source_line.rstrip(" \t")
         stripped = line.lstrip(" \t")
 
+        if stripped.startswith(";;"):
+            result.append(stripped)
+            continue
+
         if stripped.startswith(";"):
             if keep_dividers and is_divider_comment(stripped):
                 result.append(DIVIDER)
@@ -94,12 +98,21 @@ def canonicalize_states(lines: list[str]) -> list[str]:
             result.append(line.strip())
             continue
 
+        if line.lstrip(" \t").startswith(";;"):
+            result.append(line.strip())
+            continue
+
         if inside_state and line:
             line = line.strip()
-            line = OPERATOR_WITH_SPACES_PATTERN.sub(r"\1", line)
-            type_match = re.match(r"^type=(.+)$", line, re.IGNORECASE)
-            if type_match:
-                line = f"type={type_match.group(1).lower()}"
+            quoted_value = "=" in line and line.split("=", 1)[1].lstrip().startswith('"')
+            if quoted_value:
+                key, value = line.split("=", 1)
+                line = f"{key.strip()}={value.lstrip()}"
+            else:
+                line = OPERATOR_WITH_SPACES_PATTERN.sub(r"\1", line)
+                type_match = re.match(r"^type=(.+)$", line, re.IGNORECASE)
+                if type_match:
+                    line = f"type={type_match.group(1).lower()}"
 
         result.append(line)
 
@@ -438,10 +451,17 @@ def verify_result() -> None:
             raise RuntimeError(f"CRが残っています: {name}")
 
         for number, raw_line in enumerate(data.decode("latin-1").split("\n"), start=1):
+            if raw_line.lstrip(" \t").startswith(";;"):
+                continue
+
             if ";" in raw_line and raw_line != DIVIDER:
                 raise RuntimeError(f"規約外コメントが残っています: {name}:{number}")
 
             if name in STATE_FORMAT_FILES and not SECTION_PATTERN.match(raw_line):
+                quoted_value = "=" in raw_line and raw_line.split("=", 1)[1].lstrip().startswith('"')
+                if quoted_value:
+                    continue
+
                 type_match = re.match(r"^type=(.+)$", raw_line, re.IGNORECASE)
                 if type_match and type_match.group(1) != type_match.group(1).lower():
                     raise RuntimeError(f"type値に大文字が残っています: {name}:{number}")
