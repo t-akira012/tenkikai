@@ -145,18 +145,11 @@ y=const(movement.yaccel)*0.1
 ignorehitpause=1
 
 [state ]
-type=posset
-trigger1=!ishelper
-trigger1=var(3)=0
-trigger1=pos y>=-40
-y=-40
-ignorehitpause=1
-
-[state ]
 type=velset
 trigger1=!ishelper
 trigger1=var(3)=0
 trigger1=pos y>=-40
+trigger1=pos y<0
 y=0
 ignorehitpause=1
 
