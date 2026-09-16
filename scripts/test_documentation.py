@@ -104,7 +104,7 @@ class DocumentationTest(unittest.TestCase):
 
     def test_generated_object_lists_match_controller_counts(self) -> None:
         expected = {
-            "helper": (1, "docs/state/helper-list.md"),
+            "helper": (2, "docs/state/helper-list.md"),
             "explod": (2, "docs/state/explod-list.md"),
             "projectile": (0, "docs/state/projectile-list.md"),
         }

@@ -1,5 +1,19 @@
 [statedef -2]
 
+[state ]
+type=selfstate
+trigger1=ishelper
+trigger1=!ishelper(99002)
+trigger1=!ishelper(99001)
+value=5150
+ignorehitpause=1
+
+[state ]
+type=selfstate
+trigger1=ishelper
+value=99000
+ignorehitpause=1
+
 ;; 変数更新とデバッグ表示
 
 [state ]
@@ -39,56 +53,6 @@ type=displaytoclipboard
 trigger1=!ishelper
 text="private-time: %d\npos y: %f"
 params=var(1),pos y
-ignorehitpause=1
-
-[state ]
-type=selfstate
-trigger1=ishelper
-trigger1=!ishelper(99001)
-value=5150
-ignorehitpause=1
-
-;; 頭部ヘルパー位置
-
-[state ]
-type=posset
-trigger1=ishelper(99001)
-x=root,pos x
-y=root,pos y-61
-ignorehitpause=1
-
-;; 表示とヘルパー振り分け
-
-[state ]
-type=offset
-trigger1=ishelper(99001)
-trigger1=root,movetype!=h
-trigger1=root,statetype!=c
-trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
-y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=ishelper(99001)
-trigger1=(root,movetype=h)||(root,statetype=c)
-trigger2=ishelper(99001)
-trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
-y=0
-ignorehitpause=1
-
-[state ]
-type=trans
-trigger1=!ishelper
-trigger2=ishelper(99001)
-trans=addalpha
-alpha=256,55
-ignorehitpause=1
-
-[state ]
-type=selfstate
-trigger1=ishelper
-value=99000
 ignorehitpause=1
 
 [statedef -3]
@@ -229,33 +193,37 @@ ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
-;; 不可視化
+;; オーラヘルパー生成
 
 [state ]
-type=assertspecial
-trigger1=ishelper(99001)
-trigger1=root,stateno=[100,107]
-flag=invisible
+type=helper
+trigger1=!ishelper
+trigger1=!numhelper(99002)
+name="the_aura"
+id=99002
+stateno=99002
+anim=0
+helpertype=player
+ignorehitpause=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+;; 本体残像
 
 [state ]
 type=afterimage
 trigger1=!ishelper
 trigger1=!var(10)
 trigger1=var(10):=1||1
-trigger2=ishelper(99001)
-trigger2=!var(10)
-trigger2=var(10):=1||1
 trigger3=!ishelper
 trigger3=!(var(0)%600)
-trigger4=ishelper(99001)
-trigger4=!(root,var(0)%600)
 time=-1
-length=64
+length=48
 trans=add
 palcolor=128
 palbright=15,15,45
 palcontrast=88,88,188
 palpostbright=0,0,0
 paladd=0,0,0
-palmul=1.1,1.1,1.1
+palmul=0.6,0.6,0.8
 ignorehitpause=1

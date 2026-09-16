@@ -6,13 +6,128 @@ trigger1=ishelper(99001)
 value=99001
 ignorehitpause=1
 
+[state ]
+type=selfstate
+trigger1=ishelper(99002)
+value=99002
+ignorehitpause=1
+
 [statedef 99001]
 anim=99001
+
+[state ]
+type=posset
+trigger1=1
+x=root,pos x
+y=root,pos y-61
+ignorehitpause=1
 
 [state ]
 type=turn
 trigger1=facing!=root,facing
 
 [state ]
+type=offset
+trigger1=root,movetype!=h
+trigger1=root,statetype!=c
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=(root,movetype=h)||(root,statetype=c)
+trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+y=0
+ignorehitpause=1
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=256,55
+ignorehitpause=1
+
+[state ]
+type=assertspecial
+trigger1=root,stateno=[100,107]
+flag=invisible
+
+[state ]
+type=afterimage
+trigger1=!var(10)
+trigger1=var(10):=1||1
+trigger2=!(root,var(0)%600)
+time=-1
+length=48
+trans=add
+palcolor=128
+palbright=15,15,45
+palcontrast=88,88,188
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=0.6,0.6,0.8
+ignorehitpause=1
+
+[state ]
 type=null
 trigger1=1
+
+[statedef 99002]
+
+[state ]
+type=posset
+trigger1=1
+x=root,pos x
+y=root,pos y
+ignorehitpause=1
+
+[state ]
+type=turn
+trigger1=facing!=root,facing
+ignorehitpause=1
+
+[state ]
+type=changeanim
+trigger1=anim!=root,anim
+value=root,anim
+elem=root,animelemno(0)
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=1
+scale=1.075+0.075*(root,fvar(0)),1.075+0.075*(root,fvar(0))
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=root,movetype!=h
+trigger1=root,statetype!=c
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+y=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=(root,movetype=h)||(root,statetype=c)
+trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+y=0
+ignorehitpause=1
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=128,128
+ignorehitpause=1
+
+[state ]
+type=afterimage
+trigger1=!var(10)
+trigger1=var(10):=1||1
+time=-1
+length=128
+trans=add
+mul=0.5,0.5,0.5
+ignorehitpause=1
