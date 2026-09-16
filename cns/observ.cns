@@ -111,6 +111,15 @@ y=-6
 ignorehitpause=1
 
 [state ]
+type=posadd
+trigger1=!ishelper
+trigger1=var(3)=0
+trigger1=var(4)=1
+trigger1=pos y<-40
+y=6
+ignorehitpause=1
+
+[state ]
 type=velset
 trigger1=!ishelper
 trigger1=pos y>=0
@@ -129,6 +138,7 @@ ignorehitpause=1
 type=veladd
 trigger1=!ishelper
 trigger1=var(3)=0
+trigger1=var(4)=0
 trigger1=pos y<-40
 trigger1=vel y<1.0
 y=const(movement.yaccel)*0.1
