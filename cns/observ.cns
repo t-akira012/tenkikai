@@ -16,6 +16,12 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=!ishelper
+fvar(0)=asin(sin(var(0)*pi/48))*2/pi
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
 trigger1=time=0
 var(1)=0
 ignorehitpause=1
@@ -29,8 +35,8 @@ ignorehitpause=1
 [state ]
 type=displaytoclipboard
 trigger1=!ishelper
-text="private-gametime: %d\nprivate-time: %d"
-params=var(0),var(1)
+text="private-time: %d\npos y: %f"
+params=var(1),pos y
 ignorehitpause=1
 
 [state ]
@@ -44,7 +50,25 @@ ignorehitpause=1
 type=posset
 trigger1=ishelper(99001)
 x=root,pos x
-y=root,pos y-61+sin(root,var(0)*0.0055)*1
+y=root,pos y-61
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=ishelper(99001)
+trigger1=root,movetype!=h
+trigger1=root,statetype!=c
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=ishelper(99001)
+trigger1=(root,movetype=h)||(root,statetype=c)
+trigger2=ishelper(99001)
+trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+y=0
 ignorehitpause=1
 
 [state ]
@@ -67,52 +91,44 @@ ignorehitpause=1
 type=posset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=command!="holdup"
+trigger1=var(3)=0
 y=0
 ignorehitpause=1
 
 [state ]
 type=posadd
 trigger1=!ishelper
-trigger1=command="holdup"
-y=-const(velocity.walk.fwd.x)
+trigger1=var(3)=1
+y=-6
 ignorehitpause=1
 
 [state ]
 type=velset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=command!="holdup"
+trigger1=var(3)=0
 y=0
 ignorehitpause=1
 
 [state ]
 type=velset
 trigger1=!ishelper
-trigger1=command="holdup"
+trigger1=var(3)=1
 y=0
 ignorehitpause=1
 
 [state ]
 type=veladd
 trigger1=!ishelper
-trigger1=command!="holdup"
-trigger1=pos y<0
-y=const(movement.yaccel)*0.1
-ignorehitpause=1
-
-[state ]
-type=veladd
-trigger1=!ishelper
-trigger1=command!="holdup"
-trigger1=pos y<=-400
+trigger1=var(3)=0
+trigger1=pos y<=-40
 y=const(movement.yaccel)*0.1
 ignorehitpause=1
 
 [state ]
 type=statetypeset
 trigger1=!ishelper
-trigger1=command="holdup"
+trigger1=var(3)=1
 statetype=a
 physics=n
 ignorehitpause=1
@@ -129,7 +145,7 @@ ignorehitpause=1
 type=statetypeset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=command="holddown"
+trigger1=var(4)=1
 statetype=c
 physics=c
 ignorehitpause=1
@@ -138,25 +154,28 @@ ignorehitpause=1
 type=statetypeset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=command!="holddown"
-trigger1=command!="holdup"
+trigger1=var(4)=0
+trigger1=var(3)=0
 statetype=s
 physics=s
 ignorehitpause=1
 
 [state ]
-type=posadd
+type=offset
 trigger1=!ishelper
 trigger1=movetype!=h
 trigger1=statetype!=c
-trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(statetype=a)
-y=sin(var(0)*0.004)*20-var(2)
+trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(stateno=[60,61])||(statetype=a)
+y=8*(fvar(0)*(0.9+0.1*abs(fvar(0)))+1.6*fvar(0)*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0)))+2
 ignorehitpause=1
 
 [state ]
-type=varset
+type=offset
 trigger1=!ishelper
-var(2)=sin(var(0)*0.004)*20
+trigger1=(movetype=h)||(statetype=c)
+trigger2=!ishelper
+trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(statetype!=a)
+y=0
 ignorehitpause=1
 
 [state ]
@@ -173,6 +192,7 @@ supermovetime=99990000000
 
 [state ]
 type=assertspecial
+trigger1=ishelper
 trigger1=root,stateno=[100,107]
 flag=invisible
 

@@ -87,3 +87,23 @@ value=61
 trigger1=statetype=A
 trigger1=stateno!=61
 trigger1=command="holdback"
+
+[state ]
+type=varset
+trigger1=command="holdup"
+var(3)=1
+
+[state ]
+type=varset
+trigger1=command!="holdup"
+var(3)=0
+
+[state ]
+type=varset
+trigger1=command="holddown"
+var(4)=1
+
+[state ]
+type=varset
+trigger1=command!="holddown"
+var(4)=0
