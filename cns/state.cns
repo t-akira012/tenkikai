@@ -34,7 +34,7 @@ value=61
 
 [state ]
 type=changestate
-trigger1=pos y>=0
+trigger1=pos y>=-40
 value=0
 ctrl=1
 
@@ -74,7 +74,7 @@ value=60
 
 [state ]
 type=changestate
-trigger1=pos y>=0
+trigger1=pos y>=-40
 value=0
 ctrl=1
 
