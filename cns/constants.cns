@@ -29,18 +29,18 @@ shadowoffset=0
 draw.offset=0,-25
 
 [Velocity]
-walk.fwd=0
-walk.back=0
+walk.fwd=6
+walk.back=-4
 run.fwd=0,0
 run.back=0,0
-jump.neu=0,0
-jump.back=0
-jump.fwd=0
-runjump.back=0,0
-runjump.fwd=0,0
-airjump.neu=0,0
-airjump.back=0
-airjump.fwd=0
+jump.neu=0,-8.4
+jump.back=-2.55
+jump.fwd=2.5
+runjump.back=-2.55,-8.1
+runjump.fwd=4,-8.1
+airjump.neu=0,-8.1
+airjump.back=-2.55
+airjump.fwd=2.5
 
 [Movement]
 airjump.num=0

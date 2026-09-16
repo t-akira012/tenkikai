@@ -82,12 +82,12 @@ sprpriority=0
 [state ]
 type=posadd
 trigger1=command="holdfwd"
-x=6
+x=const(velocity.walk.fwd.x)
 
 [state ]
 type=posadd
 trigger1=command="holdback"
-x=-4
+x=const(velocity.walk.back.x)
 
 [state ]
 type=velset

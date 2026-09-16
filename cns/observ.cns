@@ -29,8 +29,8 @@ ignorehitpause=1
 [state ]
 type=displaytoclipboard
 trigger1=!ishelper
-text="private-time: %d\npos y: %f"
-params=var(1),pos y
+text="private-gametime: %d\nprivate-time: %d"
+params=var(0),var(1)
 ignorehitpause=1
 
 [state ]
@@ -67,44 +67,52 @@ ignorehitpause=1
 type=posset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=var(3)=0
+trigger1=command!="holdup"
 y=0
 ignorehitpause=1
 
 [state ]
 type=posadd
 trigger1=!ishelper
-trigger1=var(3)=1
-y=-6
+trigger1=command="holdup"
+y=-const(velocity.walk.fwd.x)
 ignorehitpause=1
 
 [state ]
 type=velset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=var(3)=0
+trigger1=command!="holdup"
 y=0
 ignorehitpause=1
 
 [state ]
 type=velset
 trigger1=!ishelper
-trigger1=var(3)=1
+trigger1=command="holdup"
 y=0
 ignorehitpause=1
 
 [state ]
 type=veladd
 trigger1=!ishelper
-trigger1=var(3)=0
-trigger1=pos y<=-40
+trigger1=command!="holdup"
+trigger1=pos y<0
+y=const(movement.yaccel)*0.1
+ignorehitpause=1
+
+[state ]
+type=veladd
+trigger1=!ishelper
+trigger1=command!="holdup"
+trigger1=pos y<=-400
 y=const(movement.yaccel)*0.1
 ignorehitpause=1
 
 [state ]
 type=statetypeset
 trigger1=!ishelper
-trigger1=var(3)=1
+trigger1=command="holdup"
 statetype=a
 physics=n
 ignorehitpause=1
@@ -121,7 +129,7 @@ ignorehitpause=1
 type=statetypeset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=var(4)=1
+trigger1=command="holddown"
 statetype=c
 physics=c
 ignorehitpause=1
@@ -130,8 +138,8 @@ ignorehitpause=1
 type=statetypeset
 trigger1=!ishelper
 trigger1=pos y>=0
-trigger1=var(4)=0
-trigger1=var(3)=0
+trigger1=command!="holddown"
+trigger1=command!="holdup"
 statetype=s
 physics=s
 ignorehitpause=1
@@ -142,13 +150,13 @@ trigger1=!ishelper
 trigger1=movetype!=h
 trigger1=statetype!=c
 trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(statetype=a)
-y=sin(var(0)*0.02)*100-var(2)
+y=sin(var(0)*0.004)*20-var(2)
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=!ishelper
-var(2)=sin(var(0)*0.02)*100
+var(2)=sin(var(0)*0.004)*20
 ignorehitpause=1
 
 [state ]
