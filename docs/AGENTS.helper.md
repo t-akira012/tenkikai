@@ -5,6 +5,7 @@
 - 常駐Helperとは、ラウンド中に継続して存在し、本体の常時監視から存在確認と再生成を行い、専用StateDefで毎フレーム処理するHelperを指す。
 - HelperType を Player にすることで、常駐helperとして機能する。常駐helperは StateDef -2, -3 を読み込む
 - 同一IDは1体以下に制限する。
+- 常駐Helperは必ずRootから生成し、HelperからHelperを生成する孫Helper構成は禁止する。
 
 ## Helperルーティング規約
 

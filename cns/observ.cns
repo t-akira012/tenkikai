@@ -3,6 +3,7 @@
 [state ]
 type=selfstate
 trigger1=ishelper
+trigger1=!ishelper(99003)
 trigger1=!ishelper(99002)
 trigger1=!ishelper(99001)
 value=5150
@@ -193,6 +194,20 @@ ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
+[state ]
+type=helper
+trigger1=!ishelper
+trigger1=!numhelper(99003)
+trigger1=numhelper(99001)
+name="the_head_aura"
+id=99003
+stateno=99003
+anim=99001
+helpertype=player
+ignorehitpause=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
 ;; オーラヘルパー生成
 
 [state ]
@@ -207,6 +222,15 @@ helpertype=player
 ignorehitpause=1
 pausemovetime=99990000000
 supermovetime=99990000000
+
+;; 本体透過
+
+[state ]
+type=trans
+trigger1=!ishelper
+trans=addalpha
+alpha=128,128
+ignorehitpause=1
 
 ;; 本体残像
 

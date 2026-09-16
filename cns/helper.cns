@@ -12,6 +12,12 @@ trigger1=ishelper(99002)
 value=99002
 ignorehitpause=1
 
+[state ]
+type=selfstate
+trigger1=ishelper(99003)
+value=99003
+ignorehitpause=1
+
 [statedef 99001]
 anim=99001
 
@@ -45,7 +51,7 @@ ignorehitpause=1
 type=trans
 trigger1=1
 trans=addalpha
-alpha=256,55
+alpha=128,128
 ignorehitpause=1
 
 [state ]
@@ -119,7 +125,7 @@ ignorehitpause=1
 type=trans
 trigger1=1
 trans=addalpha
-alpha=128,128
+alpha=128,256
 ignorehitpause=1
 
 [state ]
@@ -129,5 +135,76 @@ trigger1=var(10):=1||1
 time=-1
 length=128
 trans=add
-mul=0.5,0.5,0.5
+palcolor=128
+palbright=15,15,45
+palcontrast=88,88,188
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=0.2,0.2,0.8
+mul=0.1,0.4,0.4
+ignorehitpause=1
+
+[statedef 99003]
+
+[state ]
+type=posset
+trigger1=1
+x=helper(99001),pos x
+y=helper(99001),pos y
+ignorehitpause=1
+
+[state ]
+type=turn
+trigger1=facing!=helper(99001),facing
+ignorehitpause=1
+
+[state ]
+type=changeanim
+trigger1=anim!=helper(99001),anim
+value=helper(99001),anim
+elem=helper(99001),animelemno(0)
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=1
+scale=1.15+0.15*(root,fvar(0)),1.15+0.15*(root,fvar(0))
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=root,movetype!=h
+trigger1=root,statetype!=c
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=(root,movetype=h)||(root,statetype=c)
+trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+y=0
+ignorehitpause=1
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=128,256
+ignorehitpause=1
+
+[state ]
+type=afterimage
+trigger1=!var(10)
+trigger1=var(10):=1||1
+time=-1
+length=128
+trans=add
+palcolor=128
+palbright=15,15,45
+palcontrast=88,88,188
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=0.2,0.2,0.8
+mul=0.1,0.4,0.4
 ignorehitpause=1
