@@ -14,7 +14,7 @@ x=0
 [state ]
 type=posadd
 trigger1=command="holdfwd"
-x=const(velocity.walk.fwd.x)
+x=6
 
 [state ]
 type=changeanim
@@ -54,7 +54,7 @@ x=0
 [state ]
 type=posadd
 trigger1=command="holdback"
-x=const(velocity.walk.back.x)
+x=-4
 
 [state ]
 type=changeanim

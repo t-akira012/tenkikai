@@ -11,16 +11,33 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [コーディング規約](docs/coding-rules.md)
 - [フォーマッター](docs/formatter.md)
 - [キャラクターデザイン](docs/DESIGN.md)
+- [設計文書の記述規則](docs/design/AGENTS.md)
 - [ステートドキュメント](docs/state/README.md)
 - [ステート文書の作業規則](docs/state/AGENTS.md)
 - [StateDef -1/-2/-3 の作業規則](docs/AGENTS.state-controller.md)
-- [Trigger記述規則](AGENTS.trigger.md)
+- [Trigger記述規則](docs/AGENTS.trigger.md)
 - [設計判断記録](docs/ADR/)
+- [バグ修正](docs/issues/)
 - [公式ドキュメント未記載のユーザー調査情報](docs/researched/README.md)
+
+
+- 注意: AGENTS.md の 子 AGENTS.*.md は、`docs/AGENTS.*.md` に配置する。
+
+## WinMUGEN コーディングについて
+
+WinMUGEN は LLM 学習データが不足している。一方で、ユーザーはWinMUGENの仕様に詳しい。
+
+仕様の不明点は、共通規約、および、ユーザー調査情報を読み解き、必要に応じて、ユーザーに詳細仕様を質問すること。
+
+## 演出などの数学的表示について
+
+Explod などの表示軌道を描く演出処理はゲーム開発に利用される数学で解け、LLMの学習が豊富である。
+
+ユーザーの演出要望に従って、どのような数学的処理を適用するかを相談しなさい。
 
 ## 共通規約の参照
 
-M.U.G.E.N コーディングに関する共通規約は、このファイルへ転載せず、次の外部文書を参照すること。
+WinMUGEN コーディングに関する共通規約は、このファイルへ転載せず、次の外部文書を参照すること。
 トークンを節約するため、共通規約のウェブ文書は参照せず、ローカル文書を厳守すること。
 
 - GitHub文書: <https://github.com/t-akira012/mugen-docs-coding-agents>
