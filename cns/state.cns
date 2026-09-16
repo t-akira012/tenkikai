@@ -34,7 +34,8 @@ value=61
 
 [state ]
 type=changestate
-trigger1=pos y>=-40
+trigger1=command!="holdfwd"
+trigger1=command!="holdback"
 value=0
 ctrl=1
 
@@ -74,7 +75,8 @@ value=60
 
 [state ]
 type=changestate
-trigger1=pos y>=-40
+trigger1=command!="holdfwd"
+trigger1=command!="holdback"
 value=0
 ctrl=1
 
