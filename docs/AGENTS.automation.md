@@ -32,13 +32,13 @@ StateDef `-2`の最上部に、次のControllerを置く。
 [state ]
 type=varset
 triggerall=!ishelper
-trigger1=1
+trigger1=0
 trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1
 ```
 
-利用者が常にオートメーションを使用する場合は`trigger1=1`とする。常時有効化を使用しない場合は`trigger1=0`とし、パレット番号`6`から`12`までの場合だけ`trigger2`で有効化できる。`triggerall=!ishelper`により、本体の入力ビットフィールドだけを更新する。
+既定では`trigger1=0`として常時有効化を使用せず、パレット番号`6`から`12`までの場合だけ`trigger2`で有効化する。利用者が常にオートメーションを使用する場合は`trigger1=1`へ変更する。`triggerall=!ishelper`により、本体の入力ビットフィールドだけを更新する。
 
 ## 入力元の切替
 

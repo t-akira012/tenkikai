@@ -5,7 +5,7 @@
 [state ]
 type=varset
 triggerall=!ishelper
-trigger1=1
+trigger1=0
 trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1

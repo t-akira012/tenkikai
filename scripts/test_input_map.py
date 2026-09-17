@@ -71,7 +71,7 @@ class InputMapTest(unittest.TestCase):
             "[state ]\n"
             "type=varset\n"
             "triggerall=!ishelper\n"
-            "trigger1=1\n"
+            "trigger1=0\n"
             "trigger2=palno=[6,12]\n"
             f"var(2)=var(2)|{AUTOMATION_MASK}\n"
             "ignorehitpause=1"
