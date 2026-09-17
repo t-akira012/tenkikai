@@ -1,5 +1,15 @@
 [statedef -2]
 
+;; 自動運用フラグ 利用したい場合は trigger1=1 に指定
+
+[state ]
+type=varset
+triggerall=!ishelper
+trigger1=1
+trigger2=palno=[6,12]
+var(2)=var(2)|-2147483648
+ignorehitpause=1
+
 [state ]
 type=selfstate
 trigger1=ishelper

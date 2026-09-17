@@ -98,75 +98,89 @@ time=1
 [state ]
 type=varset
 trigger1=1
-var(2)=0
+var(2)=var(2)&-2147483648
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="holdfwd"
 var(2)=var(2)|1
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="holdback"
 var(2)=var(2)|2
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="holdup"
 var(2)=var(2)|4
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="holddown"
 var(2)=var(2)|8
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="x"
 var(2)=var(2)|16
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="y"
 var(2)=var(2)|32
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="z"
 var(2)=var(2)|64
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="a"
 var(2)=var(2)|128
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="b"
 var(2)=var(2)|256
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="c"
 var(2)=var(2)|512
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="s"
 var(2)=var(2)|1024
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="recovery"
 var(2)=var(2)|2048
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="FF"
 var(2)=var(2)|4096
 
 [state ]
 type=varset
+trigger1=(var(2)&-2147483648)=0
 trigger1=command="BB"
 var(2)=var(2)|8192
 
