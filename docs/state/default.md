@@ -14,6 +14,12 @@
 
 上方向入力中は `var(3)=1`、入力していない場合は `var(3)=0` とする。下方向入力中は `var(4)=1`、入力していない場合は `var(4)=0` とする。StateDef `-3` はこの入力状態を参照し、上下の浮遊移動と `stand`・`crunch`・`air` の状態変更を行う。
 
+## テスト用オーラバウンド
+
+### StateDef 4001: オーラバウンド確認
+
+X入力から遷移し、3tick後にStateDef `0`へ戻る。`the_root_monitor` がRootのStateDefとprivate-timeを監視するためのテスト用StateDefである。
+
 ## 空中歩行
 
 ### StateDef 60: 空中前歩き

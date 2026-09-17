@@ -203,6 +203,18 @@ ignorehitpause=1
 [state ]
 type=helper
 trigger1=!ishelper
+trigger1=!numhelper(99004)
+name="the_root_monitor"
+id=99004
+stateno=99004
+helpertype=player
+ignorehitpause=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=!ishelper
 trigger1=!numhelper(99001)
 name="the_head"
 id=99001

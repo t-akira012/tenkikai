@@ -18,6 +18,66 @@ trigger1=ishelper(99003)
 value=99003
 ignorehitpause=1
 
+[state ]
+type=selfstate
+trigger1=ishelper(99004)
+value=99004
+ignorehitpause=1
+
+[statedef 99004]
+
+[state ]
+type=varset
+trigger1=root,stateno=4001
+trigger1=root,var(1)<=1
+trigger1=var(0)=0
+var(0)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=4001
+trigger1=root,var(1)<=1
+trigger1=var(0)=1
+fvar(0)=0.375
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=4001
+trigger1=root,var(1)<=1
+trigger1=var(0)=1
+fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=var(0)=1
+trigger1=fvar(1)>0
+fvar(0)=-fvar(1)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(0)=1
+trigger1=fvar(1)<=0
+fvar(0)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(0)=1
+trigger1=fvar(0)<=0
+fvar(0)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(0)=1
+trigger1=fvar(0)<=0
+var(0)=0
+ignorehitpause=1
+
 [statedef 99001]
 anim=99001
 
@@ -103,7 +163,7 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-scale=1.075+0.075*(root,fvar(0)),1.075+0.075*(root,fvar(0))
+scale=1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0)),1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0))
 ignorehitpause=1
 
 [state ]
@@ -168,7 +228,7 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-scale=1.15+0.15*(root,fvar(0)),1.15+0.15*(root,fvar(0))
+scale=1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0)),1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0))
 ignorehitpause=1
 
 [state ]

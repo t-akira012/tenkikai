@@ -31,6 +31,11 @@ name="recovery"
 command=x+y
 time=1
 
+[Command]
+name="x"
+command=x
+time=1
+
 ;-------------------------------------------------
 [Command]
 name="holdfwd"
@@ -55,6 +60,14 @@ time=1
 ;-------------------------------------------------
 
 [statedef -1]
+
+;-------------------------------------------------
+
+[state ]
+type=changestate
+value=4001
+trigger1=command="x"
+trigger1=ctrl
 
 ;-------------------------------------------------
 

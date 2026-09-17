@@ -104,7 +104,7 @@ class DocumentationTest(unittest.TestCase):
 
     def test_generated_object_lists_match_controller_counts(self) -> None:
         expected = {
-            "helper": (3, "docs/state/helper-list.md"),
+            "helper": (4, "docs/state/helper-list.md"),
             "explod": (2, "docs/state/explod-list.md"),
             "projectile": (0, "docs/state/projectile-list.md"),
         }
@@ -117,7 +117,7 @@ class DocumentationTest(unittest.TestCase):
 
     def test_kfm_actions_and_attacks_are_removed(self) -> None:
         self.assertNotIn("type=hitdef", source_text("cns/state.cns").lower())
-        self.assertEqual(source_text("cns/command.cmd").lower().count("type=changestate"), 4)
+        self.assertEqual(source_text("cns/command.cmd").lower().count("type=changestate"), 5)
         air = source_text("binary/animation.air")
         removed_actions = {
             6, 10, 11, 12, 40, 41, 42, 43, 47, 195, 200, 210, 230, 240,
