@@ -36,6 +36,16 @@ name="x"
 command=x
 time=1
 
+[Command]
+name="y"
+command=y
+time=1
+
+[Command]
+name="z"
+command=z
+time=1
+
 ;-------------------------------------------------
 [Command]
 name="holdfwd"
@@ -67,6 +77,18 @@ time=1
 type=changestate
 value=4001
 trigger1=command="x"
+trigger1=ctrl
+
+[state ]
+type=changestate
+value=4002
+trigger1=command="y"
+trigger1=ctrl
+
+[state ]
+type=changestate
+value=4003
+trigger1=command="z"
 trigger1=ctrl
 
 ;-------------------------------------------------

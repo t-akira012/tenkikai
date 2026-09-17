@@ -15,6 +15,36 @@ ctrl=1
 
 ;-------------------------------------------------
 
+[statedef 4002]
+type=s
+movetype=I
+physics=N
+ctrl=0
+anim=0
+
+[state ]
+type=changestate
+trigger1=time>=3
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 4003]
+type=s
+movetype=I
+physics=N
+ctrl=0
+anim=0
+
+[state ]
+type=changestate
+trigger1=time>=3
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
 [statedef 60]
 type=a
 movetype=I

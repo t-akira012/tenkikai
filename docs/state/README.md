@@ -15,6 +15,7 @@ CNS/CMDの実装と挙動文書のどちらをマスターとするかは定め�
 - [超必殺技ステート](superattack.md): 超必殺技
 - [常時監視ステート](observ.md): `cns/observ.cns` のStateDef `-2` と `-3`
 - [ヘルパーステート](helper.md): `cns/helper.cns` の頭部ヘルパー用StateDef
+- [the_root_monitorステート](root-monitor.md): `the_root_monitor`の挙動ルーティングと個別処理
 - [stcommon共有ステート](stcommon.md): `cns/common1.cns` にあるWinMUGEN共有ステート
 - [ヘルパー一覧](helper-list.md): `Helper` コントローラーが生成するヘルパー
 - [Explod一覧](explod-list.md): `Explod` コントローラーが生成する演出物

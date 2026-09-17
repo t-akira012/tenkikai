@@ -27,3 +27,15 @@ Action `99001` を表示し続ける。向きが本体と異なる場合は反�
 ### StateDef 99004: Root監視
 
 RootのStateDefとprivate-timeを監視し、技ごとのオーラバウンドを管理する。バウンドの進行状態は本体オーラと頭部オーラから参照される。
+
+### StateDef 99101: 4001バウンド定義
+
+RootがStateDef `4001`に入ったときのバウンド設定を、`the_root_monitor`自身の変数へ初期化する。
+
+### StateDef 99102: 4002バウンド定義
+
+RootがStateDef `4002`に入ったときのバウンド設定を、`the_root_monitor`自身の変数へ初期化する。
+
+### StateDef 99103: 4003バウンド定義
+
+RootがStateDef `4003`に入ったときのバウンド設定を、`the_root_monitor`自身の変数へ初期化する。

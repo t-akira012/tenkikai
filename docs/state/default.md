@@ -20,6 +20,14 @@
 
 X入力から遷移し、3tick後にStateDef `0`へ戻る。`the_root_monitor` がRootのStateDefとprivate-timeを監視するためのテスト用StateDefである。
 
+### StateDef 4002: オーラバウンド保持確認
+
+Y入力から遷移し、3tick後にStateDef `0`へ戻る。4001より長く拡張を保持し、速く縮小する設定を確認する。
+
+### StateDef 4003: オーラバウンド倍率確認
+
+Z入力から遷移し、3tick後にStateDef `0`へ戻る。通常オーラの2.5倍の拡張量を確認する。
+
 ## 空中歩行
 
 ### StateDef 60: 空中前歩き
