@@ -246,6 +246,8 @@ trigger1=1
 
 [statedef 99002]
 
+;; Root位置追従
+
 [state ]
 type=posset
 trigger1=1
@@ -253,10 +255,14 @@ x=root,pos x
 y=root,pos y
 ignorehitpause=1
 
+;; Root向き同期
+
 [state ]
 type=turn
 trigger1=facing!=root,facing
 ignorehitpause=1
+
+;; Rootアニメーション同期
 
 [state ]
 type=changeanim
@@ -265,11 +271,16 @@ value=root,anim
 elem=root,animelemno(0)
 ignorehitpause=1
 
+;; Aura倍率・傾斜同期
+
 [state ]
 type=angledraw
 trigger1=1
+value=-30*(root,stateno=110)+30*(root,stateno=111)
 scale=1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0)),1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0))
 ignorehitpause=1
+
+;; Aura浮遊オフセット
 
 [state ]
 type=offset
@@ -286,12 +297,16 @@ trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,staten
 y=0
 ignorehitpause=1
 
+;; Aura透過表示
+
 [state ]
 type=trans
 trigger1=1
 trans=addalpha
 alpha=128,256
 ignorehitpause=1
+
+;; Aura残像
 
 [state ]
 type=afterimage
@@ -341,6 +356,7 @@ type=offset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
 trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+x=0
 y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-61*(helper(99004),fvar(0))
 ignorehitpause=1
 
@@ -348,7 +364,22 @@ ignorehitpause=1
 type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+x=0
 y=-61*(helper(99004),fvar(0))
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=root,stateno=110
+x=-10*(root,facing)
+y=6
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=root,stateno=111
+x=10*(root,facing)
+y=6
 ignorehitpause=1
 
 [state ]

@@ -12,6 +12,8 @@ STATE_PATTERN = re.compile(r"^\s*\[state(?:\s+[^\]]*)?\]\s*$", re.IGNORECASE)
 SECTION_PATTERN = re.compile(r"^\s*\[[^\]]+\]\s*$")
 CANONICAL_STATEDEF_PATTERN = re.compile(r"^\[statedef\s+(-?\d+)\]$")
 DOCUMENT_STATEDEF_PATTERN = re.compile(r"^### StateDef -?\d+: .+$")
+TRIGGER_PATTERN = re.compile(r"^\s*trigger(?:all|\d+)\s*=", re.IGNORECASE)
+COMMAND_PATTERN = re.compile(r"\bcommand\b", re.IGNORECASE)
 OPERATOR_WITH_SPACES_PATTERN = re.compile(
     r"[ \t]*(\*\*|&&|\|\||\^\^|:=|!=|>=|<=|[=<>+\-*/%&|^])[ \t]*"
 )
@@ -211,6 +213,61 @@ def statedef_number(line: str) -> int | None:
     if not match:
         return None
     return int(match.group(1))
+
+
+def verify_command_trigger_scope(name: str, lines: list[str]) -> None:
+    current_statedef: int | None = None
+    current_controller = "State Controller外"
+
+    for line_number, line in enumerate(lines, start=1):
+        statedef_match = STATEDEF_PATTERN.match(line)
+        if statedef_match:
+            current_statedef = int(statedef_match.group(1))
+            current_controller = "State Controller外"
+            continue
+
+        if SECTION_PATTERN.match(line) and not STATE_PATTERN.match(line):
+            current_statedef = None
+            current_controller = "State Controller外"
+            continue
+
+        if STATE_PATTERN.match(line):
+            current_controller = "type未定義"
+            continue
+
+        type_match = re.match(r"^\s*type\s*=\s*(.+?)\s*$", line, re.IGNORECASE)
+        if type_match:
+            current_controller = type_match.group(1).lower()
+            continue
+
+        executable = line.split(";", 1)[0]
+        if not TRIGGER_PATTERN.match(executable):
+            continue
+
+        expression = executable.split("=", 1)[1]
+        if not COMMAND_PATTERN.search(expression):
+            continue
+
+        if (
+            name == "cns/command.cmd"
+            and current_statedef == -1
+            and current_controller == "varset"
+        ):
+            continue
+
+        if current_statedef is None:
+            state_context = "StateDef外"
+        else:
+            state_context = f"StateDef {current_statedef}"
+        raise RuntimeError(
+            "command Triggerの配置が不正です: "
+            f"{name}:{line_number} ({state_context}, {current_controller})"
+        )
+
+
+def verify_command_trigger_locations() -> None:
+    for name in sorted(STATE_FORMAT_FILES):
+        verify_command_trigger_scope(name, read_lines(ROOT / name))
 
 
 def split_cns(lines: list[str]) -> tuple[list[str], list[str], list[str], list[str]]:
@@ -471,6 +528,8 @@ def verify_result() -> None:
                     if normalized != raw_line:
                         raise RuntimeError(f"演算子の前後に空白が残っています: {name}:{number}")
 
+    verify_command_trigger_locations()
+
     expected = {
         "cns/state.cns": lambda number: 0 <= number <= 9_999,
         "cns/observ.cns": lambda number: number in (-2, -3),
@@ -540,11 +599,13 @@ def verify_result() -> None:
             raise RuntimeError(f"[Info]に半角スペースが残っています: tenkikai.def:{number}")
 
     verify_state_document_headings()
-    print("検証完了: コメント、罫線、改行、StateDef配置、DEF参照")
+    print("検証完了: コメント、罫線、改行、StateDef配置、DEF参照、command Trigger配置")
 
 
 def main() -> None:
     print("TENKIKAIフォーマッターを開始します")
+    print("事前検証: command Trigger配置")
+    verify_command_trigger_locations()
     reporter = Reporter()
 
     format_legacy_cns(reporter)

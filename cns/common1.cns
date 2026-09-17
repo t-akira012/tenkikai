@@ -81,13 +81,13 @@ sprpriority=0
 
 [state ]
 type=posadd
-trigger1=command="holdfwd"
-x=6
+trigger1=(var(2)&1)!=0
+x=3
 
 [state ]
 type=posadd
-trigger1=command="holdback"
-x=-4
+trigger1=(var(2)&2)!=0
+x=-2
 
 [state ]
 type=velset
@@ -96,17 +96,17 @@ x=0
 
 [state ]
 type=changeanim
-trigger1=command="holdfwd"
+trigger1=(var(2)&1)!=0
 trigger1=Anim!=20&&Anim!=5
-trigger2=command="holdfwd"
+trigger2=(var(2)&1)!=0
 trigger2=Anim=5&&AnimTime=0
 value=20
 
 [state ]
 type=changeanim
-trigger1=command="holdback"
+trigger1=(var(2)&2)!=0
 trigger1=Anim!=21&&Anim!=5
-trigger2=command="holdback"
+trigger2=(var(2)&2)!=0
 trigger2=Anim=5&&AnimTime=0
 value=21
 
@@ -178,13 +178,13 @@ physics=A
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -195,7 +195,7 @@ value=130+(statetype=C)+(statetype=A)*2
 
 [state ]
 type=changestate
-trigger1=command!="holdback"
+trigger1=(var(2)&2)=0
 trigger2=!inguarddist
 value=140
 
@@ -212,12 +212,12 @@ value=130
 
 [state ]
 type=changestate
-trigger1=command="holddown"
+trigger1=(var(2)&8)!=0
 value=131
 
 [state ]
 type=changestate
-trigger1=command!="holdback"
+trigger1=(var(2)&2)=0
 trigger2=!inguarddist
 value=140
 
@@ -234,12 +234,12 @@ value=131
 
 [state ]
 type=changestate
-trigger1=command!="holddown"
+trigger1=(var(2)&8)=0
 value=130
 
 [state ]
 type=changestate
-trigger1=command!="holdback"
+trigger1=(var(2)&2)=0
 trigger2=!inguarddist
 value=140
 
@@ -277,7 +277,7 @@ y=0
 [state ]
 type=changestate
 trigger1=sysvar(0)
-trigger1=command="holdback"
+trigger1=(var(2)&2)!=0
 trigger1=inguarddist
 value=130
 
@@ -288,7 +288,7 @@ value=52
 
 [state ]
 type=changestate
-trigger1=command!="holdback"
+trigger1=(var(2)&2)=0
 trigger2=!inguarddist
 value=140
 
@@ -321,13 +321,13 @@ physics=A
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -347,17 +347,17 @@ value=150
 [state ]
 type=changestate
 trigger1=HitShakeOver
-value=151+2*(command="holddown")
+value=151+2*((var(2)&8)!=0)
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -393,13 +393,13 @@ value=1
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -425,17 +425,17 @@ value=151
 [state ]
 type=changestate
 trigger1=HitShakeOver
-value=151+2*(command="holddown")
+value=151+2*((var(2)&8)!=0)
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -471,13 +471,13 @@ value=1
 
 [state ]
 type=statetypeset
-trigger1=statetype=S&&command="holddown"
+trigger1=statetype=S&&(var(2)&8)!=0
 statetype=C
 physics=C
 
 [state ]
 type=statetypeset
-trigger1=statetype=C&&command!="holddown"
+trigger1=statetype=C&&(var(2)&8)=0
 statetype=S
 physics=S
 
@@ -553,7 +553,7 @@ y=0
 [state ]
 type=changestate
 trigger1=sysvar(0)
-trigger1=command="holdback"
+trigger1=(var(2)&2)!=0
 trigger1=inguarddist
 value=130
 
@@ -1064,7 +1064,7 @@ triggerall=Vel Y>0
 triggerall=Pos Y>=-20
 triggerall=alive
 triggerall=CanRecover
-trigger1=Command="recovery"
+trigger1=(var(2)&2048)!=0
 value=5200
 
 [state ]
@@ -1072,7 +1072,7 @@ type=changestate
 triggerall=Vel Y>-1
 triggerall=alive
 triggerall=CanRecover
-trigger1=Command="recovery"
+trigger1=(var(2)&2048)!=0
 value=5210
 
 [state ]
@@ -1686,25 +1686,25 @@ y=-1
 [state ]
 type=veladd
 trigger1=Time=4
-trigger1=Command="holdup"
+trigger1=(var(2)&4)!=0
 y=-2
 
 [state ]
 type=veladd
 trigger1=Time=4
-trigger1=Command="holddown"
+trigger1=(var(2)&8)!=0
 y=1.5
 
 [state ]
 type=velmul
 trigger1=Time=4
-trigger1=Command="holdfwd"
+trigger1=(var(2)&1)!=0
 x=1
 
 [state ]
 type=veladd
 trigger1=Time=4
-trigger1=Command="holdback"
+trigger1=(var(2)&2)!=0
 x=-1
 
 [state ]

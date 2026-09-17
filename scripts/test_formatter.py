@@ -211,6 +211,95 @@ class FormatterTest(unittest.TestCase):
         self.assertIn("command=~D,DF,F,x", actual)
         self.assertIn("trigger1=p2bodydist X<3", actual)
 
+    def test_command_trigger_is_allowed_in_command_state_minus_one(self) -> None:
+        source = [
+            "[Command]",
+            'name="holdfwd"',
+            "command=/$F",
+            "[statedef -1]",
+            "[state ]",
+            "type=varset",
+            'trigger1=command="holdfwd"',
+            "v=2",
+            "value=1",
+        ]
+
+        formatter.verify_command_trigger_scope("cns/command.cmd", source)
+
+    def test_command_trigger_is_rejected_outside_command_file(self) -> None:
+        source = [
+            "[statedef 0]",
+            "[state ]",
+            "type=changestate",
+            'trigger1=command="holdfwd"',
+            "value=20",
+        ]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            r"cns/state\.cns:4 \(StateDef 0, changestate\)",
+        ):
+            formatter.verify_command_trigger_scope("cns/state.cns", source)
+
+    def test_command_trigger_is_rejected_outside_state_minus_one(self) -> None:
+        source = [
+            "[statedef 100]",
+            "[state ]",
+            "type=null",
+            'trigger1=command!="holdback"',
+        ]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            r"cns/command\.cmd:4 \(StateDef 100, null\)",
+        ):
+            formatter.verify_command_trigger_scope("cns/command.cmd", source)
+
+    def test_command_trigger_after_non_state_section_is_rejected(self) -> None:
+        source = [
+            "[statedef -1]",
+            "[state ]",
+            "type=null",
+            "trigger1=1",
+            "[Command]",
+            'trigger1=command="holdfwd"',
+        ]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            r"cns/command\.cmd:6 \(StateDef外, State Controller外\)",
+        ):
+            formatter.verify_command_trigger_scope("cns/command.cmd", source)
+
+    def test_command_trigger_is_rejected_in_state_minus_one_changestate(self) -> None:
+        source = [
+            "[statedef -1]",
+            "[state ]",
+            "type=changestate",
+            'trigger1=command="x"',
+            "value=4001",
+        ]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            r"cns/command\.cmd:4 \(StateDef -1, changestate\)",
+        ):
+            formatter.verify_command_trigger_scope("cns/command.cmd", source)
+
+    def test_command_text_outside_trigger_is_ignored(self) -> None:
+        source = [
+            "[Command]",
+            'name="holdfwd"',
+            "command=/$F",
+            "; trigger1=command=\"holdfwd\"",
+            "[statedef 0]",
+            "[state ]",
+            "type=null",
+            "trigger1=1",
+        ]
+
+        formatter.verify_command_trigger_scope("cns/state.cns", source)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -58,29 +58,29 @@ x=0
 
 [state ]
 type=posadd
-trigger1=command="holdfwd"
-x=6
+trigger1=(var(2)&1)!=0
+x=3
 
 [state ]
 type=changeanim
-trigger1=command="holdfwd"
+trigger1=(var(2)&1)!=0
 value=20
 
 [state ]
 type=changeanim
-trigger1=command!="holdfwd"
-trigger1=command!="holdback"
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
 value=0
 
 [state ]
 type=changestate
-trigger1=command="holdback"
+trigger1=(var(2)&2)!=0
 value=61
 
 [state ]
 type=changestate
-trigger1=command!="holdfwd"
-trigger1=command!="holdback"
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
 value=0
 ctrl=1
 
@@ -99,29 +99,29 @@ x=0
 
 [state ]
 type=posadd
-trigger1=command="holdback"
-x=-4
+trigger1=(var(2)&2)!=0
+x=-2
 
 [state ]
 type=changeanim
-trigger1=command="holdback"
+trigger1=(var(2)&2)!=0
 value=21
 
 [state ]
 type=changeanim
-trigger1=command!="holdfwd"
-trigger1=command!="holdback"
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
 value=0
 
 [state ]
 type=changestate
-trigger1=command="holdfwd"
+trigger1=(var(2)&1)!=0
 value=60
 
 [state ]
 type=changestate
-trigger1=command!="holdfwd"
-trigger1=command!="holdback"
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
 value=0
 ctrl=1
 
@@ -221,6 +221,68 @@ velset=0,0
 [state ]
 type=changestate
 trigger1=animtime=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 110]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=20
+
+[state ]
+type=posadd
+trigger1=(var(2)&1)!=0
+x=12
+
+[state ]
+type=angledraw
+trigger1=(var(2)&1)!=0
+value=-30
+
+[state ]
+type=changestate
+trigger1=(var(2)&2)!=0
+value=111
+
+[state ]
+type=changestate
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 111]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=21
+
+[state ]
+type=posadd
+trigger1=(var(2)&2)!=0
+x=-8
+
+[state ]
+type=angledraw
+trigger1=(var(2)&2)!=0
+value=30
+
+[state ]
+type=changestate
+trigger1=(var(2)&1)!=0
+value=110
+
+[state ]
+type=changestate
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
 value=0
 ctrl=1
 
