@@ -28,16 +28,16 @@
 
 常時監視から本体に1体だけ生成される。専用StateDef `99002` で本体の位置・向き・アニメーションへ追従し、鼓動する倍率、透過表示、AfterImageを適用する。
 
-## Root監視Helper
+## `the_controller` Helper
 
 | 項目 | 内容 |
 | --- | --- |
 | 生成条件 | 本体であり、ID `99004` のヘルパーが存在しないとき |
-| 名前 | `the_root_monitor` |
+| 名前 | `the_controller` |
 | ID | `99004` |
 | 初期StateDef | `99004` |
 
-RootのStateDefとprivate-timeを監視し、技ごとのオーラバウンド定義と進行を管理する。
+Rootの位置へ常時追従し、PlayerPushで相手を押し返す外殻としてHelper Armorを担う。相手の攻撃を受け、取得したダメージを本体へ渡しながら、RootのStateDefとprivate-timeを監視し、技ごとのオーラバウンド定義と進行も管理する。
 
 ## 頭部オーラヘルパー
 

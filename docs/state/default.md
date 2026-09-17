@@ -22,7 +22,7 @@ StateDef `-3`は、`var(2)`の上方向ビットと下方向ビットを参照�
 
 ### StateDef 4001: オーラバウンド確認
 
-X入力から遷移し、3tick後にStateDef `0`へ戻る。`the_root_monitor` がRootのStateDefとprivate-timeを監視するためのテスト用StateDefである。
+X入力から遷移し、3tick後にStateDef `0`へ戻る。`the_controller` がRootのStateDefとprivate-timeを監視するためのテスト用StateDefである。
 
 ### StateDef 4002: オーラバウンド保持確認
 

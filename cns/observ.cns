@@ -10,6 +10,79 @@ trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1
 
+;; Helper Armorライフ管理
+
+[state ]
+type=posset
+trigger1=ishelper(99004)
+x=root,pos x
+y=root,pos y
+ignorehitpause=1
+
+[state ]
+type=turn
+trigger1=ishelper(99004)
+trigger1=facing!=root,facing
+ignorehitpause=1
+
+[state ]
+type=changeanim
+trigger1=ishelper(99004)
+trigger1=anim!=99004
+value=99004
+ignorehitpause=1
+
+[state ]
+type=playerpush
+trigger1=ishelper(99004)
+value=1
+ignorehitpause=1
+
+[state ]
+type=hitoverride
+trigger1=ishelper(99004)
+attr=sca,aa,ap,at
+stateno=99004
+time=1
+slot=0
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=ishelper(99004)
+trigger1=var(12)>0
+var(12)=-1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+trigger1=var(11)>0
+var(11)=0
+ignorehitpause=1
+
+[state ]
+type=lifeadd
+trigger1=!ishelper
+trigger1=numhelper(99004)
+trigger1=helper(99004),var(11)>0
+value=-ifelse(life<=lifemax/4,ifelse((helper(99004),var(11))>1,(helper(99004),var(11))/2,1),(helper(99004),var(11)))
+kill=1
+absolute=1
+ignorehitpause=1
+
+[state ]
+type=lifeadd
+trigger1=!ishelper
+trigger1=alive
+trigger1=life<lifemax
+trigger1=numhelper(99004)
+trigger1=helper(99004),var(11)=0
+value=1
+kill=0
+absolute=1
+ignorehitpause=1
+
 [state ]
 type=selfstate
 trigger1=ishelper
@@ -211,15 +284,16 @@ trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(statet
 y=0
 ignorehitpause=1
 
-;; 頭部ヘルパー生成
+;; Controller・頭部ヘルパー生成
 
 [state ]
 type=helper
 trigger1=!ishelper
 trigger1=!numhelper(99004)
-name="the_root_monitor"
+name="the_controller"
 id=99004
 stateno=99004
+anim=99004
 helpertype=player
 ignorehitpause=1
 pausemovetime=99990000000

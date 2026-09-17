@@ -20,9 +20,9 @@ StateDef `-2` で本体のゲーム開始直後に `0` へ初期化し、その�
 
 ### private-time
 
-通常変数 `var(1)` を `private-time` として使用する。`private-time` の管理をRootの`-2/-3`から外し、`the_root_monitor` が親Rootを監視して更新する。
+通常変数 `var(1)` を `private-time` として使用する。`private-time` の管理をRootの`-2/-3`から外し、`the_controller` が親Rootを監視して更新する。
 
-- `the_root_monitor` が `root,time=0` を検知する
+- `the_controller` が `root,time=0` を検知する
 - `ParentVarSet` で親の `var(1)` を0へ初期化する
 - 次tick以降は `ParentVarAdd` で親の `var(1)` を1ずつ加算する
 - `-2/-3` には`private-time`の初期化・加算処理を置かない

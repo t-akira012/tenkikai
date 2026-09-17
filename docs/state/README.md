@@ -18,7 +18,7 @@ CNS/CMDの実装と挙動文書のどちらをマスターとするかは定め�
 - [the_aura Helper詳細](helper-99002-the-aura.md): `the_aura`の機能塊とStateDef処理
 - [the_head Helper詳細](helper-99001-the-head.md): `the_head`のRoot追従とダッシュ時位置移動
 - [the_head_aura Helper詳細](helper-99003-the-head-aura.md): `the_head_aura`の頭部追従とダッシュ時位置移動
-- [the_root_monitorステート](root-monitor.md): `the_root_monitor`の挙動ルーティングと個別処理
+- [the_controllerステート](controller.md): `the_controller`の挙動ルーティングと個別処理
 - [stcommon共有ステート](stcommon.md): `cns/common1.cns` にあるWinMUGEN共有ステート
 - [ヘルパー一覧](helper-list.md): `Helper` コントローラーが生成するヘルパー
 - [Explod一覧](explod-list.md): `Explod` コントローラーが生成する演出物

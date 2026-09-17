@@ -2,7 +2,7 @@
 
 ## 動作モデル
 
-オーラのバウンドは、Rootから生成された `the_root_monitor` が本体のStateDefとprivate-timeを監視して行う。本体側ではバウンド用の変数制御を行わない。監視した技の状態に応じて、002で表示しているオーラを一度だけ大きく拡張する。拡張後は通常のオーラ倍率へ戻り、連続的な鼓動とは異なる瞬間的な力の放出を表現する。
+オーラのバウンドは、Rootから生成された `the_controller` が本体のStateDefとprivate-timeを監視して行う。本体側ではバウンド用の変数制御を行わない。監視した技の状態に応じて、002で表示しているオーラを一度だけ大きく拡張する。拡張後は通常のオーラ倍率へ戻り、連続的な鼓動とは異なる瞬間的な力の放出を表現する。
 
 拡張幅と通常倍率への復帰速度を調整可能とし、復帰は即時または滑らかな段階変化から選択できる。本体オーラと頭部オーラは同じバウンドを同期して行う。再度発動する場合は、前回のバウンドが完了した後に新たな発動として扱う。
 
@@ -18,26 +18,26 @@
 
 ## 用途
 
-技の発生や命中など、瞬間的な力の表現に利用する。技StateDefの状態を `the_root_monitor` が監視し、オーラへ演出を反映する。
+技の発生や命中など、瞬間的な力の表現に利用する。技StateDefの状態を `the_controller` が監視し、オーラへ演出を反映する。
 
 ## 状態・処理関係
 
-002のオーラ表示を基礎とし、`the_root_monitor` がRootのStateDefとprivate-timeを監視して単発バウンドを開始する。拡張、保持、復帰の進行状態は本体と頭部へ同じように適用する。
+002のオーラ表示を基礎とし、`the_controller` がRootのStateDefとprivate-timeを監視して単発バウンドを開始する。拡張、保持、復帰の進行状態は本体と頭部へ同じように適用する。
 
-技ごとのバウンド起点、発動タイミング、拡張幅、保持、復帰速度は、`the_root_monitor` 側の監視分岐で決定する。親の技StateDefにはオーラバウンド用の記述を追加しない。
+技ごとのバウンド起点、発動タイミング、拡張幅、保持、復帰速度は、`the_controller` 側の監視分岐で決定する。親の技StateDefにはオーラバウンド用の記述を追加しない。
 
 ## 実装方式
 
-Rootから生成した `the_root_monitor` が、バウンド用のVar/FVarを自身で管理する。`the_root_monitor` はRootのStateNoと技StateDefの進行を監視し、各技の定義に従って発動する。
+Rootから生成した `the_controller` が、バウンド用のVar/FVarを自身で管理する。`the_controller` はRootのStateNoと技StateDefの進行を監視し、各技の定義に従って発動する。
 
 常時監視側は、技ごとの監視分岐によるバウンド定義、バウンド消費と進行を処理し、本体オーラと頭部オーラへ同じ進行状態を渡す。
 
-`the_root_monitor`内では、共通IDルーティング後にバウンド集約StateDefを経由し、技ごとのバウンド個別StateDefで設定を初期化する。個別処理の完了後は、次フレームの`-2`ルーティングで監視へ復帰する。この構造の決定は[ADR 006](../ADR/006-root-monitor-routing.md)を参照する。
+`the_controller`内では、共通IDルーティング後にバウンド集約StateDefを経由し、技ごとのバウンド個別StateDefで設定を初期化する。個別処理の完了後は最終処理StateDefへ遷移し、完了時に`SelfState value=5150`を実行する。次フレームは`-2`ルーティングから監視へ復帰する。この構造の決定は[ADR 006](../ADR/006-controller-routing.md)を参照する。
 
 実装構造の記述イメージ：
 
 ```text
-the_root_monitor
+the_controller
   ├─ Root StateNo = 技A && private-time = 起点
   │    └─ 技A用バウンドを定義
   ├─ Root StateNo = 技B && private-time = 起点
@@ -49,7 +49,7 @@ the_root_monitor
        └─ 本体・頭部オーラへ同期
 ```
 
-親の技StateDefにはオーラバウンド用の記述を追加せず、技ごとの監視とバウンド定義は `the_root_monitor` 側に集約する。
+親の技StateDefにはオーラバウンド用の記述を追加せず、技ごとの監視とバウンド定義は `the_controller` 側に集約する。
 
 テストではStateDef `4001`への移動でバウンドを発動する。
 
@@ -57,7 +57,7 @@ the_root_monitor
 
 ### 発動条件
 
-- `the_root_monitor` がRootのStateDefとprivate-timeを監視
+- `the_controller` がRootのStateDefとprivate-timeを監視
 - テスト用StateDef：`4001`
 
 ### バウンド制御
