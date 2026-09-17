@@ -2,6 +2,10 @@
 
 ## StateDef 99003: 頭部Aura追従
 
+### 画面外移動許可
+
+常駐Helperの`helpertype=player`を維持したまま、`ScreenBound value=0`で画面外への移動を許可する。カメラは追従させない。
+
 ### 頭部位置追従
 
 頭部Helperの位置へ毎フレーム追従する。

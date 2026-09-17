@@ -13,6 +13,7 @@
 - ルーティング以外のHelper処理を `-2` に記述しても、機能しない。
 - 位置、アニメーション、表示などの実処理は、ルーティング先の個別StateDefで行う。
 - 非常駐Helperは常駐Helperルーティングの対象外とする。
+- 常駐Helperを画面外へ移動させる場合も`helpertype=player`を維持し、専用StateDefで`ScreenBound value=0`を適用する。`helpertype=normal`へ変更してはならない。
 
 ## Helperの機能とアニメーション
 

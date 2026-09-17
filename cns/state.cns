@@ -234,6 +234,11 @@ ctrl=0
 anim=20
 
 [state ]
+type=varset
+trigger1=(var(2)&1)!=0
+var(5)=1
+
+[state ]
 type=posadd
 trigger1=(var(2)&1)!=0
 x=12
@@ -263,6 +268,11 @@ movetype=I
 physics=N
 ctrl=0
 anim=21
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+var(5)=1
 
 [state ]
 type=posadd

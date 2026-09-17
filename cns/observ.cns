@@ -18,6 +18,21 @@ ignorehitpause=1
 
 ;; 変数更新とデバッグ表示
 
+;; AngleDraw無効化時の残留傾斜解除
+
+[state ]
+type=varset
+trigger1=!ishelper
+var(5)=0
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=!ishelper
+value=0
+scale=1,1
+ignorehitpause=1
+
 [state ]
 type=varset
 trigger1=!ishelper

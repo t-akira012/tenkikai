@@ -186,11 +186,36 @@ ignorehitpause=1
 [statedef 99001]
 anim=99001
 
+;; 画面外移動許可
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+movecamera=0,0
+ignorehitpause=1
+
 [state ]
 type=posset
 trigger1=1
 x=root,pos x
 y=root,pos y-61
+ignorehitpause=1
+
+;; 前後ダッシュ頭部位置移動
+
+[state ]
+type=posadd
+trigger1=root,stateno=110
+x=35
+y=6
+ignorehitpause=1
+
+[state ]
+type=posadd
+trigger1=root,stateno=111
+x=-35
+y=6
 ignorehitpause=1
 
 [state ]
@@ -212,22 +237,6 @@ trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
 x=0
 y=0
-ignorehitpause=1
-
-;; 前後ダッシュ頭部位置移動
-
-[state ]
-type=offset
-trigger1=root,stateno=110
-x=10
-y=6
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=root,stateno=111
-x=-10
-y=6
 ignorehitpause=1
 
 [state ]
@@ -294,7 +303,7 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-value=-30*(root,stateno=110)+30*(root,stateno=111)
+value=-30*(root,stateno=110)*(root,var(5)!=0)+30*(root,stateno=111)*(root,var(5)!=0)
 scale=1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0)),1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0))
 ignorehitpause=1
 
@@ -343,6 +352,15 @@ mul=0.1,0.4,0.4
 ignorehitpause=1
 
 [statedef 99003]
+
+;; 画面外移動許可
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+movecamera=0,0
+ignorehitpause=1
 
 [state ]
 type=posset
