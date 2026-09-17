@@ -10,3 +10,5 @@
 - [State Controller](state-controller.md)
 - [Target](target.md)
 - [TargetStateとステート奪取](target-state.md)
+- [HitOverride](hitoverride.md)
+- [GetHitVar](gethitvar.md)
