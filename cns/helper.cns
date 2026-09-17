@@ -25,6 +25,26 @@ value=99004
 ignorehitpause=1
 
 [statedef 99004]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Helper Armorダメージ取得
+
+[state ]
+type=varset
+trigger1=gethitvar(damage)>0
+trigger1=var(12)=0
+var(11)=gethitvar(damage)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=gethitvar(damage)>0
+trigger1=var(12)=0
+var(12)=gethitvar(damage)
+ignorehitpause=1
 
 [state ]
 type=assertspecial
@@ -105,26 +125,32 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(0)=1
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(0)=1.125
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(1)=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99199
 ignorehitpause=1
 
 ;; 4002 バウンド定義
@@ -133,26 +159,32 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(0)=1
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(0)=1.125
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(1)=8
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(1)=0.2
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99199
 ignorehitpause=1
 
 ;; 4003 バウンド定義
@@ -161,26 +193,42 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(0)=1
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(0)=0.3
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 var(1)=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=time=0
+trigger1=1
 fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99199
+ignorehitpause=1
+
+;; 常駐Helper最終処理
+
+[statedef 99199]
+
+[state ]
+type=selfstate
+trigger1=1
+value=5150
 ignorehitpause=1
 
 [statedef 99001]
