@@ -25,6 +25,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [設計判断記録](docs/ADR/)
 - [バグ修正](docs/issues/)
 - [公式ドキュメント未記載のユーザー調査情報](docs/researched/README.md)
+- [スクリプト作業規則](scripts/AGENTS.md)
 
 ## `docs/`の文書体系
 
