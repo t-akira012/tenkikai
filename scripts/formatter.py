@@ -20,7 +20,7 @@ OPERATOR_WITH_SPACES_PATTERN = re.compile(
 
 DEFINITION_FILES = (
     "tenkikai.def",
-    "binary/animation.air",
+    "cns/anim.air",
     "cns/command.cmd",
     "cns/constants.cns",
     "cns/common1.cns",
@@ -372,7 +372,7 @@ def update_def(lines: list[str]) -> list[str]:
                 elif key_lower == "sprite":
                     output.append("sprite=binary/sprite.sff")
                 elif key_lower == "anim":
-                    output.append("anim=binary/animation.air")
+                    output.append("anim=cns/anim.air")
                 elif key_lower == "sound":
                     output.append("sound=binary/sound.snd")
                 elif re.fullmatch(r"pal[1-6]", key_lower):
@@ -565,7 +565,7 @@ def verify_result() -> None:
         "st2=cns/helper.cns",
         "stcommon=cns/common1.cns",
         "sprite=binary/sprite.sff",
-        "anim=binary/animation.air",
+        "anim=cns/anim.air",
         "sound=binary/sound.snd",
         "pal1=binary/pal1.act",
         "pal2=binary/pal2.act",
@@ -614,7 +614,7 @@ def main() -> None:
     command_lines = transform_definition(read_lines(command_path), format_states=True)
     command_lines = remove_ascii_spaces_from_command_definitions(command_lines)
     reporter.write_lines(command_path, command_lines)
-    format_definition(ROOT / "binary/animation.air", format_states=False, reporter=reporter)
+    format_definition(ROOT / "cns/anim.air", format_states=False, reporter=reporter)
     format_definition(ROOT / "cns/state.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "cns/observ.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "cns/helper.cns", format_states=True, reporter=reporter)

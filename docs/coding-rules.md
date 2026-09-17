@@ -123,7 +123,7 @@ versiondate=03,14,2026
 | `cns/observ.cns` | `[statedef -2]` と `[statedef -3]` |
 | `cns/helper.cns` | 10000以上のStatedef |
 | `cns/common1.cns` | WinMUGENの `common1.cns` をキャラクター側で管理する共有ステート |
-| `binary/animation.air` | Action定義 |
+| `cns/anim.air` | Action定義 |
 | `binary/sprite.sff` | スプライト |
 | `binary/sound.snd` | サウンド |
 | `binary/pal1.act`～`binary/pal6.act` | パレット |
@@ -143,7 +143,7 @@ st1=cns/observ.cns
 st2=cns/helper.cns
 stcommon=cns/common1.cns
 sprite=binary/sprite.sff
-anim=binary/animation.air
+anim=cns/anim.air
 sound=binary/sound.snd
 pal1=binary/pal1.act
 ```
