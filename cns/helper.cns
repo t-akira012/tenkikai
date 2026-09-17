@@ -202,6 +202,7 @@ type=offset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
 trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+x=0
 y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
@@ -209,7 +210,24 @@ ignorehitpause=1
 type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+x=0
 y=0
+ignorehitpause=1
+
+;; 前後ダッシュ頭部位置移動
+
+[state ]
+type=offset
+trigger1=root,stateno=110
+x=10
+y=6
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=root,stateno=111
+x=-10
+y=6
 ignorehitpause=1
 
 [state ]
@@ -335,7 +353,7 @@ ignorehitpause=1
 
 [state ]
 type=turn
-trigger1=facing!=helper(99001),facing
+trigger1=facing!=root,facing
 ignorehitpause=1
 
 [state ]
@@ -366,20 +384,6 @@ trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
 x=0
 y=-61*(helper(99004),fvar(0))
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=root,stateno=110
-x=-10*(root,facing)
-y=6
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=root,stateno=111
-x=10*(root,facing)
-y=6
 ignorehitpause=1
 
 [state ]

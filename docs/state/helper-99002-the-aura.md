@@ -2,7 +2,7 @@
 
 ## StateDef 99002: オーラ常駐
 
-`the_aura`はRootの描画を基礎として、位置、向き、アニメーション、倍率、浮遊オフセット、透過、残像を毎フレーム更新する。
+`the_aura`はRootの描画を基礎として、Root・頭部・Head auraと向きを一致させ、ダッシュ方向に応じたBody auraの傾斜を表示する。
 
 ### Root位置追従
 
@@ -10,7 +10,7 @@ Rootの位置を読み取り、Auraの基準位置へ反映する。
 
 ### Root向き同期
 
-Rootの向きを読み取り、Aura自身の`facing`へ毎フレーム同期する。`facing`は左右反転の同期だけに使用し、傾斜角の計算には使用しない。
+Rootの向きを読み取り、Aura自身の`facing`へ毎フレーム同期する。向きを一致させるためにRootへ合わせて`Turn`する。
 
 ### Rootアニメーション同期
 
@@ -18,7 +18,7 @@ Rootのアニメーション番号と要素位置を読み取り、Auraの表示
 
 ### Aura倍率・傾斜同期
 
-RootのStateNoを確認し、通常時またはダッシュ時の表示倍率と傾斜を一つの`AngleDraw`で適用する。前後ダッシュの傾斜はRootの正規定義と同じ値を使い、Aura側で符号反転や追加補正を行わない。詳細な判断は[ADR 008](../ADR/008-aura-facing-synchronization.md)を参照する。
+前後ダッシュに合わせてBody auraを傾斜させる。傾斜はRootのダッシュ状態と同じ向きで適用し、Aura側の独立した符号補正は行わない。詳細な判断は[ADR 008](../ADR/008-aura-facing-synchronization.md)を参照する。
 
 ### Aura浮遊オフセット
 
