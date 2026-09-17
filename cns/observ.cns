@@ -6,6 +6,7 @@ trigger1=ishelper
 trigger1=!ishelper(99003)
 trigger1=!ishelper(99002)
 trigger1=!ishelper(99001)
+trigger1=!ishelper(99004)
 value=5150
 ignorehitpause=1
 
@@ -34,19 +35,6 @@ ignorehitpause=1
 type=varset
 trigger1=!ishelper
 fvar(0)=asin(sin(var(0)*pi/48))*2/pi
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=!ishelper
-trigger1=time=0
-var(1)=0
-ignorehitpause=1
-
-[state ]
-type=varadd
-trigger1=!ishelper
-var(1)=1
 ignorehitpause=1
 
 [state ]

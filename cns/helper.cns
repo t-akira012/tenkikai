@@ -27,9 +27,27 @@ ignorehitpause=1
 [statedef 99004]
 
 [state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+ignorehitpause=1
+
+[state ]
+type=parentvarset
+trigger1=root,time=1
+var(1)=0
+ignorehitpause=1
+
+[state ]
+type=parentvaradd
+trigger1=root,time!=1
+var(1)=1
+ignorehitpause=1
+
+[state ]
 type=varset
 trigger1=root,stateno=4001
-trigger1=root,var(1)<=1
+trigger1=root,var(1)=0
 trigger1=var(0)=0
 var(0)=1
 ignorehitpause=1
@@ -37,15 +55,15 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=4001
-trigger1=root,var(1)<=1
+trigger1=root,var(1)=0
 trigger1=var(0)=1
-fvar(0)=0.375
+fvar(0)=1.125
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=root,stateno=4001
-trigger1=root,var(1)<=1
+trigger1=root,var(1)=0
 trigger1=var(0)=1
 fvar(1)=0.05
 ignorehitpause=1
