@@ -1,0 +1,3 @@
+# palette-commonizer
+
+指定したACTパレットをPNG素材へ適用するCLIを配置する。入力PNGの左上1pxを透明色として扱い、変換結果は指定出力先へ書き出す。
