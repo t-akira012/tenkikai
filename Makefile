@@ -1,4 +1,4 @@
-.PHONY: fmt test-fmt sprite-export sprite-build pal-commonizer commit
+.PHONY: fmt test-fmt sprite-export sprite-build pal-commonizer pallet-maker commit
 
 fmt:
 	uv run python -B scripts/formatter/formatter.py
@@ -24,6 +24,11 @@ pal-commonizer:
 		--input assets/sprites/ \
 		--output dist/pallet-commonizer/ \
 		--overwrite
+
+pallet-maker:
+	uv run python -B scripts/pallet-maker/pallet_maker.py \
+		--input assets/sprites/ \
+		--output binary/pal1.act
 
 commit: # sync to git
 	git pull origin main

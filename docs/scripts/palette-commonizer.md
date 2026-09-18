@@ -19,6 +19,8 @@ GIFの分割は`animation-gif-spritter`、SFFのJSON変換と生成は`sprite-ed
 
 入力は`assets/sprites/*.png`とし、共通パレットには`binary/pal1.act`を使用する。変換結果は`dist/pallet-commonizer/`へ出力し、入力側のファイル名と順序を維持する。`assets/sprites/`は変更しない。
 
+実行前に原色素材を確定し、`make pallet-maker`で`binary/pal1.act`を生成する。ACTに存在しない色は共通化時に復元できず最近似色へ変換されるため、古いACTを先に使ってはならない。共通化結果は常に`dist/pallet-commonizer/`で確認し、原色素材とは分離する。
+
 ```text
 binary/pal1.act
 assets/sprites/*.png

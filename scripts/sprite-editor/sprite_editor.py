@@ -13,6 +13,7 @@ from PIL import Image
 HEADER_SIZE = 512
 SUBHEADER_SIZE = 32
 SIGNATURE = b"ElecbyteSpr\x00"
+DEFAULT_PALETTE = Path("docs/scripts/pallet.act")
 
 
 def read_sff(path):
@@ -59,6 +60,13 @@ def read_pcx_palette(data):
     return palette
 
 
+def read_act(path):
+    data = path.read_bytes()
+    if len(data) != 768:
+        raise ValueError("ACT palette must contain exactly 768 bytes")
+    return [tuple(data[offset:offset + 3]) for offset in range(0, 768, 3)]
+
+
 def write_png(record, output, palette):
     image = Image.open(io.BytesIO(record["pcx"]))
     image.load()
@@ -78,6 +86,7 @@ def write_png(record, output, palette):
 
 def export_sff(sff_path, json_path, image_dir):
     header, records = read_sff(sff_path)
+    fallback_palette = read_act(DEFAULT_PALETTE)
     image_dir.mkdir(parents=True, exist_ok=True)
     sprites = []
     previous_palette = None
@@ -85,8 +94,9 @@ def export_sff(sff_path, json_path, image_dir):
         filename = "{:04d}_{:04d}.png".format(record["group"], record["index"])
         if record["palette_shared"]:
             if previous_palette is None:
-                raise ValueError("shared palette has no preceding palette")
-            palette = previous_palette
+                palette = fallback_palette
+            else:
+                palette = previous_palette
         else:
             palette = read_pcx_palette(record["pcx"])
             previous_palette = palette
@@ -129,14 +139,15 @@ def read_png_palette(path):
         if image.mode != "P":
             return None
         values = list(image.getpalette() or [])
-    if len(values) < 768:
-        return None
+    while len(values) < 768:
+        values.append(0)
     return [tuple(values[offset:offset + 3]) for offset in range(0, 768, 3)]
 
 
 def encode_pcx(path, palette):
     image = Image.open(path).convert("RGBA")
     alpha = image.getchannel("A")
+    transparent = image.getpixel((0, 0))[:3]
     pixels = image.load()
     indexes = []
     cache = {}
@@ -144,7 +155,7 @@ def encode_pcx(path, palette):
         for x in range(image.width):
             pixel = pixels[x, y]
             rgb = pixel[:3]
-            if pixel[3] == 0:
+            if pixel[3] == 0 or pixel[:3] == transparent:
                 index = 0
             else:
                 index = cache.get(rgb)
@@ -172,13 +183,20 @@ def import_sff(json_path, image_root, output):
     if not isinstance(sprites, list):
         raise ValueError("sprites must be a list")
     output_data = bytearray(header)
+    shared_palette = read_act(DEFAULT_PALETTE)
     offsets = []
     for sprite in sprites:
-        image_path = image_root / Path(sprite["image"]).name
+        image_path = image_root / Path(sprite["image"])
+        if not image_path.is_file():
+            image_path = image_root.parent / Path(sprite["image"])
         if not image_path.is_file():
             raise FileNotFoundError(str(image_path))
+        shared_group = int(sprite["group"]) < 10000
+        shared = shared_group and len(offsets) > 0
         image_palette = read_png_palette(image_path)
-        if image_palette is not None:
+        if shared_group:
+            palette = shared_palette
+        elif image_palette is not None:
             palette = image_palette
         else:
             palette_hex = sprite.get("palette_hex")
@@ -194,8 +212,7 @@ def import_sff(json_path, image_root, output):
         output_data.extend(pcx)
         struct.pack_into("<I", output_data, offset + 4, len(pcx))
         struct.pack_into("<hhHH", output_data, offset + 8, int(axis[0]), int(axis[1]), int(sprite["group"]), int(sprite["index"]))
-        shared = 1 if sprite.get("palette_shared", False) else 0
-        struct.pack_into("<H", output_data, offset + 18, shared)
+        struct.pack_into("<H", output_data, offset + 18, 1 if shared else 0)
     for number, offset in enumerate(offsets):
         next_offset = offsets[number + 1] if number + 1 < len(offsets) else 0
         struct.pack_into("<I", output_data, offset, next_offset)
