@@ -1,10 +1,18 @@
-.PHONY: fmt test-fmt sprite-export sprite-build pal-commonizer pallet-maker commit
+.PHONY: fmt test-fmt makedocs run sprite-export sprite-build pal-commonizer pallet-maker commit
 
 fmt:
 	uv run python -B scripts/formatter/formatter.py
 
 test-fmt:
 	uv run python -B -m unittest discover -s scripts -p 'test_*.py'
+
+makedocs:
+	uv run python -B scripts/docs-index/docs_index.py
+
+run:
+	$(MAKE) fmt
+	$(MAKE) test-fmt
+	$(MAKE) makedocs
 
 sprite-export:
 	uv run python -B scripts/sprite-editor/sprite_editor.py sff-to-json \

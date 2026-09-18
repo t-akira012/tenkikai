@@ -1,5 +1,9 @@
 # 調査情報文書の規約
 
+## 文書群の責務
+
+`docs/researched/`は、公式ドキュメントに記載されていない、ユーザーが調査したWinMUGENの仕様を記録する。
+
 ## 公式文書との重複
 
 このディレクトリには、公式ドキュメントに記載されていないユーザー調査情報だけを記載する。
@@ -15,3 +19,7 @@
 参照するローカルリポジトリは次のとおりである。
 
 `~/src/github.com/t-akira012/mugen-docs-coding-agents`
+
+## ユーザー調査の原典
+
+- [MUGEN CNS WIKI CHAOS@予定 - atwiki（アットウィキ）](https://w.atwiki.jp/mugencns/)

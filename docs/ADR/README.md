@@ -1,0 +1,18 @@
+# ADR 文書一覧
+
+- [ADR 001: KFM由来ステートの撤去](001-remove-kfm-states.md)
+- [ADR 002: private-gametimeの導入](002-private-gametime.md)
+- [ADR 003: ラウンド持ち越し変数の範囲](003-variable-persistence.md)
+- [ADR 004: 空中歩行ステートの導入](004-air-walk-states.md)
+- [ADR 005: 位置加算による移動とデフォルト速度の排除](005-position-based-movement.md)
+- [ADR 006: the_controllerの挙動ルーティング](006-controller-routing.md)
+- [ADR 007: Helper StateDef文書の分離](007-helper-state-document-structure.md)
+- [ADR 008: Auraの向きと傾斜の同期](008-aura-facing-synchronization.md)
+- [ADR 009: 常駐描画Helperの画面外移動](009-resident-helper-screenbound.md)
+- [ADR 010: AngleDrawの無効化時に残留傾斜を解除する](010-angledraw-reset.md)
+- [ADR 011: アニメーション定義をcnsへ移動する](011-move-animation-definition.md)
+- [ADR 012: 常駐Helperの自動最大ライフ維持](012-resident-helper-auto-life.md)
+- [ADR 013: scriptsの機能別ディレクトリ分離](013-scripts-directory-layout.md)
+- [ADR 014: KFM由来パレットの撤去](014-remove-kfm-palettes.md)
+- [ADR 015: the_controller 99004の個別挙動ルーター](015-the-controller-99004-routing.md)
+- [ADR 016: StateDef 5150の本体専用化](016-5150-root-only.md)
