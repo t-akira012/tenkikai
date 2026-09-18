@@ -568,11 +568,6 @@ def verify_result() -> None:
         "anim=cns/anim.air",
         "sound=binary/sound.snd",
         "pal1=binary/pal1.act",
-        "pal2=binary/pal2.act",
-        "pal3=binary/pal3.act",
-        "pal4=binary/pal4.act",
-        "pal5=binary/pal5.act",
-        "pal6=binary/pal6.act",
     )
     for line in required:
         if def_data.splitlines().count(line) != 1:

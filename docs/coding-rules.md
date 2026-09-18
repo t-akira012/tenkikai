@@ -21,7 +21,7 @@ Gitによるチェックアウトやコミットで改行コードが変化し�
 *.act binary
 ```
 
-`binary/sprite.sff`、`binary/sound.snd`、`binary/pal1.act` から `binary/pal6.act` はバイナリファイルとして扱い、改行コード変換の対象にしない。
+`binary/sprite.sff`、`binary/sound.snd`、`binary/pal1.act` はバイナリファイルとして扱い、改行コード変換の対象にしない。
 
 ## コメント
 
@@ -126,7 +126,7 @@ versiondate=03,14,2026
 | `cns/anim.air` | Action定義 |
 | `binary/sprite.sff` | スプライト |
 | `binary/sound.snd` | サウンド |
-| `binary/pal1.act`～`binary/pal6.act` | パレット |
+| `binary/pal1.act` | パレット |
 
 現在の `[statedef 99000]` と `[statedef 99001]` は、`cns/helper.cns` に配置する。
 
@@ -148,7 +148,6 @@ sound=binary/sound.snd
 pal1=binary/pal1.act
 ```
 
-`pal2` から `pal6` は、それぞれ同じ番号の `binary/palN.act` を参照する。
 
 ## 変更後の確認
 

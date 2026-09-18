@@ -6,7 +6,7 @@
 
 ## 背景
 
-`scripts/`直下にフォーマッター、フォーマッター検査、Sprite Editorなど異なる責務のファイルを置くと、作業規則と依存関係の範囲が不明確になる。Sprite EditorはSFFと画像を扱うため、定義ファイルを整形するフォーマッターとは独立した作業単位として管理する必要がある。
+`scripts/`直下にフォーマッター、Sprite Editor、アニメーションGIF分割など異なる責務のファイルを置くと、作業規則と依存関係の範囲が不明確になる。SFF編集とアニメーションGIF分割は画像を扱うが、入出力形式と処理目的が異なるため、独立した作業単位として管理する必要がある。
 
 ## 決定
 
@@ -18,11 +18,13 @@ scripts/
 │   ├── AGENTS.md
 │   ├── formatter.py
 │   └── test_*.py
-└── sprite-editor/
+├── sprite-editor/
+└── animation-gif-spritter/
 ```
 
 既存の`scripts/AGENTS.md`は`scripts/formatter/AGENTS.md`へ移動し、フォーマッターとその静的検査に適用する。Sprite Editorの実装は`scripts/sprite-editor/`へ追加し、フォーマッターの規約やテストと混在させない。
+アニメーションGIF分割の実装は`scripts/animation-gif-spritter/`へ追加し、SFF編集の実装やフォーマッターの規約と混在させない。GIFのフレーム遅延はこの素材分割処理では管理せず、`animation.air`作成時に定義する。
 
 ## 結果
 
-フォーマッターの実行・テスト対象とSprite Editorの実装範囲を独立して管理できる。ルートのMakefileと`docs/scripts/formatter.md`は、新しいパスを正規の実行先として参照する。
+フォーマッター、Sprite Editor、アニメーションGIF分割の実装範囲と依存関係を独立して管理できる。ルートのMakefileと各`docs/scripts/`文書は、それぞれのパスを正規の実行先として参照する。
