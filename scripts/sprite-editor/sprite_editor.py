@@ -28,6 +28,7 @@ def read_sff(path):
         visited.add(offset)
         next_offset, length = struct.unpack_from("<II", data, offset)
         x_axis, y_axis, group, index = struct.unpack_from("<hhHH", data, offset + 8)
+        palette_shared = struct.unpack_from("<H", data, offset + 18)[0] != 0
         start = offset + SUBHEADER_SIZE
         end = start + length
         if end > len(data):
@@ -39,6 +40,7 @@ def read_sff(path):
             "y": y_axis,
             "group": group,
             "index": index,
+            "palette_shared": palette_shared,
             "pcx": data[start:end],
         })
         if next_offset == len(data):
@@ -47,24 +49,55 @@ def read_sff(path):
     return data[:HEADER_SIZE], records
 
 
-def write_png(record, output):
+def read_pcx_palette(data):
+    if len(data) < 769 or data[-769] != 12:
+        raise ValueError("unshared PCX does not contain a palette")
+    palette_data = data[-768:]
+    palette = []
+    for offset in range(0, len(palette_data), 3):
+        palette.append(tuple(palette_data[offset:offset + 3]))
+    return palette
+
+
+def write_png(record, output, palette):
     image = Image.open(io.BytesIO(record["pcx"]))
     image.load()
-    image.save(output, format="PNG")
+    indexed = image if image.mode == "P" else image.convert("L")
+    pixels = indexed.load()
+    rgba = []
+    for y in range(indexed.height):
+        for x in range(indexed.width):
+            index = pixels[x, y]
+            color = palette[index]
+            alpha = 0 if index == 0 else 255
+            rgba.append((color[0], color[1], color[2], alpha))
+    output_image = Image.new("RGBA", indexed.size)
+    output_image.putdata(rgba)
+    output_image.save(output, format="PNG")
 
 
 def export_sff(sff_path, json_path, image_dir):
     header, records = read_sff(sff_path)
     image_dir.mkdir(parents=True, exist_ok=True)
     sprites = []
+    previous_palette = None
     for number, record in enumerate(records):
         filename = "{:04d}_{:04d}.png".format(record["group"], record["index"])
-        write_png(record, image_dir / filename)
+        if record["palette_shared"]:
+            if previous_palette is None:
+                raise ValueError("shared palette has no preceding palette")
+            palette = previous_palette
+        else:
+            palette = read_pcx_palette(record["pcx"])
+            previous_palette = palette
+        write_png(record, image_dir / filename, palette)
         sprites.append({
             "group": record["group"],
             "index": record["index"],
             "axis": [record["x"], record["y"]],
             "image": filename,
+            "palette_shared": record["palette_shared"],
+            "palette_hex": bytes(value for color in palette for value in color).hex(),
         })
     document = {
         "format": "winmugen-sff-v1",
@@ -76,23 +109,53 @@ def export_sff(sff_path, json_path, image_dir):
     print("exported: {} sprites".format(len(records)))
 
 
-def encode_pcx(path):
+def nearest_index(rgb, palette):
+    best_index = 1
+    best_distance = None
+    for index in range(1, len(palette)):
+        color = palette[index]
+        red = rgb[0] - color[0]
+        green = rgb[1] - color[1]
+        blue = rgb[2] - color[2]
+        distance = red * red + green * green + blue * blue
+        if best_distance is None or distance < best_distance:
+            best_distance = distance
+            best_index = index
+    return best_index
+
+
+def read_png_palette(path):
+    with Image.open(path) as image:
+        if image.mode != "P":
+            return None
+        values = list(image.getpalette() or [])
+    if len(values) < 768:
+        return None
+    return [tuple(values[offset:offset + 3]) for offset in range(0, 768, 3)]
+
+
+def encode_pcx(path, palette):
     image = Image.open(path).convert("RGBA")
     alpha = image.getchannel("A")
-    rgb = Image.new("RGB", image.size, (0, 0, 0))
-    rgb.paste(image, mask=alpha)
-    indexed = rgb.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
-    pixels = indexed.load()
-    alpha_pixels = alpha.load()
+    pixels = image.load()
+    indexes = []
+    cache = {}
     for y in range(image.height):
         for x in range(image.width):
-            if alpha_pixels[x, y] == 0:
-                pixels[x, y] = 0
-    palette = list(indexed.getpalette() or [])
-    while len(palette) < 768:
-        palette.append(0)
-    palette[0:3] = [0, 0, 0]
-    indexed.putpalette(palette)
+            pixel = pixels[x, y]
+            rgb = pixel[:3]
+            if pixel[3] == 0:
+                index = 0
+            else:
+                index = cache.get(rgb)
+                if index is None:
+                    index = nearest_index(rgb, palette)
+                    cache[rgb] = index
+            indexes.append(index)
+    indexed = Image.new("P", image.size)
+    indexed.putdata(indexes)
+    flat_palette = [value for color in palette for value in color]
+    indexed.putpalette(flat_palette)
     result = io.BytesIO()
     indexed.save(result, format="PCX")
     return result.getvalue()
@@ -114,7 +177,16 @@ def import_sff(json_path, image_root, output):
         image_path = image_root / Path(sprite["image"]).name
         if not image_path.is_file():
             raise FileNotFoundError(str(image_path))
-        pcx = encode_pcx(image_path)
+        image_palette = read_png_palette(image_path)
+        if image_palette is not None:
+            palette = image_palette
+        else:
+            palette_hex = sprite.get("palette_hex")
+            if not palette_hex or len(palette_hex) != 1536:
+                raise ValueError("sprite palette_hex must contain 768 bytes")
+            palette_data = bytes.fromhex(palette_hex)
+            palette = [tuple(palette_data[offset:offset + 3]) for offset in range(0, 768, 3)]
+        pcx = encode_pcx(image_path, palette)
         axis = sprite.get("axis", [0, 0])
         offset = len(output_data)
         offsets.append(offset)
@@ -122,6 +194,8 @@ def import_sff(json_path, image_root, output):
         output_data.extend(pcx)
         struct.pack_into("<I", output_data, offset + 4, len(pcx))
         struct.pack_into("<hhHH", output_data, offset + 8, int(axis[0]), int(axis[1]), int(sprite["group"]), int(sprite["index"]))
+        shared = 1 if sprite.get("palette_shared", False) else 0
+        struct.pack_into("<H", output_data, offset + 18, shared)
     for number, offset in enumerate(offsets):
         next_offset = offsets[number + 1] if number + 1 < len(offsets) else 0
         struct.pack_into("<I", output_data, offset, next_offset)
