@@ -1,16 +1,14 @@
-# scripts作業規則
+# scripts共通作業規則
 
-## テストの責務
+## Python実行環境
 
-`scripts/test_*.py`の自動検査は、構文フォーマッターの動作と、それに直接関係する静的な配置・存在・参照の検査だけを対象とする。
+scripts配下のPythonツールと検査は、uvで実行する。pip、`pip install`、システムPythonへの直接インストールは使用してはならない。
 
-構文フォーマッターの範囲を越えるゲーム挙動のテストを追加してはならない。
+依存関係を追加する場合は、`pyproject.toml`またはuvの管理対象へ明示し、`uv run`から再現可能な状態にする。実行例は次の形式とする。
 
-次の事項は自動検査へ固定せず、CNS、設計文書、ステート文書、およびWinMUGEN実機確認で扱う。
+```console
+uv run python -B scripts/formatter/formatter.py
+uv run python -B scripts/sprite-editor/sprite_editor.py --help
+```
 
-- ダメージ量、ライフ減少、ライフ回復、無敵時間
-- 当たり判定の形状、押し返し、すり抜け、座標追従
-- 技、移動、オートメーションなどのゲーム内挙動
-- ゲームバランス、演出上の印象、実機での体感
-
-新規テストファイルの追加や、既存テストへのゲーム挙動検査の追記は、ユーザーが明示的に許可した場合に限る。構文・配置検査を追加する場合も、実装方式ではなく、固定された構文規約を検査対象とする。
+フォーマッター固有の規則とテスト責務は[formatter/AGENTS.md](formatter/AGENTS.md)に従う。Sprite Editor固有の規則は[sprite-editor/](sprite-editor/)へ追加する。

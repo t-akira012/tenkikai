@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-import formatter
+from formatter import formatter
 
 
 class FormatterTest(unittest.TestCase):

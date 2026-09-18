@@ -11,7 +11,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 作業時は、次の文書に従ってください。
 
 - [コーディング規約](docs/coding-rules.md)
-- [フォーマッター](docs/formatter.md)
+- [フォーマッター](docs/scripts/formatter.md)
 - [キャラクターデザイン](docs/DESIGN.md)
 - [設計文書の記述規則](docs/design/AGENTS.md)
 - [ステートドキュメント](docs/state/README.md)
@@ -25,7 +25,8 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [設計判断記録](docs/ADR/)
 - [バグ修正](docs/issues/)
 - [公式ドキュメント未記載のユーザー調査情報](docs/researched/README.md)
-- [スクリプト作業規則](scripts/AGENTS.md)
+- [スクリプト作業規則](scripts/formatter/AGENTS.md)
+- [スクリプト共通作業規則](scripts/AGENTS.md)
 
 ## `docs/`の文書体系
 

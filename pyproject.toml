@@ -1,0 +1,7 @@
+[project]
+name = "tenkikai-tools"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = [
+  "pillow>=10,<13",
+]

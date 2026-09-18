@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 DIVIDER = ";" + "-" * 49
 
 STATEDEF_PATTERN = re.compile(r"^\s*\[statedef\s+(-?\d+)\s*\]\s*$", re.IGNORECASE)

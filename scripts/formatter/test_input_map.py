@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 AUTOMATION_MASK = -2147483648
 INPUTS = (
     ("holdfwd", "/$F", 1),

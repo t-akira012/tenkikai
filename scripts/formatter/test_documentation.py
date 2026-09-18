@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 STATEDEF_PATTERN = re.compile(r"^\[statedef\s+(-?\d+)\]$", re.MULTILINE)
 STATE_HEADING_PATTERN = re.compile(r"^#{2,3} StateDef (-?\d+): .+$", re.MULTILINE)
 STATE_H3_PATTERN = re.compile(r"^### StateDef -?\d+: .+$")

@@ -1,7 +1,7 @@
 .PHONY: fmt test-fmt commit
 
 fmt:
-	uv run python -B scripts/formatter.py
+	uv run python -B scripts/formatter/formatter.py
 
 test-fmt:
 	uv run python -B -m unittest discover -s scripts -p 'test_*.py'

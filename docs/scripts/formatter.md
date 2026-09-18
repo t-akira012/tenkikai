@@ -2,7 +2,7 @@
 
 ## 概要
 
-`scripts/formatter.py` は、TENKIKAIの定義ファイルへ[コーディング規約](coding-rules.md)を適用するフォーマッターである。
+`scripts/formatter/formatter.py` は、TENKIKAIの定義ファイルへ[コーディング規約](../coding-rules.md)を適用するフォーマッターである。
 
 Pythonの標準ライブラリだけを使用する。実行環境と依存関係の管理にはuvを使用し、pipは使用しない。
 
@@ -17,7 +17,7 @@ make fmt
 Makefileから次のコマンドが実行される。
 
 ```console
-uv run python -B scripts/formatter.py
+uv run python -B scripts/formatter/formatter.py
 ```
 
 処理中は対象ファイルと、変更の有無、検証結果、変更ファイル数を端末へ表示する。
