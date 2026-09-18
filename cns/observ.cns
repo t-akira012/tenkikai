@@ -10,6 +10,14 @@ trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1
 
+;; 常駐Helper自動最大ライフ
+
+[state ]
+type=lifeset
+trigger1=ishelper
+value=const(data.life)
+ignorehitpause=1
+
 ;; Helper Armorライフ管理
 
 [state ]
