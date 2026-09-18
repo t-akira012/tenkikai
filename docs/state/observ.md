@@ -12,7 +12,7 @@
 
 #### Helper Armorライフ管理
 
-ID `99004`の`the_controller`を毎tick Rootの位置と向きへ同期し、Action `99004`を維持する。PlayerPushを有効にして相手を押し返し、`HitOverride`を全StateTypeの打撃・飛び道具・投げ属性へ設定する。無敵期間用`var(12)`が正の場合は毎tick`1`減算し、前フレームに保存したダメージ保持用`var(11)`は本体の読取り後に初期化する。
+ID `99004`の`the_controller`が保持したダメージをRootのライフへ反映する。Helper Armorの追従、攻撃受付、保持値更新は、`the_controller`の個別挙動StateDefで処理する。
 
 本体は`the_controller`の`var(11)`が正の場合、次のフレームに同じ値を負の`LifeAdd`として反映する。本体ライフが最大ライフの`1/4`以下ではダメージを`1/2`に減衰し、最低`1`を適用する。保留ダメージがなく、本体が生存中かつライフが最大値未満の場合は毎tick`1`回復する。
 
@@ -36,11 +36,11 @@ ID `99004`の`the_controller`を毎tick Rootの位置と向きへ同期し、Act
 
 #### Controller・頭部ヘルパー生成
 
-本体にController Helper ID `99004`が存在しない場合、プレイヤー型ヘルパー`the_controller`を生成する。本体に頭部ヘルパーID `99001` が存在しない場合、Action `99001` を使うプレイヤー型ヘルパー `the_head` を生成する。どちらにもPauseとSuperPauseの間に非常に長い移動可能時間を与え、停止しにくくしている。
+本体にController Helper ID `99004`が存在しない場合、StateDef `99004000`を初期値とするプレイヤー型ヘルパー`the_controller`を生成する。本体に頭部ヘルパーID `99001`が存在しない場合、StateDef `99001000`とAction `99001`を使うプレイヤー型ヘルパー`the_head`を生成する。どちらにもPauseとSuperPauseの間に非常に長い移動可能時間を与え、停止しにくくしている。
 
 #### オーラヘルパー生成
 
-本体にオーラHelper ID `99002` が存在しない場合、専用の常駐ステートへ移行するHelperを1体だけ生成する。
+本体にオーラHelper ID `99002`が存在しない場合、StateDef `99002000`を初期値とするHelperを1体だけ生成する。
 
 #### 本体残像
 

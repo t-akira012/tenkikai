@@ -18,57 +18,6 @@ trigger1=ishelper
 value=const(data.life)
 ignorehitpause=1
 
-;; Helper Armorライフ管理
-
-[state ]
-type=posset
-trigger1=ishelper(99004)
-x=root,pos x
-y=root,pos y
-ignorehitpause=1
-
-[state ]
-type=turn
-trigger1=ishelper(99004)
-trigger1=facing!=root,facing
-ignorehitpause=1
-
-[state ]
-type=changeanim
-trigger1=ishelper(99004)
-trigger1=anim!=99004
-value=99004
-ignorehitpause=1
-
-[state ]
-type=playerpush
-trigger1=ishelper(99004)
-value=1
-ignorehitpause=1
-
-[state ]
-type=hitoverride
-trigger1=ishelper(99004)
-attr=sca,aa,ap,at
-stateno=99004
-time=1
-slot=0
-ignorehitpause=1
-
-[state ]
-type=varadd
-trigger1=ishelper(99004)
-trigger1=var(12)>0
-var(12)=-1
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=ishelper(99004)
-trigger1=var(11)>0
-var(11)=0
-ignorehitpause=1
-
 [state ]
 type=lifeadd
 trigger1=!ishelper
@@ -300,7 +249,7 @@ trigger1=!ishelper
 trigger1=!numhelper(99004)
 name="the_controller"
 id=99004
-stateno=99004
+stateno=99004000
 anim=99004
 helpertype=player
 ignorehitpause=1
@@ -313,6 +262,7 @@ trigger1=!ishelper
 trigger1=!numhelper(99001)
 name="the_head"
 id=99001
+stateno=99001000
 anim=99001
 helpertype=player
 ignorehitpause=1
@@ -326,7 +276,7 @@ trigger1=!numhelper(99003)
 trigger1=numhelper(99001)
 name="the_head_aura"
 id=99003
-stateno=99003
+stateno=99003000
 anim=99001
 helpertype=player
 ignorehitpause=1
@@ -341,7 +291,7 @@ trigger1=!ishelper
 trigger1=!numhelper(99002)
 name="the_aura"
 id=99002
-stateno=99002
+stateno=99002000
 anim=0
 helpertype=player
 ignorehitpause=1

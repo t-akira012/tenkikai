@@ -3,32 +3,87 @@
 [state ]
 type=selfstate
 trigger1=ishelper(99001)
-value=99001
+value=99001000
 ignorehitpause=1
 
 [state ]
 type=selfstate
 trigger1=ishelper(99002)
-value=99002
+value=99002000
 ignorehitpause=1
 
 [state ]
 type=selfstate
 trigger1=ishelper(99003)
-value=99003
+value=99003000
 ignorehitpause=1
 
 [state ]
 type=selfstate
 trigger1=ishelper(99004)
-value=99004
+value=99004000
 ignorehitpause=1
 
-[statedef 99004]
+[statedef 99004000]
 type=s
 movetype=i
 physics=n
 anim=99004
+
+[state ]
+type=changestate
+trigger1=1
+value=99004001
+ignorehitpause=1
+
+[statedef 99004001]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Helper Armor追従・攻撃受付
+
+[state ]
+type=posset
+trigger1=1
+x=root,pos x
+y=root,pos y
+ignorehitpause=1
+
+[state ]
+type=turn
+trigger1=facing!=root,facing
+ignorehitpause=1
+
+[state ]
+type=playerpush
+trigger1=1
+value=1
+ignorehitpause=1
+
+[state ]
+type=hitoverride
+trigger1=1
+attr=sca,aa,ap,at
+stateno=99004000
+time=1
+slot=0
+ignorehitpause=1
+
+;; Helper Armor保持値更新
+
+[state ]
+type=varset
+trigger1=var(11)>0
+var(11)=0
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=var(12)>0
+var(12)=-1
+ignorehitpause=1
 
 ;; Helper Armorダメージ取得
 
@@ -64,6 +119,18 @@ trigger1=root,time!=1
 var(1)=1
 ignorehitpause=1
 
+[state ]
+type=changestate
+trigger1=1
+value=99004002
+ignorehitpause=1
+
+[statedef 99004002]
+type=s
+movetype=i
+physics=n
+anim=99004
+
 ;; オーラバウンド監視
 
 [state ]
@@ -71,7 +138,7 @@ type=changestate
 trigger1=(root,stateno=4001)||(root,stateno=4002)||(root,stateno=4003)
 trigger1=root,var(1)=0
 trigger1=var(0)=0
-value=99101+(root,stateno=4002)+(root,stateno=4003)*2
+value=99004011+(root,stateno=4002)+(root,stateno=4003)*2
 ignorehitpause=1
 
 ;; オーラバウンド共通消費
@@ -119,9 +186,15 @@ trigger1=fvar(0)<=0
 var(0)=0
 ignorehitpause=1
 
+[state ]
+type=changestate
+trigger1=1
+value=99004999
+ignorehitpause=1
+
 ;; 4001 バウンド定義
 
-[statedef 99101]
+[statedef 99004011]
 
 [state ]
 type=varset
@@ -150,12 +223,12 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99199
+value=99004999
 ignorehitpause=1
 
 ;; 4002 バウンド定義
 
-[statedef 99102]
+[statedef 99004012]
 
 [state ]
 type=varset
@@ -184,12 +257,12 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99199
+value=99004999
 ignorehitpause=1
 
 ;; 4003 バウンド定義
 
-[statedef 99103]
+[statedef 99004013]
 
 [state ]
 type=varset
@@ -218,12 +291,12 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99199
+value=99004999
 ignorehitpause=1
 
 ;; 常駐Helper最終処理
 
-[statedef 99199]
+[statedef 99004999]
 
 [state ]
 type=selfstate
@@ -231,7 +304,7 @@ trigger1=1
 value=5150
 ignorehitpause=1
 
-[statedef 99001]
+[statedef 99001000]
 anim=99001
 
 ;; 画面外移動許可
@@ -316,10 +389,20 @@ palmul=0.6,0.6,0.8
 ignorehitpause=1
 
 [state ]
-type=null
+type=changestate
 trigger1=1
+value=99001999
+ignorehitpause=1
 
-[statedef 99002]
+[statedef 99001999]
+
+[state ]
+type=selfstate
+trigger1=1
+value=5150
+ignorehitpause=1
+
+[statedef 99002000]
 
 ;; Root位置追従
 
@@ -399,7 +482,21 @@ palmul=0.2,0.2,0.8
 mul=0.1,0.4,0.4
 ignorehitpause=1
 
-[statedef 99003]
+[state ]
+type=changestate
+trigger1=1
+value=99002999
+ignorehitpause=1
+
+[statedef 99002999]
+
+[state ]
+type=selfstate
+trigger1=1
+value=5150
+ignorehitpause=1
+
+[statedef 99003000]
 
 ;; 画面外移動許可
 
@@ -473,4 +570,18 @@ palpostbright=0,0,0
 paladd=0,0,0
 palmul=0.2,0.2,0.8
 mul=0.1,0.4,0.4
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99003999
+ignorehitpause=1
+
+[statedef 99003999]
+
+[state ]
+type=selfstate
+trigger1=1
+value=5150
 ignorehitpause=1

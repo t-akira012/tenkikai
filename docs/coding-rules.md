@@ -128,7 +128,7 @@ versiondate=03,14,2026
 | `binary/sound.snd` | サウンド |
 | `binary/pal1.act` | パレット |
 
-現在の `[statedef 99000]` と `[statedef 99001]` は、`cns/helper.cns` に配置する。
+現在の共通ルーター`[statedef 99000]`と、常駐Helperごとの専用StateDefは、`cns/helper.cns`に配置する。
 
 `cns/common1.cns` と他のステートファイルに同じStateDef番号が存在する場合は、他のステートファイルを優先する。重複するStateDefブロックは、`cns/common1.cns` 側から削除する。
 

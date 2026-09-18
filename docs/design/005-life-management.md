@@ -47,7 +47,7 @@ AIRファイル内の全Actionから当たり判定を除去し、`the_controlle
 
 ## `the_controller`の複数処理
 
-`the_controller`は、Helper Armor式ライフ管理とオーラバウンドを同居させる常駐Helperである。複数の挙動を単一のStateDefへ混在させず、[ADR 006](../ADR/006-controller-routing.md)で定めた共通IDルーティングと挙動別StateDef遷移を使用する。
+`the_controller`は、Helper Armor式ライフ管理とオーラバウンドを同居させる常駐Helperである。複数の挙動を単一の処理へ混在させず、それぞれの責務を独立して扱う。
 
 `the_controller`のIDは`99004`とする。ライフ管理を別Helperへ分離せず、オーラバウンドを管理する同じHelperへ統合する。
 
@@ -67,9 +67,11 @@ the_controller
        └─ バウンドの共通消費と進行
 ```
 
-常時性が必要な追従、攻撃受付、ダメージ転送、無敵期間管理は、オーラバウンドのStateDef遷移によって中断されない場所へ置く。オーラバウンドの個別処理は、規定どおり次フレームのStateDef `-2`から共通IDルーティングを経由して復帰する。
+常時性が必要な追従、攻撃受付、ダメージ転送、無敵期間管理は、オーラバウンドの演出処理によって中断されないようにする。
 
 ## 実装方式
+
+StateDef `-2`には、`the_controller`を個別挙動StateDefへ振り分けるルーティングだけを記述する。Helper Armorの命中処理、ダメージ保持、無敵期間、ライフ転送などの実挙動は、`the_controller`の個別挙動StateDefで管理し、StateDef `-2`へ直接実装しない。
 
 Helper Armorには、`the_controller`による`HitOverride`を使用する。命中時のダメージ値は`GetHitVar(damage)`から取得し、Helper自身の通常変数へ保存する。本体は次のフレームにHelperリダイレクトで値を取得し、`LifeAdd`へ負の値として渡す。
 

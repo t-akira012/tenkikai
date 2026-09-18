@@ -15,6 +15,10 @@
 - 非常駐Helperは常駐Helperルーティングの対象外とする。
 - 常駐Helperを画面外へ移動させる場合も`helpertype=player`を維持し、専用StateDefで`ScreenBound value=0`を適用する。`helpertype=normal`へ変更してはならない。
 
+## StateDef -2でのHelper挙動制御
+
+StateDef `-2`へHelperの個別挙動を直接記述してはならない。`-2`でのHelper処理は、常駐Helperを共通ルーティングへ送る目的に限定する。ただし、ユーザーが個別の設計として明示的に承認した場合は例外とする。承認がない状態で、位置、表示、攻撃受付、ライフ管理、演出などのHelper挙動を`-2`へ追加してはならない。
+
 ## Helperの機能とアニメーション
 
 Helperの役割は固定しない。Helperは、変数管理、時間・状態の監視、アニメーション描画、エフェクト表示のうち、任意の複数を担当してよい。
@@ -30,6 +34,12 @@ Helperの役割は固定しない。Helperは、変数管理、時間・状態�
 常駐Helperは`StateDef -2`の共通ルーティングを毎フレーム通るため、Helper自身の`time`を時間基準として使用してはならない。ルーティング後のStateDefではHelperの`time=0`が安定した発動条件にならず、個別処理や最終処理の起点として機能しない。
 
 常駐Helperで時間を監視する場合は、Rootの`root,time`だけを使用する。RootのStateDef経過時間を常駐Helperから参照する必要がある場合も、Helper自身の`time`へ置き換えてはならない。
+
+## 常駐HelperのStateDef予約範囲
+
+常駐Helperの個別挙動StateDefは、Helper IDごとに専用の1000番台範囲へ配置する。Helper IDの下4桁を基準に、`99001`なら`99001000`〜`99001999`、`99002`なら`99002000`〜`99002999`のように、IDに対応する範囲を予約する。個別挙動ルーター、個別挙動、最終処理は、すべて生成元Helperの予約範囲内へ置く。
+
+汎用StateDef番号や他の常駐Helperの予約範囲を、個別挙動StateDefへ使用してはならない。これにより、同じHelper IDの派生挙動を追加しても、別Helperや通常StateDefとの番号衝突を防ぐ。
 
 ## 常駐Helperのステート遷移
 

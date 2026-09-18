@@ -2,48 +2,68 @@
 
 この文書は、`cns/helper.cns` にあるヘルパー用StateDefを説明する。
 
-## 頭部ヘルパー
+## 共通ルーター
 
-### StateDef 99000: ヘルパー振り分け
+### StateDef 99000: Helper ID振り分け
 
-ヘルパーID `99001` であればStateDef `99001` へ移る。それ以外のヘルパーには、このStateDef内で追加動作を行わない。
+常駐HelperをIDに対応する専用StateDefへ振り分ける。ID `99001`は`99001000`、ID `99002`は`99002000`、ID `99003`は`99003000`、ID `99004`は`99004000`へ移る。
 
-### StateDef 99001: 頭部待機
+## the_head
 
-Action `99001`を表示し続け、Rootの位置・向き・アニメーションへ追従する。詳細は[the_head Helper](helper-99001-the-head.md)を参照する。
+### StateDef 99001000: 頭部追従
 
-## オーラヘルパー
+Action `99001`を表示し、Rootの位置・向き・アニメーションへ追従する。処理後は`99001999`へ移る。詳細は[the_head Helper](helper-99001-the-head.md)を参照する。
 
-### StateDef 99002: オーラ常駐
+### StateDef 99001999: 最終処理
 
-本体の位置・向き・アニメーション・描画オフセットへ毎フレーム追従する。詳細は[the_aura Helper](helper-99002-the-aura.md)を参照する。
+`the_head`の処理完了後に`SelfState value=5150`を実行する。
 
-## 頭部オーラヘルパー
+## the_aura
 
-### StateDef 99003: 頭部オーラ常駐
+### StateDef 99002000: オーラ追従
 
-頭部Helperの位置・向き・アニメーションへ毎フレーム追従する。詳細は[the_head_aura Helper](helper-99003-the-head-aura.md)を参照する。
+Rootの位置・向き・アニメーション・描画オフセットへ追従し、処理後は`99002999`へ移る。詳細は[the_aura Helper](helper-99002-the-aura.md)を参照する。
 
-### StateDef 99004: Controller
+### StateDef 99002999: 最終処理
 
-RootのStateDefとprivate-timeを監視し、Helper Armorと技ごとのオーラバウンドを管理する。バウンドの進行状態は本体オーラと頭部オーラから参照される。
+`the_aura`の処理完了後に`SelfState value=5150`を実行する。
 
-#### Helper Armorダメージ取得
+## the_head_aura
 
-`HitOverride`によってStateDef `99004`へ移ったフレームに`GetHitVar(damage)`を取得する。無敵期間用`var(12)`が`0`の場合だけ、ダメージを`var(11)`へ、同じ値を無敵期間用`var(12)`へ設定する。StateDefヘッダーは`MoveType=I`とし、Helper自身への直接ダメージを無効化する。
+### StateDef 99003000: 頭部オーラ追従
 
-### StateDef 99101: 4001バウンド定義
+頭部Helperの位置・向き・アニメーションへ追従し、処理後は`99003999`へ移る。詳細は[the_head_aura Helper](helper-99003-the-head-aura.md)を参照する。
 
-RootがStateDef `4001`に入ったときのバウンド設定を、`the_controller`自身の変数へ初期化する。
+### StateDef 99003999: 最終処理
 
-### StateDef 99102: 4002バウンド定義
+`the_head_aura`の処理完了後に`SelfState value=5150`を実行する。
 
-RootがStateDef `4002`に入ったときのバウンド設定を、`the_controller`自身の変数へ初期化する。
+## the_controller
 
-### StateDef 99103: 4003バウンド定義
+### StateDef 99004000: 個別挙動ルーティング
 
-RootがStateDef `4003`に入ったときのバウンド設定を、`the_controller`自身の変数へ初期化する。
+Rootを監視し、最初の個別挙動である`99004001`へ移る。詳細は[the_controller Helper](helper-99004-the-controller.md)を参照する。
 
-### StateDef 99199: 常駐Helper最終処理
+### StateDef 99004001: ライフ管理
 
-個別バウンド設定の完了後に経由し、処理完了時に`SelfState value=5150`を実行する。
+Helper Armorのダメージ取得、無敵期間、private-timeを管理し、`99004002`へ移る。
+
+### StateDef 99004002: オーラバウンドルーター
+
+RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateDefへ振り分ける。該当しない場合は`99004999`へ移る。
+
+### StateDef 99004011: 4001バウンド定義
+
+RootのStateDef `4001`に対応するバウンド設定を適用し、`99004999`へ移る。
+
+### StateDef 99004012: 4002バウンド定義
+
+RootのStateDef `4002`に対応するバウンド設定を適用し、`99004999`へ移る。
+
+### StateDef 99004013: 4003バウンド定義
+
+RootのStateDef `4003`に対応するバウンド設定を適用し、`99004999`へ移る。
+
+### StateDef 99004999: 最終処理
+
+`the_controller`の処理完了後に`SelfState value=5150`を実行する。

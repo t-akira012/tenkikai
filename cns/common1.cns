@@ -1510,57 +1510,38 @@ ctrl=1
 ;-------------------------------------------------
 
 [statedef 5150]
-type=l
+
+[state ]
+type=statetypeset
+trigger1=!ishelper
+statetype=L
 movetype=H
 physics=N
-sprpriority=-3
-
-[state ]
-type=changeanim
-triggerall=Time=0
-triggerall=SelfAnimExist(5140)
-trigger1=(anim!=[5111,5119])&&(anim!=[5171,5179])
-trigger2=!SelfAnimExist(5140+(anim%10))
-value=5140
-
-[state ]
-type=changeanim
-trigger1=Time=0
-trigger1=(anim=[5111,5119])||(anim=[5171,5179])
-trigger1=SelfAnimExist(5140+(anim%10))
-value=5140+(anim%10)
-
-[state ]
-type=changeanim
-persistent=0
-trigger1=MatchOver=1
-trigger1=Anim=[5140,5149]
-trigger1=SelfAnimExist(anim+10)
-value=anim+10
-
-[state ]
-type=changeanim
-trigger1=Time=0
-trigger1=Anim!=[5140,5159]
-trigger1=Anim!=[5110,5119]
-value=5110
 
 [state ]
 type=velmul
+triggerall=!ishelper
 trigger1=1
 x=0.85
 
 [state ]
 type=velset
+triggerall=!ishelper
 trigger1=Vel x<.05
 persistent=0
 x=0
 
 [state ]
 type=nothitby
+triggerall=!ishelper
 trigger1=1
 value=SCA
 time=1
+
+[state ]
+type=sprpriority
+trigger1=!ishelper
+value=-3
 
 ;-------------------------------------------------
 

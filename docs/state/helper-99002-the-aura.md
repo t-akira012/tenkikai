@@ -1,6 +1,6 @@
 # the_aura Helper
 
-## StateDef 99002: オーラ常駐
+## StateDef 99002000: オーラ常駐
 
 `the_aura`はRootの描画を基礎として、Root・頭部・Head auraと向きを一致させ、ダッシュ方向に応じたBody auraの傾斜を表示する。
 
@@ -31,3 +31,7 @@ Aura専用の透過表示を適用する。
 ### Aura残像
 
 Aura専用のAfterImageを生成し、Auraの移動と表示変化に残像を付加する。
+
+## StateDef 99002999: 最終処理
+
+オーラ追従の完了後に`SelfState value=5150`を実行する。

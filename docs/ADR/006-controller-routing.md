@@ -26,4 +26,4 @@
 
 挙動の追加は対応する集約StateDefと個別StateDefの増設で行える。共通ルーティング、挙動判定、個別処理の責務が分離され、Root側の技StateDefへ演出制御を追加せずに拡張できる。
 
-具体的なStateDef番号と現在の遷移は[the_controller StateDef](../state/controller.md)に記載する。
+具体的なStateDef番号と現在の遷移は[the_controller Helper](../state/helper-99004-the-controller.md)に記載する。

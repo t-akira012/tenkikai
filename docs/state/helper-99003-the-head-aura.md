@@ -1,6 +1,6 @@
 # the_head_aura Helper
 
-## StateDef 99003: 頭部Aura追従
+## StateDef 99003000: 頭部Aura追従
 
 ### 画面外移動許可
 
@@ -21,3 +21,7 @@ Rootの向きと`facing`を一致させるため、Rootに合わせて`Turn`す�
 ### ダッシュ時の頭部位置移動
 
 前後ダッシュに合わせて、頭部Auraを頭部と同じ方向へ位置移動させる。
+
+## StateDef 99003999: 最終処理
+
+頭部Aura追従の完了後に`SelfState value=5150`を実行する。
