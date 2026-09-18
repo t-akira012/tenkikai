@@ -1,6 +1,8 @@
 # マダラー星人
 
-<img src="images/README.png" width="400">
+<p align="center">
+  <img src="images/README.png" width="400">
+</p>
 
 ## 原作
 
