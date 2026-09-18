@@ -64,7 +64,7 @@ def export_sff(sff_path, json_path, image_dir):
             "group": record["group"],
             "index": record["index"],
             "axis": [record["x"], record["y"]],
-            "image": "sprites/" + filename,
+            "image": filename,
         })
     document = {
         "format": "winmugen-sff-v1",
@@ -111,7 +111,7 @@ def import_sff(json_path, image_root, output):
     output_data = bytearray(header)
     offsets = []
     for sprite in sprites:
-        image_path = image_root / sprite["image"]
+        image_path = image_root / Path(sprite["image"]).name
         if not image_path.is_file():
             raise FileNotFoundError(str(image_path))
         pcx = encode_pcx(image_path)
@@ -136,13 +136,13 @@ def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
     export_parser = subparsers.add_parser("sff-to-json")
-    export_parser.add_argument("sff", type=Path)
-    export_parser.add_argument("json", type=Path)
-    export_parser.add_argument("image_dir", type=Path)
+    export_parser.add_argument("--input", dest="sff", type=Path, required=True)
+    export_parser.add_argument("--output-json", dest="json", type=Path, required=True)
+    export_parser.add_argument("--output-png", dest="image_dir", type=Path, required=True)
     import_parser = subparsers.add_parser("json-to-sff")
-    import_parser.add_argument("json", type=Path)
-    import_parser.add_argument("image_root", type=Path)
-    import_parser.add_argument("sff", type=Path)
+    import_parser.add_argument("--input-json", dest="json", type=Path, required=True)
+    import_parser.add_argument("--input-png", dest="image_root", type=Path, required=True)
+    import_parser.add_argument("--output", dest="sff", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "sff-to-json":
         export_sff(args.sff, args.json, args.image_dir)

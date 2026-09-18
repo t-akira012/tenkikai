@@ -56,7 +56,21 @@ binary/sprite.sff
 
 ## CLIツールの責務
 
-ツールは、入力ディレクトリ、入力SFF、出力SFF、追加するグループ番号・画像番号、原点を引数で受け取る。入力画像の順序と割り当て結果を端末へ表示し、処理対象・現在の画像・完了・失敗を隠さない。
+ツールは、次の確定済みオプション形式で入出力を指定する。SFFからの展開結果は`dist/`へ出力し、編集用の`assets/`を上書きしない。
+
+```console
+sff-to-json \
+  --input binary/sprite.sff \
+  --output-json dist/sprite.json \
+  --output-png dist/sprites/
+
+json-to-sff \
+  --input-json assets/sprite.json \
+  --input-png assets/sprites/ \
+  --output binary/sprite.sff
+```
+
+入力画像の順序と割り当て結果を端末へ表示し、処理対象・現在の画像・完了・失敗を隠さない。
 
 画像変換とSFF入出力を分離し、PNGの透明化だけを再実行しても既存SFFへ影響しない構成にする。既存SFFのバックアップはツール内で削除せず、出力先を分けて保持する。
 
