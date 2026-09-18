@@ -255,8 +255,8 @@ ignorehitpause=1
 [state ]
 type=posadd
 trigger1=root,stateno=110
-x=35
-y=6
+x=55
+y=26
 ignorehitpause=1
 
 [state ]
@@ -351,7 +351,7 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-value=-30*(root,stateno=110)*(root,var(5)!=0)+30*(root,stateno=111)*(root,var(5)!=0)
+value=-56.16*(root,stateno=110)*(root,var(5)!=0)+30*(root,stateno=111)*(root,var(5)!=0)
 scale=1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0)),1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0))
 ignorehitpause=1
 

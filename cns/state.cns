@@ -246,7 +246,7 @@ x=12
 [state ]
 type=angledraw
 trigger1=(var(2)&1)!=0
-value=-30
+value=-56.16
 
 [state ]
 type=changestate
