@@ -1,4 +1,4 @@
-.PHONY: fmt test-fmt makedocs run sprite-export sprite-build pal-commonizer pallet-maker commit
+.PHONY: fmt test-fmt makedocs run hooks sprite-export sprite-build pal-commonizer pallet-maker commit
 
 fmt:
 	uv run python -B scripts/formatter/formatter.py
@@ -13,6 +13,9 @@ run:
 	$(MAKE) fmt
 	$(MAKE) test-fmt
 	$(MAKE) makedocs
+
+hooks:
+	git config core.hooksPath .githooks
 
 sprite-export:
 	uv run python -B scripts/sprite-editor/sprite_editor.py sff-to-json \

@@ -1,0 +1,36 @@
+#!/bin/sh
+
+run_checks() {
+    repository_root=$(git rev-parse --show-toplevel)
+    if [ -z "${repository_root}" ]; then
+        echo "pre-commit: repository root not found." >&2
+        return 1
+    fi
+
+    if ! cd "${repository_root}"; then
+        echo "pre-commit: failed to enter repository root: ${repository_root}" >&2
+        return 1
+    fi
+
+    echo "pre-commit: running make run"
+    if ! make run; then
+        echo "pre-commit: make run failed." >&2
+        return 1
+    fi
+
+    if ! git diff --quiet; then
+        echo "pre-commit: make run left unstaged changes." >&2
+        echo "pre-commit: review and stage the following files, then commit again:" >&2
+        git diff --name-only >&2
+        return 1
+    fi
+
+    echo "pre-commit: make run completed."
+    return 0
+}
+
+main() {
+    run_checks
+}
+
+main
