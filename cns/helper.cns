@@ -30,6 +30,20 @@ movetype=i
 physics=n
 anim=99004
 
+;; PlayerPush無効化フラグ
+
+[state ]
+type=varset
+trigger1=1
+var(13)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(root,stateno=110)||(root,stateno=111)
+var(13)=1
+ignorehitpause=1
+
 [state ]
 type=changestate
 trigger1=1
@@ -59,7 +73,7 @@ ignorehitpause=1
 [state ]
 type=playerpush
 trigger1=1
-value=1
+value=!var(13)
 ignorehitpause=1
 
 [state ]
