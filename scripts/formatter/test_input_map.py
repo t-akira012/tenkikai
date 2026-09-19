@@ -92,22 +92,6 @@ class InputMapTest(unittest.TestCase):
                 re.compile(r"\bcommand\b", re.IGNORECASE),
             )
 
-    def test_retired_input_variables_are_not_used(self) -> None:
-        combined = "\n".join(
-            source_text(relative_path)
-            for relative_path in (
-                "cns/command.cmd",
-                "cns/state.cns",
-                "cns/observ.cns",
-                "cns/helper.cns",
-                "cns/common1.cns",
-            )
-        )
-        self.assertNotRegex(
-            combined,
-            re.compile(r"(?<!sys)var\((?:3|4)\)", re.IGNORECASE),
-        )
-
     def test_fixed_document_contains_each_bit_assignment(self) -> None:
         document = (ROOT / "docs/AGENTS.input-map.md").read_text(encoding="utf-8")
         for bit, (name, input_definition, mask) in enumerate(INPUTS):

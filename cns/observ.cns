@@ -311,6 +311,7 @@ ignorehitpause=1
 
 [state ]
 type=afterimage
+triggerall=stateno!=301
 trigger1=!ishelper
 trigger1=!var(10)
 trigger1=var(10):=1||1

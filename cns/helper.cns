@@ -40,7 +40,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=110)||(root,stateno=111)
+trigger1=(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])
 var(13)=1
 ignorehitpause=1
 
@@ -54,7 +54,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])
+trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])||(root,stateno=[300,302])
 var(14)=1
 ignorehitpause=1
 
@@ -405,10 +405,24 @@ ignorehitpause=1
 [state ]
 type=assertspecial
 trigger1=root,stateno=[100,107]
+trigger2=root,stateno=[300,301]
 flag=invisible
 
 [state ]
+type=afterimagetime
+trigger1=root,stateno=[300,301]
+time=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=302
+var(10)=0
+ignorehitpause=1
+
+[state ]
 type=afterimage
+triggerall=(root,stateno!=300)&&(root,stateno!=301)
 trigger1=!var(10)
 trigger1=var(10):=1||1
 trigger2=!(root,var(0)%600)
@@ -502,7 +516,26 @@ ignorehitpause=1
 ;; Aura残像
 
 [state ]
+type=assertspecial
+trigger1=root,stateno=301
+flag=invisible
+ignorehitpause=1
+
+[state ]
+type=afterimagetime
+trigger1=root,stateno=301
+time=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=302
+var(10)=0
+ignorehitpause=1
+
+[state ]
 type=afterimage
+triggerall=root,stateno!=301
 trigger1=!var(10)
 trigger1=var(10):=1||1
 time=-1
@@ -592,7 +625,26 @@ alpha=128,256
 ignorehitpause=1
 
 [state ]
+type=assertspecial
+trigger1=root,stateno=[300,301]
+flag=invisible
+ignorehitpause=1
+
+[state ]
+type=afterimagetime
+trigger1=root,stateno=[300,301]
+time=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=302
+var(10)=0
+ignorehitpause=1
+
+[state ]
 type=afterimage
+triggerall=(root,stateno!=300)&&(root,stateno!=301)
 trigger1=!var(10)
 trigger1=var(10):=1||1
 time=-1

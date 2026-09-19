@@ -32,6 +32,8 @@ Aura専用の透過表示を適用する。
 
 Aura専用のAfterImageを生成し、Auraの移動と表示変化に残像を付加する。
 
+RootがStateDef `301`の場合はAura本体を非表示にして残像を消去する。StateDef `302`で残像の初回生成フラグを解除し、再出現後の残像を再開する。
+
 ## StateDef 99002999: 最終処理
 
 オーラ追従の完了後に`SelfState value=5150`を実行する。

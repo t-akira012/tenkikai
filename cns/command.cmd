@@ -188,6 +188,12 @@ var(2)=var(2)|8192
 
 [state ]
 type=changestate
+value=300
+trigger1=(var(2)&2048)!=0
+trigger1=ctrl
+
+[state ]
+type=changestate
 value=4001
 trigger1=(var(2)&16)!=0
 trigger1=ctrl
