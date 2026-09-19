@@ -44,6 +44,20 @@ trigger1=(root,stateno=110)||(root,stateno=111)
 var(13)=1
 ignorehitpause=1
 
+;; 無敵フラグ
+
+[state ]
+type=varset
+trigger1=1
+var(14)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])
+var(14)=1
+ignorehitpause=1
+
 [state ]
 type=changestate
 trigger1=1
@@ -83,6 +97,13 @@ attr=sca,aa,ap,at
 stateno=99004000
 time=1
 slot=0
+ignorehitpause=1
+
+[state ]
+type=nothitby
+trigger1=var(14)=1
+value=SCA
+time=1
 ignorehitpause=1
 
 ;; Helper Armor保持値更新

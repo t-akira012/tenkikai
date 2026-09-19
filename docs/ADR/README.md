@@ -17,3 +17,4 @@
 - [ADR 015: the_controller 99004の個別挙動ルーター](015-the-controller-99004-routing.md)
 - [ADR 016: StateDef 5150の本体専用化](016-5150-root-only.md)
 - [ADR 017: the_controllerのPlayerPush無効化フラグ](017-playerpush-disable-flag.md)
+- [ADR 018: the_controllerの無敵フラグ](018-the-controller-invincibility-flag.md)
