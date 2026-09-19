@@ -35,29 +35,24 @@ uv run python -B scripts/formatter/formatter.py
 - StatedefとState内の演算子前後にあるASCII半角スペースを削除する。
 - StatedefとState内の `type=` の値をすべて小文字にする。
 - StatedefブロックとStateブロックの間へ空行を1行置く。
-- `cns/constants.cns` 全体からASCII半角スペースを除去する。
-- `cns/command.cmd` のコマンド定義からASCII半角スペースを除去する。
-- `tenkikai.def` の `[Info]` セクションからASCII半角スペースを除去する。
-- `tenkikai.def` の分割ファイル参照を正規化する。
+- `cns/constants.cns` 全体から、引用符内を除くASCII半角スペースを除去する。
+- `cns/command.cmd` のコマンド定義から、引用符内を除くASCII半角スペースを除去する。
+- `tenkikai.def` の `[Info]` セクションから、引用符内を除くASCII半角スペースを除去する。
 - `cns/common1.cns` にも他のCNSファイルと同じ整形規則を適用する。
-- `cns/common1.cns` と他のステートファイルで重複するStateDefを、`cns/common1.cns` 側から削除する。
 - `command`をTriggerに使用できる場所を、`cns/command.cmd`のStateDef `-1`内にある入力ビット変換用`VarSet`に限定する。それ以外の場所にある`command` Triggerを検出した場合は、ファイルを書き換える前にエラーで終了する。
 - `docs/state/*.md` のステート記述は、挙動をH2見出し、各StateDefの機能をH3見出し `StateDef NUM: 機能名` とする。挙動とStateDefが1対1の場合もこの階層を省略しない。
 
-整形前後の有効な定義を内部で比較し、コメントと書式以外の内容が変化した場合はエラーで終了する。
+引用符内の文字列は、コメント削除とASCII半角スペース削除の対象外とする。フォーマッターはStateDefの削除、ファイル間移動、DEF参照先の変更を行わない。
 
-## 旧t.cnsの分割
+## 検査
 
-旧構成の `t.cns` が存在する場合は、StateDef番号に従って次のファイルへ分割する。
+ファイルを書き換えず、整形の必要性だけを検査する場合は次を実行する。
 
-| 出力先 | 内容 |
-| --- | --- |
-| `cns/constants.cns` | キャラクター定数 |
-| `cns/state.cns` | 0以上9999以下のStateDef |
-| `cns/observ.cns` | StateDef `-2`と`-3` |
-| `cns/helper.cns` | 10000以上のStateDef |
+```console
+make fmt-check
+```
 
-分割後、旧 `t.cns` は削除し、`cns/` 配下へ出力して `tenkikai.def` の参照を更新する。
+`fmt-check`はファイルを変更しない。要整形ファイル、規約外のTrigger配置、StateDef配置などを検出した場合は失敗する。
 
 ## common1.cnsの独自管理
 
@@ -69,7 +64,7 @@ stcommon=cns/common1.cns
 
 これにより、共通ステートもこのリポジトリで管理し、同じフォーマッターを適用できる。
 
-## StateDefの優先順位
+## Common Stateの上書き
 
 StateDef番号が重複する場合の優先順位は、次のとおりとする。
 
@@ -77,13 +72,13 @@ StateDef番号が重複する場合の優先順位は、次のとおりとする
 他のステートファイル > cns/common1.cns
 ```
 
-`cns/command.cmd`、`cns/state.cns`、`cns/observ.cns`、`cns/helper.cns` のいずれかに同じ番号がある場合、フォーマッターは `cns/common1.cns` 側のStateDefブロックを削除する。
+`cns/command.cmd`、`cns/state.cns`、`cns/observ.cns`、`cns/helper.cns` のいずれかに同じ番号がある場合、WinMUGENはキャラクター固有StateDefを使用する。フォーマッターは`cns/common1.cns`側のStateDefを削除しない。
 
 共通ステートの挙動は、`docs/state/stcommon.md` に記載する。
 
 ## テスト
 
-フォーマッターの単体テストと、StateDef文書および生成物一覧と実装の対応検査は、次のコマンドで実行する。
+フォーマッターの単体テストと、固定された文書規約の検査は、次のコマンドで実行する。
 
 ```console
 make test-fmt

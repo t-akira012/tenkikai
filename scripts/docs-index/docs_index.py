@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 
@@ -26,7 +27,7 @@ def markdown_label(value: str) -> str:
     return value.replace("[", "\\[").replace("]", "\\]")
 
 
-def generate_readme(directory: Path) -> bool:
+def generate_readme(directory: Path, check: bool = False) -> bool:
     readme = directory / "README.md"
     documents = sorted(
         (
@@ -47,13 +48,28 @@ def generate_readme(directory: Path) -> bool:
         print(f"変更なし: {readme.relative_to(ROOT)}")
         return False
 
+    if check:
+        print(f"要更新: {readme.relative_to(ROOT)}")
+        return True
+
     with readme.open("w", encoding="utf-8", newline="\n") as stream:
         stream.write(content)
     print(f"更新: {readme.relative_to(ROOT)}")
     return True
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate docs directory indexes")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="READMEを書き換えず、更新が必要なら失敗する",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
     directories = sorted(
         (path for path in DOCS.iterdir() if path.is_dir()),
         key=lambda path: path.name.casefold(),
@@ -61,9 +77,11 @@ def main() -> None:
     changed = 0
     for directory in directories:
         print(f"対象: {directory.relative_to(ROOT)}")
-        if generate_readme(directory):
+        if generate_readme(directory, check=args.check):
             changed += 1
     print(f"完了: {len(directories)}ディレクトリ、{changed}ファイル更新")
+    if args.check and changed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

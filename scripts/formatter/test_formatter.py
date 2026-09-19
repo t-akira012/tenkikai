@@ -42,6 +42,24 @@ class FormatterTest(unittest.TestCase):
 
         self.assertIn('text="private-time: %d\\npos y: %f"', actual)
 
+    def test_semicolon_inside_quoted_value_is_preserved(self) -> None:
+        source = [
+            "[Statedef -2]",
+            "[State -2, debug]",
+            'text = "left;right" ; outside comment',
+        ]
+
+        actual = formatter.transform_definition(source, format_states=True)
+
+        self.assertIn('text="left;right"', actual)
+
+    def test_ascii_spaces_inside_quoted_values_are_preserved(self) -> None:
+        source = ['name = "TEN KIKAI"', "value = 1"]
+
+        actual = formatter.remove_ascii_spaces(source)
+
+        self.assertEqual(actual, ['name="TEN KIKAI"', "value=1"])
+
     def test_comments_and_state_format_are_normalized(self) -> None:
         source = [
             "; 説明",
@@ -97,79 +115,6 @@ class FormatterTest(unittest.TestCase):
         self.assertIn("trigger1=Anim!=0&&Anim!=5", actual)
         self.assertIn("trigger2=Anim=5||AnimTime=0", actual)
         self.assertIn("trigger3=abs(vel x)<2", actual)
-
-    def test_legacy_cns_is_split_by_state_number(self) -> None:
-        source = formatter.transform_definition(
-            [
-                "[Data]",
-                "life = 1000",
-                "",
-                "[Statedef 100]",
-                "type = S",
-                "",
-                "[Statedef 99000]",
-                "type = S",
-                "",
-                "[Statedef -2]",
-                "[State -2, test]",
-                "type = Null",
-            ],
-            format_states=True,
-        )
-
-        constants, states, observers, helpers = formatter.split_cns(source)
-
-        self.assertIn("[Data]", constants)
-        self.assertIn("[statedef 100]", states)
-        self.assertIn("[statedef -2]", observers)
-        self.assertIn("[statedef 99000]", helpers)
-
-    def test_def_references_are_rewritten(self) -> None:
-        source = [
-            "[Files]",
-            "cmd = t.cmd",
-            "cns = t.cns",
-            "st = t.cns",
-            "stcommon = common1.cns",
-        ]
-
-        actual = formatter.update_def(source)
-
-        self.assertEqual(
-            actual,
-            [
-                "[Files]",
-                "cmd=cns/command.cmd",
-                "cns=cns/constants.cns",
-                "st=cns/state.cns",
-                "st1=cns/observ.cns",
-                "st2=cns/helper.cns",
-                "stcommon=cns/common1.cns",
-            ],
-        )
-
-    def test_other_state_files_take_priority_over_common_states(self) -> None:
-        common = formatter.transform_definition(
-            [
-                ";--------------------",
-                "[Statedef 0]",
-                "type = S",
-                ";--------------------",
-                "[Statedef 100]",
-                "type = S",
-                ";--------------------",
-                "[Statedef 105]",
-                "type = S",
-            ],
-            format_states=True,
-        )
-
-        actual, removed = formatter.remove_duplicate_common_states(common, {100, 105})
-
-        self.assertIn("[statedef 0]", actual)
-        self.assertNotIn("[statedef 100]", actual)
-        self.assertNotIn("[statedef 105]", actual)
-        self.assertEqual(removed, [100, 105])
 
     def test_ascii_spaces_are_removed_from_constants(self) -> None:
         source = ["[Data]", "life = 1000", "head.pos = -5, -90"]

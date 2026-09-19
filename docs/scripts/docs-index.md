@@ -30,6 +30,12 @@ uv run python -B scripts/docs-index/docs_index.py
 make makedocs
 ```
 
+READMEを書き換えず、更新の必要性だけを確認する場合は次を実行する。
+
+```console
+make makedocs-check
+```
+
 フォーマッター、フォーマッター検査、目次生成をまとめて実行する場合は、次のコマンドを使用する。
 
 ```console
@@ -37,6 +43,8 @@ make run
 ```
 
 `make run`は`make fmt`、`make test-fmt`、`make makedocs`の順に実行する。処理中は対象ディレクトリ、READMEの更新有無、完了件数を端末へ表示する。
+
+`make check`は`make fmt-check`、`make test-fmt`、`make makedocs-check`の順に実行し、ファイルを変更しない。pre-commitでは`make check`を使用する。
 
 ## 責務外
 

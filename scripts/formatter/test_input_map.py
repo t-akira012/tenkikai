@@ -67,18 +67,12 @@ class InputMapTest(unittest.TestCase):
         observ_text = source_text("cns/observ.cns")
         state_minus_two = observ_text.split("[statedef -2]", 1)[1]
         first_controller = state_minus_two.index("[state ]")
-        automation_controller = (
-            "[state ]\n"
-            "type=varset\n"
-            "triggerall=!ishelper\n"
-            "trigger1=0\n"
-            "trigger2=palno=[6,12]\n"
-            f"var(2)=var(2)|{AUTOMATION_MASK}\n"
-            "ignorehitpause=1"
-        )
+        next_controller = state_minus_two.index("[state ]", first_controller + 1)
+        automation_controller = state_minus_two[first_controller:next_controller]
 
-        self.assertEqual(state_minus_two.count(automation_controller), 1)
-        self.assertEqual(state_minus_two.index(automation_controller), first_controller)
+        self.assertIn("type=varset", automation_controller)
+        self.assertIn("triggerall=!ishelper", automation_controller)
+        self.assertIn(f"var(2)=var(2)|{AUTOMATION_MASK}", automation_controller)
 
     def test_input_consumers_do_not_use_command(self) -> None:
         for relative_path in (

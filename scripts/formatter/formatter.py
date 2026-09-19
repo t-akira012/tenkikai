@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import re
 from pathlib import Path
 
@@ -52,6 +53,26 @@ def is_divider_comment(line: str) -> bool:
     return stripped.startswith((";-", ";="))
 
 
+def unquoted_character_index(line: str, character: str) -> int:
+    quoted = False
+    escaped = False
+
+    for index, value in enumerate(line):
+        if escaped:
+            escaped = False
+            continue
+        if value == "\\" and quoted:
+            escaped = True
+            continue
+        if value == '"':
+            quoted = not quoted
+            continue
+        if value == character and not quoted:
+            return index
+
+    return -1
+
+
 def strip_comments(lines: list[str], keep_dividers: bool = True) -> list[str]:
     result: list[str] = []
 
@@ -68,7 +89,7 @@ def strip_comments(lines: list[str], keep_dividers: bool = True) -> list[str]:
                 result.append(DIVIDER)
             continue
 
-        comment_at = line.find(";")
+        comment_at = unquoted_character_index(line, ";")
         if comment_at >= 0:
             line = line[:comment_at].rstrip(" \t")
 
@@ -136,8 +157,32 @@ def normalize_blank_lines(lines: list[str]) -> list[str]:
     return result
 
 
+def remove_ascii_spaces_outside_quotes(line: str) -> str:
+    result: list[str] = []
+    quoted = False
+    escaped = False
+
+    for value in line:
+        if escaped:
+            result.append(value)
+            escaped = False
+            continue
+        if value == "\\" and quoted:
+            result.append(value)
+            escaped = True
+            continue
+        if value == '"':
+            result.append(value)
+            quoted = not quoted
+            continue
+        if value != " " or quoted:
+            result.append(value)
+
+    return "".join(result)
+
+
 def remove_ascii_spaces(lines: list[str]) -> list[str]:
-    return [line.replace(" ", "") for line in lines]
+    return [remove_ascii_spaces_outside_quotes(line) for line in lines]
 
 
 def remove_ascii_spaces_from_sections(
@@ -151,7 +196,7 @@ def remove_ascii_spaces_from_sections(
             compact = line.strip()[1:-1].lower() in section_names
             result.append(line.strip())
         elif compact:
-            result.append(line.replace(" ", ""))
+            result.append(remove_ascii_spaces_outside_quotes(line))
         else:
             result.append(line)
 
@@ -169,7 +214,7 @@ def remove_ascii_spaces_from_command_definitions(lines: list[str]) -> list[str]:
         if inside_state:
             result.append(line)
         else:
-            result.append(line.replace(" ", ""))
+            result.append(remove_ascii_spaces_outside_quotes(line))
 
     return result
 
@@ -185,26 +230,13 @@ def ensure_state_spacing(lines: list[str]) -> list[str]:
     return normalize_blank_lines(result)
 
 
-def semantic_lines(lines: list[str], format_states: bool) -> list[str]:
-    lines = strip_comments(lines, keep_dividers=False)
-    if format_states:
-        lines = canonicalize_states(lines)
-    return [line for line in lines if line]
-
-
 def transform_definition(lines: list[str], format_states: bool) -> list[str]:
-    before = semantic_lines(lines, format_states)
     result = strip_comments(lines)
     if format_states:
         result = canonicalize_states(result)
     result = normalize_blank_lines(result)
     if format_states:
         result = ensure_state_spacing(result)
-    after = semantic_lines(result, format_states)
-
-    if before != after:
-        raise RuntimeError("整形によって有効な定義が変化しました")
-
     return result
 
 
@@ -270,125 +302,10 @@ def verify_command_trigger_locations() -> None:
         verify_command_trigger_scope(name, read_lines(ROOT / name))
 
 
-def split_cns(lines: list[str]) -> tuple[list[str], list[str], list[str], list[str]]:
-    header_indexes = [index for index, line in enumerate(lines) if statedef_number(line) is not None]
-    if not header_indexes:
-        raise RuntimeError("旧t.cnsにStateDefがありません")
-
-    starts: list[int] = []
-    for header_index in header_indexes:
-        start_index = header_index
-        while start_index > 0 and lines[start_index - 1] in ("", DIVIDER):
-            start_index -= 1
-        starts.append(start_index)
-
-    constants = lines[: starts[0]]
-    states: list[str] = []
-    observers: list[str] = []
-    helpers: list[str] = []
-
-    for index, header_index in enumerate(header_indexes):
-        finish_index = starts[index + 1] if index + 1 < len(starts) else len(lines)
-        chunk = lines[starts[index] : finish_index]
-        number = statedef_number(lines[header_index])
-
-        if number in (-2, -3):
-            observers.extend(chunk)
-        elif number is not None and number >= 10_000:
-            helpers.extend(chunk)
-        elif number is not None and 0 <= number <= 9_999:
-            states.extend(chunk)
-        else:
-            raise RuntimeError(f"分類できないStateDefです: {number}")
-
-    return tuple(
-        normalize_blank_lines(group)
-        for group in (constants, states, observers, helpers)
-    )
-
-
-def remove_duplicate_common_states(
-    common_lines: list[str], other_state_numbers: set[int]
-) -> tuple[list[str], list[int]]:
-    header_indexes = [
-        index for index, line in enumerate(common_lines) if statedef_number(line) is not None
-    ]
-    if not header_indexes:
-        raise RuntimeError("common1.cnsにStateDefがありません")
-
-    starts: list[int] = []
-    for header_index in header_indexes:
-        start_index = header_index
-        while start_index > 0 and common_lines[start_index - 1] in ("", DIVIDER):
-            start_index -= 1
-        starts.append(start_index)
-
-    result = common_lines[: starts[0]]
-    removed: list[int] = []
-
-    for index, header_index in enumerate(header_indexes):
-        finish_index = starts[index + 1] if index + 1 < len(starts) else len(common_lines)
-        chunk = common_lines[starts[index] : finish_index]
-        number = statedef_number(common_lines[header_index])
-
-        if number in other_state_numbers:
-            removed.append(number)
-        else:
-            result.extend(chunk)
-
-    return normalize_blank_lines(result), removed
-
-
-def update_def(lines: list[str]) -> list[str]:
-    output: list[str] = []
-    in_files = False
-
-    for line in lines:
-        if line.lower() == "[files]":
-            in_files = True
-            output.append("[Files]")
-            continue
-
-        if in_files and SECTION_PATTERN.match(line):
-            in_files = False
-
-        if in_files:
-            key_match = re.match(r"^\s*([A-Za-z0-9.]+)\s*=\s*(.*?)\s*$", line)
-            if key_match:
-                key = key_match.group(1)
-                value = key_match.group(2)
-                key_lower = key.lower()
-
-                if key_lower == "cmd":
-                    output.append("cmd=cns/command.cmd")
-                elif key_lower == "cns":
-                    output.append("cns=cns/constants.cns")
-                elif key_lower == "st":
-                    output.extend(("st=cns/state.cns", "st1=cns/observ.cns", "st2=cns/helper.cns"))
-                elif key_lower in ("st1", "st2"):
-                    continue
-                elif key_lower == "stcommon":
-                    output.append("stcommon=cns/common1.cns")
-                elif key_lower == "sprite":
-                    output.append("sprite=binary/sprite.sff")
-                elif key_lower == "anim":
-                    output.append("anim=cns/anim.air")
-                elif key_lower == "sound":
-                    output.append("sound=binary/sound.snd")
-                elif re.fullmatch(r"pal[1-6]", key_lower):
-                    output.append(f"{key_lower}=binary/{key_lower}.act")
-                else:
-                    output.append(f"{key}={value}")
-                continue
-
-        output.append(line)
-
-    return normalize_blank_lines(output)
-
-
 class Reporter:
-    def __init__(self) -> None:
+    def __init__(self, check: bool = False) -> None:
         self.changed = 0
+        self.check = check
 
     def write_lines(self, path: Path, lines: list[str]) -> None:
         self.write_bytes(path, encoded_lines(lines))
@@ -401,34 +318,15 @@ class Reporter:
             print(f"変更なし: {relative}")
             return
 
+        if self.check:
+            self.changed += 1
+            print(f"要整形: {relative}")
+            return
+
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(data)
         self.changed += 1
         print(f"整形完了: {relative}")
-
-
-def format_legacy_cns(reporter: Reporter) -> None:
-    legacy_path = ROOT / "t.cns"
-    if not legacy_path.exists():
-        return
-
-    print("対象: 旧t.cnsの分割")
-    original = read_lines(legacy_path)
-    transformed = transform_definition(original, format_states=True)
-    constants, states, observers, helpers = split_cns(transformed)
-
-    combined = constants + states + helpers + observers
-    if semantic_lines(original, True) != semantic_lines(combined, True):
-        raise RuntimeError("t.cnsの分割によって有効な定義が変化しました")
-
-    reporter.write_lines(ROOT / "cns/constants.cns", constants)
-    reporter.write_lines(ROOT / "cns/state.cns", states)
-    reporter.write_lines(ROOT / "cns/observ.cns", observers)
-    reporter.write_lines(ROOT / "cns/helper.cns", helpers)
-    legacy_path.unlink()
-    reporter.changed += 1
-    print("削除完了: t.cns")
-
 
 def format_definition(path: Path, format_states: bool, reporter: Reporter) -> None:
     if not path.exists():
@@ -436,28 +334,6 @@ def format_definition(path: Path, format_states: bool, reporter: Reporter) -> No
     print(f"対象: {path.relative_to(ROOT)}")
     result = transform_definition(read_lines(path), format_states)
     reporter.write_lines(path, result)
-
-
-def format_common_states(reporter: Reporter) -> None:
-    path = ROOT / "cns/common1.cns"
-    if not path.exists():
-        raise RuntimeError("対象ファイルがありません: cns/common1.cns")
-
-    print("対象: cns/common1.cns")
-    result = transform_definition(read_lines(path), format_states=True)
-    other_names = ("cns/command.cmd", "cns/state.cns", "cns/observ.cns", "cns/helper.cns")
-    other_state_numbers = {
-        number
-        for name in other_names
-        for line in read_lines(ROOT / name)
-        if (number := statedef_number(line)) is not None
-    }
-    result, removed = remove_duplicate_common_states(result, other_state_numbers)
-
-    for number in removed:
-        print(f"重複削除: cns/common1.cns StateDef {number}")
-    reporter.write_lines(path, result)
-
 
 def normalize_text_line_endings(reporter: Reporter) -> None:
     paths = {
@@ -541,40 +417,7 @@ def verify_result() -> None:
             if number is not None and not valid_number(number):
                 raise RuntimeError(f"StateDefの配置が不正です: {name}:{number}")
 
-    common_numbers = {
-        number
-        for line in read_lines(ROOT / "cns/common1.cns")
-        if (number := statedef_number(line)) is not None
-    }
-    other_numbers = {
-        number
-        for name in ("cns/command.cmd", "cns/state.cns", "cns/observ.cns", "cns/helper.cns")
-        for line in read_lines(ROOT / name)
-        if (number := statedef_number(line)) is not None
-    }
-    duplicates = sorted(common_numbers & other_numbers)
-    if duplicates:
-        raise RuntimeError(f"cns/common1.cnsに重複StateDefがあります: {duplicates}")
-
     def_data = (ROOT / "tenkikai.def").read_text(encoding="ascii")
-    required = (
-        "cmd=cns/command.cmd",
-        "cns=cns/constants.cns",
-        "st=cns/state.cns",
-        "st1=cns/observ.cns",
-        "st2=cns/helper.cns",
-        "stcommon=cns/common1.cns",
-        "sprite=binary/sprite.sff",
-        "anim=cns/anim.air",
-        "sound=binary/sound.snd",
-        "pal1=binary/pal1.act",
-    )
-    for line in required:
-        if def_data.splitlines().count(line) != 1:
-            raise RuntimeError(f"DEF参照が不正です: {line}")
-        referenced_path = ROOT / line.split("=", 1)[1]
-        if not referenced_path.is_file():
-            raise RuntimeError(f"DEF参照先がありません: {referenced_path.relative_to(ROOT)}")
 
     inside_command_state = False
     for number, line in enumerate(read_lines(ROOT / "cns/command.cmd"), start=1):
@@ -594,16 +437,26 @@ def verify_result() -> None:
             raise RuntimeError(f"[Info]に半角スペースが残っています: tenkikai.def:{number}")
 
     verify_state_document_headings()
-    print("検証完了: コメント、罫線、改行、StateDef配置、DEF参照、command Trigger配置")
+    print("検証完了: コメント、罫線、改行、StateDef配置、command Trigger配置")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="TENKIKAI definition formatter")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="ファイルを書き換えず、要整形ファイルがあれば失敗する",
+    )
+    return parser.parse_args()
 
 
 def main() -> None:
+    args = parse_args()
     print("TENKIKAIフォーマッターを開始します")
     print("事前検証: command Trigger配置")
     verify_command_trigger_locations()
-    reporter = Reporter()
+    reporter = Reporter(check=args.check)
 
-    format_legacy_cns(reporter)
     command_path = ROOT / "cns/command.cmd"
     print("対象: cns/command.cmd")
     command_lines = transform_definition(read_lines(command_path), format_states=True)
@@ -613,7 +466,7 @@ def main() -> None:
     format_definition(ROOT / "cns/state.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "cns/observ.cns", format_states=True, reporter=reporter)
     format_definition(ROOT / "cns/helper.cns", format_states=True, reporter=reporter)
-    format_common_states(reporter)
+    format_definition(ROOT / "cns/common1.cns", format_states=True, reporter=reporter)
 
     constants_path = ROOT / "cns/constants.cns"
     print("対象: cns/constants.cns")
@@ -623,13 +476,14 @@ def main() -> None:
     def_path = ROOT / "tenkikai.def"
     print("対象: tenkikai.def")
     def_lines = transform_definition(read_lines(def_path), format_states=False)
-    def_lines = update_def(def_lines)
     def_lines = remove_ascii_spaces_from_sections(def_lines, {"info"})
     reporter.write_lines(def_path, def_lines)
 
     print("対象: テキストファイルのLF統一")
     normalize_text_line_endings(reporter)
     verify_result()
+    if args.check and reporter.changed:
+        raise RuntimeError(f"要整形ファイルがあります: {reporter.changed}件")
     print(f"全処理完了: 変更ファイル数={reporter.changed}")
 
 

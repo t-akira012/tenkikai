@@ -1,7 +1,10 @@
-.PHONY: fmt test-fmt makedocs run hooks sprite-export sprite-build pal-commonizer pallet-maker commit
+.PHONY: fmt fmt-check test-fmt makedocs makedocs-check run check hooks sprite-export sprite-build pal-commonizer pallet-maker commit
 
 fmt:
 	uv run python -B scripts/formatter/formatter.py
+
+fmt-check:
+	uv run python -B scripts/formatter/formatter.py --check
 
 test-fmt:
 	uv run python -B -m unittest discover -s scripts -p 'test_*.py'
@@ -9,10 +12,18 @@ test-fmt:
 makedocs:
 	uv run python -B scripts/docs-index/docs_index.py
 
+makedocs-check:
+	uv run python -B scripts/docs-index/docs_index.py --check
+
 run:
 	$(MAKE) fmt
 	$(MAKE) test-fmt
 	$(MAKE) makedocs
+
+check:
+	$(MAKE) fmt-check
+	$(MAKE) test-fmt
+	$(MAKE) makedocs-check
 
 hooks:
 	git config core.hooksPath .githooks

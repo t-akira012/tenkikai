@@ -12,20 +12,13 @@ run_checks() {
         return 1
     fi
 
-    echo "pre-commit: running make run"
-    if ! make run; then
-        echo "pre-commit: make run failed." >&2
+    echo "pre-commit: running make check"
+    if ! make check; then
+        echo "pre-commit: make check failed." >&2
         return 1
     fi
 
-    if ! git diff --quiet; then
-        echo "pre-commit: make run left unstaged changes." >&2
-        echo "pre-commit: review and stage the following files, then commit again:" >&2
-        git diff --name-only >&2
-        return 1
-    fi
-
-    echo "pre-commit: make run completed."
+    echo "pre-commit: make check completed."
     return 0
 }
 
