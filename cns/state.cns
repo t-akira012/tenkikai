@@ -324,6 +324,25 @@ trigger1=time>0
 trigger1=(var(2)&1008)=0
 var(7)=1
 
+;; 回転中の前後移動
+
+[state ]
+type=posadd
+trigger1=(var(2)&1)!=0
+trigger1=(var(2)&2)=0
+x=6
+
+[state ]
+type=posadd
+trigger1=(var(2)&2)!=0
+x=-4
+
+[state ]
+type=posadd
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
+x=-4
+
 ;; 出現領域選択
 
 [state ]
@@ -383,6 +402,27 @@ ctrl=0
 anim=301
 velset=0,0
 
+;; 未選択時の敵背後移動
+
+[state ]
+type=posadd
+trigger1=var(6)=0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*25<0
+x=(300-screenpos x)*facing
+
+[state ]
+type=posadd
+trigger1=var(6)=0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*25>320
+x=(20-screenpos x)*facing
+
+[state ]
+type=posadd
+trigger1=var(6)=0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*25>=0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*25<=320
+x=((enemynear,screenpos x)-(enemynear,facing)*25-screenpos x)*facing
+
 ;; 出現列移動
 
 [state ]
@@ -421,7 +461,7 @@ time=0
 
 [state ]
 type=changestate
-trigger1=time>=120
+trigger1=time>=8
 value=302
 
 ;-------------------------------------------------

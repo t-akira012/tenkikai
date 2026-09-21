@@ -10,12 +10,14 @@ Rootが前方ダッシュStateDef `110`、後方ダッシュStateDef `111`、ま
 
 Rootが前方短距離ワープのStateDef `100`〜`102`、後方短距離ワープのStateDef `105`〜`107`、または異形回避StateDef `300`〜`302`の場合は、ライフ管理へ移る前に無敵フラグ`var(14)`を`1`にする。それ以外では毎tick`0`へ戻す。
 
+Rootアニメーション番号が保存済みの`var(15)`と異なる場合、または保存時間`var(16)`が未初期化の場合は、先に`abs(root,animtime)`を`var(16)`へ保存し、その後で`root,anim`を`var(15)`へ保存する。利用Helperは両方の値を共通のRootアニメーション時間情報として参照する。固定的な保持・利用条件は[Rootアニメーション時間保持規約](../AGENTS.root-animtime.md)に従う。
+
 最初の個別挙動はライフ管理である。`99004`からライフ管理StateDefへ遷移し、ライフ管理の完了後に次の個別挙動ルーターへ進む。
 
 ```text
 StateDef -2
   → 共通IDルーター
-  → StateDef 99004000: the_controller監視
+  → StateDef 99004000: the_controller監視・Rootアニメーション時間保持
   → StateDef 99004001: 個別挙動（ライフ管理）
   → StateDef 99004002: オーラバウンドルーター
   → StateDef 99004011: 4001バウンド個別

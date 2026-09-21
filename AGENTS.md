@@ -18,6 +18,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [ステート文書の作業規則](docs/state/AGENTS.md)
 - [StateDef -1/-2/-3 の作業規則](docs/AGENTS.state-controller.md)
 - [Helperルーティング規約](docs/AGENTS.helper.md)
+- [Rootアニメーション時間保持規約](docs/AGENTS.root-animtime.md)
 - [Trigger記述規則](docs/AGENTS.trigger.md)
 - [コマンド入力・行動設計規約](docs/AGENTS.command.md)
 - [入力ビットマップ](docs/AGENTS.input-map.md)

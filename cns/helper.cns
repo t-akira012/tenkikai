@@ -30,6 +30,22 @@ movetype=i
 physics=n
 anim=99004
 
+;; Rootアニメーション時間保持
+
+[state ]
+type=varset
+trigger1=var(16)<=0
+trigger2=var(15)!=root,anim
+var(16)=abs(root,animtime)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(16)<=0
+trigger2=var(15)!=root,anim
+var(15)=root,anim
+ignorehitpause=1
+
 ;; PlayerPush無効化フラグ
 
 [state ]
@@ -358,6 +374,28 @@ x=root,pos x
 y=root,pos y-61
 ignorehitpause=1
 
+;; 異形回避中の頭部中心移動
+
+[state ]
+type=posadd
+trigger1=root,stateno=300
+trigger1=helper(99004),var(15)=root,anim
+trigger1=helper(99004),var(16)>0
+trigger1=(root,animtime)<-(helper(99004),var(16))*0.5
+x=-8.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+y=23.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+ignorehitpause=1
+
+[state ]
+type=posadd
+trigger1=root,stateno=300
+trigger1=helper(99004),var(15)=root,anim
+trigger1=helper(99004),var(16)>0
+trigger1=(root,animtime)>=-(helper(99004),var(16))*0.5
+x=-8
+y=23
+ignorehitpause=1
+
 ;; 前後ダッシュ頭部位置移動
 
 [state ]
@@ -382,6 +420,7 @@ trigger1=facing!=root,facing
 type=offset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
+trigger1=root,stateno!=300
 trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
 x=0
 y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
@@ -391,6 +430,7 @@ ignorehitpause=1
 type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+trigger3=root,stateno=300
 x=0
 y=0
 ignorehitpause=1
@@ -405,7 +445,7 @@ ignorehitpause=1
 [state ]
 type=assertspecial
 trigger1=root,stateno=[100,107]
-trigger2=root,stateno=[300,301]
+trigger2=root,stateno=301
 flag=invisible
 
 [state ]
@@ -604,6 +644,7 @@ ignorehitpause=1
 type=offset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
+trigger1=root,stateno!=300
 trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
 x=0
 y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-61*(helper(99004),fvar(0))
@@ -613,8 +654,9 @@ ignorehitpause=1
 type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+trigger3=root,stateno=300
 x=0
-y=-61*(helper(99004),fvar(0))
+y=-61*(helper(99004),fvar(0))*(root,stateno!=300)
 ignorehitpause=1
 
 [state ]
@@ -626,7 +668,7 @@ ignorehitpause=1
 
 [state ]
 type=assertspecial
-trigger1=root,stateno=[300,301]
+trigger1=root,stateno=301
 flag=invisible
 ignorehitpause=1
 
