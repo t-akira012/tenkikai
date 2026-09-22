@@ -536,3 +536,35 @@ value=F5,3
 volume=-80
 
 ;-------------------------------------------------
+
+[statedef 1000]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=1000
+velset=0,0
+
+[state ]
+type=changestate
+trigger1=time>=60
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 1100]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=1100
+velset=0,0
+
+[state ]
+type=changestate
+trigger1=time>=60
+value=0
+ctrl=1
+
+;-------------------------------------------------

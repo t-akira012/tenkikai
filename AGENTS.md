@@ -23,6 +23,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [コマンド入力・行動設計規約](docs/AGENTS.command.md)
 - [入力ビットマップ](docs/AGENTS.input-map.md)
 - [オートメーション規約](docs/AGENTS.automation.md)
+- [エフェクト作業規則](docs/AGENTS.effect.md)
 - [技作成スキル](.agents/skills/create-waza/SKILL.md)
 - [設計判断記録](docs/ADR/)
 - [バグ修正](docs/issues/)

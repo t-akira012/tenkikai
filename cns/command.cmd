@@ -186,76 +186,218 @@ var(2)=var(2)|8192
 
 ;; 入力ビットによる状態遷移
 
+;; 異形回避
+
 [state ]
 type=changestate
 value=300
-trigger1=(var(2)&2048)!=0
-trigger1=ctrl
+triggerall=(var(2)&2048)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
 
-[state ]
-type=changestate
-value=4001
-trigger1=(var(2)&16)!=0
-trigger1=ctrl
-trigger1=(var(2)&1)=0
-trigger1=(var(2)&2)=0
-
-[state ]
-type=changestate
-value=100
-trigger1=(var(2)&16)!=0
-trigger1=(var(2)&1)!=0
-trigger1=ctrl
-
-[state ]
-type=changestate
-value=105
-trigger1=(var(2)&16)!=0
-trigger1=(var(2)&2)!=0
-trigger1=ctrl
-
-[state ]
-type=changestate
-value=4002
-trigger1=(var(2)&32)!=0
-trigger1=ctrl
-
-[state ]
-type=changestate
-value=4003
-trigger1=(var(2)&64)!=0
-trigger1=ctrl
-
-;-------------------------------------------------
+;; 前方高速ダッシュ
 
 [state ]
 type=changestate
 value=110
-trigger1=(var(2)&4096)!=0
-trigger1=ctrl
+triggerall=(var(2)&4096)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
 
-;-------------------------------------------------
+;; 後方高速ダッシュ
 
 [state ]
 type=changestate
 value=111
-trigger1=(var(2)&8192)!=0
-trigger1=ctrl
+triggerall=(var(2)&8192)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 前方近距離ワープ
+
+[state ]
+type=changestate
+value=100
+triggerall=stateno=0
+triggerall=pos y>=0
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=100
+triggerall=stateno=20
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=100
+triggerall=stateno=60
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=100
+triggerall=stateno=61
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=100
+triggerall=stateno=0
+triggerall=pos y<0
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 後方近距離ワープ
+
+[state ]
+type=changestate
+value=105
+triggerall=stateno=0
+triggerall=pos y>=0
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=105
+triggerall=stateno=20
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=105
+triggerall=stateno=60
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=105
+triggerall=stateno=61
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+[state ]
+type=changestate
+value=105
+triggerall=stateno=0
+triggerall=pos y<0
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; オーラバウンド確認
+
+[state ]
+type=changestate
+value=4001
+triggerall=(var(2)&16)!=0
+triggerall=(var(2)&1)=0
+triggerall=(var(2)&2)=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; オーラバウンド保持確認
+
+[state ]
+type=changestate
+value=4002
+triggerall=(var(2)&32)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; オーラバウンド倍率確認
+
+[state ]
+type=changestate
+value=4003
+triggerall=(var(2)&64)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 汎用両手光弾発出
+
+[state ]
+type=changestate
+value=1000
+triggerall=(var(2)&128)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 汎用片手光弾発出
+
+[state ]
+type=changestate
+value=1100
+triggerall=(var(2)&256)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 空中歩行
 
 [state ]
 type=changestate
 value=60
-trigger1=pos y<0
-trigger1=stateno!=60
-trigger1=stateno!=110
-trigger1=stateno!=111
-trigger1=(var(2)&1)!=0
+triggerall=pos y<0
+triggerall=stateno!=60
+triggerall=stateno!=110
+triggerall=stateno!=111
+triggerall=(var(2)&1)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
 
 [state ]
 type=changestate
 value=61
-trigger1=pos y<0
-trigger1=stateno!=61
-trigger1=stateno!=110
-trigger1=stateno!=111
-trigger1=(var(2)&2)!=0
+triggerall=pos y<0
+triggerall=stateno!=61
+triggerall=stateno!=110
+triggerall=stateno!=111
+triggerall=(var(2)&2)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
