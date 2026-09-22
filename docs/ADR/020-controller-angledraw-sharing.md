@@ -18,6 +18,8 @@ Bodyと複数の表示Helperを同期して描画するために、各対象へ�
 
 Head系およびBody系の複数の表示要素で使用する`AngleDraw`値は、`the_controller`が計算して保持する。利用側は計算式を複製しない。Head系は対象別完成値を毎tick読み、Body系は対象別適用フラグが有効な場合に完成値を読む。
 
+演出の開始要求、要求bit、持続カウンター、および複数演出のプロパティ別合成は[ADR 025: AngleDraw演出の要求bitと持続カウンター管理](025-angledraw-request-bits-and-duration-counters.md)に従う。RootのStateNoは開始または更新要求の検出だけに使用し、完成値の継続条件には使用しない。
+
 AngleDrawの値生成、適用対象、優先制御を管理する基盤は、常に`the_controller`とする。個別StateDefへAngleDrawの値生成や適用条件を記述してはならず、例外を設けない。Root自身へState Controllerを作用させる適用口だけはRootのStateDef `-2`へ置き、`the_controller`の完成値をそのまま使用する。表示Helperも同様に完成値を読むだけとする。
 
 `the_controller`は毎tick、対象ごとの完成値を確定してから利用側へ渡す。Head系は対象別完成値と非同期フラグ、Body系は対象別適用フラグを使用する。フラグを値の確定より先に有効にしてはならない。
@@ -36,7 +38,7 @@ Aura Boundと同期AngleDrawが同一tickで成立する場合は、Head系とBo
 
 Body系の完成角度を`the_controller`の`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持し、Body適用フラグを`var(19)`、Body Aura適用フラグを`var(20)`とする。Body系はHead用角度`fvar(2)`を使用しない。
 
-Bodyの縮小はアニメーション要素5の開始時点から行う。要素数や各要素の表示時間を固定せず、`AnimeElemTime(5)`と`AnimTime`から要素5以降の進捗率を求める。進捗率0では倍率1、終了時には倍率0.05とし、余弦曲線によって後半ほど縮小速度を上げる。X倍率とY倍率には同じ完成値を設定する。
+Bodyの縮小はアニメーション要素5の開始時点から行う。要素5開始時の残存`AnimTime`を持続カウンターへ保存し、StateNoと独立した進捗率を求める。進捗率0では倍率1、終了時には倍率0.05とし、余弦曲線によって後半ほど縮小速度を上げる。X倍率とY倍率には同じ完成値を設定する。
 
 Scaleの中心となるSprite axisがBody中心より下にあるため、縮小時はBody中心が下方向へ移動する。異形回避では通常の浮遊Offsetへ`-48*(1-Y倍率)`を加えた値を完成Y Offsetとし、BodyとBody Auraへ同じ値を適用する。倍率1では補正を行わず、倍率0.05では上方向へ45.6px補正する。
 

@@ -24,3 +24,4 @@
 - [ADR 022: 常駐Helperの存在を利用側で確認しない](022-resident-helper-existence-invariant.md)
 - [ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)
 - [ADR 024: HeadとHead Auraの位置・表示判断をControllerで管理する](024-head-head-aura-controller-managed-position-and-visibility.md)
+- [ADR 025: AngleDraw演出の要求bitと持続カウンター管理](025-angledraw-request-bits-and-duration-counters.md)

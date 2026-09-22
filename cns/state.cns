@@ -298,20 +298,52 @@ var(7)=1
 
 [state ]
 type=posadd
-trigger1=(var(2)&1)!=0
-trigger1=(var(2)&2)=0
-x=6
+trigger1=1
+x=ifelse(((var(2)&1)!=0)&&((var(2)&2)=0),6,ifelse((var(2)&2)!=0,-4,-2))
+
+;; 回転中の加速上昇
 
 [state ]
 type=posadd
-trigger1=(var(2)&2)!=0
-x=-4
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-72.0*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
 
 [state ]
 type=posadd
-trigger1=(var(2)&1)=0
-trigger1=(var(2)&2)=0
-x=-2
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-180.0*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+
+[state ]
+type=posadd
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-240.0*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+
+[state ]
+type=posadd
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-180.0*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+
+[state ]
+type=posadd
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-72.0*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+
+[state ]
+type=posadd
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=-12.0/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
 
 ;; 出現領域選択
 
@@ -377,21 +409,21 @@ velset=0,0
 [state ]
 type=posadd
 trigger1=var(6)=0
-trigger1=(enemynear,screenpos x)-(enemynear,facing)*25<0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*50<0
 x=(300-screenpos x)*facing
 
 [state ]
 type=posadd
 trigger1=var(6)=0
-trigger1=(enemynear,screenpos x)-(enemynear,facing)*25>320
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*50>320
 x=(20-screenpos x)*facing
 
 [state ]
 type=posadd
 trigger1=var(6)=0
-trigger1=(enemynear,screenpos x)-(enemynear,facing)*25>=0
-trigger1=(enemynear,screenpos x)-(enemynear,facing)*25<=320
-x=((enemynear,screenpos x)-(enemynear,facing)*25-screenpos x)*facing
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*50>=0
+trigger1=(enemynear,screenpos x)-(enemynear,facing)*50<=320
+x=((enemynear,screenpos x)-(enemynear,facing)*50-screenpos x)*facing
 
 ;; 出現列移動
 
@@ -451,7 +483,7 @@ var(10)=0
 
 [state ]
 type=changestate
-trigger1=time>=1
+trigger1=time>=2
 value=0
 ctrl=1
 

@@ -10,6 +10,7 @@ ID `99004`の常駐Helper。Rootの状態を監視し、ライフ管理、Helper
 99004000 集約・完成値初期化
   → 99004001 / 99004010 ライフ管理・Helper Armor
   → 99004002 / 99004011〜99004013 オーラバウンド
+  → 99004006 / 99004030 AngleDraw要求・持続カウンター・完成値
   → 99004005 / 99004021〜99004023 Head位置補正
   → 99004004 / 99004020 Head・Head Aura変換完成
   → 99004003 / 99004100 暗転
@@ -23,15 +24,16 @@ ID `99004`の常駐Helper。Rootの状態を監視し、ライフ管理、Helper
 
 | StateDef | 機能 |
 | --- | --- |
-| `99004000` | Rootアニメーション時間の保持、暗転時間の更新、AngleDraw・位置・表示の完成値初期化、Body系変換値、PlayerPush無効化、無敵を管理する |
+| `99004000` | Rootアニメーション時間の保持、暗転時間の更新、Head系AngleDraw・位置・表示の初期化、Body系適用フラグ、PlayerPush無効化、無敵を管理する |
 | `99004001`、`99004010` | Rootへ追従するHelper ArmorとしてPlayerPush、攻撃受付、ダメージ値と無敵期間を管理する |
 | `99004002`、`99004011`〜`99004013` | RootのStateDef `4001`〜`4003`に対応するオーラバウンドを開始し、残量を消費する |
+| `99004006`、`99004030` | StateDef進入からAngleDraw要求を開始し、要求bit、持続カウンター、Body・Head系完成値を管理する |
 | `99004005`、`99004021`〜`99004023` | StateDef `300`、`110`、`111`に対応するHead位置補正を完成値へ設定する |
 | `99004004`、`99004020` | HeadのOffsetとAngleDrawをHead Auraへ同期し、通常AuraまたはAura Bound時だけ対象別の完成値へ分岐する |
 | `99004003`、`99004100` | 暗転ビットフィールドを読み、暗転番号0の全画面黒を適用する |
 | `99004999` | 処理列を終了してStateDef `5150`へ戻す |
 
-Body系AngleDrawはStateDef `100`、`110`、`111`、`300`で管理する。Head系表示は短距離ワープと異形回避に応じて切り替える。暗転番号0はRootのStateDef `1000`で開始する。
+AngleDrawはStateDef `100`、`110`、`111`、`300`、`302`から開始または更新要求を受け、StateNoと独立した持続カウンターで管理する。Head系表示は短距離ワープと異形回避に応じて切り替える。暗転番号0はRootのStateDef `1000`で開始する。
 
 ### 使用変数
 
@@ -42,4 +44,5 @@ Body系AngleDrawはStateDef `100`、`110`、`111`、`300`で管理する。Head�
 - Rootアニメーション変更時は、アニメーション時間を保存してからアニメーション番号を保存する。[Rootアニメーション時間保持規約](../AGENTS.root-animtime.md)に従う。
 - HeadとHead AuraはControllerが対象別に確定した値を読み、個別HelperでRootのStateDefから変換値を再計算しない。[ADR 023](../ADR/023-head-head-aura-transform-synchronization.md)および[ADR 024](../ADR/024-head-head-aura-controller-managed-position-and-visibility.md)に従う。
 - AngleDrawはControllerが完成値と適用フラグを管理し、Aura Boundが通常同期より優先される。[ADR 020](../ADR/020-controller-angledraw-sharing.md)に従う。
+- AngleDrawの開始要求、持続時間、1tickリース、プロパティ別合成は[ADR 025](../ADR/025-angledraw-request-bits-and-duration-counters.md)に従う。
 - 暗転はControllerの保持値から適用する。[ADR 021](../ADR/021-controller-allpalfx-routing.md)に従う。
