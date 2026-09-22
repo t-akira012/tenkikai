@@ -311,7 +311,7 @@ x=-4
 type=posadd
 trigger1=(var(2)&1)=0
 trigger1=(var(2)&2)=0
-x=-4
+x=-2
 
 ;; 出現領域選択
 

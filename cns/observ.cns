@@ -284,7 +284,6 @@ supermovetime=99990000000
 type=helper
 trigger1=!ishelper
 trigger1=!numhelper(99003)
-trigger1=numhelper(99001)
 name="the_head_aura"
 id=99003
 stateno=99003000

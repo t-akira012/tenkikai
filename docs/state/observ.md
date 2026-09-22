@@ -38,7 +38,7 @@ AngleDrawを毎tick中立値へ戻した後、`the_controller`のBody適用フ�
 
 #### Controller・頭部ヘルパー生成
 
-本体にController Helper ID `99004`が存在しない場合、StateDef `99004000`を初期値とするプレイヤー型ヘルパー`the_controller`を生成する。本体に頭部ヘルパーID `99001`が存在しない場合、StateDef `99001000`とAction `99001`を使うプレイヤー型ヘルパー`the_head`を生成する。どちらにもPauseとSuperPauseの間に非常に長い移動可能時間を与え、停止しにくくしている。
+本体にController Helper ID `99004`が存在しない場合、StateDef `99004000`を初期値とするプレイヤー型ヘルパー`the_controller`を生成する。本体に頭部ヘルパーID `99001`が存在しない場合は`the_head`を生成し、頭部オーラHelper ID `99003`が存在しない場合は`the_head_aura`を生成する。各常駐Helperは別の常駐Helperの存在を生成条件にせず、Rootが個別に存在確認して生成する。いずれにもPauseとSuperPauseの間に非常に長い移動可能時間を与え、停止しにくくしている。
 
 #### オーラヘルパー生成
 

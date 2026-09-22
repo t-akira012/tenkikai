@@ -7,6 +7,21 @@
 - 同一IDは1体以下に制限する。
 - 常駐Helperは必ずRootから生成し、HelperからHelperを生成する孫Helper構成は禁止する。
 
+## 常駐Helper生成の独立性
+
+常駐Helperは、RootがHelperごとに独立して生成する。対象Helperの生成条件を、別の常駐Helperの存在、不在、State、変数、その他の状態へ依存させてはならない。
+
+生成条件には、Rootからの実行であることと、対象IDのHelperが存在しないことを使用する。対象とは異なるHelper IDに対する`NumHelper`、`Helper`リダイレクトなどを、生成の前提条件へ含めてはならない。
+
+```cns
+trigger1=!ishelper
+trigger1=!numhelper(対象ID)
+```
+
+常駐Helper間の位置、アニメーション、変数などの参照は、各Helperが独立して生成された後の個別処理で行う。参照先Helperが存在しない場合に備え、必要に応じて存在確認またはRootを基準とする代替処理を設ける。
+
+これにより、生成順序の違い、Helperの消失、再生成が発生しても、一方の常駐Helperが存在しないことを理由として他方の生成が停止しないようにする。
+
 ## Helperルーティング規約
 
 - StateDef `-2` での Helper 処理はには常駐Helperのルーティングだけを記述する。
