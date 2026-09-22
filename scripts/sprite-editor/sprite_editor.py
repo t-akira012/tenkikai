@@ -205,7 +205,11 @@ def import_sff(json_path, image_root, output):
                 raise ValueError("sprite palette_hex must contain 768 bytes")
             palette_data = bytes.fromhex(palette_hex)
             palette = [tuple(palette_data[offset:offset + 3]) for offset in range(0, 768, 3)]
-        pcx = encode_pcx(image_path, palette)
+        if image_path.suffix.lower() == ".pcx" and not shared_group:
+            pcx = image_path.read_bytes()
+            read_pcx_palette(pcx)
+        else:
+            pcx = encode_pcx(image_path, palette)
         axis = sprite.get("axis", [0, 0])
         offset = len(output_data)
         offsets.append(offset)

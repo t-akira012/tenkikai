@@ -12,6 +12,7 @@
 - [ヘルパーステート](helper.md)
 - [常時監視ステート](observ.md)
 - [Projectile一覧](projectile-list.md)
+- [Sprite一覧](sprite-list.md)
 - [stcommon共有ステート](stcommon.md)
 - [超必殺技ステート](superattack.md)
 - [楕円衝撃波Helper変数](var-list-helper-500000.md)
