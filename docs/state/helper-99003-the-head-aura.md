@@ -8,7 +8,11 @@
 
 ### 頭部位置追従
 
-頭部Helperの完成位置を毎フレーム参照し、すべての状態で同じ位置へ追従する。RootがStateDef `300`の場合も位置計算を複製せず、アニメーション中心へ移動する頭部の位置を直接使用する。通常の浮遊Offsetは適用しない。
+頭部Helperの完成位置を毎フレーム参照し、すべての状態で同じ位置へ追従する。位置計算を複製せず、Root基準の代替位置やStateDef固有の位置経路を持たない。
+
+### Head Aura完成Offset
+
+`the_controller`が保持するHead Aura完成OffsetのX値とY値を、一つの`Offset`で毎tick適用する。同期時はHead完成Offsetと同じ値を使用し、明示的なOffset非同期フラグが有効な場合だけHead Aura用の別の完成値を使用する。Head Aura自身はOffset式やRootのStateDefによる同期分岐を持たない。
 
 ### Root向き同期
 
@@ -18,15 +22,11 @@ Rootの向きと`facing`を一致させるため、Rootに合わせて`Turn`す�
 
 頭部Helperのアニメーションを枚数と要素位置を含めて同期する。
 
-### ダッシュ時の頭部位置移動
+### 表示と残像
 
-前後ダッシュに合わせて、頭部Auraを頭部と同じ方向へ位置移動させる。
+`the_controller`のHead Aura非表示ビットが有効な場合は頭部Auraを非表示にする。Head Aura残像非表示ビットが有効な場合は`AfterImageTime time=0`で残像を非表示にし、内部の残像生成済みフラグを`0`へ戻す。残像非表示ビットが無効な場合は通常のAfterImage表示を行う。Head Aura自身はRootのStateNoを判定しない。
 
-### 異形回避中の表示
-
-RootがStateDef `300`の場合は頭部Auraを表示したまま残像を消去する。StateDef `301`では頭部Auraを非表示にする。StateDef `302`で残像の初回生成フラグを解除し、再出現後の残像を再開する。
-
-頭部Aura自身は共有AngleDraw値を計算しない。`the_controller`のHead Aura適用フラグが有効で、Aura Boundフラグが無効な場合だけ、Controllerが保持する角度、X倍率、Y倍率の完成値を使用する。Aura Bound中は既存のAura倍率を優先する。
+頭部Aura自身はAngleDraw値を計算せず、`the_controller`が保持するHead Aura完成角度、X倍率、Y倍率を一つの`AngleDraw`で毎tick使用する。同期時はHead完成AngleDrawと同じ値を使用し、通常のAura倍率またはAura BoundによるAngleDraw非同期フラグが有効な場合だけHead Aura用の別の完成値を使用する。
 
 ## StateDef 99003999: 最終処理
 

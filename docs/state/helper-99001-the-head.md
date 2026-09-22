@@ -10,6 +10,14 @@
 
 Rootの位置へ毎フレーム追従する。
 
+### Head完成Pos補正
+
+Root基準位置を設定した後、`the_controller`が保持するHead完成Pos補正XとYを一つの`PosAdd`で毎tick適用する。Head自身はRootのStateNo、位置補正パターンまたは位置式を持たない。
+
+### Head完成Offset
+
+`the_controller`が保持するHead完成OffsetのX値とY値を、一つの`Offset`で毎tick適用する。Head自身はOffset式やRootのStateDefによる適用分岐を持たない。
+
 ### Root向き同期
 
 Rootの向きと`facing`を一致させるため、Rootに合わせて`Turn`する。
@@ -18,19 +26,11 @@ Rootの向きと`facing`を一致させるため、Rootに合わせて`Turn`す�
 
 Rootのアニメーションを枚数と要素位置を含めて同期する。
 
-### ダッシュ時の頭部位置移動
+頭部自身はAngleDraw値を計算せず、`the_controller`が保持するHead完成角度、X倍率、Y倍率を一つの`AngleDraw`で毎tick使用する。
 
-前後ダッシュに合わせて、頭部をダッシュ方向へ位置移動させる。Rootの向きと別の方向計算や符号補正は行わない。
+### 表示と残像
 
-### 異形回避回転中の頭部中心移動
-
-RootがStateDef `300`の場合は、`the_controller`がアニメーション変更時に保持した`AnimTime`絶対値を全体時間として使用する。保存済みアニメーション番号が現在のRootアニメーションと一致する場合だけ、全体時間の前半50%を使って補正位置を`X=0, Y=0`から`X=18, Y=18`まで線形補間し、後半は終点を維持する。回転中は通常の浮遊Offsetを適用せず、頭部を表示する。
-
-頭部自身はAngleDraw値を計算しない。`the_controller`のHead適用フラグが有効な場合だけ、Controllerが保持する角度、X倍率、Y倍率の完成値を使用する。
-
-### 異形回避中の表示
-
-RootがStateDef `300`の場合は頭部を表示したまま残像を消去する。StateDef `301`では頭部を非表示にする。StateDef `302`で残像の初回生成フラグを解除し、再出現後の残像を再開する。
+`the_controller`のHead非表示ビットが有効な場合は頭部を非表示にする。Head残像非表示ビットが有効な場合は`AfterImageTime time=0`で残像を非表示にし、内部の残像生成済みフラグを`0`へ戻す。残像非表示ビットが無効な場合は通常のAfterImage表示を行う。Head自身はRootのStateNoを判定しない。
 
 ## StateDef 99001999: 最終処理
 

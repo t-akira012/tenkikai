@@ -69,18 +69,62 @@ trigger1=root,var(1)=10
 var(21)=60
 ignorehitpause=1
 
-;; AngleDraw共有値・適用フラグ
+;; Head基準AngleDraw・Body AngleDraw共有値
 
 [state ]
 type=varset
 trigger1=1
-var(17)=0
+fvar(2)=0
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=1
-var(18)=0
+fvar(3)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=0
+ignorehitpause=1
+
+;; Head・Head Aura表示制御
+
+[state ]
+type=varset
+trigger1=1
+var(22)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=[100,107]
+var(22)=var(22)|1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=301
+var(22)=var(22)|3
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=301
+var(22)=var(22)|12
 ignorehitpause=1
 
 [state ]
@@ -257,22 +301,6 @@ trigger1=root,stateno=300
 trigger1=var(15)=root,anim
 trigger1=var(16)>0
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-48.0*(1.0-fvar(6))
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=300
-trigger1=var(15)=root,anim
-trigger1=var(16)>0
-var(17)=1
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=300
-trigger1=var(15)=root,anim
-trigger1=var(16)>0
-var(18)=1
 ignorehitpause=1
 
 [state ]
@@ -515,7 +543,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004003
+value=99004005
 ignorehitpause=1
 
 ;; 4001 バウンド定義
@@ -549,7 +577,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004003
+value=99004005
 ignorehitpause=1
 
 ;; 4002 バウンド定義
@@ -583,7 +611,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004003
+value=99004005
 ignorehitpause=1
 
 ;; 4003 バウンド定義
@@ -612,6 +640,260 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004005
+ignorehitpause=1
+
+[statedef 99004005]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Head位置補正ルーティング
+
+[state ]
+type=changestate
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+value=99004021
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=root,stateno=110
+value=99004022
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=root,stateno=111
+value=99004023
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004021]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 異形回避Head位置補正
+
+[state ]
+type=varset
+trigger1=(root,animtime)<-var(16)*0.5
+fvar(16)=18.0*((root,animtime)+var(16))/(var(16)*0.5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(root,animtime)<-var(16)*0.5
+fvar(17)=18.0*((root,animtime)+var(16))/(var(16)*0.5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(root,animtime)>=-var(16)*0.5
+fvar(16)=18
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(root,animtime)>=-var(16)*0.5
+fvar(17)=18
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004022]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 前方ダッシュHead位置補正
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=55
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=26
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004023]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 後方ダッシュHead位置補正
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=-35
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=6
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004004]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Head・Head Aura変換完成ルーティング
+
+[state ]
+type=changestate
+trigger1=1
+value=99004020
+ignorehitpause=1
+
+[statedef 99004020]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Head・Head Aura変換完成
+
+[state ]
+type=varset
+trigger1=1
+var(17)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(13)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,movetype!=h
+trigger1=root,statetype!=c
+trigger1=root,stateno!=300
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+fvar(13)=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(14)=fvar(12)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=fvar(13)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(0)=1
+var(17)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(17)=1
+fvar(15)=fvar(13)-61*fvar(0)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=fvar(2)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno!=300
+trigger2=var(15)!=root,anim
+trigger3=var(16)<=0
+trigger4=var(0)=1
+var(18)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(18)=1
+fvar(9)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(18)=1
+fvar(10)=1.15+0.15*(root,fvar(0))+fvar(0)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=var(18)=1
+fvar(11)=fvar(10)
 ignorehitpause=1
 
 [state ]
@@ -691,49 +973,20 @@ x=root,pos x
 y=root,pos y-61
 ignorehitpause=1
 
-;; 異形回避中の頭部中心移動
+;; Head完成位置補正
 
 [state ]
 type=posadd
-trigger1=root,stateno=300
-trigger1=helper(99004),var(15)=root,anim
-trigger1=helper(99004),var(16)>0
-trigger1=(root,animtime)<-(helper(99004),var(16))*0.5
-x=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
-y=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
-ignorehitpause=1
-
-[state ]
-type=posadd
-trigger1=root,stateno=300
-trigger1=helper(99004),var(15)=root,anim
-trigger1=helper(99004),var(16)>0
-trigger1=(root,animtime)>=-(helper(99004),var(16))*0.5
-x=18
-y=18
+trigger1=1
+x=(helper(99004),fvar(16))
+y=(helper(99004),fvar(17))
 ignorehitpause=1
 
 [state ]
 type=angledraw
-trigger1=helper(99004),var(17)=1
+trigger1=1
 value=(helper(99004),fvar(2))
 scale=(helper(99004),fvar(3)),(helper(99004),fvar(4))
-ignorehitpause=1
-
-;; 前後ダッシュ頭部位置移動
-
-[state ]
-type=posadd
-trigger1=root,stateno=110
-x=55
-y=26
-ignorehitpause=1
-
-[state ]
-type=posadd
-trigger1=root,stateno=111
-x=-35
-y=6
 ignorehitpause=1
 
 [state ]
@@ -742,21 +995,9 @@ trigger1=facing!=root,facing
 
 [state ]
 type=offset
-trigger1=root,movetype!=h
-trigger1=root,statetype!=c
-trigger1=root,stateno!=300
-trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
-x=0
-y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=(root,movetype=h)||(root,statetype=c)
-trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
-trigger3=root,stateno=300
-x=0
-y=0
+trigger1=1
+x=(helper(99004),fvar(12))
+y=(helper(99004),fvar(13))
 ignorehitpause=1
 
 [state ]
@@ -768,25 +1009,24 @@ ignorehitpause=1
 
 [state ]
 type=assertspecial
-trigger1=root,stateno=[100,107]
-trigger2=root,stateno=301
+trigger1=((helper(99004),var(22))&1)!=0
 flag=invisible
 
 [state ]
 type=afterimagetime
-trigger1=root,stateno=[300,301]
+trigger1=((helper(99004),var(22))&4)!=0
 time=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=302
+trigger1=((helper(99004),var(22))&4)!=0
 var(10)=0
 ignorehitpause=1
 
 [state ]
 type=afterimage
-triggerall=(root,stateno!=300)&&(root,stateno!=301)
+triggerall=((helper(99004),var(22))&4)=0
 trigger1=!var(10)
 trigger1=var(10):=1||1
 trigger2=!(root,var(0)%600)
@@ -956,16 +1196,9 @@ ignorehitpause=1
 
 [state ]
 type=posset
-trigger1=numhelper(99001)
+trigger1=1
 x=helper(99001),pos x
 y=helper(99001),pos y
-ignorehitpause=1
-
-[state ]
-type=posset
-trigger1=!numhelper(99001)
-x=root,pos x
-y=root,pos y-61
 ignorehitpause=1
 
 [state ]
@@ -975,7 +1208,6 @@ ignorehitpause=1
 
 [state ]
 type=changeanim
-trigger1=numhelper(99001)
 trigger1=anim!=helper(99001),anim
 value=helper(99001),anim
 elem=helper(99001),animelemno(0)
@@ -984,34 +1216,15 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-scale=1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0)),1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0))
-ignorehitpause=1
-
-[state ]
-type=angledraw
-trigger1=helper(99004),var(0)=0
-trigger1=helper(99004),var(18)=1
-value=(helper(99004),fvar(2))
-scale=(helper(99004),fvar(3)),(helper(99004),fvar(4))
+value=(helper(99004),fvar(9))
+scale=(helper(99004),fvar(10)),(helper(99004),fvar(11))
 ignorehitpause=1
 
 [state ]
 type=offset
-trigger1=root,movetype!=h
-trigger1=root,statetype!=c
-trigger1=root,stateno!=300
-trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
-x=0
-y=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-61*(helper(99004),fvar(0))
-ignorehitpause=1
-
-[state ]
-type=offset
-trigger1=(root,movetype=h)||(root,statetype=c)
-trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
-trigger3=root,stateno=300
-x=0
-y=-61*(helper(99004),fvar(0))*(root,stateno!=300)
+trigger1=1
+x=(helper(99004),fvar(14))
+y=(helper(99004),fvar(15))
 ignorehitpause=1
 
 [state ]
@@ -1023,25 +1236,25 @@ ignorehitpause=1
 
 [state ]
 type=assertspecial
-trigger1=root,stateno=301
+trigger1=((helper(99004),var(22))&2)!=0
 flag=invisible
 ignorehitpause=1
 
 [state ]
 type=afterimagetime
-trigger1=root,stateno=[300,301]
+trigger1=((helper(99004),var(22))&8)!=0
 time=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=302
+trigger1=((helper(99004),var(22))&8)!=0
 var(10)=0
 ignorehitpause=1
 
 [state ]
 type=afterimage
-triggerall=(root,stateno!=300)&&(root,stateno!=301)
+triggerall=((helper(99004),var(22))&8)=0
 trigger1=!var(10)
 trigger1=var(10):=1||1
 time=-1

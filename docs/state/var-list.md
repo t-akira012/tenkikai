@@ -108,13 +108,13 @@ ID `99004`の`the_controller`が、`var(16)`と対になるRootアニメーシ�
 
 ID `99004`の`the_controller`が、Rootアニメーション変更時の`abs(root,animtime)`を保持する。Rootアニメーションの要素数や各要素の表示時間を固定値として利用Helperへ重複させず、アニメーション全体時間を必要とする処理へ提供する。固定的な契約は[Rootアニメーション時間保持規約](../AGENTS.root-animtime.md)に従う。
 
-### `var(17)` — Controller Head AngleDraw適用フラグ
+### `var(17)` — Controller Head Aura Offset非同期フラグ
 
-ID `99004`の`the_controller`が毎tick`0`へ戻し、共有AngleDraw値をHeadへ適用する場合だけ、値の更新後に`1`を設定する。Headは`1`の場合だけControllerの`fvar(2)`〜`fvar(4)`を使用する。
+ID `99004`の`the_controller`が毎tick`0`へ戻す。Head AuraのOffsetをHeadと異なる完成値にする場合だけ`1`を設定し、現在はAura Bound中のY Offset補正を明示する。HeadとHead Auraはフラグ自体を分岐に使用せず、Controllerが確定した対象別完成Offsetを常に読む。
 
-### `var(18)` — Controller Head Aura AngleDraw適用フラグ
+### `var(18)` — Controller Head Aura AngleDraw非同期フラグ
 
-ID `99004`の`the_controller`が毎tick`0`へ戻し、共有AngleDraw値をHead Auraへ適用する場合だけ、値の更新後に`1`を設定する。Head Auraは`1`の場合だけControllerの`fvar(2)`〜`fvar(4)`を使用する。
+ID `99004`の`the_controller`が毎tick`0`へ戻す。Head AuraのAngleDrawをHeadと異なる完成値にする場合だけ`1`を設定し、通常のAura倍率またはAura Boundによる非同期を明示する。HeadとHead Auraはフラグ自体を分岐に使用せず、Controllerが確定した対象別完成AngleDrawを常に読む。
 
 ### `var(19)` — Controller Body AngleDraw適用フラグ
 
@@ -127,6 +127,18 @@ ID `99004`の`the_controller`が毎tick`0`へ戻し、Body系完成AngleDrawをB
 ### `var(21)` — Controller暗転ビットフィールド
 
 ID `99004`の`the_controller`が、`AllPalFX`暗転の番号と残り時間を保持する。bit 0〜15は0〜65535tickの残り時間、bit 16〜20は0〜31の暗転番号とし、bit 21〜31は使用しない。残り時間が正の場合は毎tick`1`減算し、0になった場合は値全体を0へ戻す。現在はRootのStateDef `1000`、`private-time=10`で暗転番号0と60tickを保存する。
+
+### `var(22)` — Controller Head系表示制御ビットフィールド
+
+ID `99004`の`the_controller`が、HeadとHead Auraの対象別表示状態を保持する。毎tick最初に`0`へ戻し、Rootの状態から完成ビットを設定する。
+
+- bit 0：Head非表示
+- bit 1：Head Aura非表示
+- bit 2：Head残像非表示
+- bit 3：Head Aura残像非表示
+- bit 4〜31：未使用
+
+HeadとHead Auraは自身に割り当てられたビットだけを読み、RootのStateNoを直接判定しない。
 
 ## 浮動小数点変数
 
@@ -141,17 +153,17 @@ ID `99004`の`the_controller`が、`AllPalFX`暗転の番号と残り時間を�
 
 本体が保持する位相を頭部ヘルパーがRoot参照で利用する。本体と頭部ヘルパーの浮遊感表示は同じ位相で同期する。
 
-### `fvar(2)` — Controller共有AngleDraw角度
+### `fvar(2)` — Controller Head完成AngleDraw角度
 
-ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成角度を保持する。利用Helperは対応する適用フラグが有効な場合だけ参照する。
+ID `99004`の`the_controller`が、Headへ適用するAngleDrawの完成角度を保持する。Headは毎tick参照する。
 
-### `fvar(3)` — Controller共有AngleDraw X倍率
+### `fvar(3)` — Controller Head完成AngleDraw X倍率
 
-ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成X倍率を保持する。
+ID `99004`の`the_controller`が、Headへ適用するAngleDrawの完成X倍率を保持する。
 
-### `fvar(4)` — Controller共有AngleDraw Y倍率
+### `fvar(4)` — Controller Head完成AngleDraw Y倍率
 
-ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成Y倍率を保持する。
+ID `99004`の`the_controller`が、Headへ適用するAngleDrawの完成Y倍率を保持する。
 
 ### `fvar(5)` — Controller Body AngleDraw X倍率
 
@@ -168,6 +180,42 @@ ID `99004`の`the_controller`がBodyとBody Auraへ適用する完成角度を�
 ### `fvar(8)` — Controller Body完成Y Offset
 
 ID `99004`の`the_controller`がBodyとBody Auraへ適用する完成Y Offsetを保持する。異形回避では通常の浮遊Offsetへ`-48*(1-fvar(6))`を加え、Scale縮小によってBody中心がSprite axisへ近づく移動を上方向へ補正する。
+
+### `fvar(9)` — Controller Head Aura完成AngleDraw角度
+
+ID `99004`の`the_controller`が、Head Auraへ適用するAngleDrawの完成角度を保持する。同期時は`fvar(2)`と同じ値にし、AngleDraw非同期時だけHead Aura用の値を設定する。
+
+### `fvar(10)` — Controller Head Aura完成AngleDraw X倍率
+
+ID `99004`の`the_controller`が、Head Auraへ適用するAngleDrawの完成X倍率を保持する。同期時は`fvar(3)`と同じ値にする。
+
+### `fvar(11)` — Controller Head Aura完成AngleDraw Y倍率
+
+ID `99004`の`the_controller`が、Head Auraへ適用するAngleDrawの完成Y倍率を保持する。同期時は`fvar(4)`と同じ値にする。
+
+### `fvar(12)` — Controller Head完成X Offset
+
+ID `99004`の`the_controller`が、Headへ適用する完成X Offsetを保持する。
+
+### `fvar(13)` — Controller Head完成Y Offset
+
+ID `99004`の`the_controller`が、Headへ適用する完成Y Offsetを保持する。通常の浮遊表示条件が成立する場合は浮遊Offsetを設定する。
+
+### `fvar(14)` — Controller Head Aura完成X Offset
+
+ID `99004`の`the_controller`が、Head Auraへ適用する完成X Offsetを保持する。同期時は`fvar(12)`と同じ値にする。
+
+### `fvar(15)` — Controller Head Aura完成Y Offset
+
+ID `99004`の`the_controller`が、Head Auraへ適用する完成Y Offsetを保持する。同期時は`fvar(13)`と同じ値にし、Aura Bound中だけBound補正を含む非同期値を設定する。
+
+### `fvar(16)` — Controller Head完成Pos補正X
+
+ID `99004`の`the_controller`が、HeadのRoot基準位置へ加える完成X補正を保持する。毎tick最初に`0`へ戻し、Head位置補正ルーターが選択した個別挙動で完成値を設定する。
+
+### `fvar(17)` — Controller Head完成Pos補正Y
+
+ID `99004`の`the_controller`が、HeadのRoot基準位置へ加える完成Y補正を保持する。毎tick最初に`0`へ戻し、Head位置補正ルーターが選択した個別挙動で完成値を設定する。
 
 ## システム変数
 
@@ -207,4 +255,4 @@ StateDef `132` と `155` では、`pos y>=0` かつ `vel y>0` を設定し、接
 
 ## 集計
 
-通常変数は`var(0)`、`var(1)`、`var(2)`、`var(6)`、`var(7)`、`var(10)`〜`var(21)`の17種類、浮動小数点変数は`fvar(0)`、`fvar(2)`〜`fvar(8)`の8種類、システム変数は`sysvar(0)`、`sysvar(1)`、`sysvar(2)`の3種類を使用している。`sysfvar`は使用していない。
+通常変数は`var(0)`、`var(1)`、`var(2)`、`var(6)`、`var(7)`、`var(10)`〜`var(22)`の18種類、浮動小数点変数は`fvar(0)`、`fvar(2)`〜`fvar(17)`の17種類、システム変数は`sysvar(0)`、`sysvar(1)`、`sysvar(2)`の3種類を使用している。`sysfvar`は使用していない。

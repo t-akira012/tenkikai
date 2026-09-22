@@ -21,3 +21,6 @@
 - [ADR 019: Rootアニメーション時間のController保持](019-controller-root-animtime.md)
 - [ADR 020: AngleDraw値と適用対象のController管理](020-controller-angledraw-sharing.md)
 - [ADR 021: AllPalFX暗転のController管理](021-controller-allpalfx-routing.md)
+- [ADR 022: 常駐Helperの存在を利用側で確認しない](022-resident-helper-existence-invariant.md)
+- [ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)
+- [ADR 024: HeadとHead Auraの位置・表示判断をControllerで管理する](024-head-head-aura-controller-managed-position-and-visibility.md)

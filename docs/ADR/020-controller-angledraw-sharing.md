@@ -16,21 +16,21 @@ Bodyと複数の表示Helperを同期して描画するために、各対象へ�
 
 ### Head・Body共通
 
-Bodyと複数の表示Helperで共有する`AngleDraw`値は、`the_controller`が計算して保持する。利用側は計算式を複製せず、対象固有の同期フラグが有効な場合だけControllerの完成値を読む。
+Head系およびBody系の複数の表示要素で使用する`AngleDraw`値は、`the_controller`が計算して保持する。利用側は計算式を複製しない。Head系は対象別完成値を毎tick読み、Body系は対象別適用フラグが有効な場合に完成値を読む。
 
 AngleDrawの値生成、適用対象、優先制御を管理する基盤は、常に`the_controller`とする。個別StateDefへAngleDrawの値生成や適用条件を記述してはならず、例外を設けない。Root自身へState Controllerを作用させる適用口だけはRootのStateDef `-2`へ置き、`the_controller`の完成値をそのまま使用する。表示Helperも同様に完成値を読むだけとする。
 
-`the_controller`は毎tick、最初に適用フラグを`0`へ戻す。適用条件が成立した場合は、角度、X倍率、Y倍率の順に完成値を保存し、その後で対象の適用フラグを`1`にする。値より先に適用フラグを有効にしてはならない。
+`the_controller`は毎tick、対象ごとの完成値を確定してから利用側へ渡す。Head系は対象別完成値と非同期フラグ、Body系は対象別適用フラグを使用する。フラグを値の確定より先に有効にしてはならない。
 
-Aura Boundと同期AngleDrawが同一tickで成立する場合は、Head系とBody系のどちらでもAura Boundを優先する。`the_controller`のAura Boundフラグ`var(0)`が有効な場合、Head AuraとBody Auraへ同期AngleDrawを適用してはならない。したがって、Aura Bound中はHeadとHead Aura、BodyとBody Auraが意図的に非同期となる。
+Aura Boundと同期AngleDrawが同一tickで成立する場合は、Head系とBody系のどちらでもAura Boundを優先する。Head系ではAngleDraw非同期フラグとHead Aura完成値を設定し、Body系ではBody Auraへ同期AngleDrawを適用しない。したがって、Aura Bound中はHeadとHead Aura、BodyとBody Auraが意図的に非同期となる。
 
 今後、別の表示Helperを同じAngleDrawへ同期する場合は、`the_controller`へ対象固有の適用フラグを追加する。利用Helperへ共有計算式を複製してはならない。
 
 ### Head
 
-`the_controller`の`fvar(2)`を共有角度、`fvar(3)`をHead X倍率、`fvar(4)`をHead Y倍率とする。`var(17)`をHeadへの適用フラグ、`var(18)`をHead Auraへの適用フラグとする。
+`the_controller`の`fvar(2)`をHead完成角度、`fvar(3)`をHead完成X倍率、`fvar(4)`をHead完成Y倍率とする。`fvar(9)`をHead Aura完成角度、`fvar(10)`をHead Aura完成X倍率、`fvar(11)`をHead Aura完成Y倍率とする。`var(18)`をHead Aura AngleDraw非同期フラグとする。
 
-HeadとHead Auraは角度と倍率を計算しない。対応する適用フラグが`1`の場合だけ、`the_controller`が保持する完成値を自身の`AngleDraw`へそのまま設定する。利用Helper側で追加の倍率補正を行わない。Head AuraはAura Boundフラグが無効な場合に限って同期値を適用する。
+同期時はHead Aura完成値をHead完成値と同じ値にする。通常のAura倍率やAura BoundによってHead Auraへ別の値を設定する場合だけ、`var(18)`を`1`にして対象別完成値を設定する。HeadとHead Auraは角度と倍率を計算せず、自身の完成値を一つの`AngleDraw`へそのまま設定する。Head系の同期と非同期の詳細は[ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)に従う。
 
 ### Body
 
@@ -48,8 +48,8 @@ BodyはRootのStateDef `-2`にある共通適用口で、`var(19)`が`1`の場�
 
 ## 結果
 
-AngleDrawの計算式は`the_controller`だけが保持し、Head、Head Aura、Body、Body Auraは対象ごとの完成値を使用する。角度または倍率を調整する際に、複数箇所の式を個別に同期する必要がなくなる。
+AngleDrawの計算式は`the_controller`だけが保持し、Head、Head Aura、Body、Body Auraは対象ごとの完成値を使用する。HeadとHead Auraは同一tickに複数のAngleDrawを重ねない。角度または倍率を調整する際に、複数箇所の式を個別に同期する必要がなくなる。
 
-適用対象は個別フラグで制御されるため、同じ共有値を保持しながら、表示HelperごとにAngleDrawの有効・無効を選択できる。
+Head系は対象別完成値とAngleDraw非同期フラグによって同期または非同期を制御する。Body系は対象別適用フラグによって完成値を適用する対象を制御する。
 
 既存のAura Boundは共有AngleDrawより優先されるため、Bound表示を維持できる。ただしAura Bound中は同期対象同士が意図的に非同期となる。

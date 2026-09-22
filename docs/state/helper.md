@@ -54,7 +54,31 @@ Helper Armorのダメージ取得、無敵期間、private-timeを管理し、�
 
 ### StateDef 99004002: オーラバウンドルーター
 
-RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateDefへ振り分ける。該当しない場合は暗転個別挙動ルーター`99004003`へ移る。
+RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateDefへ振り分ける。該当しない場合はHead位置補正ルーター`99004005`へ移る。
+
+### StateDef 99004005: Head位置補正ルーター
+
+Rootの状態からHead位置補正パターンを一つ、または0個選択する。該当しない場合はHead・Head Aura変換完成ルーター`99004004`へ移る。
+
+### StateDef 99004021: 異形回避Head位置補正
+
+Rootアニメーション前半でHead完成Pos補正を中心位置まで線形補間し、`99004004`へ移る。
+
+### StateDef 99004022: 前方ダッシュHead位置補正
+
+前方ダッシュ用のHead完成Pos補正を設定し、`99004004`へ移る。
+
+### StateDef 99004023: 後方ダッシュHead位置補正
+
+後方ダッシュ用のHead完成Pos補正を設定し、`99004004`へ移る。
+
+### StateDef 99004004: Head・Head Aura変換完成ルーター
+
+毎tick実行するHead・Head Aura変換完成個別StateDef `99004020`へ移る。
+
+### StateDef 99004020: Head・Head Aura変換完成個別
+
+HeadとHead Auraの対象別完成OffsetおよびAngleDrawを確定し、暗転個別挙動ルーター`99004003`へ移る。
 
 ### StateDef 99004003: 暗転個別挙動ルーター
 
@@ -62,15 +86,15 @@ RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateD
 
 ### StateDef 99004011: 4001バウンド定義
 
-RootのStateDef `4001`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
+RootのStateDef `4001`に対応するバウンド設定を適用し、Head位置補正ルーター`99004005`へ移る。
 
 ### StateDef 99004012: 4002バウンド定義
 
-RootのStateDef `4002`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
+RootのStateDef `4002`に対応するバウンド設定を適用し、Head位置補正ルーター`99004005`へ移る。
 
 ### StateDef 99004013: 4003バウンド定義
 
-RootのStateDef `4003`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
+RootのStateDef `4003`に対応するバウンド設定を適用し、Head位置補正ルーター`99004005`へ移る。
 
 ### StateDef 99004100: 暗転番号0・全画面黒
 

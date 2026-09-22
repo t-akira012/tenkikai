@@ -14,7 +14,11 @@ Rootアニメーション番号が保存済みの`var(15)`と異なる場合、�
 
 暗転番号と残り時間は`var(21)`へ保持する。下位16bitの残り時間が正の場合は毎tick`1`減算し、0になった場合はビットフィールド全体を0へ戻す。RootがStateDef `1000`で`private-time=10`になった場合は、暗転番号0、残り時間60tickを登録する。暗転番号と残り時間の構成は[ADR 021: AllPalFX暗転のController管理](../ADR/021-controller-allpalfx-routing.md)に従う。
 
-Head系AngleDrawの角度を`fvar(2)`、X倍率を`fvar(3)`、Y倍率を`fvar(4)`へ保持する。Body系AngleDrawの角度を`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持する。Head適用フラグ`var(17)`、Head Aura適用フラグ`var(18)`、Body適用フラグ`var(19)`、Body Aura適用フラグ`var(20)`は毎tick最初に`0`へ戻し、完成値を更新した後に対象のフラグを`1`にする。異形回避中のBody系角度は`0`とし、アニメーション要素5以降、`AnimeElemTime(5)`と`AnimTime`から求めた進捗率へ余弦曲線を適用して倍率を1から0.05まで後半ほど速く縮小する。完成Y Offsetには通常の浮遊Offsetと`-48*(1-Y倍率)`の縮小中心補正を含める。AngleDrawの管理責務とBound優先規則は[ADR 020: AngleDraw値と適用対象のController管理](../ADR/020-controller-angledraw-sharing.md)に従う。
+Head完成AngleDrawを`fvar(2)`〜`fvar(4)`、Head Aura完成AngleDrawを`fvar(9)`〜`fvar(11)`へ保持する。Head完成Offsetを`fvar(12)`と`fvar(13)`、Head Aura完成Offsetを`fvar(14)`と`fvar(15)`へ保持する。`var(17)`はHead Aura Offset非同期フラグ、`var(18)`はHead Aura AngleDraw非同期フラグである。同期時はHead Auraの対象別完成値へHeadの完成値をコピーし、Aura Boundや通常のAura倍率によって異なる値が必要なプロパティだけ非同期フラグを設定する。HeadとHead Auraは対象別完成値を一つのState Controllerで適用する。
+
+Head完成Pos補正Xを`fvar(16)`、Yを`fvar(17)`へ保持し、毎tick最初に`0,0`へ戻す。Head位置補正ルーターが該当する位置パターンを一つ選び、個別挙動StateDefが同じ完成値へ書き込む。Head、Head Auraおよび両者の残像を非表示にする完成状態は`var(22)`の対象別ビットへ保持する。異形回避では回転中のStateDef `300`で残像を表示し、消失中のStateDef `301`だけ両方のHelperと残像を非表示にする。Head系の位置補正と表示判断は[ADR 024: HeadとHead Auraの位置・表示判断をControllerで管理する](../ADR/024-head-head-aura-controller-managed-position-and-visibility.md)に従う。
+
+Body系AngleDrawの角度を`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持する。Body適用フラグ`var(19)`とBody Aura適用フラグ`var(20)`は毎tick最初に`0`へ戻し、完成値を更新した後に対象のフラグを`1`にする。異形回避中のBody系角度は`0`とし、アニメーション要素5以降、`AnimeElemTime(5)`と`AnimTime`から求めた進捗率へ余弦曲線を適用して倍率を1から0.05まで後半ほど速く縮小する。完成Y Offsetには通常の浮遊Offsetと`-48*(1-Y倍率)`の縮小中心補正を含める。AngleDrawの管理責務とBound優先規則は[ADR 020: AngleDraw値と適用対象のController管理](../ADR/020-controller-angledraw-sharing.md)、HeadとHead Auraの変換同期は[ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](../ADR/023-head-head-aura-transform-synchronization.md)に従う。
 
 最初の挙動塊はライフ管理である。`99004000`からライフ管理ルーター`99004001`へ遷移し、ライフ管理個別StateDef `99004010`の完了後に次の挙動ルーターへ進む。
 
@@ -27,6 +31,11 @@ StateDef -2
   → StateDef 99004002: オーラバウンドルーター
     → StateDef 99004011 / 99004012 / 99004013: 該当するバウンド個別を一つ実行
     → 該当なし: 個別処理なし
+  → StateDef 99004005: Head位置補正ルーター
+    → StateDef 99004021 / 99004022 / 99004023: 該当する位置補正個別を一つ実行
+    → 該当なし: 完成Pos補正0,0を維持
+  → StateDef 99004004: Head・Head Aura変換完成ルーター
+    → StateDef 99004020: Head・Head Aura変換完成個別
   → StateDef 99004003: 暗転個別挙動ルーター
     → StateDef 99004100: 暗転番号0・全画面黒
     → 該当なし: 個別処理なし
@@ -34,9 +43,9 @@ StateDef -2
   → StateDef 5150
 ```
 
-挙動塊は、ライフ管理、オーラバウンド、暗転の順に毎tick処理する。各ルーターは該当する個別挙動を一つ、または0個選択し、個別挙動の有無にかかわらず次の挙動塊へ進む。ライフ管理は毎tick実行するため、`99004001`から常に`99004010`を選択する。最後の暗転挙動塊を処理した後だけ最終処理を経由して`5150`へ移動する。
+挙動塊は、ライフ管理、オーラバウンド、Head位置補正、Head・Head Aura変換完成、暗転の順に毎tick処理する。各ルーターは該当する個別挙動を一つ、または0個選択し、個別挙動の有無にかかわらず次の挙動塊へ進む。ライフ管理とHead・Head Aura変換完成は毎tick実行するため、それぞれのルーターから常に対応する個別StateDefを選択する。最後の暗転挙動塊を処理した後だけ最終処理を経由して`5150`へ移動する。
 
-`99004002`はRootのStateNoを監視し、`4001`、`4002`、`4003`に対応してそれぞれ`99004011`、`99004012`、`99004013`へ振り分ける。バウンド個別処理がない場合は`99004003`へ進む。各バウンド個別StateDefも設定を適用した後に、固定された次の挙動塊である`99004003`へ進む。
+`99004002`はRootのStateNoを監視し、`4001`、`4002`、`4003`に対応してそれぞれ`99004011`、`99004012`、`99004013`へ振り分ける。バウンド個別処理がない場合は`99004005`へ進む。各バウンド個別StateDefも設定を適用した後に、固定された次の挙動塊である`99004005`へ進む。
 
 個別挙動の追加や遷移責務に関する実装指針は、[ADR 015: the_controller 99004の個別挙動ルーター](../ADR/015-the-controller-99004-routing.md)を参照する。
 
@@ -52,7 +61,33 @@ Action `99004`の当たり判定をRootの位置へ追従させ、PlayerPush無�
 
 ### StateDef 99004002: オーラバウンドルーター
 
-ライフ管理の完了後に入り、RootのStateNoと`private-time`を監視して、`99004011`、`99004012`、`99004013`へ振り分ける。個別処理がないフレームは暗転個別挙動ルーター`99004003`へ進む。
+ライフ管理の完了後に入り、RootのStateNoと`private-time`を監視して、`99004011`、`99004012`、`99004013`へ振り分ける。個別処理がないフレームはHead位置補正ルーター`99004005`へ進む。
+
+### StateDef 99004005: Head位置補正ルーター
+
+RootのStateNoとアニメーション時間情報を監視し、異形回避、前方ダッシュ、後方ダッシュの位置補正個別StateDefへ振り分ける。該当しない場合は`99004000`で初期化した完成Pos補正`0,0`を維持し、Head・Head Aura変換完成ルーター`99004004`へ進む。
+
+### StateDef 99004021: 異形回避Head位置補正
+
+保存済みRootアニメーション時間の前半50%を使い、完成Pos補正を`0,0`から`18,18`まで線形補間する。後半は`18,18`を維持し、`99004004`へ進む。
+
+### StateDef 99004022: 前方ダッシュHead位置補正
+
+完成Pos補正を`55,26`に設定し、`99004004`へ進む。
+
+### StateDef 99004023: 後方ダッシュHead位置補正
+
+完成Pos補正を`-35,6`に設定し、`99004004`へ進む。
+
+### StateDef 99004004: Head・Head Aura変換完成ルーター
+
+毎tick実行するHead・Head Aura変換完成個別StateDef `99004020`へ移動する。Aura Boundの更新後に完成値を確定するため、Boundによる非同期値は同じtickのHead Auraへ渡される。
+
+### StateDef 99004020: Head・Head Aura変換完成個別
+
+Head完成Offsetを確定し、Head Aura完成Offsetへコピーする。Aura Bound中はOffset非同期フラグ`var(17)`を設定し、Head AuraのY OffsetだけにBound補正を加える。
+
+Head完成AngleDrawをHead Aura完成AngleDrawへコピーする。通常のAura倍率を使用する場合、またはAura Bound中はAngleDraw非同期フラグ`var(18)`を設定し、Head Aura用の角度と倍率を確定する。処理後は暗転個別挙動ルーター`99004003`へ進む。
 
 ### StateDef 99004003: 暗転個別挙動ルーター
 
@@ -60,15 +95,15 @@ Action `99004`の当たり判定をRootの位置へ追従させ、PlayerPush無�
 
 ### StateDef 99004011: 4001バウンド個別
 
-RootのStateNo `4001`に対応するバウンド定義を適用し、`99004003`へ移動する。
+RootのStateNo `4001`に対応するバウンド定義を適用し、`99004005`へ移動する。
 
 ### StateDef 99004012: 4002バウンド個別
 
-RootのStateNo `4002`に対応するバウンド定義を適用し、`99004003`へ移動する。
+RootのStateNo `4002`に対応するバウンド定義を適用し、`99004005`へ移動する。
 
 ### StateDef 99004013: 4003バウンド個別
 
-RootのStateNo `4003`に対応するバウンド定義を適用し、`99004003`へ移動する。
+RootのStateNo `4003`に対応するバウンド定義を適用し、`99004005`へ移動する。
 
 ### StateDef 99004100: 暗転番号0・全画面黒
 
