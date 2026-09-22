@@ -10,14 +10,14 @@ WinMUGENの`AngleDraw`は、別のStateDefへ移動しただけでは前の傾�
 
 ## 決定
 
-通常変数`var(5)`を、現在のStateDefがAngleDrawを有効にしているかを示すフラグとして使用する。入力ビット用に予約された変数は再利用しない。
+AngleDrawの値と適用フラグは`the_controller`が管理する。個別StateDefはAngleDrawの値や有効状態を管理しない。
 
-StateDef `-2` は毎tick、`var(5)`を`0`（false）へ戻し、AngleDrawを中立値へ設定して前のStateDefから残った傾斜を解除する。
+RootのStateDef `-2`は毎tick、AngleDrawを中立値へ設定して前tickの傾斜と倍率を解除する。その後、`the_controller`のBody適用フラグが有効な場合だけ、Controllerが保持する完成角度と完成倍率をRootへ適用する。
 
-AngleDrawを必要とするStateDefは、自身のAngleDraw処理と同じ条件で`var(5)=1`（true）を設定する。110／111は現在trueになるStateDefであり、傾斜対象をそれらに限定しない。将来の技や演出StateDefも、同じ有効化手順で傾斜を使用できる。
+AngleDrawを必要とする挙動は、`the_controller`で完成値と適用フラグを設定する。Rootの個別StateDefへAngleDrawまたは専用フラグを追加してはならない。
 
-Body auraはRootの`var(5)`を参照し、false時には角度を中立値へ戻す。RootとAuraで独立した有効判定や符号補正は追加しない。
+Body AuraはControllerのBody Aura適用フラグを参照し、Controllerが保持するBody系の完成角度と完成倍率を使用する。RootとAuraで独立した計算式や符号補正は追加しない。Aura Bound中はBoundを優先する。
 
 ## 結果
 
-AngleDrawを使用しないStateDefへ移行した時点で、`-2`が残留傾斜を自動的に除去する。傾斜を使う技や演出はStateDef単位で明示的に有効化でき、ダッシュ専用の判定に依存しない。
+AngleDrawを使用しない挙動へ移行した時点で、`-2`が残留傾斜を自動的に除去する。新しい技や演出はController側の値生成だけを追加し、RootとBody Auraの共通適用口を変更しない。

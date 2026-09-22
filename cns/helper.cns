@@ -30,6 +30,8 @@ movetype=i
 physics=n
 anim=99004
 
+;; the_controller集約処理
+
 ;; Rootアニメーション時間保持
 
 [state ]
@@ -44,6 +46,265 @@ type=varset
 trigger1=var(16)<=0
 trigger2=var(15)!=root,anim
 var(15)=root,anim
+ignorehitpause=1
+
+;; 暗転保持値更新・発動監視
+
+[state ]
+type=varadd
+trigger1=(var(21)&65535)>0
+var(21)=-1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(var(21)&65535)=0
+var(21)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1000
+trigger1=root,var(1)=10
+var(21)=60
+ignorehitpause=1
+
+;; AngleDraw共有値・適用フラグ
+
+[state ]
+type=varset
+trigger1=1
+var(17)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(19)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(20)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+fvar(7)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+fvar(8)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger1=(root,animelemno(0))=[1,3]
+fvar(5)=1+(root,animelemtime(1))*0.05
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger1=(root,animelemno(0))=[1,3]
+fvar(6)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger1=(root,animelemno(0))=[4,5]
+fvar(5)=1+(root,animelemtime(4))*0.1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger1=(root,animelemno(0))=[4,5]
+fvar(6)=1-(root,animelemtime(4))*0.01
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=110
+fvar(7)=-56.16
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=110
+fvar(5)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=110
+fvar(6)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=110
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=111
+fvar(7)=30
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=111
+fvar(5)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=111
+fvar(6)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=111
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(7)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(2)=360.0*((root,animtime)+var(16))/var(16)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(3)=1.0-0.1*((root,animtime)+var(16))/var(16)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(4)=1.0-0.1*((root,animtime)+var(16))/var(16)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(5)=1.0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(6)=1.0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+trigger1=(root,animelemno(0))>=5
+trigger1=((root,animelemtime(5))-(root,animtime))>0
+fvar(5)=0.05+0.95*cos(0.5*pi*(root,animelemtime(5))/((root,animelemtime(5))-(root,animtime)))
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+trigger1=(root,animelemno(0))>=5
+trigger1=((root,animelemtime(5))-(root,animtime))>0
+fvar(6)=fvar(5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-48.0*(1.0-fvar(6))
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+var(17)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+var(18)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger2=(root,stateno=110)&&((root,var(2))&1)!=0
+trigger3=(root,stateno=111)&&((root,var(2))&2)!=0
+var(19)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+var(19)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=100
+trigger2=(root,stateno=110)&&((root,var(2))&1)!=0
+trigger3=(root,stateno=111)&&((root,var(2))&2)!=0
+var(20)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=300
+trigger1=var(15)=root,anim
+trigger1=var(16)>0
+var(20)=1
 ignorehitpause=1
 
 ;; PlayerPush無効化フラグ
@@ -81,6 +342,20 @@ value=99004001
 ignorehitpause=1
 
 [statedef 99004001]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; ライフ管理ルーティング
+
+[state ]
+type=changestate
+trigger1=1
+value=99004010
+ignorehitpause=1
+
+[statedef 99004010]
 type=s
 movetype=i
 physics=n
@@ -240,7 +515,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004999
+value=99004003
 ignorehitpause=1
 
 ;; 4001 バウンド定義
@@ -274,7 +549,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004999
+value=99004003
 ignorehitpause=1
 
 ;; 4002 バウンド定義
@@ -308,7 +583,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004999
+value=99004003
 ignorehitpause=1
 
 ;; 4003 バウンド定義
@@ -337,6 +612,48 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004003
+ignorehitpause=1
+
+[statedef 99004003]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 暗転個別挙動ルーティング
+
+[state ]
+type=changestate
+trigger1=(var(21)&65535)>0
+trigger1=((var(21)/65536)&31)=0
+value=99004100
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004999
+ignorehitpause=1
+
+;; 暗転番号0 全画面黒
+
+[statedef 99004100]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+[state ]
+type=allpalfx
+trigger1=(var(21)&65535)>0
+time=1
+mul=0,0,0
 ignorehitpause=1
 
 [state ]
@@ -382,8 +699,8 @@ trigger1=root,stateno=300
 trigger1=helper(99004),var(15)=root,anim
 trigger1=helper(99004),var(16)>0
 trigger1=(root,animtime)<-(helper(99004),var(16))*0.5
-x=-8.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
-y=23.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+x=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+y=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
 ignorehitpause=1
 
 [state ]
@@ -392,8 +709,15 @@ trigger1=root,stateno=300
 trigger1=helper(99004),var(15)=root,anim
 trigger1=helper(99004),var(16)>0
 trigger1=(root,animtime)>=-(helper(99004),var(16))*0.5
-x=-8
-y=23
+x=18
+y=18
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=helper(99004),var(17)=1
+value=(helper(99004),fvar(2))
+scale=(helper(99004),fvar(3)),(helper(99004),fvar(4))
 ignorehitpause=1
 
 ;; 前後ダッシュ頭部位置移動
@@ -523,8 +847,16 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=1
-value=-56.16*(root,stateno=110)*(root,var(5)!=0)+30*(root,stateno=111)*(root,var(5)!=0)
+value=0
 scale=1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0)),1.075+0.075*(root,fvar(0))+(helper(99004),fvar(0))
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=helper(99004),var(0)=0
+trigger1=helper(99004),var(20)=1
+value=(helper(99004),fvar(7))
+scale=(helper(99004),fvar(5)),(helper(99004),fvar(6))
 ignorehitpause=1
 
 ;; Aura浮遊オフセット
@@ -542,6 +874,13 @@ type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
 trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
 y=0
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=helper(99004),var(0)=0
+trigger1=helper(99004),var(20)=1
+y=(helper(99004),fvar(8))
 ignorehitpause=1
 
 ;; Aura透過表示
@@ -617,9 +956,38 @@ ignorehitpause=1
 
 [state ]
 type=posset
-trigger1=1
+trigger1=root,stateno!=300
 x=helper(99001),pos x
 y=helper(99001),pos y
+ignorehitpause=1
+
+;; 異形回避中の頭部位置同期
+
+[state ]
+type=posset
+trigger1=root,stateno=300
+x=root,pos x
+y=root,pos y-61
+ignorehitpause=1
+
+[state ]
+type=posadd
+trigger1=root,stateno=300
+trigger1=helper(99004),var(15)=root,anim
+trigger1=helper(99004),var(16)>0
+trigger1=(root,animtime)<-(helper(99004),var(16))*0.5
+x=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+y=18.0*((root,animtime)+(helper(99004),var(16)))/((helper(99004),var(16))*0.5)
+ignorehitpause=1
+
+[state ]
+type=posadd
+trigger1=root,stateno=300
+trigger1=helper(99004),var(15)=root,anim
+trigger1=helper(99004),var(16)>0
+trigger1=(root,animtime)>=-(helper(99004),var(16))*0.5
+x=18
+y=18
 ignorehitpause=1
 
 [state ]
@@ -638,6 +1006,14 @@ ignorehitpause=1
 type=angledraw
 trigger1=1
 scale=1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0)),1.15+0.15*(root,fvar(0))+(helper(99004),fvar(0))
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=helper(99004),var(0)=0
+trigger1=helper(99004),var(18)=1
+value=(helper(99004),fvar(2))
+scale=(helper(99004),fvar(3)),(helper(99004),fvar(4))
 ignorehitpause=1
 
 [state ]

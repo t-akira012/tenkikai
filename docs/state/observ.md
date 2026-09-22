@@ -20,9 +20,11 @@ ID `99004`の`the_controller`が保持したダメージをRootのライフへ�
 
 本体の変数更新とデバッグ表示を行う。時間基準には本体の `private-gametime` を使用する。
 
-#### AngleDraw無効化時の残留傾斜解除
+#### Body AngleDraw適用
 
-`var(5)`を毎tick falseへ戻し、AngleDrawを中立値へ設定する。傾斜を必要とするStateDefは自身の処理中に`var(5)=1`を設定するため、傾斜対象をダッシュStateDefに限定しない。入力ビット用に予約された変数は再利用しない。
+AngleDrawを毎tick中立値へ戻した後、`the_controller`のBody適用フラグが有効な場合だけ、Controllerが保持するBody系完成角度とX・Y倍率をRootへ適用する。個別StateDefはAngleDrawを管理しない。
+
+浮遊表示の通常Offsetを適用した後、ControllerのBody適用フラグが有効な場合は、Controllerが保持するBody系完成Y Offsetで上書きする。完成値には必要な浮遊Offsetも含まれる。
 
 ### StateDef -3: 浮遊移動・状態変更・頭部生成と外観演出
 

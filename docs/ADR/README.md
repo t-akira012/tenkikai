@@ -19,3 +19,5 @@
 - [ADR 017: the_controllerのPlayerPush無効化フラグ](017-playerpush-disable-flag.md)
 - [ADR 018: the_controllerの無敵フラグ](018-the-controller-invincibility-flag.md)
 - [ADR 019: Rootアニメーション時間のController保持](019-controller-root-animtime.md)
+- [ADR 020: AngleDraw値と適用対象のController管理](020-controller-angledraw-sharing.md)
+- [ADR 021: AllPalFX暗転のController管理](021-controller-allpalfx-routing.md)

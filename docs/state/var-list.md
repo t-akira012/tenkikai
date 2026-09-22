@@ -37,10 +37,6 @@
 
 StateDef `-2`の最上部でビット31を自動運用フラグとして設定する。StateDef `-1`では、このフラグを維持したまま下位ビットを毎tick解除し、通常操作時だけCommandを下位ビットへ変換する。後続の状態遷移、移動、アニメーション、StateDef `-3`の浮遊移動と状態変更は、対応する入力ビットを参照する。下位ビットの正規定義は[Command入力ビットマップ](../AGENTS.input-map.md)、ビット31の規約は[オートメーション規約](../AGENTS.automation.md)を参照する。
 
-### `var(5)` — AngleDraw有効フラグ
-
-入力ビット用に予約された変数を避け、StateDef `-2`で毎tick`0`へ戻し、AngleDrawの中立化と残留傾斜の解除に使用する。AngleDrawを使用するStateDefだけが、自身の処理中に`1`を設定する。現在はダッシュStateDef `110`、`111`で使用しているが、用途はダッシュに限定しない。
-
 ### `var(6)` — 異形回避の出現領域
 
 StateDef `300`で追加入力を記録する。`0`は未選択、`1`〜`3`は下段の左・中央・右、`4`〜`6`は上段の左・中央・右を表す。StateDef `301`はこの値を参照して出現位置へ移動する。`0`の場合は相手の向きに対して25px背後へ移動し、画面外になる場合は反対側の画面端から20px内側へ回り込む。
@@ -112,6 +108,26 @@ ID `99004`の`the_controller`が、`var(16)`と対になるRootアニメーシ�
 
 ID `99004`の`the_controller`が、Rootアニメーション変更時の`abs(root,animtime)`を保持する。Rootアニメーションの要素数や各要素の表示時間を固定値として利用Helperへ重複させず、アニメーション全体時間を必要とする処理へ提供する。固定的な契約は[Rootアニメーション時間保持規約](../AGENTS.root-animtime.md)に従う。
 
+### `var(17)` — Controller Head AngleDraw適用フラグ
+
+ID `99004`の`the_controller`が毎tick`0`へ戻し、共有AngleDraw値をHeadへ適用する場合だけ、値の更新後に`1`を設定する。Headは`1`の場合だけControllerの`fvar(2)`〜`fvar(4)`を使用する。
+
+### `var(18)` — Controller Head Aura AngleDraw適用フラグ
+
+ID `99004`の`the_controller`が毎tick`0`へ戻し、共有AngleDraw値をHead Auraへ適用する場合だけ、値の更新後に`1`を設定する。Head Auraは`1`の場合だけControllerの`fvar(2)`〜`fvar(4)`を使用する。
+
+### `var(19)` — Controller Body AngleDraw適用フラグ
+
+ID `99004`の`the_controller`が毎tick`0`へ戻し、Body系完成AngleDrawをBodyへ適用する場合だけ、値の更新後に`1`を設定する。RootのStateDef `-2`は本フラグが`1`の場合だけControllerの`fvar(7)`、`fvar(5)`、`fvar(6)`を使用する。
+
+### `var(20)` — Controller Body Aura AngleDraw適用フラグ
+
+ID `99004`の`the_controller`が毎tick`0`へ戻し、Body系完成AngleDrawをBody Auraへ適用する場合だけ、値の更新後に`1`を設定する。Body AuraはAura Boundフラグ`var(0)`が無効で、かつ本フラグが`1`の場合だけControllerの`fvar(7)`、`fvar(5)`、`fvar(6)`を使用する。
+
+### `var(21)` — Controller暗転ビットフィールド
+
+ID `99004`の`the_controller`が、`AllPalFX`暗転の番号と残り時間を保持する。bit 0〜15は0〜65535tickの残り時間、bit 16〜20は0〜31の暗転番号とし、bit 21〜31は使用しない。残り時間が正の場合は毎tick`1`減算し、0になった場合は値全体を0へ戻す。現在はRootのStateDef `1000`、`private-time=10`で暗転番号0と60tickを保存する。
+
 ## 浮動小数点変数
 
 ### `fvar(0)` — 浮遊表示位相
@@ -124,6 +140,34 @@ ID `99004`の`the_controller`が、Rootアニメーション変更時の`abs(roo
 | 設定値 | `-1`から`1`までを往復 |
 
 本体が保持する位相を頭部ヘルパーがRoot参照で利用する。本体と頭部ヘルパーの浮遊感表示は同じ位相で同期する。
+
+### `fvar(2)` — Controller共有AngleDraw角度
+
+ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成角度を保持する。利用Helperは対応する適用フラグが有効な場合だけ参照する。
+
+### `fvar(3)` — Controller共有AngleDraw X倍率
+
+ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成X倍率を保持する。
+
+### `fvar(4)` — Controller共有AngleDraw Y倍率
+
+ID `99004`の`the_controller`が、複数表示Helperへ適用するAngleDrawの完成Y倍率を保持する。
+
+### `fvar(5)` — Controller Body AngleDraw X倍率
+
+ID `99004`の`the_controller`がBodyへ適用する完成X倍率を保持する。Rootのアニメーション要素5以降、余弦曲線によって1から0.05まで縮小する。
+
+### `fvar(6)` — Controller Body AngleDraw Y倍率
+
+ID `99004`の`the_controller`がBodyへ適用する完成Y倍率を保持する。X倍率と同じ完成値を使用する。
+
+### `fvar(7)` — Controller Body AngleDraw角度
+
+ID `99004`の`the_controller`がBodyとBody Auraへ適用する完成角度を保持する。Head系の`fvar(2)`とは独立し、異形回避では`0`を設定する。
+
+### `fvar(8)` — Controller Body完成Y Offset
+
+ID `99004`の`the_controller`がBodyとBody Auraへ適用する完成Y Offsetを保持する。異形回避では通常の浮遊Offsetへ`-48*(1-fvar(6))`を加え、Scale縮小によってBody中心がSprite axisへ近づく移動を上方向へ補正する。
 
 ## システム変数
 
@@ -163,4 +207,4 @@ StateDef `132` と `155` では、`pos y>=0` かつ `vel y>0` を設定し、接
 
 ## 集計
 
-通常変数は`var(0)`、`var(1)`、`var(2)`、`var(5)`、`var(6)`、`var(7)`、`var(10)`、`var(11)`、`var(12)`、`var(13)`、`var(14)`の11種類、浮動小数点変数は`fvar(0)`の1種類、システム変数は`sysvar(0)`、`sysvar(1)`、`sysvar(2)`の3種類を使用している。`sysfvar`は使用していない。
+通常変数は`var(0)`、`var(1)`、`var(2)`、`var(6)`、`var(7)`、`var(10)`〜`var(21)`の17種類、浮動小数点変数は`fvar(0)`、`fvar(2)`〜`fvar(8)`の8種類、システム変数は`sysvar(0)`、`sysvar(1)`、`sysvar(2)`の3種類を使用している。`sysfvar`は使用していない。

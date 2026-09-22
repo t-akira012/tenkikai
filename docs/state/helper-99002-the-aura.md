@@ -20,6 +20,10 @@ Rootのアニメーション番号と要素位置を読み取り、Auraの表示
 
 前後ダッシュに合わせてBody auraを傾斜させる。傾斜はRootのダッシュ状態と同じ向きで適用し、Aura側の独立した符号補正は行わない。詳細な判断は[ADR 008](../ADR/008-aura-facing-synchronization.md)を参照する。
 
+ControllerのBody Aura適用フラグが有効で、Aura Boundフラグが無効な場合は、Controllerが保持するBody系完成角度およびX・Y倍率を適用する。Aura Bound中は既存のAura倍率を優先し、共有AngleDrawを適用しない。
+
+Body Aura適用中は、Controllerが保持するBody系完成Y Offsetも使用する。これによりBodyの浮遊表示と、縮小時のaxis基準による中心移動補正へ同じ位置で追従する。
+
 ### Aura浮遊オフセット
 
 Rootの浮遊表示に合わせて、Auraの表示位置を補正する。バウンド中は`the_controller`の進行量も反映する。

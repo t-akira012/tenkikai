@@ -40,29 +40,41 @@ Rootの位置・向き・アニメーション・描画オフセットへ追従�
 
 ## the_controller
 
-### StateDef 99004000: 個別挙動ルーティング
+### StateDef 99004000: the_controller集約
 
-Rootを監視し、最初の個別挙動である`99004001`へ移る。詳細は[the_controller Helper](helper-99004-the-controller.md)を参照する。
+Rootを監視し、最初の挙動塊のルーター`99004001`へ移る。詳細は[the_controller Helper](helper-99004-the-controller.md)を参照する。
 
-### StateDef 99004001: ライフ管理
+### StateDef 99004001: ライフ管理ルーター
 
-Helper Armorのダメージ取得、無敵期間、private-timeを管理し、`99004002`へ移る。
+毎tick実行するライフ管理個別StateDef `99004010`へ移る。
+
+### StateDef 99004010: ライフ管理個別
+
+Helper Armorのダメージ取得、無敵期間、private-timeを管理し、次の挙動塊である`99004002`へ移る。
 
 ### StateDef 99004002: オーラバウンドルーター
 
-RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateDefへ振り分ける。該当しない場合は`99004999`へ移る。
+RootのStateNoとprivate-timeを監視し、該当するバウンド個別StateDefへ振り分ける。該当しない場合は暗転個別挙動ルーター`99004003`へ移る。
+
+### StateDef 99004003: 暗転個別挙動ルーター
+
+暗転ビットフィールドの残り時間と暗転番号を読み、対応する色指定個別StateDefへ振り分ける。暗転がない場合と未割当の番号では`99004999`へ移る。
 
 ### StateDef 99004011: 4001バウンド定義
 
-RootのStateDef `4001`に対応するバウンド設定を適用し、`99004999`へ移る。
+RootのStateDef `4001`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
 
 ### StateDef 99004012: 4002バウンド定義
 
-RootのStateDef `4002`に対応するバウンド設定を適用し、`99004999`へ移る。
+RootのStateDef `4002`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
 
 ### StateDef 99004013: 4003バウンド定義
 
-RootのStateDef `4003`に対応するバウンド設定を適用し、`99004999`へ移る。
+RootのStateDef `4003`に対応するバウンド設定を適用し、暗転個別挙動ルーター`99004003`へ移る。
+
+### StateDef 99004100: 暗転番号0・全画面黒
+
+`AllPalFX`を1tick適用して画面全体を黒にし、`99004999`へ移る。
 
 ### StateDef 99004999: 最終処理
 

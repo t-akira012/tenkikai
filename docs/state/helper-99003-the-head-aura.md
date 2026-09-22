@@ -8,7 +8,7 @@
 
 ### 頭部位置追従
 
-頭部Helperの位置へ毎フレーム追従する。RootがStateDef `300`の場合は通常の浮遊Offsetを適用せず、アニメーション中心へ移動する頭部と表示位置を揃える。
+通常時は頭部Helperの位置へ毎フレーム追従する。RootがStateDef `300`の場合はHelper間の処理順による1 tickの位置遅延を避けるため、Root位置を基準に頭部と同じ位置補正を同一tickで適用する。通常の浮遊Offsetは適用せず、アニメーション中心へ移動する頭部と表示位置を揃える。
 
 ### Root向き同期
 
@@ -25,6 +25,8 @@ Rootの向きと`facing`を一致させるため、Rootに合わせて`Turn`す�
 ### 異形回避中の表示
 
 RootがStateDef `300`の場合は頭部Auraを表示したまま残像を消去する。StateDef `301`では頭部Auraを非表示にする。StateDef `302`で残像の初回生成フラグを解除し、再出現後の残像を再開する。
+
+頭部Aura自身は共有AngleDraw値を計算しない。`the_controller`のHead Aura適用フラグが有効で、Aura Boundフラグが無効な場合だけ、Controllerが保持する角度、X倍率、Y倍率の完成値を使用する。Aura Bound中は既存のAura倍率を優先する。
 
 ## StateDef 99003999: 最終処理
 

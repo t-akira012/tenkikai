@@ -46,21 +46,31 @@ StateDef `300`、`301`、`302`は、`the_controller`が管理するPlayerPush無
 - Action：`300`
 - 発動入力：`X+Y`
 - 各画像の表示時間：`1` tick
-- 前方向入力時：`PosAdd X = 12 / frame`
-- 後方向入力時：`PosAdd X = -8 / frame`
-- 左右未入力時：`PosAdd X = -8 / frame`
-- 左右未入力での16frameの後方移動量：`128` px
+- 前方向入力時：`PosAdd X = 6 / frame`
+- 後方向入力時：`PosAdd X = -4 / frame`
+- 左右未入力時：`PosAdd X = -4 / frame`
+- 左右未入力での16frameの後方移動量：`64` px
 - 上下移動：通常の浮遊移動と同じ速度
 
 ### 回転中の頭部移動
 
 - 対象：頭部Helper
 - 開始補正：`X=0, Y=0`
-- 終了補正：`X=-8, Y=23`
+- 終了補正：`X=18, Y=18`
 - 移動時間：Controllerが保持したアニメーション全体時間の前半50%
 - 進行基準：現在の`AnimTime`とControllerが保持したアニメーション変更時の`AnimTime`絶対値
 - 補間：前半で開始補正から終了補正まで線形移動し、後半は終了補正を維持
 - 表示：StateDef `300`では表示し、StateDef `301`で非表示
+
+### 回避中のBody縮小
+
+- 開始要素：Action `300`の要素5
+- 開始倍率：`1.0`
+- 終了倍率：`0.05`
+- 変化：余弦曲線により後半ほど縮小速度を上げる
+- Body角度：`0`
+- Y Offset補正：通常の浮遊Offsetへ`-48*(1-Y倍率)`を加算
+- 同期対象：Body Aura
 
 ### 消失
 

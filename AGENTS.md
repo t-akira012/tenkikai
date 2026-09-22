@@ -23,6 +23,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [コマンド入力・行動設計規約](docs/AGENTS.command.md)
 - [入力ビットマップ](docs/AGENTS.input-map.md)
 - [オートメーション規約](docs/AGENTS.automation.md)
+- [技作成スキル](.agents/skills/create-waza/SKILL.md)
 - [設計判断記録](docs/ADR/)
 - [バグ修正](docs/issues/)
 - [公式ドキュメント未記載のユーザー調査情報](docs/researched/README.md)
@@ -70,6 +71,10 @@ CNSの都合、一般的な実装慣習、構造化の都合だけで、`docs/DE
 WinMUGEN は LLM 学習データが不足している。一方で、ユーザーはWinMUGENの仕様に詳しい。
 
 仕様の不明点は、共通規約、および、ユーザー調査情報を読み解き、必要に応じて、ユーザーに詳細仕様を質問すること。
+
+### 技作成
+
+TENKIKAIの技、攻撃、特殊移動、または技に伴う演出を新規作成・変更する場合は、リポジトリ内の`create-waza`スキルを使用する。スキルは必要な文書だけを選択して参照し、`the_controller`の固定遷移契約と演出責務に従って技を実装する。
 
 ### 一般のプログラミングパラダイムを不採用とする
 

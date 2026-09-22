@@ -12,15 +12,14 @@ def split_gif(input_path, output_dir):
         raise FileNotFoundError(str(input_path))
     output_dir.mkdir(parents=True, exist_ok=True)
     with Image.open(input_path) as gif:
-        frames = list(ImageSequence.Iterator(gif))
-        if not frames:
+        if getattr(gif, "n_frames", 0) < 1:
             raise ValueError("GIF has no frames")
         outputs = []
-        for number, frame in enumerate(frames):
+        for number, frame in enumerate(ImageSequence.Iterator(gif)):
             output = output_dir / "{:04d}.png".format(number)
             if output.exists():
                 raise FileExistsError(str(output))
-            frame.convert("RGBA").save(output, format="PNG")
+            frame.copy().convert("RGBA").save(output, format="PNG")
             outputs.append(output)
     print("split: {} frames -> {}".format(len(outputs), output_dir))
 

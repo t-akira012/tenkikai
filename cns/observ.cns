@@ -58,19 +58,22 @@ ignorehitpause=1
 
 ;; 変数更新とデバッグ表示
 
-;; AngleDraw無効化時の残留傾斜解除
-
-[state ]
-type=varset
-trigger1=!ishelper
-var(5)=0
-ignorehitpause=1
+;; Body AngleDraw適用
 
 [state ]
 type=angledraw
 trigger1=!ishelper
 value=0
 scale=1,1
+ignorehitpause=1
+
+[state ]
+type=angledraw
+trigger1=!ishelper
+trigger1=numhelper(99004)
+trigger1=helper(99004),var(19)=1
+value=(helper(99004),fvar(7))
+scale=(helper(99004),fvar(5)),(helper(99004),fvar(6))
 ignorehitpause=1
 
 [state ]
@@ -239,6 +242,14 @@ trigger1=(movetype=h)||(statetype=c)
 trigger2=!ishelper
 trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(statetype!=a)
 y=0
+ignorehitpause=1
+
+[state ]
+type=offset
+trigger1=!ishelper
+trigger1=numhelper(99004)
+trigger1=helper(99004),var(19)=1
+y=(helper(99004),fvar(8))
 ignorehitpause=1
 
 ;; Controller・頭部ヘルパー生成

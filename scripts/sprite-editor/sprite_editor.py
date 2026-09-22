@@ -146,8 +146,9 @@ def read_png_palette(path):
 
 def encode_pcx(path, palette):
     image = Image.open(path).convert("RGBA")
-    alpha = image.getchannel("A")
-    transparent = image.getpixel((0, 0))[:3]
+    top_left = image.getpixel((0, 0))
+    transparent = top_left[:3]
+    use_transparent_rgb = top_left[3] != 0
     pixels = image.load()
     indexes = []
     cache = {}
@@ -155,7 +156,7 @@ def encode_pcx(path, palette):
         for x in range(image.width):
             pixel = pixels[x, y]
             rgb = pixel[:3]
-            if pixel[3] == 0 or pixel[:3] == transparent:
+            if pixel[3] == 0 or (use_transparent_rgb and pixel[:3] == transparent):
                 index = 0
             else:
                 index = cache.get(rgb)
