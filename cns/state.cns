@@ -821,7 +821,7 @@ y=-60
 [state ]
 type=posset
 trigger1=var(6)=[4,6]
-y=-180
+y=-90
 
 ;; 残像消去
 
