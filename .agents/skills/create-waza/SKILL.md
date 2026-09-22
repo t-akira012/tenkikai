@@ -5,32 +5,30 @@ description: TENKIKAIの技、攻撃、特殊移動、技に伴う演出を新�
 
 # Create Waza
 
-TENKIKAI固有の設計とWinMUGENの実行順を維持して技を作成する。必要な箇所だけを読み、関連しない文書を一括で読み込まない。
+TENKIKAI固有の設計とWinMUGENの実行順を維持する。関連文書は必要なものだけを読む。
 
 ## 調査範囲を決める
 
 1. ルートの`AGENTS.md`へ従う。
-2. ユーザー要求から、入力、移動、攻撃判定、アニメーション、Helper、全体演出のうち必要な要素を特定する。
-3. `rg`で関連するStateDef、Action、変数、既存文書を検索し、該当箇所だけを読む。
-4. `docs/DESIGN.md`と`docs/design/`から、技に関係する確定済み方針だけを読む。
-5. 対象のCNS・CMD・AIRと対応する`docs/state/`文書を照合する。差異がある場合は、どちらかへ自動的に合わせずユーザーへ提示する。
+2. 入力、移動、攻撃判定、アニメーション、Helper、全体演出のうち対象要素を特定し、`rg`で関連するStateDef、Action、変数、文書を探す。
+3. `docs/DESIGN.md`、`docs/design/`、後述の条件別文書から該当箇所だけを読む。
+4. 対象コードと`docs/state/`を照合する。差異は自動解消せず、具体的にユーザーへ提示する。
 
 上位設計にない見た目、時間、速度、ダメージ、無敵、色、軌道を推測で確定しない。美的判断またはゲームバランスの判断が必要な場合は実装前に確認する。
 
 ## the_controllerの責務
 
-`the_controller`は本リポジトリ固有の統合制御Helperである。技が次の処理を必要とする場合は、Rootの技StateDefへ処理を分散させず、既存の`the_controller`責務を使用する。
+`the_controller`は、Helper Armorと仮想ライフ、PlayerPush、無敵、Rootアニメーション時間、Body・Head・Auraの変換、Aura Bound、AllPalFX、複数Helper間の演出値を統合管理する。既存責務をRootや新規管理Helperへ複製しない。新しい全体制御を追加する場合は、責務の追加をユーザーへ提示する。
 
-- Helper Armorによる攻撃受付と仮想ライフ処理
-- PlayerPushの有効・無効
-- 技中の無敵
-- Rootアニメーション番号と開始時時間の共有
-- Body、Head、Aura間のAngleDraw値と適用対象の共有
-- Aura Bound
-- AllPalFXによる全画面の暗転、発光、色変更
-- Rootと複数Helperへまたがる技演出の監視と値共有
+## HeadとHead Auraの実装契約
 
-新しい技が既存責務に該当する場合は、新しい管理HelperやRoot側の重複処理を作らない。既存責務に該当しない全体制御を`the_controller`へ追加する場合は、責務の追加をユーザーへ提示する。
+技によってHeadまたはHead Auraの位置、Offset、AngleDraw、表示、残像を変更する場合は、[ADR 023](../../../docs/ADR/023-head-head-aura-transform-synchronization.md)と[ADR 024](../../../docs/ADR/024-head-head-aura-controller-managed-position-and-visibility.md)に従う。
+
+- 技固有の条件判定とHead系の完成値（Pos、Offset、AngleDraw、表示、残像）は`the_controller`で確定する。HeadとHead AuraへRootのStateNo判定や計算式を複製しない。
+- Head AuraはHeadとの同期を標準とする。非同期化する場合だけ、`the_controller`へプロパティ別の非同期フラグと対象別完成値を設け、他のプロパティへ波及させない。
+- HeadとHead Auraは割り当てられた完成値を各プロパティにつき一度だけ適用する。後段上書きや表示結果だけを合わせる補正へ依存しない。
+
+現行値と経路は、[the_controller](../../../docs/state/helper-99004-the-controller.md)、[Head](../../../docs/state/helper-99001-the-head.md)、[Head Aura](../../../docs/state/helper-99003-the-head-aura.md)、[変数一覧](../../../docs/state/var-list.md)、[helper.cns](../../../cns/helper.cns)から確認する。
 
 ## 固定遷移契約
 
@@ -47,12 +45,9 @@ TENKIKAI固有の設計とWinMUGENの実行順を維持して技を作成する�
 ```
 
 - 各挙動塊にルーターと個別挙動StateDefを分けて置く。
-- 個別挙動が成立しない経路を次の挙動塊へ接続する。
-- 個別挙動が成立する経路も、処理後に同じ次の挙動塊へ接続する。
-- 挙動塊同士を排他的な分岐として扱わず、常に固定順で通過させる。
-- 最後の挙動塊だけを終端へ接続する。
-- 個別挙動から集約StateDefへ直接戻さない。
-- 新しい挙動塊を追加する場合は、配置する順序を確定し、直前と直後の挙動塊へ両経路を接続する。
+- 個別挙動の成立・不成立の両経路を同じ次のルーターへ接続し、挙動塊を固定順で通過させる。
+- 最後の挙動塊だけを終端へ接続する。個別挙動から集約StateDefへ戻さない。
+- 挙動塊を追加する場合は順序を確定し、直前と直後の両経路を接続する。
 
 現在のStateDef番号、変数割当、挙動塊一覧は固定コピーせず、[helper.cns](../../../cns/helper.cns)、[the_controllerステート文書](../../../docs/state/helper-99004-the-controller.md)、[変数一覧](../../../docs/state/var-list.md)の該当箇所から確認する。
 
@@ -67,24 +62,22 @@ TENKIKAI固有の設計とWinMUGENの実行順を維持して技を作成する�
 | PlayerPush、すり抜け | [ADR 017](../../../docs/ADR/017-playerpush-disable-flag.md) |
 | 無敵 | [ADR 018](../../../docs/ADR/018-the-controller-invincibility-flag.md) |
 | Rootアニメーション時間 | [ADR 019](../../../docs/ADR/019-controller-root-animtime.md)、[Rootアニメーション時間保持規約](../../../docs/AGENTS.root-animtime.md) |
-| AngleDrawの解除 | [ADR 010](../../../docs/ADR/010-angledraw-reset.md) |
-| 複数表示要素のAngleDraw共有 | [ADR 020](../../../docs/ADR/020-controller-angledraw-sharing.md) |
+| AngleDrawの解除・共有 | [ADR 010](../../../docs/ADR/010-angledraw-reset.md)、[ADR 020](../../../docs/ADR/020-controller-angledraw-sharing.md) |
+| HeadとHead Auraの位置、変換、表示、残像 | [ADR 023](../../../docs/ADR/023-head-head-aura-transform-synchronization.md)、[ADR 024](../../../docs/ADR/024-head-head-aura-controller-managed-position-and-visibility.md) |
 | Aura Bound | [Aura Bound設計](../../../docs/design/003-aura-bound.md) |
-| AllPalFX暗転 | [ADR 021](../../../docs/ADR/021-controller-allpalfx-routing.md) |
+| エフェクトの追加・変更 | [エフェクト作業規則](../../../docs/AGENTS.effect.md)、[エフェクト設計一覧](../../../docs/design/008-effects.md)、対象個別文書。AllPalFXは[ADR 021](../../../docs/ADR/021-controller-allpalfx-routing.md)も読む |
 
 ## 技を設計する
 
 実装前に次を確定する。既存の確定事項から求められない項目だけをユーザーへ確認する。
 
-- StateDef番号と遷移元・遷移先
-- プレイヤー入力ビットとオートメーション判断
-- Action番号、素材、表示要素
-- StateType、MoveType、Physics、Ctrl
-- 座標、速度、時間、移動式
-- HitDef、Helper、Explod、Projectileの要否
-- ダメージ、Power、無敵、PlayerPush
+- StateDef、遷移元・遷移先、終了・中断時の復帰先
+- 入力ビット、オートメーション判断、Action、素材、表示要素
+- StateType、MoveType、Physics、Ctrl、座標、速度、時間、移動式
+- HitDef、Helper、Explod、Projectile、ダメージ、Power、無敵、PlayerPush
 - `the_controller`へ渡す演出要求と発動時刻
-- 技終了時と中断時の復帰先
+
+新しいエフェクト種別または表現パターンは、CNS実装前に一覧へ登録し、個別設計文書を作成または更新する。
 
 Commandを直接参照できるのはStateDef `-1`の入力ビット変換だけとする。技遷移と技中処理は入力ビットまたは状態情報を使用する。入力を追加する場合だけ`docs/AGENTS.input-map.md`、`docs/AGENTS.command.md`、`docs/AGENTS.automation.md`を読む。
 
@@ -92,9 +85,8 @@ Commandを直接参照できるのはStateDef `-1`の入力ビット変換だけ
 
 1. ユーザーの未コミット変更を保持する。
 2. CNS、CMD、AIRと必要な流動文書を同時に更新する。
-3. 変数、StateDef、Action、Helper IDの衝突を`rg`で確認する。
-4. 遷移条件、座標、速度、時間、ダメージを数学的に検証する。
-5. `make check`を実行する。
-6. WinMUGEN実機で確認すべき操作、表示、当たり判定をユーザーへ渡す。
+3. 変数、StateDef、Action、Helper IDの衝突と、遷移・座標・速度・時間・ダメージを検証する。
+4. `make check`を実行する。
+5. WinMUGEN実機で確認すべき操作、表示、当たり判定をユーザーへ渡す。
 
 構文検査を越えるゲーム挙動テストを追加しない。`AGENTS.md`または`docs/DESIGN.md`を変更する場合は、事前にユーザーの承認を得る。
