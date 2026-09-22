@@ -4,11 +4,11 @@
 
 この規則は、暗転、発光、色変化、フラッシュなどの画面効果、および複数の技から利用する視覚エフェクトの追加・変更に適用する。
 
-エフェクトの表現設計と現在の設定値は[エフェクト一覧](design/008-effect-list.md)で管理する。CNS上のStateDef、Controller、Trigger、変数、Helper、Explodなどの実装内容は`docs/state/`の対応文書で管理する。
+エフェクト文書群の入口と登録状況は[エフェクト設計](design/008-effects.md)、各エフェクトの表現設計と現在の設定値は`docs/design/effect/`の個別文書で管理する。CNS上のStateDef、Controller、Trigger、変数、Helper、Explodなどの実装内容は`docs/state/`の対応文書で管理する。
 
 ## 設計を実装より先に登録する
 
-新しいエフェクト種別または既存エフェクトの新しい表現パターンを追加する場合は、CNSへStateDefやルーティングを実装する前に、`docs/design/008-effect-list.md`へエフェクトを登録する。
+新しいエフェクト種別または既存エフェクトの新しい表現パターンを追加する場合は、CNSへStateDefやルーティングを実装する前に、`docs/design/008-effects.md`へエフェクトを登録し、`docs/design/effect/`へ個別設計文書を作成または更新する。
 
 登録時は、ユーザーが確定した範囲で次を記載する。
 
@@ -26,7 +26,7 @@
 
 ## 番号と実装先を確認する
 
-エフェクト番号を新規割当する場合は、`docs/design/008-effect-list.md`、対象CNS、`docs/state/`の実装文書、変数一覧を検索し、既存番号との衝突がないことを確認する。
+エフェクト番号を新規割当する場合は、`docs/design/008-effects.md`、`docs/design/effect/`の個別文書、対象CNS、`docs/state/`の実装文書、変数一覧を検索し、同じ分類の既存番号との衝突がないことを確認する。文書番号とCNSで使用するエフェクト番号を同一の番号空間として扱わない。
 
 画面全体へ適用する`AllPalFX`暗転、発光、色変更は`the_controller`の責務とし、Rootの技StateDefへ色指定や時間管理を分散させない。[ADR 021: AllPalFX暗転のController管理](ADR/021-controller-allpalfx-routing.md)と[Helperルーティング規約](AGENTS.helper.md)に従い、固定順の挙動塊へルーターと個別挙動StateDefを追加する。
 
@@ -34,13 +34,13 @@
 
 CNS実装と同時に、`docs/state/`の対応文書へStateDef、Controller、Trigger、変数、発動条件、継続時間、色指定、遷移先を記録する。
 
-WinMUGEN実機で試験中の値は、CNSとステート文書で試験実装として扱う。ユーザーが見た目を確定した後、`docs/design/008-effect-list.md`の現在の設定値を確定結果へ更新する。
+WinMUGEN実機で試験中の値は、CNSとステート文書で試験実装として扱う。ユーザーが見た目を確定した後、`docs/design/effect/`の対応する個別文書にある現在の設定値を確定結果へ更新する。
 
 設計文書とCNSまたはステート文書に差異がある場合は自動的にどちらかへ合わせず、差異をユーザーへ提示して指示を受ける。
 
 ## 事前登録を必要としない変更
 
-次の変更はエフェクトの表現設計を変更しない限り、`docs/design/008-effect-list.md`への事前登録を必要としない。
+次の変更はエフェクトの表現設計を変更しない限り、`docs/design/008-effects.md`への事前登録および個別設計文書の新規作成を必要としない。
 
 - 同じエフェクトを別の技から呼び出す
 - 見た目を変えないStateDef分割またはルーティング整理

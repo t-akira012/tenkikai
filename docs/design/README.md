@@ -7,5 +7,5 @@
 - [005: ライフ管理方式](005-life-management.md)
 - [006: Alien Rotation Evasion](006-alien-rotation-evasion.md)
 - [汎用両手光弾発出](007-two-handed-energy-projectile-startup.md)
-- [エフェクト一覧](008-effect-list.md)
+- [エフェクト設計](008-effects.md)
 - [汎用片手光弾発出](009-one-handed-energy-projectile-startup.md)
