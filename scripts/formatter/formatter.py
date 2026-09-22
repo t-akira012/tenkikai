@@ -36,6 +36,94 @@ STATE_FORMAT_FILES = {
     "cns/observ.cns",
     "cns/helper.cns",
 }
+STATE_CONTROLLER_TYPES = frozenset({
+    "afterimage",
+    "afterimagetime",
+    "allpalfx",
+    "angleadd",
+    "angledraw",
+    "anglemul",
+    "angleset",
+    "appendtoclipboard",
+    "assertspecial",
+    "attackdist",
+    "attackmulset",
+    "bgpalfx",
+    "bindtoparent",
+    "bindtoroot",
+    "bindtotarget",
+    "changeanim",
+    "changeanim2",
+    "changestate",
+    "clearclipboard",
+    "ctrlset",
+    "defencemulset",
+    "destroyself",
+    "displaytoclipboard",
+    "envcolor",
+    "envshake",
+    "explod",
+    "explodbindtime",
+    "fallenvshake",
+    "forcefeedback",
+    "gamemakeanim",
+    "gravity",
+    "helper",
+    "hitadd",
+    "hitby",
+    "hitdef",
+    "hitfalldamage",
+    "hitfallset",
+    "hitfallvel",
+    "hitoverride",
+    "hitvelset",
+    "lifeadd",
+    "lifeset",
+    "makedust",
+    "modifyexplod",
+    "movehitreset",
+    "nothitby",
+    "null",
+    "offset",
+    "palfx",
+    "parentvaradd",
+    "parentvarset",
+    "pause",
+    "playerpush",
+    "playsnd",
+    "posadd",
+    "posfreeze",
+    "posset",
+    "poweradd",
+    "powerset",
+    "projectile",
+    "removeexplod",
+    "reversaldef",
+    "screenbound",
+    "selfstate",
+    "sprpriority",
+    "statetypeset",
+    "stopsnd",
+    "superpause",
+    "targetbind",
+    "targetdrop",
+    "targetfacing",
+    "targetlifeadd",
+    "targetpoweradd",
+    "targetstate",
+    "targetveladd",
+    "targetvelset",
+    "trans",
+    "turn",
+    "varadd",
+    "varrandom",
+    "varrangeset",
+    "varset",
+    "veladd",
+    "velmul",
+    "velset",
+    "width",
+})
 
 
 def read_lines(path: Path) -> list[str]:
@@ -302,6 +390,44 @@ def verify_command_trigger_locations() -> None:
         verify_command_trigger_scope(name, read_lines(ROOT / name))
 
 
+def verify_state_controller_types_in_lines(name: str, lines: list[str]) -> None:
+    inside_controller = False
+
+    for line_number, source_line in enumerate(lines, start=1):
+        line = source_line
+        comment_at = unquoted_character_index(line, ";")
+        if comment_at >= 0:
+            line = line[:comment_at]
+        line = line.strip()
+
+        if STATE_PATTERN.match(line):
+            inside_controller = True
+            continue
+
+        if SECTION_PATTERN.match(line):
+            inside_controller = False
+            continue
+
+        if not inside_controller:
+            continue
+
+        type_match = re.match(r"^type\s*=\s*(.+?)\s*$", line, re.IGNORECASE)
+        if not type_match:
+            continue
+
+        controller_type = type_match.group(1).lower()
+        if controller_type not in STATE_CONTROLLER_TYPES:
+            raise RuntimeError(
+                "存在しないState Controllerです: "
+                f"{name}:{line_number} ({type_match.group(1)})"
+            )
+
+
+def verify_state_controller_types() -> None:
+    for name in sorted(STATE_FORMAT_FILES):
+        verify_state_controller_types_in_lines(name, read_lines(ROOT / name))
+
+
 class Reporter:
     def __init__(self, check: bool = False) -> None:
         self.changed = 0
@@ -404,6 +530,7 @@ def verify_result() -> None:
                     if normalized != raw_line:
                         raise RuntimeError(f"演算子の前後に空白が残っています: {name}:{number}")
 
+    verify_state_controller_types()
     verify_command_trigger_locations()
 
     expected = {
@@ -437,7 +564,7 @@ def verify_result() -> None:
             raise RuntimeError(f"[Info]に半角スペースが残っています: tenkikai.def:{number}")
 
     verify_state_document_headings()
-    print("検証完了: コメント、罫線、改行、StateDef配置、command Trigger配置")
+    print("検証完了: コメント、罫線、改行、StateDef配置、State Controller名、command Trigger配置")
 
 
 def parse_args() -> argparse.Namespace:
@@ -453,7 +580,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     print("TENKIKAIフォーマッターを開始します")
-    print("事前検証: command Trigger配置")
+    print("事前検証: State Controller名、command Trigger配置")
+    verify_state_controller_types()
     verify_command_trigger_locations()
     reporter = Reporter(check=args.check)
 

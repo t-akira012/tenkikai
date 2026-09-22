@@ -245,6 +245,43 @@ class FormatterTest(unittest.TestCase):
 
         formatter.verify_command_trigger_scope("cns/state.cns", source)
 
+    def test_existing_state_controller_is_allowed_case_insensitively(self) -> None:
+        source = [
+            "[statedef 0]",
+            "type=S",
+            "[state ]",
+            "type=ChangeState",
+            "trigger1=1",
+            "value=20",
+        ]
+
+        formatter.verify_state_controller_types_in_lines("cns/state.cns", source)
+
+    def test_unknown_state_controller_is_rejected(self) -> None:
+        source = [
+            "[statedef 0]",
+            "[state ]",
+            "type=changeestate",
+            "trigger1=1",
+        ]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            r"cns/state\.cns:3 \(changeestate\)",
+        ):
+            formatter.verify_state_controller_types_in_lines("cns/state.cns", source)
+
+    def test_mugen_1_state_controller_is_rejected(self) -> None:
+        source = [
+            "[statedef 0]",
+            "[state ]",
+            "type=RemapPal",
+            "trigger1=1",
+        ]
+
+        with self.assertRaisesRegex(RuntimeError, r"RemapPal"):
+            formatter.verify_state_controller_types_in_lines("cns/state.cns", source)
+
 
 if __name__ == "__main__":
     unittest.main()
