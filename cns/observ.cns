@@ -244,7 +244,7 @@ trigger1=var(8)<var(0)
 trigger1=var(14)=0
 trigger1=fvar(9)=0
 trigger1=vel x!=0
-var(14)=32
+var(14)=ifelse(abs(vel x)>3,16,32)
 ignorehitpause=1
 
 [state ]
@@ -253,7 +253,7 @@ triggerall=!ishelper
 triggerall=movetype!=h
 triggerall=var(11)<var(0)
 trigger1=var(8)<var(0)
-trigger1=var(14)=32
+trigger1=var(14)>0
 trigger1=fvar(9)=0
 trigger1=vel x!=0
 fvar(9)=vel x
@@ -267,7 +267,19 @@ triggerall=var(11)<var(0)
 trigger1=var(8)<var(0)
 trigger1=var(14)>0
 trigger1=fvar(9)!=0
+trigger1=abs(fvar(9))<=3
 x=fvar(9)*(1+cos(pi*(32-var(14))/32))/2
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)>0
+trigger1=abs(fvar(9))>3
+x=fvar(9)*(1+cos(pi*(16-var(14))/16))/2
 ignorehitpause=1
 
 [state ]

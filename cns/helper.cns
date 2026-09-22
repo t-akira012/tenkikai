@@ -149,7 +149,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])
+trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])
 var(13)=1
 ignorehitpause=1
 

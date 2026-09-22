@@ -165,7 +165,7 @@ fvar(2)=0.166667
 [state ]
 type=varset
 trigger1=animtime<0
-var(13)=1
+var(13)=0
 
 [state ]
 type=velset
@@ -211,12 +211,12 @@ var(13)=0
 [state ]
 type=posadd
 trigger1=animtime=0
-x=100
+x=ifelse(screenpos x<=160,315-screenpos x,5-screenpos x)*facing
 
 [state ]
 type=changestate
 trigger1=animtime=0
-value=102
+value=ifelse(((screenpos x>160)&&(facing=1))||((screenpos x<=160)&&(facing=-1)),107,102)
 
 [statedef 102]
 type=s
@@ -232,6 +232,11 @@ var(11)=var(0)+2
 type=varset
 trigger1=1
 var(12)=var(0)+2
+
+[state ]
+type=turn
+trigger1=time=0
+trigger1=((screenpos x>160)&&(facing=1))||((screenpos x<=160)&&(facing=-1))
 
 [state ]
 type=velset
@@ -316,7 +321,7 @@ fvar(2)=0.166667
 [state ]
 type=varset
 trigger1=animtime<0
-var(13)=1
+var(13)=0
 
 [state ]
 type=velset
@@ -362,12 +367,12 @@ var(13)=0
 [state ]
 type=posadd
 trigger1=animtime=0
-x=-100
+x=ifelse(screenpos x<=160,315-screenpos x,5-screenpos x)*facing
 
 [state ]
 type=changestate
 trigger1=animtime=0
-value=107
+value=ifelse(((screenpos x>160)&&(facing=1))||((screenpos x<=160)&&(facing=-1)),102,107)
 
 [statedef 107]
 type=s
@@ -383,6 +388,11 @@ var(11)=var(0)+2
 type=varset
 trigger1=1
 var(12)=var(0)+2
+
+[state ]
+type=turn
+trigger1=time=0
+trigger1=((screenpos x>160)&&(facing=1))||((screenpos x<=160)&&(facing=-1))
 
 [state ]
 type=velset
