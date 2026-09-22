@@ -30,5 +30,5 @@
 ## 実装文書
 
 - [the_controller Helper](../../state/helper-99004-the-controller.md)
-- [変数一覧](../../state/var-list.md)
+- [the_controller変数一覧](../../state/var-list-helper-99004.md)
 - [汎用両手光弾発出](../007-two-handed-energy-projectile-startup.md)

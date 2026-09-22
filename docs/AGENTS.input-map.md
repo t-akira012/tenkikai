@@ -100,7 +100,7 @@ Command入力の追加または変更時は、この文書と次の実装・文�
 
 - `cns/command.cmd`のCommand定義、ビット変換処理、StateDef `-1`の遷移処理
 - 入力ビットを参照する各CNS
-- `docs/state/var-list.md`の`var(2)`
+- `docs/state/var-list-root.md`の`var(2)`
 - `docs/state/default.md`のStateDef `-1`
 
 `command`を直接参照できるのは、`cns/command.cmd`のStateDef `-1`にある入力ビット変換処理だけとする。`cns/common1.cns`を含むその他のCNSは、入力ビットフィールドを参照する。
