@@ -603,6 +603,26 @@
       ],
       "image": "effects/circle-outline.png",
       "palette_shared": false
+    },
+    {
+      "group": 10000,
+      "index": 8,
+      "axis": [
+        150,
+        150
+      ],
+      "image": "effects/circle-outline-left.png",
+      "palette_shared": false
+    },
+    {
+      "group": 10000,
+      "index": 9,
+      "axis": [
+        150,
+        150
+      ],
+      "image": "effects/circle-outline-right.png",
+      "palette_shared": false
     }
   ]
 }

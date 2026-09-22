@@ -1099,6 +1099,586 @@ trigger1=1
 value=5150
 ignorehitpause=1
 
+;-------------------------------------------------
+
+[statedef 500000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=varset
+trigger1=1
+var(0)=ifelse((root,stateno)=111,-1,1)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=18
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=ifelse(var(0)=1,-1,10)
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=8
+
+[state ]
+type=varset
+trigger1=1
+var(7)=6
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-var(0)*1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.34
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500900
+
+[statedef 500001]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=varset
+trigger1=1
+var(0)=ifelse((root,stateno)=111,-1,1)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=18
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=ifelse(var(0)=1,10,-1)
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=8
+
+[state ]
+type=varset
+trigger1=1
+var(7)=6
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-var(0)*1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.34
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500901
+
+[statedef 500010]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=varset
+trigger1=1
+var(0)=ifelse((root,stateno)=111,-1,1)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=18
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=ifelse(var(0)=1,-1,10)
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=18
+
+[state ]
+type=varset
+trigger1=1
+var(7)=12
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-var(0)*1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.34
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500900
+
+[statedef 500011]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=varset
+trigger1=1
+var(0)=ifelse((root,stateno)=111,-1,1)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=18
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=ifelse(var(0)=1,10,-1)
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=18
+
+[state ]
+type=varset
+trigger1=1
+var(7)=12
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-var(0)*1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.34
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500901
+
+[statedef 500900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=velset
+trigger1=!time
+x=fvar(0)
+y=0
+
+[state ]
+type=afterimage
+trigger1=!time
+time=var(6)
+length=var(7)
+timegap=var(8)
+framegap=var(9)
+trans=add
+palcolor=0
+palbright=0,0,0
+palcontrast=128,128,128
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=1,1,1
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=(1-cos(pi*time/var(1)))/2.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=fvar(1)+(fvar(3)-fvar(1))*fvar(5)
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=fvar(2)+(fvar(4)-fvar(2))*fvar(5)
+
+[state ]
+type=angledraw
+trigger1=1
+scale=fvar(6),fvar(7)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=var(4)
+
+[state ]
+type=varset
+trigger1=time<var(2)
+fvar(10)=fvar(8)
+
+[state ]
+type=varset
+trigger1=time>=var(2)
+fvar(10)=fvar(8)+(fvar(9)-fvar(8))*(time-var(2))*1.0/(var(1)-var(2))
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=floor(fvar(10)),256-floor(fvar(10))
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=time>=var(1)
+trigger2=roundstate!=2
+
+[statedef 500901]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=velset
+trigger1=!time
+x=fvar(0)
+y=0
+
+[state ]
+type=afterimage
+trigger1=!time
+time=var(6)
+length=var(7)
+timegap=var(8)
+framegap=var(9)
+trans=add
+palcolor=0
+palbright=0,0,0
+palcontrast=128,128,128
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=1,1,1
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=(1-cos(pi*time/var(1)))/2.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=fvar(1)+(fvar(3)-fvar(1))*fvar(5)
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=fvar(2)+(fvar(4)-fvar(2))*fvar(5)
+
+[state ]
+type=angledraw
+trigger1=1
+scale=fvar(6),fvar(7)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=var(4)
+
+[state ]
+type=varset
+trigger1=time<var(2)
+fvar(10)=fvar(8)
+
+[state ]
+type=varset
+trigger1=time>=var(2)
+fvar(10)=fvar(8)+(fvar(9)-fvar(8))*(time-var(2))*1.0/(var(1)-var(2))
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=floor(fvar(10)),256-floor(fvar(10))
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=time>=var(1)
+trigger2=roundstate!=2
+
 [statedef 99001000]
 anim=99001
 
