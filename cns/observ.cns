@@ -111,28 +111,520 @@ trigger1=(var(2)&4)=0
 y=0
 ignorehitpause=1
 
+;; 水平慣性
+
 [state ]
-type=posadd
-trigger1=!ishelper
-trigger1=(var(2)&4)!=0
-y=-6
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=1
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=fvar(1)>0
+trigger1=vel x<fvar(1)
+trigger1=vel x+fvar(2)>fvar(1)
+x=fvar(1)
 ignorehitpause=1
 
 [state ]
-type=posadd
-trigger1=!ishelper
-trigger1=(var(2)&4)!=0
-trigger1=pos y<-90
-y=6*((-pos y-90)/90)
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=1
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=fvar(1)>0
+trigger1=vel x<fvar(1)
+x=fvar(2)
 ignorehitpause=1
 
 [state ]
-type=posadd
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=1
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=fvar(1)<0
+trigger1=vel x>fvar(1)
+trigger1=vel x-fvar(2)<fvar(1)
+x=fvar(1)
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=1
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=fvar(1)<0
+trigger1=vel x>fvar(1)
+x=-fvar(2)
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=0
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=vel x<fvar(1)
+x=fvar(2)
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=0
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=vel x>fvar(1)
+trigger1=vel x-fvar(2)<fvar(1)
+x=fvar(1)
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=0
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=vel x>fvar(1)
+x=-fvar(2)
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+triggerall=var(13)=0
+triggerall=fvar(2)>0
+trigger1=var(8)>=var(0)
+trigger1=vel x<fvar(1)
+trigger1=vel x+fvar(2)>fvar(1)
+x=fvar(1)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)>=var(0)
+var(14)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)>=var(0)
+fvar(9)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=0
+trigger1=fvar(9)=0
+trigger1=vel x!=0
+var(14)=32
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=32
+trigger1=fvar(9)=0
+trigger1=vel x!=0
+fvar(9)=vel x
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)>0
+trigger1=fvar(9)!=0
+x=fvar(9)*(1+cos(pi*(32-var(14))/32))/2
+ignorehitpause=1
+
+[state ]
+type=varadd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)>0
+trigger1=fvar(9)!=0
+var(14)=-1
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=0
+trigger1=fvar(9)!=0
+x=0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=0
+trigger1=fvar(9)!=0
+fvar(1)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=0
+trigger1=fvar(9)!=0
+fvar(2)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(11)<var(0)
+trigger1=var(8)<var(0)
+trigger1=var(14)=0
+trigger1=fvar(9)!=0
+fvar(9)=0
+ignorehitpause=1
+
+[state ]
+type=varset
 trigger1=!ishelper
+trigger1=var(11)>=var(0)
+var(14)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(11)>=var(0)
+fvar(9)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(8)<var(0)
+trigger1=var(11)<var(0)
+trigger1=vel x=0
+trigger1=fvar(9)=0
+fvar(1)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(8)<var(0)
+trigger1=var(11)<var(0)
+trigger1=vel x=0
+trigger1=fvar(9)=0
+fvar(2)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(8)<var(0)
+trigger1=var(11)<var(0)
+trigger1=vel x=0
+trigger1=fvar(9)=0
+var(14)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+var(8)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+fvar(1)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+fvar(2)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+var(14)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+fvar(9)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+var(13)=0
+ignorehitpause=1
+
+;; 上下慣性
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)!=0
+var(9)=var(0)+1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)!=0
+fvar(3)=ifelse(pos y<-90,-6+6*((-pos y-90)/90),-6)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)!=0
+fvar(4)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
 trigger1=(var(2)&4)=0
 trigger1=(var(2)&8)!=0
 trigger1=pos y<0
-y=6
+var(9)=var(0)+1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+trigger1=pos y<0
+fvar(3)=6
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+trigger1=pos y<0
+fvar(4)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y<-40
+var(9)=var(0)+1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y<-40
+fvar(3)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y<-40
+fvar(4)=const(movement.yaccel)*0.1*ifelse(pos y<-90,1+((-pos y-90)/90),1)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=pos y<0
+var(9)=var(0)+1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=pos y<0
+fvar(3)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(12)<var(0)
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=pos y<0
+fvar(4)=0.166667
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)>=var(0)
+trigger1=vel y<fvar(3)
+y=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)>=var(0)
+trigger1=vel y>fvar(3)
+trigger1=vel y-fvar(4)<fvar(3)
+y=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)>=var(0)
+trigger1=vel y>fvar(3)
+y=-fvar(4)
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)>=var(0)
+trigger1=vel y<fvar(3)
+trigger1=vel y+fvar(4)>fvar(3)
+y=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=velset
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)<var(0)
+trigger1=abs(vel y)<=fvar(4)
+y=0
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)<var(0)
+trigger1=vel y>fvar(4)
+y=-fvar(4)
+ignorehitpause=1
+
+[state ]
+type=veladd
+triggerall=!ishelper
+triggerall=movetype!=h
+triggerall=var(12)<var(0)
+triggerall=fvar(4)>0
+trigger1=var(9)<var(0)
+trigger1=vel y<-fvar(4)
+y=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(9)<var(0)
+trigger1=var(12)<var(0)
+trigger1=vel y=0
+fvar(3)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=var(9)<var(0)
+trigger1=var(12)<var(0)
+trigger1=vel y=0
+fvar(4)=0
 ignorehitpause=1
 
 [state ]
@@ -144,46 +636,32 @@ y=0
 ignorehitpause=1
 
 [state ]
-type=velset
+type=varset
 trigger1=!ishelper
-trigger1=(var(2)&4)!=0
-y=0
-ignorehitpause=1
-
-[state ]
-type=velset
-trigger1=!ishelper
-trigger1=(var(2)&8)!=0
-y=0
-ignorehitpause=1
-
-[state ]
-type=veladd
-trigger1=!ishelper
+trigger1=pos y>=0
 trigger1=(var(2)&4)=0
-trigger1=(var(2)&8)=0
-trigger1=pos y<-40
-trigger1=vel y<1.0
-y=const(movement.yaccel)*0.1
+var(9)=0
 ignorehitpause=1
 
 [state ]
-type=veladd
+type=varset
 trigger1=!ishelper
-trigger1=(var(2)&4)=0
-trigger1=(var(2)&8)=0
-trigger1=pos y<-90
-trigger1=vel y<1.0
-y=const(movement.yaccel)*0.1*((-pos y-90)/90)
+trigger1=movetype=h
+var(9)=0
 ignorehitpause=1
 
 [state ]
-type=velset
+type=varset
 trigger1=!ishelper
-trigger1=(var(2)&4)=0
-trigger1=pos y>=-40
-trigger1=pos y<0
-y=0
+trigger1=movetype=h
+fvar(3)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=movetype=h
+fvar(4)=0
 ignorehitpause=1
 
 [state ]
@@ -219,6 +697,13 @@ trigger1=(var(2)&8)=0
 trigger1=(var(2)&4)=0
 statetype=s
 physics=s
+ignorehitpause=1
+
+[state ]
+type=statetypeset
+trigger1=!ishelper
+trigger1=(var(8)>=var(0))||(var(9)>=var(0))||(var(11)>=var(0))||(var(12)>=var(0))
+physics=n
 ignorehitpause=1
 
 ;; 浮遊表示

@@ -2,7 +2,9 @@
 
 ## 状態
 
-採用
+廃止
+
+[ADR 026](026-velocity-based-continuous-movement.md)により置き換えた。本ADRは、位置加算を採用していた時点の判断履歴として残す。
 
 ## 背景
 

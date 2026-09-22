@@ -52,14 +52,19 @@ physics=N
 ctrl=1
 
 [state ]
-type=velset
-trigger1=1
-x=0
+type=varset
+trigger1=(var(2)&1)!=0
+var(8)=var(0)+2
 
 [state ]
-type=posadd
+type=varset
 trigger1=(var(2)&1)!=0
-x=3
+fvar(1)=3
+
+[state ]
+type=varset
+trigger1=(var(2)&1)!=0
+fvar(2)=0.5
 
 [state ]
 type=changeanim
@@ -93,14 +98,19 @@ physics=N
 ctrl=1
 
 [state ]
-type=velset
-trigger1=1
-x=0
+type=varset
+trigger1=(var(2)&2)!=0
+var(8)=var(0)+2
 
 [state ]
-type=posadd
+type=varset
 trigger1=(var(2)&2)!=0
-x=-2
+fvar(1)=-2
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(2)=1.0/3.0
 
 [state ]
 type=changeanim
@@ -131,7 +141,72 @@ ctrl=1
 type=s
 ctrl=0
 anim=100
-velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=varset
+trigger1=animtime<0
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=animtime<0
+fvar(1)=1
+
+[state ]
+type=varset
+trigger1=animtime<0
+fvar(2)=0.166667
+
+[state ]
+type=varset
+trigger1=animtime<0
+var(13)=1
+
+[state ]
+type=velset
+trigger1=animtime=0
+x=0
+y=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(8)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(9)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(3)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(4)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(13)=0
 
 [state ]
 type=posadd
@@ -147,6 +222,22 @@ value=102
 type=s
 ctrl=0
 velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
 
 [state ]
 type=assertspecial
@@ -165,6 +256,32 @@ anim=101
 velset=0,0
 
 [state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(11)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(12)=0
+
+[state ]
 type=changestate
 trigger1=animtime=0
 value=0
@@ -175,7 +292,72 @@ ctrl=1
 type=s
 ctrl=0
 anim=105
-velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=varset
+trigger1=animtime<0
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=animtime<0
+fvar(1)=-1
+
+[state ]
+type=varset
+trigger1=animtime<0
+fvar(2)=0.166667
+
+[state ]
+type=varset
+trigger1=animtime<0
+var(13)=1
+
+[state ]
+type=velset
+trigger1=animtime=0
+x=0
+y=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(8)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(9)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(3)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+fvar(4)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(13)=0
 
 [state ]
 type=posadd
@@ -191,6 +373,22 @@ value=107
 type=s
 ctrl=0
 velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
 
 [state ]
 type=assertspecial
@@ -209,6 +407,32 @@ anim=106
 velset=0,0
 
 [state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(11)=0
+
+[state ]
+type=varset
+trigger1=animtime=0
+var(12)=0
+
+[state ]
 type=changestate
 trigger1=animtime=0
 value=0
@@ -224,9 +448,19 @@ ctrl=0
 anim=20
 
 [state ]
-type=posadd
+type=varset
 trigger1=(var(2)&1)!=0
-x=12
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=(var(2)&1)!=0
+fvar(1)=12
+
+[state ]
+type=varset
+trigger1=(var(2)&1)!=0
+fvar(2)=3
 
 [state ]
 type=changestate
@@ -250,9 +484,19 @@ ctrl=0
 anim=21
 
 [state ]
-type=posadd
+type=varset
 trigger1=(var(2)&2)!=0
-x=-8
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(1)=-8
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(2)=2
 
 [state ]
 type=changestate
@@ -274,7 +518,6 @@ movetype=I
 physics=N
 ctrl=0
 anim=300
-velset=0,0
 
 ;; 出現領域入力初期化
 
@@ -297,53 +540,163 @@ var(7)=1
 ;; 回転中の前後移動
 
 [state ]
-type=posadd
-trigger1=1
-x=ifelse(((var(2)&1)!=0)&&((var(2)&2)=0),6,ifelse((var(2)&2)!=0,-4,-2))
+type=varset
+trigger1=((var(2)&1)!=0)&&((var(2)&2)=0)
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=((var(2)&1)!=0)&&((var(2)&2)=0)
+fvar(1)=6
+
+[state ]
+type=varset
+trigger1=((var(2)&1)!=0)&&((var(2)&2)=0)
+fvar(2)=1.5
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(1)=-4
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(2)=1
+
+[state ]
+type=varset
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
+fvar(1)=-2
+
+[state ]
+type=varset
+trigger1=(var(2)&1)=0
+trigger1=(var(2)&2)=0
+fvar(2)=0.5
 
 ;; 回転中の加速上昇
 
 [state ]
-type=posadd
-trigger1=animtime<0
-trigger1=(helper(99004),var(15))=anim
-trigger1=(helper(99004),var(16))>0
-y=-72.0*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+type=varset
+trigger1=!time
+fvar(5)=vel y
 
 [state ]
-type=posadd
-trigger1=animtime<0
-trigger1=(helper(99004),var(15))=anim
-trigger1=(helper(99004),var(16))>0
-y=-180.0*animelemtime(1)*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+type=varset
+trigger1=!time
+fvar(8)=0
 
 [state ]
-type=posadd
-trigger1=animtime<0
-trigger1=(helper(99004),var(15))=anim
-trigger1=(helper(99004),var(16))>0
-y=-240.0*animelemtime(1)*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+type=varset
+trigger1=1
+var(12)=var(0)+2
 
 [state ]
-type=posadd
-trigger1=animtime<0
-trigger1=(helper(99004),var(15))=anim
-trigger1=(helper(99004),var(16))>0
-y=-180.0*animelemtime(1)*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+type=varadd
+trigger1=(var(2)&4)!=0
+trigger1=fvar(5)>ifelse(pos y<-90,-6+6*((-pos y-90)/90),-6)
+fvar(5)=-1
 
 [state ]
-type=posadd
-trigger1=animtime<0
-trigger1=(helper(99004),var(15))=anim
-trigger1=(helper(99004),var(16))>0
-y=-72.0*animelemtime(1)/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+type=varset
+trigger1=(var(2)&4)!=0
+trigger1=fvar(5)<ifelse(pos y<-90,-6+6*((-pos y-90)/90),-6)
+fvar(5)=ifelse(pos y<-90,-6+6*((-pos y-90)/90),-6)
 
 [state ]
-type=posadd
+type=varadd
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+trigger1=fvar(5)<6
+fvar(5)=1
+
+[state ]
+type=varset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+trigger1=fvar(5)>6
+fvar(5)=6
+
+[state ]
+type=varadd
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y<-40
+trigger1=fvar(5)<1
+fvar(5)=0.044*ifelse(pos y<-90,1+((-pos y-90)/90),1)
+
+[state ]
+type=varset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y<-40
+trigger1=fvar(5)>1
+fvar(5)=1
+
+[state ]
+type=varset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=abs(fvar(5))<=0.166667
+fvar(5)=0
+
+[state ]
+type=varadd
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=fvar(5)>0.166667
+fvar(5)=-0.166667
+
+[state ]
+type=varadd
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+trigger1=pos y>=-40
+trigger1=fvar(5)<-0.166667
+fvar(5)=0.166667
+
+[state ]
+type=varset
 trigger1=animtime<0
 trigger1=(helper(99004),var(15))=anim
 trigger1=(helper(99004),var(16))>0
-y=-12.0/((helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16))*(helper(99004),var(16)))
+fvar(6)=animelemtime(1)*1.0/(helper(99004),var(16))
+
+[state ]
+type=varset
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+fvar(7)=fvar(6)*fvar(6)
+
+[state ]
+type=varset
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+fvar(8)=-72.0*fvar(7)*fvar(7)*fvar(6)/(helper(99004),var(16))
+
+[state ]
+type=velset
+trigger1=animtime<0
+trigger1=(helper(99004),var(15))=anim
+trigger1=(helper(99004),var(16))>0
+y=fvar(5)+fvar(8)
 
 ;; 出現領域選択
 
@@ -403,6 +756,22 @@ physics=N
 ctrl=0
 anim=301
 velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
 
 ;; 未選択時の敵背後移動
 
@@ -478,8 +847,34 @@ velset=0,0
 
 [state ]
 type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=varset
 trigger1=!time
 var(10)=0
+
+[state ]
+type=varset
+trigger1=time>=2
+var(11)=0
+
+[state ]
+type=varset
+trigger1=time>=2
+var(12)=0
 
 [state ]
 type=changestate

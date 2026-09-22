@@ -17,12 +17,6 @@ trigger1=Time=0
 y=0
 
 [state ]
-type=velset
-trigger1=abs(vel x)<2
-trigger2=Time=4
-x=0
-
-[state ]
 type=changestate
 trigger1=!alive
 value=5050
@@ -76,23 +70,41 @@ ctrl=1
 
 [statedef 20]
 type=s
-physics=S
+physics=N
 sprpriority=0
 
 [state ]
-type=posadd
+type=varset
 trigger1=(var(2)&1)!=0
-x=3
+trigger1=(var(2)&2)=0
+var(8)=var(0)+2
 
 [state ]
-type=posadd
+type=varset
+trigger1=(var(2)&1)!=0
+trigger1=(var(2)&2)=0
+fvar(1)=3
+
+[state ]
+type=varset
+trigger1=(var(2)&1)!=0
+trigger1=(var(2)&2)=0
+fvar(2)=0.5
+
+[state ]
+type=varset
 trigger1=(var(2)&2)!=0
-x=-2
+var(8)=var(0)+2
 
 [state ]
-type=velset
-trigger1=1
-x=0
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(1)=-2
+
+[state ]
+type=varset
+trigger1=(var(2)&2)!=0
+fvar(2)=1.0/3.0
 
 [state ]
 type=changeanim

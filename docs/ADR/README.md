@@ -25,3 +25,4 @@
 - [ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)
 - [ADR 024: HeadとHead Auraの位置・表示判断をControllerで管理する](024-head-head-aura-controller-managed-position-and-visibility.md)
 - [ADR 025: AngleDraw演出の要求bitと持続カウンター管理](025-angledraw-request-bits-and-duration-counters.md)
+- [ADR 026: 連続運動の速度管理と位置操作の役割分担](026-velocity-based-continuous-movement.md)

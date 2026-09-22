@@ -22,6 +22,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [Trigger記述規則](docs/AGENTS.trigger.md)
 - [コマンド入力・行動設計規約](docs/AGENTS.command.md)
 - [入力ビットマップ](docs/AGENTS.input-map.md)
+- [移動・速度管理規約](docs/AGENTS.movement.md)
 - [オートメーション規約](docs/AGENTS.automation.md)
 - [エフェクト作業規則](docs/AGENTS.effect.md)
 - [技作成スキル](.agents/skills/create-waza/SKILL.md)

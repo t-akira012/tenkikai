@@ -62,6 +62,7 @@ TENKIKAI固有の設計とWinMUGENの実行順を維持する。関連文書は�
 | PlayerPush、すり抜け | [ADR 017](../../../docs/ADR/017-playerpush-disable-flag.md) |
 | 無敵 | [ADR 018](../../../docs/ADR/018-the-controller-invincibility-flag.md) |
 | Rootアニメーション時間 | [ADR 019](../../../docs/ADR/019-controller-root-animtime.md)、[Rootアニメーション時間保持規約](../../../docs/AGENTS.root-animtime.md) |
+| 通常移動、浮遊移動、ダッシュ、回避、突進、ワープ、技固有移動 | [移動・速度管理規約](../../../docs/AGENTS.movement.md)、[ADR 026](../../../docs/ADR/026-velocity-based-continuous-movement.md) |
 | AngleDrawの解除・共有 | [ADR 010](../../../docs/ADR/010-angledraw-reset.md)、[ADR 020](../../../docs/ADR/020-controller-angledraw-sharing.md) |
 | HeadとHead Auraの位置、変換、表示、残像 | [ADR 023](../../../docs/ADR/023-head-head-aura-transform-synchronization.md)、[ADR 024](../../../docs/ADR/024-head-head-aura-controller-managed-position-and-visibility.md) |
 | Aura Bound | [Aura Bound設計](../../../docs/design/003-aura-bound.md) |
