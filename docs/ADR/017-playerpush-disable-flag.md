@@ -12,9 +12,9 @@
 
 ## 決定
 
-`the_controller`の`var(13)`をPlayerPush無効化フラグとする。共通IDルーティング後、個別挙動1のライフ管理へ移る前に、Rootの`StateNo`を監視してフラグを定義する。
+`the_controller`のHelper Armor状態ビットフィールド`var(11)`のbit 24をPlayerPush無効化フラグとする。共通IDルーティング後、個別挙動1のライフ管理へ移る前に、Rootの`StateNo`を監視してフラグを定義する。
 
-フラグは各tickの判定前に`0`へ戻す。Rootが前方近距離ワープ予備StateDef `100`、後方近距離ワープ予備StateDef `105`、前方ダッシュStateDef `110`、後方ダッシュStateDef `111`、または異形回避StateDef `300`〜`302`の場合に`1`にする。ライフ管理ではフラグが`0`の場合に`PlayerPush`を有効とし、フラグが`1`の場合に`PlayerPush`を無効とする。
+フラグは各tickの判定前に解除し、同じ変数のダメージと無敵期間領域は保持する。Rootが前方近距離ワープ予備StateDef `100`、後方近距離ワープ予備StateDef `105`、前方ダッシュStateDef `110`、後方ダッシュStateDef `111`、または異形回避StateDef `300`〜`302`の場合にbit 24を設定する。ライフ管理ではbit 24が無効な場合に`PlayerPush`を有効とし、有効な場合に`PlayerPush`を無効とする。
 
 PlayerPush無効化の対象となるRootのStateDefは、`the_controller`の監視処理へ集約する。Root側の各StateDefからHelper変数を直接変更しない。
 

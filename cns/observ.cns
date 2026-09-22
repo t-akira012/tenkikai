@@ -21,8 +21,8 @@ ignorehitpause=1
 [state ]
 type=lifeadd
 trigger1=!ishelper
-trigger1=helper(99004),var(11)>0
-value=-ifelse(life<=lifemax/4,ifelse((helper(99004),var(11))>1,(helper(99004),var(11))/2,1),(helper(99004),var(11)))
+trigger1=((helper(99004),var(11))&65535)>0
+value=-ifelse(life<=lifemax/4,ifelse(((helper(99004),var(11))&65535)>1,((helper(99004),var(11))&65535)/2,1),((helper(99004),var(11))&65535))
 kill=1
 absolute=1
 ignorehitpause=1
@@ -32,7 +32,7 @@ type=lifeadd
 trigger1=!ishelper
 trigger1=alive
 trigger1=life<lifemax
-trigger1=helper(99004),var(11)=0
+trigger1=((helper(99004),var(11))&65535)=0
 value=1
 kill=0
 absolute=1
@@ -68,7 +68,7 @@ ignorehitpause=1
 [state ]
 type=angledraw
 trigger1=!ishelper
-trigger1=helper(99004),var(19)=1
+trigger1=((helper(99004),var(22))&64)!=0
 value=(helper(99004),fvar(7))
 scale=(helper(99004),fvar(5)),(helper(99004),fvar(6))
 ignorehitpause=1
@@ -741,7 +741,7 @@ ignorehitpause=1
 [state ]
 type=offset
 trigger1=!ishelper
-trigger1=helper(99004),var(19)=1
+trigger1=((helper(99004),var(22))&64)!=0
 y=(helper(99004),fvar(8))
 ignorehitpause=1
 

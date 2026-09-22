@@ -109,6 +109,14 @@ trigger1=1
 var(22)=0
 ignorehitpause=1
 
+;; Head眼球表示制御
+
+[state ]
+type=varset
+trigger1=1
+var(24)=1
+ignorehitpause=1
+
 [state ]
 type=varset
 trigger1=root,stateno=[100,107]
@@ -127,44 +135,24 @@ trigger1=root,stateno=301
 var(22)=var(22)|12
 ignorehitpause=1
 
-[state ]
-type=varset
-trigger1=1
-var(19)=0
-ignorehitpause=1
+;; Helper Armor状態フラグ
 
 [state ]
 type=varset
 trigger1=1
-var(20)=0
-ignorehitpause=1
-
-;; PlayerPush無効化フラグ
-
-[state ]
-type=varset
-trigger1=1
-var(13)=0
+var(11)=var(11)&16777215
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])
-var(13)=1
-ignorehitpause=1
-
-;; 無敵フラグ
-
-[state ]
-type=varset
-trigger1=1
-var(14)=0
+var(11)=var(11)|16777216
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])||(root,stateno=[300,302])
-var(14)=1
+var(11)=var(11)|33554432
 ignorehitpause=1
 
 [state ]
@@ -210,7 +198,7 @@ ignorehitpause=1
 [state ]
 type=playerpush
 trigger1=1
-value=!var(13)
+value=(var(11)&16777216)=0
 ignorehitpause=1
 
 [state ]
@@ -224,7 +212,7 @@ ignorehitpause=1
 
 [state ]
 type=nothitby
-trigger1=var(14)=1
+trigger1=(var(11)&33554432)!=0
 value=SCA
 time=1
 ignorehitpause=1
@@ -233,14 +221,14 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(11)>0
-var(11)=0
+trigger1=(var(11)&65535)>0
+var(11)=var(11)-(var(11)&65535)
 ignorehitpause=1
 
 [state ]
 type=varadd
-trigger1=var(12)>0
-var(12)=-1
+trigger1=((var(11)/65536)&255)>0
+var(11)=-65536
 ignorehitpause=1
 
 ;; Helper Armorダメージ取得
@@ -248,15 +236,15 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=gethitvar(damage)>0
-trigger1=var(12)=0
-var(11)=gethitvar(damage)
+trigger1=((var(11)/65536)&255)=0
+var(11)=var(11)|ifelse(gethitvar(damage)>65535,65535,gethitvar(damage))
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=gethitvar(damage)>0
-trigger1=var(12)=0
-var(12)=gethitvar(damage)
+trigger1=((var(11)/65536)&255)=0
+var(11)=var(11)+ifelse(gethitvar(damage)>255,255,gethitvar(damage))*65536
 ignorehitpause=1
 
 [state ]
@@ -295,7 +283,7 @@ anim=99004
 type=changestate
 trigger1=(root,stateno=4001)||(root,stateno=4002)||(root,stateno=4003)
 trigger1=root,var(1)=0
-trigger1=var(0)=0
+trigger1=(var(0)&1)=0
 value=99004011+(root,stateno=4002)+(root,stateno=4003)*2
 ignorehitpause=1
 
@@ -303,43 +291,43 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(0)=1
+trigger1=(var(0)&1)!=0
 trigger1=fvar(1)<=0
 fvar(0)=0
 ignorehitpause=1
 
 [state ]
 type=varadd
-trigger1=var(0)=1
-trigger1=var(1)>0
-var(1)=-1
+trigger1=(var(0)&1)!=0
+trigger1=((var(0)/2)&32767)>0
+var(0)=-2
 ignorehitpause=1
 
 [state ]
 type=varadd
-trigger1=var(0)=1
-trigger1=var(1)<=0
+trigger1=(var(0)&1)!=0
+trigger1=((var(0)/2)&32767)=0
 trigger1=fvar(1)>0
 fvar(0)=-fvar(1)
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(0)=1
+trigger1=(var(0)&1)!=0
 trigger1=fvar(1)<=0
 fvar(0)=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(0)=1
+trigger1=(var(0)&1)!=0
 trigger1=fvar(0)<=0
 fvar(0)=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(0)=1
+trigger1=(var(0)&1)!=0
 trigger1=fvar(0)<=0
 var(0)=0
 ignorehitpause=1
@@ -369,12 +357,6 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=1
-var(1)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
 fvar(1)=0.05
 ignorehitpause=1
 
@@ -391,19 +373,13 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=1
-var(0)=1
+var(0)=17
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=1
 fvar(0)=1.125
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(1)=8
 ignorehitpause=1
 
 [state ]
@@ -432,12 +408,6 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(0)=0.3
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(1)=0
 ignorehitpause=1
 
 [state ]
@@ -780,13 +750,13 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=(var(2)&62)!=0
-var(19)=1
+var(22)=var(22)|64
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=(var(2)&62)!=0
-var(20)=1
+var(22)=var(22)|128
 ignorehitpause=1
 
 [state ]
@@ -826,7 +796,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004004
+value=99004007
 ignorehitpause=1
 
 [statedef 99004021]
@@ -864,7 +834,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004004
+value=99004007
 ignorehitpause=1
 
 [statedef 99004022]
@@ -890,7 +860,7 @@ ignorehitpause=1
 [state ]
 type=changestate
 trigger1=1
-value=99004004
+value=99004007
 ignorehitpause=1
 
 [statedef 99004023]
@@ -911,6 +881,85 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(17)=6
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004007
+ignorehitpause=1
+
+[statedef 99004007]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Head眼球表示ルーティング
+
+[state ]
+type=changestate
+trigger1=(root,stateno=110)||(root,stateno=111)
+value=99004041
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=(var(24)&1)!=0
+value=99004040
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004041]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 前後ダッシュHead眼球固定
+
+[state ]
+type=varset
+trigger1=1
+var(24)=2
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004004
+ignorehitpause=1
+
+[statedef 99004040]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; Head眼球距離同期
+
+[state ]
+type=varset
+trigger1=p2dist x>=12
+var(24)=var(24)|2
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=p2dist x>-12
+trigger1=p2dist x<12
+var(24)=var(24)|4
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=p2dist x<=-12
+var(24)=var(24)|8
 ignorehitpause=1
 
 [state ]
@@ -940,18 +989,6 @@ physics=n
 anim=99004
 
 ;; Head・Head Aura変換完成
-
-[state ]
-type=varset
-trigger1=1
-var(17)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(18)=0
-ignorehitpause=1
 
 [state ]
 type=varset
@@ -988,13 +1025,13 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(0)=1
-var(17)=1
+trigger1=(var(0)&1)!=0
+var(22)=var(22)|16
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(17)=1
+trigger1=(var(22)&16)!=0
 fvar(15)=fvar(13)-61*fvar(0)
 ignorehitpause=1
 
@@ -1019,25 +1056,25 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=(var(2)&17)=0
-trigger2=var(0)=1
-var(18)=1
+trigger2=(var(0)&1)!=0
+var(22)=var(22)|32
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(18)=1
+trigger1=(var(22)&32)!=0
 fvar(9)=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(18)=1
+trigger1=(var(22)&32)!=0
 fvar(10)=1.15+0.15*(root,fvar(0))+fvar(0)
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(18)=1
+trigger1=(var(22)&32)!=0
 fvar(11)=fvar(10)
 ignorehitpause=1
 
@@ -1718,6 +1755,29 @@ ignorehitpause=1
 type=turn
 trigger1=facing!=root,facing
 
+;; 相手位置へのHead視線追従
+
+[state ]
+type=changeanim
+trigger1=((helper(99004),var(24))&2)!=0
+trigger1=anim!=99001
+value=99001
+ignorehitpause=1
+
+[state ]
+type=changeanim
+trigger1=((helper(99004),var(24))&4)!=0
+trigger1=anim!=99011
+value=99011
+ignorehitpause=1
+
+[state ]
+type=changeanim
+trigger1=((helper(99004),var(24))&8)!=0
+trigger1=anim!=99012
+value=99012
+ignorehitpause=1
+
 [state ]
 type=offset
 trigger1=1
@@ -1818,8 +1878,8 @@ ignorehitpause=1
 
 [state ]
 type=angledraw
-trigger1=helper(99004),var(0)=0
-trigger1=helper(99004),var(20)=1
+trigger1=((helper(99004),var(0))&1)=0
+trigger1=((helper(99004),var(22))&128)!=0
 value=(helper(99004),fvar(7))
 scale=(helper(99004),fvar(5)),(helper(99004),fvar(6))
 ignorehitpause=1
@@ -1843,8 +1903,8 @@ ignorehitpause=1
 
 [state ]
 type=offset
-trigger1=helper(99004),var(0)=0
-trigger1=helper(99004),var(20)=1
+trigger1=((helper(99004),var(0))&1)=0
+trigger1=((helper(99004),var(22))&128)!=0
 y=(helper(99004),fvar(8))
 ignorehitpause=1
 
@@ -1934,6 +1994,7 @@ ignorehitpause=1
 [state ]
 type=changeanim
 trigger1=anim!=helper(99001),anim
+trigger2=animelemno(0)!=helper(99001),animelemno(0)
 value=helper(99001),anim
 elem=helper(99001),animelemno(0)
 ignorehitpause=1

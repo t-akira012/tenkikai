@@ -26,3 +26,5 @@
 - [ADR 024: HeadとHead Auraの位置・表示判断をControllerで管理する](024-head-head-aura-controller-managed-position-and-visibility.md)
 - [ADR 025: AngleDraw演出の要求bitと持続カウンター管理](025-angledraw-request-bits-and-duration-counters.md)
 - [ADR 026: 連続運動の速度管理と位置操作の役割分担](026-velocity-based-continuous-movement.md)
+- [ADR 027: Head眼球表示をControllerで完成させる](027-controller-managed-head-eye-selection.md)
+- [ADR 028: the_controllerの同一寿命値をビットフィールドへ集約する](028-controller-variable-bit-packing.md)

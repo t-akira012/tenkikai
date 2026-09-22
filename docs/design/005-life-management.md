@@ -75,7 +75,7 @@ StateDef `-2`には、`the_controller`を個別挙動StateDefへ振り分ける�
 
 Helper Armorには、`the_controller`による`HitOverride`を使用する。命中時のダメージ値は`GetHitVar(damage)`から取得し、Helper自身の通常変数へ保存する。本体は次のフレームにHelperリダイレクトで値を取得し、`LifeAdd`へ負の値として渡す。
 
-ライフ管理で追加するダメージ保持用`var(11)`と無敵期間用`var(12)`は、オーラバウンドが使用しているVar/FVarと共有しない。現在の割り当ては[the_controller変数一覧](../state/var-list-helper-99004.md)に記録する。
+ライフ管理のダメージ、無敵期間、PlayerPushおよびHelper Armor無敵は、`var(11)`の独立したbit領域へ保持する。現在の割り当ては[the_controller変数一覧](../state/var-list-helper-99004.md)に記録する。
 
 ## 確定済み設計条件
 
@@ -100,6 +100,7 @@ Helper Armorには、`the_controller`による`HitOverride`を使用する。命
 
 - 管理方式：残り時間を保持する通常変数
 - 初期値：取得したダメージ値に基づく1以上の値
+- 上限：255tick
 - 更新：1tickごとに1減算
 - 次のダメージ受付条件：残り時間が0
 
@@ -108,7 +109,6 @@ Helper Armorには、`the_controller`による`HitOverride`を使用する。命
 ### 無敵期間
 
 - ダメージ値から無敵期間へ変換する式
-- 無敵期間の上限
 
 ### 自動リジェネレーション
 
@@ -128,14 +128,15 @@ Helper Armorには、`the_controller`による`HitOverride`を使用する。命
 ### ダメージ保持
 
 - ダメージ保持用変数：`the_controller`の`var(11)`
-- 無敵期間用変数：`the_controller`の`var(12)`
+- ダメージ保持上限：65535
+- 無敵期間：`the_controller`の`var(11)`にあるbit 16〜23
 - ダメージ保持期間：命中フレームから次のフレームに本体が読み取るまで
 
 ### 無敵期間
 
 - 初期値：`GetHitVar(damage)`と同じtick数
 - 減算量：1tickごとに`1`
-- 上限：なし
+- 上限：255tick
 
 ### 自動リジェネレーション
 

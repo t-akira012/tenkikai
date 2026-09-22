@@ -12,11 +12,11 @@ TENKIKAIの攻撃受付はHelper Armorである`the_controller`が担う。Root�
 
 ## 決定
 
-`the_controller`の`var(14)`を無敵フラグとする。共通IDルーティング後、個別挙動1のライフ管理へ移る前に、Rootの`StateNo`を監視して毎tick定義する。
+`the_controller`のHelper Armor状態ビットフィールド`var(11)`のbit 25を無敵フラグとする。共通IDルーティング後、個別挙動1のライフ管理へ移る前に、Rootの`StateNo`を監視して毎tick定義する。
 
-フラグは各tickの判定前に`0`へ戻す。Rootが前方短距離ワープのStateDef `100`〜`102`、後方短距離ワープのStateDef `105`〜`107`、または異形回避StateDef `300`〜`302`の場合に`1`にする。
+フラグは各tickの判定前に解除し、同じ変数のダメージと無敵期間領域は保持する。Rootが前方短距離ワープのStateDef `100`〜`102`、後方短距離ワープのStateDef `105`〜`107`、または異形回避StateDef `300`〜`302`の場合にbit 25を設定する。
 
-ライフ管理では、無敵フラグが`1`の場合に`the_controller`へ`NotHitBy`を設定し、全StateTypeの打撃・飛び道具・投げ属性を受け付けない状態にする。`NotHitBy`の有効時間は1tickとし、無敵フラグの判定によって毎tick更新する。
+ライフ管理では、bit 25が有効な場合に`the_controller`へ`NotHitBy`を設定し、全StateTypeの打撃・飛び道具・投げ属性を受け付けない状態にする。`NotHitBy`の有効時間は1tickとし、無敵フラグの判定によって毎tick更新する。
 
 無敵対象を追加する場合は、Root側の技StateDefからHelper変数を直接変更せず、`the_controller`の無敵フラグ定義へ対象StateDefを追加する。
 

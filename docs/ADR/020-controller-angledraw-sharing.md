@@ -10,7 +10,7 @@
 
 Bodyと複数の表示Helperを同期して描画するために、各対象へ同じ計算式を記述すると、式と条件が重複する。調整時に一部だけが変更されると表示が分離するため、計算と適用対象を一元管理する必要がある。
 
-一方、Head AuraとBody Auraには、`the_controller`のAura Boundフラグ`var(0)`と拡張量`fvar(0)`を使用する既存のAngleDrawがある。共有AngleDrawがAura Boundを上書きすると表示を破壊するため、同一tickで成立する場合の優先順位も共通契約に含める必要がある。
+一方、Head AuraとBody Auraには、`the_controller`の`var(0)`にあるAura Bound有効bitと拡張量`fvar(0)`を使用する既存のAngleDrawがある。共有AngleDrawがAura Boundを上書きすると表示を破壊するため、同一tickで成立する場合の優先順位も共通契約に含める必要がある。
 
 ## 決定
 
@@ -30,19 +30,19 @@ Aura Boundと同期AngleDrawが同一tickで成立する場合は、Head系とBo
 
 ### Head
 
-`the_controller`の`fvar(2)`をHead完成角度、`fvar(3)`をHead完成X倍率、`fvar(4)`をHead完成Y倍率とする。`fvar(9)`をHead Aura完成角度、`fvar(10)`をHead Aura完成X倍率、`fvar(11)`をHead Aura完成Y倍率とする。`var(18)`をHead Aura AngleDraw非同期フラグとする。
+`the_controller`の`fvar(2)`をHead完成角度、`fvar(3)`をHead完成X倍率、`fvar(4)`をHead完成Y倍率とする。`fvar(9)`をHead Aura完成角度、`fvar(10)`をHead Aura完成X倍率、`fvar(11)`をHead Aura完成Y倍率とする。`var(22)`のbit 5をHead Aura AngleDraw非同期フラグとする。
 
-同期時はHead Aura完成値をHead完成値と同じ値にする。通常のAura倍率やAura BoundによってHead Auraへ別の値を設定する場合だけ、`var(18)`を`1`にして対象別完成値を設定する。HeadとHead Auraは角度と倍率を計算せず、自身の完成値を一つの`AngleDraw`へそのまま設定する。Head系の同期と非同期の詳細は[ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)に従う。
+同期時はHead Aura完成値をHead完成値と同じ値にする。通常のAura倍率やAura BoundによってHead Auraへ別の値を設定する場合だけ、`var(22)`のbit 5を有効にして対象別完成値を設定する。HeadとHead Auraは角度と倍率を計算せず、自身の完成値を一つの`AngleDraw`へそのまま設定する。Head系の同期と非同期の詳細は[ADR 023: HeadとHead Auraの変換同期と明示的な非同期制御](023-head-head-aura-transform-synchronization.md)に従う。
 
 ### Body
 
-Body系の完成角度を`the_controller`の`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持し、Body適用フラグを`var(19)`、Body Aura適用フラグを`var(20)`とする。Body系はHead用角度`fvar(2)`を使用しない。
+Body系の完成角度を`the_controller`の`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持し、Body適用フラグを`var(22)`のbit 6、Body Aura適用フラグをbit 7とする。Body系はHead用角度`fvar(2)`を使用しない。
 
 Bodyの縮小はアニメーション要素5の開始時点から行う。要素5開始時の残存`AnimTime`を持続カウンターへ保存し、StateNoと独立した進捗率を求める。進捗率0では倍率1、終了時には倍率0.05とし、余弦曲線によって後半ほど縮小速度を上げる。X倍率とY倍率には同じ完成値を設定する。
 
 Scaleの中心となるSprite axisがBody中心より下にあるため、縮小時はBody中心が下方向へ移動する。異形回避では通常の浮遊Offsetへ`-48*(1-Y倍率)`を加えた値を完成Y Offsetとし、BodyとBody Auraへ同じ値を適用する。倍率1では補正を行わず、倍率0.05では上方向へ45.6px補正する。
 
-BodyはRootのStateDef `-2`にある共通適用口で、`var(19)`が`1`の場合だけ`fvar(7)`、`fvar(5)`、`fvar(6)`を使用する。Body AuraはAura Boundフラグが無効で、かつ`var(20)`が`1`の場合だけ同じ完成値を使用する。
+BodyはRootのStateDef `-2`にある共通適用口で、`var(22)`のbit 6が有効な場合だけ`fvar(7)`、`fvar(5)`、`fvar(6)`を使用する。Body AuraはAura Boundフラグが無効で、かつ`var(22)`のbit 7が有効な場合だけ同じ完成値を使用する。
 
 現在の異形回避ではBody系完成角度を`0`とし、Scaleだけを変化させる。Body系の角度同期能力は汎用基盤として保持し、今後Body AngleDrawを必要とする挙動も個別StateDefへ実装せず、`the_controller`が同じ完成値と適用フラグを設定する。
 
