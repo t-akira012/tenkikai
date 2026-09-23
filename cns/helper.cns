@@ -1526,6 +1526,200 @@ type=changestate
 trigger1=1
 value=500901
 
+[statedef 500020]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=20
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=8
+
+[state ]
+type=varset
+trigger1=1
+var(7)=6
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.03
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500900
+
+[statedef 500021]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=20
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=100
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=8
+
+[state ]
+type=varset
+trigger1=1
+var(7)=6
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.38
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.03
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.85
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.10
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500901
+
 [statedef 500900]
 type=a
 movetype=I

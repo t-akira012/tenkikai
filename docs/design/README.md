@@ -11,3 +11,4 @@
 - [009: 汎用片手光弾発出](009-one-handed-energy-projectile-startup.md)
 - [010: Continuous Floating Motion](010-continuous-floating-motion.md)
 - [011: Headの眼球移動](011-head-eye-tracking.md)
+- [012: 地面隣接浮遊時の足元波紋](012-ground-proximity-floating-ripple.md)

@@ -99,6 +99,46 @@ text="private-time: %d\npos y: %f"
 params=var(1),pos y
 ignorehitpause=1
 
+;; 地面隣接浮遊時の足元波紋
+
+[state ]
+type=helper
+triggerall=!ishelper
+triggerall=pos y>=-20
+triggerall=abs(vel x)<1
+trigger1=!(var(0)%24)
+name="ground_floating_ripple_left"
+id=500020
+stateno=500020
+helpertype=normal
+postype=p1
+pos=0,-pos y+26
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+ignorehitpause=1
+
+[state ]
+type=helper
+triggerall=!ishelper
+triggerall=pos y>=-20
+triggerall=abs(vel x)<1
+trigger1=!(var(0)%24)
+name="ground_floating_ripple_right"
+id=500021
+stateno=500021
+helpertype=normal
+postype=p1
+pos=0,-pos y+26
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+ignorehitpause=1
+
 [statedef -3]
 
 ;; 浮遊移動と状態変更
