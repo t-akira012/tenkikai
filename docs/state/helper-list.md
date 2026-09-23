@@ -21,5 +21,7 @@
 | `500011` | `dash_elliptical_shockwave_right` | `500011` | ダッシュ波紋の右円弧。増強した残像を設定してStateDef `500901`へ遷移 |
 | `500020` | `ground_floating_ripple_left` | `500020` | 足元波紋の左円弧。横長倍率と静止速度を設定してStateDef `500900`へ遷移 |
 | `500021` | `ground_floating_ripple_right` | `500021` | 足元波紋の右円弧。横長倍率と静止速度を設定してStateDef `500901`へ遷移 |
+| `501000` | `gravity_sphere` | `501000` | 漆黒の球体を前方へ移動させ、周囲へ回転・発散する光Explodを生成する |
 
 楕円衝撃波の詳細は[楕円衝撃波Helper](helper-500000-elliptical-shockwave.md)を参照する。
+重力球の詳細は[重力球Helper](helper-501000-gravity-sphere.md)を参照する。

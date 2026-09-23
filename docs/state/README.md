@@ -4,6 +4,7 @@
 - [デフォルトステート](default.md)
 - [Explod一覧](explod-list.md)
 - [楕円衝撃波Helper](helper-500000-elliptical-shockwave.md)
+- [重力球Helper](helper-501000-gravity-sphere.md)
 - [the_head Helper](helper-99001-the-head.md)
 - [the_aura Helper](helper-99002-the-aura.md)
 - [the_head_aura Helper](helper-99003-the-head-aura.md)

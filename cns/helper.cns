@@ -1910,6 +1910,88 @@ type=destroyself
 trigger1=time>=var(1)
 trigger2=roundstate!=2
 
+[statedef 501000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=18552
+velset=3,0
+
+[state ]
+type=afterimage
+trigger1=!time
+time=120
+length=12
+timegap=1
+framegap=2
+trans=sub
+palcolor=0
+palbright=0,0,0
+palcontrast=256,256,256
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=1,1,1
+
+[state ]
+type=trans
+trigger1=1
+trans=sub
+
+[state ]
+type=angledraw
+trigger1=1
+scale=0.25,0.25
+
+[state ]
+type=sprpriority
+trigger1=1
+value=5
+
+[state ]
+type=explod
+triggerall=time<120
+trigger1=!(time%2)
+anim=18553
+id=501100
+postype=p1
+pos=floor(28*cos(time*24*pi/180.0)),floor(18*sin(time*24*pi/180.0))
+velocity=0.8*cos(time*24*pi/180.0)-1.5*sin(time*24*pi/180.0),0.8*sin(time*24*pi/180.0)+1.5*cos(time*24*pi/180.0)
+scale=0.25,0.25
+sprpriority=ifelse(sin(time*24*pi/180.0)>0,6,4)
+bindtime=0
+removetime=-2
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=add
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=time>=120
+trigger2=roundstate!=2
+
 [statedef 99001000]
 anim=99001
 

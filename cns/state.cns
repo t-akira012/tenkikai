@@ -1071,8 +1071,23 @@ anim=1100
 velset=0,0
 
 [state ]
+type=helper
+trigger1=var(1)=12
+name="gravity_sphere"
+id=501000
+stateno=501000
+helpertype=normal
+pos=45,-50
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
 type=changestate
-trigger1=time>=60
+trigger1=var(1)>=60
 value=0
 ctrl=1
 
