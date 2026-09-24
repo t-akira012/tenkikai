@@ -25,6 +25,7 @@
 | `500031` | `gravity_sphere_planetary_ring_right` | `500031` | 重力球惑星リングの前面円弧。暗色・収縮・角度揺動を設定してStateDef `500902`へ遷移 |
 | `501000` | `gravity_sphere` | `501000` | 全設定値を保存し、StateDef `501900`で出現・三層内部流動・浮遊・寿命を共通実行する |
 | `502000` | `fibonacci_light` | `502000` | 黄金角係数を保存し、StateDef `502900`で全画面へ光粒子を展開する |
+| `502010` | `gravity_sphere_fibonacci_light` | `502010` | 黄金角係数と局所倍率を保存し、StateDef `502900`で重力球内部へ光粒子を展開する |
 | `503000` | `center_shockwave` | `503000` | 表示倍率を保存し、StateDef `503900`で中心から円形衝撃波を広げる |
 | `504000` | `background_color` | `504000` | 青暗転値を保存し、StateDef `504900`で背景だけへ色変化を適用する |
 

@@ -32,7 +32,7 @@ CNS上のStateDef、Controller、Trigger、変数、ルーティングなどの�
 
 - [超高速射出空気波紋](effect/002-supersonic-air-ripple.md)：極めて高速な射出または通過に伴う汎用的な楕円形空気波紋
 - [重力球](effect/003-gravity-sphere.md)：漆黒の球体と周回・発散する光で構成する汎用エネルギー体
-- [フィボナッチ・ライト](effect/005-fibonacci-light.md)：黄金角を用いて全画面へ光粒子を分散する汎用エフェクト
+- [フィボナッチ・ライト](effect/005-fibonacci-light.md)：黄金角を用いて全画面または局所エネルギー体へ光粒子を分散する汎用エフェクト
 - [中心衝撃波](effect/006-center-shockwave.md)：中心から画面規模へ広がる円形衝撃波
 
 ## 番号空間
