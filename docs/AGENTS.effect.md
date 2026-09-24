@@ -6,6 +6,8 @@
 
 エフェクト文書群の入口と登録状況は[エフェクト設計](design/008-effects.md)、各エフェクトの表現設計と現在の設定値は`docs/design/effect/`の個別文書で管理する。CNS上のStateDef、Controller、Trigger、変数、Helper、Explodなどの実装内容は`docs/state/`の対応文書で管理する。
 
+共通エフェクトの1000番予約、用途別出現StateDef、変数による全設定値の保持、および末尾`900`〜`999`の共通実行領域は[共通エフェクト設計・実装規約](design/effect/AGENTS.md)に従う。
+
 ## 設計を実装より先に登録する
 
 新しいエフェクト種別または既存エフェクトの新しい表現パターンを追加する場合は、CNSへStateDefやルーティングを実装する前に、`docs/design/008-effects.md`へエフェクトを登録し、`docs/design/effect/`へ個別設計文書を作成または更新する。

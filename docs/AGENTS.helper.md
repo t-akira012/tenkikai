@@ -7,6 +7,8 @@
 - 同一IDは1体以下に制限する。
 - 常駐Helperは必ずRootから生成し、HelperからHelperを生成する孫Helper構成は禁止する。
 
+孫Helper生成の禁止は常駐Helperだけへ適用する。技、攻撃および共通エフェクトを担当する非常駐Helperは、演出または攻撃構成に必要な非常駐Helperを生成してよい。生成した孫Helperには独立した有限寿命と終了処理を持たせ、常駐Helperとして扱わない。
+
 ## 常駐Helper生成の独立性
 
 常駐Helperは、RootがHelperごとに独立して生成する。対象Helperの生成条件を、別の常駐Helperの存在、不在、State、変数、その他の状態へ依存させてはならない。

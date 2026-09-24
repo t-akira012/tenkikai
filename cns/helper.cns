@@ -1101,37 +1101,6 @@ ignorehitpause=1
 
 [state ]
 type=changestate
-trigger1=(var(21)&65535)>0
-trigger1=((var(21)/65536)&31)=1
-value=99004101
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004999
-ignorehitpause=1
-
-;; 暗転番号1 青暗転
-
-[statedef 99004101]
-type=s
-movetype=i
-physics=n
-anim=99004
-
-[state ]
-type=allpalfx
-trigger1=(var(21)&65535)>0
-time=1
-mul=10,105,135
-add=140-(((60-((var(21)&65535)%60))%60)*8),190-(((60-((var(21)&65535)%60))%60)*8),180-(((60-((var(21)&65535)%60))%60)*8)
-color=180
-invertall=0
-ignorehitpause=1
-
-[state ]
-type=changestate
 trigger1=1
 value=99004999
 ignorehitpause=1
@@ -1145,10 +1114,42 @@ physics=n
 anim=99004
 
 [state ]
+type=varset
+trigger1=1
+var(25)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(26)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(27)=0
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004190
+ignorehitpause=1
+
+;; 暗転共通実行
+
+[statedef 99004190]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+[state ]
 type=allpalfx
 trigger1=(var(21)&65535)>0
 time=1
-mul=0,0,0
+mul=var(25),var(26),var(27)
 ignorehitpause=1
 
 [state ]
@@ -1751,6 +1752,312 @@ type=changestate
 trigger1=1
 value=500901
 
+[statedef 500030]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=48
+
+[state ]
+type=varset
+trigger1=1
+var(2)=48
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=5
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=48
+
+[state ]
+type=varset
+trigger1=1
+var(7)=12
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+var(10)=12
+
+[state ]
+type=varset
+trigger1=1
+var(11)=65536
+
+[state ]
+type=varset
+trigger1=1
+var(12)=25173
+
+[state ]
+type=varset
+trigger1=1
+var(13)=13849
+
+[state ]
+type=varset
+trigger1=1
+var(14)=-60
+
+[state ]
+type=varset
+trigger1=1
+var(15)=121
+
+[state ]
+type=varset
+trigger1=1
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+var(17)=360
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.90
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.175
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.12
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.025
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0.08
+
+[state ]
+type=selfstate
+trigger1=1
+value=500902
+
+[statedef 500031]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=48
+
+[state ]
+type=varset
+trigger1=1
+var(2)=48
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=100
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=48
+
+[state ]
+type=varset
+trigger1=1
+var(7)=12
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+var(10)=12
+
+[state ]
+type=varset
+trigger1=1
+var(11)=65536
+
+[state ]
+type=varset
+trigger1=1
+var(12)=25173
+
+[state ]
+type=varset
+trigger1=1
+var(13)=13849
+
+[state ]
+type=varset
+trigger1=1
+var(14)=-60
+
+[state ]
+type=varset
+trigger1=1
+var(15)=121
+
+[state ]
+type=varset
+trigger1=1
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+var(17)=360
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.90
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.175
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.12
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.025
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0.08
+
+[state ]
+type=selfstate
+trigger1=1
+value=500902
+
 [statedef 500900]
 type=a
 movetype=I
@@ -1941,12 +2248,127 @@ type=destroyself
 trigger1=time>=var(1)
 trigger2=roundstate!=2
 
+[statedef 500902]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=bindtoparent
+trigger1=1
+time=1
+pos=0,0
+
+[state ]
+type=afterimage
+trigger1=!time
+time=var(6)
+length=var(7)
+timegap=var(8)
+framegap=var(9)
+trans=sub
+palcolor=0
+palbright=0,0,0
+palcontrast=64,64,64
+palpostbright=0,0,0
+paladd=0,0,0
+palmul=1,1,1
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=(1-cos(pi*time/var(1)))/2.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=fvar(1)+(fvar(3)-fvar(1))*fvar(5)
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=(fvar(2)+(fvar(4)-fvar(2))*fvar(5))*(1+fvar(16)*sin(2*pi*time/var(1)))
+
+[state ]
+type=varset
+trigger1=!(time%var(10))
+fvar(12)=fvar(11)
+
+[state ]
+type=varset
+trigger1=!(time%var(10))
+var(16)=(((gametime%var(11))*var(12)+var(13))%var(11))
+
+[state ]
+type=varset
+trigger1=!time
+var(18)=ifelse(var(16)%2,1,-1)
+
+[state ]
+type=varset
+trigger1=!(time%var(10))
+fvar(13)=var(14)+floor(var(16)*var(15)*1.0/var(11))
+
+[state ]
+type=varset
+trigger1=1
+fvar(14)=(1-cos(pi*(time%var(10))/var(10)))/2.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=fvar(12)+(fvar(13)-fvar(12))*fvar(14)
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=var(18)*var(17)*time*1.0/(var(1)-1)
+
+[state ]
+type=angledraw
+trigger1=1
+value=fvar(15)+fvar(11)
+scale=fvar(6),fvar(7)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=var(4)
+
+[state ]
+type=trans
+trigger1=1
+trans=sub
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=destroyself
+trigger1=time>=var(1)
+trigger2=roundstate!=2
+
 [statedef 501000]
 type=a
 movetype=I
 physics=N
 ctrl=0
-anim=18552
+anim=-1
 velset=0,0
 
 [state ]
@@ -1957,23 +2379,287 @@ var(0)=0
 [state ]
 type=varset
 trigger1=1
-var(2)=100
+var(1)=36
 
 [state ]
 type=varset
 trigger1=1
-var(4)=0
+var(2)=600
 
 [state ]
 type=varset
 trigger1=1
-var(5)=0
+var(3)=60
 
 [state ]
-type=posset
+type=varset
 trigger1=1
-x=root,pos x+45*root,facing
-y=root,pos y-50
+var(4)=100
+
+[state ]
+type=varset
+trigger1=1
+var(5)=20
+
+[state ]
+type=varset
+trigger1=1
+var(6)=30
+
+[state ]
+type=varset
+trigger1=1
+var(7)=40
+
+[state ]
+type=varset
+trigger1=1
+var(8)=10
+
+[state ]
+type=varset
+trigger1=1
+var(9)=45
+
+[state ]
+type=varset
+trigger1=1
+var(10)=55
+
+[state ]
+type=varset
+trigger1=1
+var(11)=11
+
+[state ]
+type=varset
+trigger1=1
+var(12)=13
+
+[state ]
+type=varset
+trigger1=1
+var(13)=10
+
+[state ]
+type=varset
+trigger1=1
+var(14)=6
+
+[state ]
+type=varset
+trigger1=1
+var(15)=128
+
+[state ]
+type=varset
+trigger1=1
+var(16)=256
+
+[state ]
+type=varset
+trigger1=1
+var(17)=18552
+
+[state ]
+type=varset
+trigger1=1
+var(18)=16000
+
+[state ]
+type=varset
+trigger1=1
+var(19)=255
+
+[state ]
+type=varset
+trigger1=1
+var(20)=485
+
+[state ]
+type=varset
+trigger1=1
+var(21)=545
+
+[state ]
+type=varset
+trigger1=1
+var(22)=100
+
+[state ]
+type=varset
+trigger1=1
+var(23)=-3
+
+[state ]
+type=varset
+trigger1=1
+var(24)=2
+
+[state ]
+type=varset
+trigger1=1
+var(25)=1
+
+[state ]
+type=varset
+trigger1=1
+var(26)=-2
+
+[state ]
+type=varset
+trigger1=1
+var(27)=90
+
+[state ]
+type=varset
+trigger1=1
+var(28)=360
+
+[state ]
+type=varset
+trigger1=1
+var(29)=2
+
+[state ]
+type=varset
+trigger1=1
+var(30)=36
+
+[state ]
+type=varset
+trigger1=1
+var(31)=16999
+
+[state ]
+type=varset
+trigger1=1
+var(32)=501013
+
+[state ]
+type=varset
+trigger1=1
+var(33)=15
+
+[state ]
+type=varset
+trigger1=1
+var(34)=24
+
+[state ]
+type=varset
+trigger1=1
+var(35)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(36)=3
+
+[state ]
+type=varset
+trigger1=1
+var(37)=48
+
+[state ]
+type=varset
+trigger1=1
+var(38)=500030
+
+[state ]
+type=varset
+trigger1=1
+var(39)=500031
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.75
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.65
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.04
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.65
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=0.89
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=0.007
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=16
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=48
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=0.9
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=1.6
+
+[state ]
+type=varset
+trigger1=1
+fvar(22)=0.3033
+
+[state ]
+type=varset
+trigger1=1
+fvar(23)=0.0072
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=-4
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=-7
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=-2
+
+[state ]
+type=varset
+trigger1=1
+fvar(13)=-1
+
+[state ]
+type=changeanim
+trigger1=1
+value=var(17)
 
 [state ]
 type=selfstate
@@ -1985,18 +2671,22 @@ type=a
 movetype=I
 physics=N
 ctrl=0
-anim=18552
 velset=0,0
 
 [state ]
+type=changeanim
+trigger1=var(0)=var(1)
+value=var(17)
+
+[state ]
 type=explod
-trigger1=!var(5)
-anim=16000
+trigger1=!var(0)
+anim=var(18)
 id=501010
 bindtime=-1
-removetime=-1
-scale=0.75,0.75
-sprpriority=13
+removetime=var(2)
+scale=fvar(2),fvar(2)
+sprpriority=var(12)
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1
@@ -2004,28 +2694,43 @@ trans=sub
 
 [state ]
 type=explod
-trigger1=!var(5)
-anim=16000
+trigger1=var(0)=var(2)-var(30)
+anim=var(31)
+id=var(32)
+postype=p1
+pos=var(35),var(36)
+removetime=var(34)
+scale=fvar(22),fvar(22)
+sprpriority=var(33)
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=sub
+
+[state ]
+type=explod
+trigger1=!var(0)
+anim=var(18)
 id=501011
 bindtime=-1
-removetime=-1
-scale=0.65,0.65
-sprpriority=10
+removetime=var(2)
+scale=fvar(5),fvar(5)
+sprpriority=var(13)
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1
 trans=addalpha
-alpha=128,256
+alpha=var(15),var(16)
 
 [state ]
 type=explod
-trigger1=!var(5)
-anim=16000
+trigger1=!var(0)
+anim=var(18)
 id=501012
 bindtime=-1
-removetime=-1
-scale=0.89,0.89
-sprpriority=6
+removetime=var(2)
+scale=fvar(6),fvar(6)
+sprpriority=var(14)
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1
@@ -2045,7 +2750,23 @@ trans=add
 type=palfx
 trigger1=1
 time=1
-mul=255,485,545
+mul=var(19),var(20),var(21)
+
+[state ]
+type=varset
+trigger1=var(0)<var(1)
+fvar(14)=(1-cos(pi*var(0)/var(1)))/2.0
+
+[state ]
+type=varset
+trigger1=var(0)>=var(1)
+trigger1=var(0)<var(2)-var(30)
+fvar(14)=1
+
+[state ]
+type=varset
+trigger1=var(0)>=var(2)-var(30)
+fvar(14)=(1+cos(pi*(var(0)-(var(2)-var(30)))/var(30)))/2.0
 
 [state ]
 type=modifyexplod
@@ -2053,7 +2774,7 @@ trigger1=1
 id=501010
 facing=ifelse(random%2,1,-1)
 vfacing=ifelse(random%2,1,-1)
-scale=(0.65+sin(var(0)%90)*0.04)*(1-cos(pi*var(5)/12.0))/2.0,(0.65+sin(var(0)%90)*0.04)*(1-cos(pi*var(5)/12.0))/2.0
+scale=(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14),(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14)
 
 [state ]
 type=modifyexplod
@@ -2062,102 +2783,152 @@ id=501011
 facing=ifelse(random%2,1,-1)
 vfacing=ifelse(random%2,1,-1)
 trans=addalpha
-alpha=128,256
-scale=0.65*(1-cos(pi*var(5)/12.0))/2.0,0.65*(1-cos(pi*var(5)/12.0))/2.0
+alpha=var(15),var(16)
+scale=fvar(5)*fvar(14),fvar(5)*fvar(14)
 
 [state ]
 type=modifyexplod
 trigger1=1
 id=501012
-scale=0.89*(1-cos(pi*var(5)/12.0))/2.0,0.89*(1-cos(pi*var(5)/12.0))/2.0
+scale=fvar(6)*fvar(14),fvar(6)*fvar(14)
 
 [state ]
 type=varset
-trigger1=!(var(4)%60)
-var(2)=100
+trigger1=var(0)>=var(2)-var(30)
+fvar(24)=(1+cos(pi*((var(0)-(var(2)-var(30)))%var(34))/(var(34)-1)))/2.0
+
+[state ]
+type=modifyexplod
+trigger1=var(0)>=var(2)-var(30)
+id=var(32)
+scale=(fvar(23)+(fvar(22)-fvar(23))*fvar(24))*fvar(14),(fvar(23)+(fvar(22)-fvar(23))*fvar(24))*fvar(14)
+
+[state ]
+type=varset
+trigger1=!(var(0)%var(3))
+var(4)=var(22)
 
 [state ]
 type=varadd
-trigger1=(var(4)%60)<20
-var(2)=-3
+trigger1=(var(0)%var(3))<var(5)
+var(4)=var(23)
 
 [state ]
 type=varadd
-trigger1=(var(4)%60)=[20,30]
-var(2)=2
+trigger1=(var(0)%var(3))=[var(5),var(6)]
+var(4)=var(24)
 
 [state ]
 type=varadd
-trigger1=(var(4)%60)=[31,40]
-trigger1=var(4)%2
-var(2)=1
+trigger1=(var(0)%var(3))=[var(6)+1,var(7)]
+trigger1=var(0)%var(29)
+var(4)=var(25)
 
 [state ]
 type=varadd
-trigger1=(var(4)%60)>40
-trigger1=var(2)>0
-var(2)=-2
+trigger1=(var(0)%var(3))>var(7)
+trigger1=var(4)>0
+var(4)=var(26)
 
 [state ]
 type=angleadd
-trigger1=!(var(4)%60)
-value=-random%360
+trigger1=!(var(0)%var(3))
+value=-random%var(28)
 
 [state ]
 type=angleadd
-trigger1=(var(4)%60)<10
-value=-4
+trigger1=(var(0)%var(3))<var(8)
+value=fvar(10)
 
 [state ]
 type=angleadd
-trigger1=(var(4)%60)=[10,45]
-value=-7
+trigger1=(var(0)%var(3))=[var(8),var(9)]
+value=fvar(11)
 
 [state ]
 type=angleadd
-trigger1=(var(4)%60)=[46,55]
-value=-2
+trigger1=(var(0)%var(3))=[var(9)+1,var(10)]
+value=fvar(12)
 
 [state ]
 type=angleadd
-trigger1=(var(4)%60)>10
-trigger1=var(4)%2
-value=-1
+trigger1=(var(0)%var(3))>var(8)
+trigger1=var(0)%var(29)
+value=fvar(13)
 
 [state ]
 type=angledraw
 trigger1=1
-scale=var(2)*0.007*(1-cos(pi*var(5)/12.0))/2.0,var(2)*0.007*(1-cos(pi*var(5)/12.0))/2.0
+scale=var(4)*fvar(7)*fvar(14),var(4)*fvar(7)*fvar(14)
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=asin(sin(var(0)*pi/fvar(9)))*2/pi
+
+[state ]
+type=varset
+trigger1=1
+fvar(19)=asin(sin((var(0)+1)*pi/fvar(9)))*2/pi
+
+[state ]
+type=varset
+trigger1=1
+fvar(20)=fvar(18)*(fvar(15)+fvar(16)*abs(fvar(18)))+fvar(17)*fvar(18)*(1-fvar(18)*fvar(18))*(1-fvar(18)*fvar(18))*(1-fvar(18)*fvar(18))*(1-fvar(18)*fvar(18))
+
+[state ]
+type=varset
+trigger1=1
+fvar(21)=fvar(19)*(fvar(15)+fvar(16)*abs(fvar(19)))+fvar(17)*fvar(19)*(1-fvar(19)*fvar(19))*(1-fvar(19)*fvar(19))*(1-fvar(19)*fvar(19))*(1-fvar(19)*fvar(19))
 
 [state ]
 type=posadd
 trigger1=1
-y=3*(sin((var(0)+1)*2*pi/48.0)-sin(var(0)*2*pi/48.0))
+y=fvar(8)*(fvar(21)-fvar(20))
 
 [state ]
 type=sprpriority
 trigger1=1
-value=11
+value=var(11)
+
+[state ]
+type=helper
+trigger1=var(0)>=var(1)
+trigger1=var(0)<var(2)-var(30)
+trigger1=!(var(0)%var(37))
+name="gravity_sphere_planetary_ring_left"
+id=var(38)
+stateno=var(38)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=var(0)>=var(1)
+trigger1=var(0)<var(2)-var(30)
+trigger1=!(var(0)%var(37))
+name="gravity_sphere_planetary_ring_right"
+id=var(39)
+stateno=var(39)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
 
 [state ]
 type=varadd
 trigger1=1
 var(0)=1
-
-[state ]
-type=varadd
-trigger1=1
-var(4)=1
-
-[state ]
-type=varadd
-trigger1=1
-var(5)=1
-
-[state ]
-type=selfstate
-trigger1=var(5)>=12
-value=501901
 
 [state ]
 type=playerpush
@@ -2176,169 +2947,8 @@ trigger1=1
 value=0
 
 [state ]
-type=assertspecial
-trigger1=1
-flag=noshadow
-
-[state ]
 type=destroyself
-trigger1=roundstate!=2
-
-[statedef 501901]
-type=a
-movetype=I
-physics=N
-ctrl=0
-anim=18552
-velset=0,0
-
-[state ]
-type=afterimage
-trigger1=1
-time=0
-
-[state ]
-type=trans
-trigger1=1
-trans=add
-
-[state ]
-type=palfx
-trigger1=1
-time=1
-mul=255,485,545
-
-[state ]
-type=modifyexplod
-trigger1=1
-id=501010
-facing=ifelse(random%2,1,-1)
-vfacing=ifelse(random%2,1,-1)
-scale=0.65+sin(var(0)%90)*0.04,0.65+sin(var(0)%90)*0.04
-
-[state ]
-type=modifyexplod
-trigger1=1
-id=501011
-facing=ifelse(random%2,1,-1)
-vfacing=ifelse(random%2,1,-1)
-trans=addalpha
-alpha=128,256
-scale=0.65,0.65
-
-[state ]
-type=modifyexplod
-trigger1=1
-id=501012
-scale=0.89,0.89
-
-[state ]
-type=varset
-trigger1=!(var(4)%60)
-var(2)=100
-
-[state ]
-type=varadd
-trigger1=(var(4)%60)<20
-var(2)=-3
-
-[state ]
-type=varadd
-trigger1=(var(4)%60)=[20,30]
-var(2)=2
-
-[state ]
-type=varadd
-trigger1=(var(4)%60)=[31,40]
-trigger1=var(4)%2
-var(2)=1
-
-[state ]
-type=varadd
-trigger1=(var(4)%60)>40
-trigger1=var(2)>0
-var(2)=-2
-
-[state ]
-type=angleadd
-trigger1=!(var(4)%60)
-value=-random%360
-
-[state ]
-type=angleadd
-trigger1=(var(4)%60)<10
-value=-4
-
-[state ]
-type=angleadd
-trigger1=(var(4)%60)=[10,45]
-value=-7
-
-[state ]
-type=angleadd
-trigger1=(var(4)%60)=[46,55]
-value=-2
-
-[state ]
-type=angleadd
-trigger1=(var(4)%60)>10
-trigger1=var(4)%2
-value=-1
-
-[state ]
-type=angledraw
-trigger1=1
-scale=var(2)*0.007,var(2)*0.007
-
-[state ]
-type=posadd
-trigger1=1
-y=3*(sin((var(0)+1)*2*pi/48.0)-sin(var(0)*2*pi/48.0))
-
-[state ]
-type=sprpriority
-trigger1=1
-value=11
-
-[state ]
-type=varadd
-trigger1=1
-var(0)=1
-
-[state ]
-type=varadd
-trigger1=1
-var(4)=1
-
-[state ]
-type=varadd
-trigger1=1
-var(5)=1
-
-[state ]
-type=playerpush
-trigger1=1
-value=0
-
-[state ]
-type=nothitby
-trigger1=1
-value=sca
-time=1
-
-[state ]
-type=screenbound
-trigger1=1
-value=0
-
-[state ]
-type=assertspecial
-trigger1=1
-flag=noshadow
-
-[state ]
-type=destroyself
-trigger1=var(5)>=600
+trigger1=var(0)>=var(2)
 trigger2=roundstate!=2
 
 [statedef 502000]
@@ -2376,7 +2986,57 @@ var(4)=600
 [state ]
 type=varset
 trigger1=1
+var(7)=18553
+
+[state ]
+type=varset
+trigger1=1
+var(8)=502100
+
+[state ]
+type=varset
+trigger1=1
+var(9)=20
+
+[state ]
+type=varset
+trigger1=1
+var(10)=1
+
+[state ]
+type=varset
+trigger1=1
+var(11)=1
+
+[state ]
+type=varset
+trigger1=1
+var(12)=0
+
+[state ]
+type=varset
+trigger1=1
 fvar(0)=137.509549
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.4
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=-0.0004
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=-0.00015
 
 [state ]
 type=selfstate
@@ -2413,21 +3073,21 @@ fvar(3)=fvar(1)*sin(fvar(1))
 [state ]
 type=explod
 trigger1=1
-anim=18553
-id=502100
+anim=var(7)
+id=var(8)
 postype=p1
-pos=floor(fvar(2)*0.1),floor(fvar(3)*0.1)
-scale=0.4,0.4
+pos=floor(fvar(2)*fvar(4)),floor(fvar(3)*fvar(4))
+scale=fvar(5),fvar(5)
 facing=facing
-bindtime=1
-velocity=-fvar(2)*0.0004,-fvar(3)*0.0004
-accel=-fvar(2)*0.00015,-fvar(3)*0.00015
+bindtime=var(10)
+velocity=fvar(2)*fvar(6),fvar(3)*fvar(6)
+accel=fvar(2)*fvar(7),fvar(3)*fvar(7)
 removetime=var(3)
-sprpriority=20
-ontop=1
+sprpriority=var(9)
+ontop=var(11)
 supermovetime=99990000000
 pausemovetime=99990000000
-ownpal=0
+ownpal=var(12)
 
 [state ]
 type=varadd
@@ -2486,13 +3146,28 @@ type=a
 movetype=I
 physics=N
 ctrl=0
-anim=16998
+anim=-1
 velset=0,0
 
 [state ]
 type=varset
-trigger1=!time
-var(0)=50
+trigger1=1
+var(0)=16998
+
+[state ]
+type=varset
+trigger1=1
+var(1)=5
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0.5
+
+[state ]
+type=changeanim
+trigger1=1
+value=var(0)
 
 [state ]
 type=selfstate
@@ -2504,18 +3179,17 @@ type=a
 movetype=I
 physics=N
 ctrl=0
-anim=16998
 velset=0,0
 
 [state ]
 type=angledraw
 trigger1=1
-scale=var(0)*0.01,var(0)*0.01
+scale=fvar(0),fvar(0)
 
 [state ]
 type=sprpriority
 trigger1=1
-value=5
+value=var(1)
 
 [state ]
 type=playerpush
@@ -2541,6 +3215,141 @@ flag=noshadow
 [state ]
 type=destroyself
 trigger1=animtime=0
+trigger2=roundstate!=2
+
+[statedef 504000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+;; 青暗転設定
+
+[state ]
+type=varset
+trigger1=1
+var(0)=0
+
+[state ]
+type=varset
+trigger1=1
+var(1)=600
+
+[state ]
+type=varset
+trigger1=1
+var(2)=60
+
+[state ]
+type=varset
+trigger1=1
+var(3)=10
+
+[state ]
+type=varset
+trigger1=1
+var(4)=105
+
+[state ]
+type=varset
+trigger1=1
+var(5)=135
+
+[state ]
+type=varset
+trigger1=1
+var(6)=140
+
+[state ]
+type=varset
+trigger1=1
+var(7)=190
+
+[state ]
+type=varset
+trigger1=1
+var(8)=180
+
+[state ]
+type=varset
+trigger1=1
+var(9)=8
+
+[state ]
+type=varset
+trigger1=1
+var(10)=180
+
+[state ]
+type=varset
+trigger1=1
+var(11)=0
+
+[state ]
+type=varset
+trigger1=1
+var(12)=2
+
+[state ]
+type=selfstate
+trigger1=1
+value=504900
+
+[statedef 504900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+;; 背景色変更共通実行
+
+[state ]
+type=bgpalfx
+trigger1=1
+time=var(12)
+mul=var(3),var(4),var(5)
+add=var(6)-(var(0)%var(2))*var(9),var(7)-(var(0)%var(2))*var(9),var(8)-(var(0)%var(2))*var(9)
+color=var(10)
+invertall=var(11)
+
+[state ]
+type=varadd
+trigger1=1
+var(0)=1
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=var(0)>=var(1)
 trigger2=roundstate!=2
 
 [statedef 99001000]

@@ -17,8 +17,8 @@
 ### Helper割り当て
 
 - 予約範囲：StateDef `503000`〜`503999`
-- 基本パターン：Helper ID・初動StateDef `503000`
-- 将来の用途別初動StateDef：`503010`から10刻み
+- 基本パターン：Helper ID・用途別出現StateDef `503000`
+- 将来の用途別出現StateDef：`503010`から10刻み
 - 共通管理StateDef：`503900`
 
 ### 基本パターン

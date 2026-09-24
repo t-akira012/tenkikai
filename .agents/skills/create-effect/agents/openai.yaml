@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Effect"
+  short_description: "TENKIKAIの共通エフェクトを設計・実装・調整する"
+  default_prompt: "Use $create-effect to design and implement a reusable TENKIKAI effect."

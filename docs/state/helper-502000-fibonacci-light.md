@@ -2,7 +2,7 @@
 
 ## StateDef 502000: 基本黄金角パターン初期化
 
-Helper ID `502000`の用途別初動StateDefである。黄金角係数、生成番号と増分、同一tick生成数、粒子寿命およびHelper寿命をHelper自身の変数へ保存し、同じtickにStateDef `502900`へ遷移する。
+Helper ID `502000`の用途別出現StateDefである。Action、Explod ID、黄金角係数、生成番号と増分、同一tick生成数、生成位置倍率、表示倍率、速度、加速度、描画関係、粒子寿命およびHelper寿命をHelper自身の変数へ保存し、同じtickにStateDef `502900`へ遷移する。
 
 ## StateDef 502900: 粒子生成・寿命管理
 
