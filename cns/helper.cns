@@ -269,6 +269,14 @@ anim=99004
 
 [state ]
 type=changestate
+trigger1=root,stateno=1100
+trigger1=root,time=1
+trigger1=(var(0)&1)=0
+value=99004014
+ignorehitpause=1
+
+[state ]
+type=changestate
 trigger1=(root,stateno=4001)||(root,stateno=4002)||(root,stateno=4003)
 trigger1=root,time=1
 trigger1=(var(0)&1)=0
@@ -287,6 +295,13 @@ ignorehitpause=1
 [state ]
 type=varadd
 trigger1=(var(0)&1)!=0
+trigger1=var(1)>0
+fvar(0)=fvar(18)
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=(var(0)&1)!=0
 trigger1=((var(0)/2)&32767)>0
 var(0)=-2
 ignorehitpause=1
@@ -295,8 +310,16 @@ ignorehitpause=1
 type=varadd
 trigger1=(var(0)&1)!=0
 trigger1=((var(0)/2)&32767)=0
+trigger1=var(1)=0
 trigger1=fvar(1)>0
 fvar(0)=-fvar(1)
+ignorehitpause=1
+
+[state ]
+type=varadd
+trigger1=(var(0)&1)!=0
+trigger1=var(1)>0
+var(1)=-1
 ignorehitpause=1
 
 [state ]
@@ -333,6 +356,12 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=1
+var(1)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
 var(0)=1
 ignorehitpause=1
 
@@ -349,6 +378,12 @@ fvar(1)=0.05
 ignorehitpause=1
 
 [state ]
+type=varset
+trigger1=1
+fvar(18)=0
+ignorehitpause=1
+
+[state ]
 type=changestate
 trigger1=1
 value=99004006
@@ -357,6 +392,12 @@ ignorehitpause=1
 ;; 4002 バウンド定義
 
 [statedef 99004012]
+
+[state ]
+type=varset
+trigger1=1
+var(1)=0
+ignorehitpause=1
 
 [state ]
 type=varset
@@ -377,6 +418,12 @@ fvar(1)=0.2
 ignorehitpause=1
 
 [state ]
+type=varset
+trigger1=1
+fvar(18)=0
+ignorehitpause=1
+
+[state ]
 type=changestate
 trigger1=1
 value=99004006
@@ -385,6 +432,12 @@ ignorehitpause=1
 ;; 4003 バウンド定義
 
 [statedef 99004013]
+
+[state ]
+type=varset
+trigger1=1
+var(1)=0
+ignorehitpause=1
 
 [state ]
 type=varset
@@ -402,6 +455,52 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(1)=0.05
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=0
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004006
+ignorehitpause=1
+
+;; 1100 バウンド定義
+
+[statedef 99004014]
+
+[state ]
+type=varset
+trigger1=1
+var(1)=40
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.075
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=0.0095
 ignorehitpause=1
 
 [state ]
@@ -2587,6 +2686,11 @@ var(43)=-70
 [state ]
 type=varset
 trigger1=1
+var(44)=1
+
+[state ]
+type=varset
+trigger1=1
 fvar(2)=0.75
 
 [state ]
@@ -2688,9 +2792,16 @@ velset=0,0
 
 [state ]
 type=bindtoroot
+trigger1=var(44)=1
 trigger1=root,stateno=1100
 time=1
 pos=var(42),var(43)
+
+[state ]
+type=varset
+trigger1=var(44)=1
+trigger1=root,stateno!=1100
+var(44)=0
 
 [state ]
 type=changeanim

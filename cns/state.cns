@@ -1083,7 +1083,7 @@ supermovetime=99990000000
 
 [state ]
 type=changestate
-trigger1=time>=8
+trigger1=time>=24
 value=0
 ctrl=1
 

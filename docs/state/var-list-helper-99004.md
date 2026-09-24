@@ -5,6 +5,7 @@
 | 変数 | 用途 |
 | --- | --- |
 | `var(0)` | オーラバウンド状態ビットフィールド |
+| `var(1)` | オーラバウンドの拡大残りtick。即時拡大する用途では`0` |
 | `var(2)` | AngleDraw演出要求bitフィールド |
 | `var(3)`、`var(4)` | 異形回避Head回転の残り時間、全体時間 |
 | `var(5)`、`var(6)` | 異形回避Body縮小の残り時間、全体時間 |
@@ -111,5 +112,6 @@
 | `fvar(12)`、`fvar(13)` | Head完成X・Y Offset |
 | `fvar(14)`、`fvar(15)` | Head Aura完成X・Y Offset |
 | `fvar(16)`、`fvar(17)` | Head系の完成X・Y Pos補正 |
+| `fvar(18)` | オーラバウンドの毎tick拡大量。即時拡大する用途では`0` |
 
 `var(15)`と`var(16)`の更新順序は[Rootアニメーション時間保持規約](../AGENTS.root-animtime.md)に従う。
