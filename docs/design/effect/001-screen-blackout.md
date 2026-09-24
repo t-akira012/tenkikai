@@ -27,7 +27,7 @@
 ### 発動
 
 - 発動元：RootのStateDef `1000`
-- 発動時刻：`private-time=10`
+- 発動時刻：`time=10`
 - 継続時間：60tick
 
 ## 実装文書

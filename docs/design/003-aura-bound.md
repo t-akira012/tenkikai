@@ -2,7 +2,7 @@
 
 ## 動作モデル
 
-オーラのバウンドは、Rootから生成された `the_controller` が本体のStateDefとprivate-timeを監視して行う。本体側ではバウンド用の変数制御を行わない。監視した技の状態に応じて、002で表示しているオーラを一度だけ大きく拡張する。拡張後は通常のオーラ倍率へ戻り、連続的な鼓動とは異なる瞬間的な力の放出を表現する。
+オーラのバウンドは、Rootから生成された `the_controller` が本体のStateDefと`time`を監視して行う。本体側ではバウンド用の変数制御を行わない。監視した技の状態に応じて、002で表示しているオーラを一度だけ大きく拡張する。拡張後は通常のオーラ倍率へ戻り、連続的な鼓動とは異なる瞬間的な力の放出を表現する。
 
 拡張幅と通常倍率への復帰速度を調整可能とし、復帰は即時または滑らかな段階変化から選択できる。本体オーラと頭部オーラは同じバウンドを同期して行う。再度発動する場合は、前回のバウンドが完了した後に新たな発動として扱う。
 
@@ -22,7 +22,7 @@
 
 ## 状態・処理関係
 
-002のオーラ表示を基礎とし、`the_controller` がRootのStateDefとprivate-timeを監視して単発バウンドを開始する。拡張、保持、復帰の進行状態は本体と頭部へ同じように適用する。
+002のオーラ表示を基礎とし、`the_controller` がRootのStateDefと`time`を監視して単発バウンドを開始する。拡張、保持、復帰の進行状態は本体と頭部へ同じように適用する。
 
 技ごとのバウンド起点、発動タイミング、拡張幅、保持、復帰速度は、`the_controller` 側の監視分岐で決定する。親の技StateDefにはオーラバウンド用の記述を追加しない。
 
@@ -38,9 +38,9 @@ Rootから生成した `the_controller` が、バウンド用のVar/FVarを自�
 
 ```text
 the_controller
-  ├─ Root StateNo = 技A && private-time = 起点
+  ├─ Root StateNo = 技A && time = 起点
   │    └─ 技A用バウンドを定義
-  ├─ Root StateNo = 技B && private-time = 起点
+  ├─ Root StateNo = 技B && time = 起点
   │    └─ 技B用バウンドを定義
   └─ 共通処理
        ├─ バウンド消費
@@ -57,7 +57,7 @@ the_controller
 
 ### 発動条件
 
-- `the_controller` がRootのStateDefとprivate-timeを監視
+- `the_controller` がRootのStateDefと`time`を監視
 - テスト用StateDef：`4001`
 
 ### バウンド制御

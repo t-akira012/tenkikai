@@ -461,8 +461,7 @@ anim=20
 type=helper
 trigger1=!time
 trigger2=time>1
-trigger2=var(1)>0
-trigger2=!(var(1)%8)
+trigger2=!(time%8)
 name="dash_elliptical_shockwave_left"
 id=500010
 stateno=500010
@@ -479,8 +478,7 @@ supermovetime=99990000000
 type=helper
 trigger1=!time
 trigger2=time>1
-trigger2=var(1)>0
-trigger2=!(var(1)%8)
+trigger2=!(time%8)
 name="dash_elliptical_shockwave_right"
 id=500011
 stateno=500011
@@ -533,8 +531,7 @@ anim=21
 type=helper
 trigger1=!time
 trigger2=time>1
-trigger2=var(1)>0
-trigger2=!(var(1)%8)
+trigger2=!(time%8)
 name="dash_elliptical_shockwave_left"
 id=500010
 stateno=500010
@@ -551,8 +548,7 @@ supermovetime=99990000000
 type=helper
 trigger1=!time
 trigger2=time>1
-trigger2=var(1)>0
-trigger2=!(var(1)%8)
+trigger2=!(time%8)
 name="dash_elliptical_shockwave_right"
 id=500011
 stateno=500011
@@ -1072,12 +1068,12 @@ velset=0,0
 
 [state ]
 type=helper
-trigger1=var(1)=12
+trigger1=time=7
 name="gravity_sphere"
 id=501000
 stateno=501000
 helpertype=normal
-pos=45,-50
+pos=25,-70
 postype=p1
 facing=1
 keyctrl=0
@@ -1087,7 +1083,7 @@ supermovetime=99990000000
 
 [state ]
 type=changestate
-trigger1=var(1)>=60
+trigger1=time>=8
 value=0
 ctrl=1
 

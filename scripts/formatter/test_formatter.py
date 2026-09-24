@@ -35,12 +35,12 @@ class FormatterTest(unittest.TestCase):
         source = [
             "[Statedef -2]",
             "[State -2, debug]",
-            'text = "private-time: %d\\npos y: %f"',
+            'text = "time: %d\\npos y: %f"',
         ]
 
         actual = formatter.transform_definition(source, format_states=True)
 
-        self.assertIn('text="private-time: %d\\npos y: %f"', actual)
+        self.assertIn('text="time: %d\\npos y: %f"', actual)
 
     def test_semicolon_inside_quoted_value_is_preserved(self) -> None:
         source = [

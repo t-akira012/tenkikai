@@ -30,6 +30,7 @@ StateDef `501000`が全設定値を保存し、StateDef `501900`が同じ変数�
 | `var(38)`、`var(39)` | 惑星リングの左・右Helper IDおよび初動StateDef |
 | `var(40)` | 重力球内部フィボナッチ・ライト生成周期 |
 | `var(41)` | 重力球内部フィボナッチ・ライトHelper IDおよび初動StateDef |
+| `var(42)`、`var(43)` | StateDef `1100`中に使用する`BindToRoot`のX・Y相対位置 |
 
 ## 浮動小数点変数
 

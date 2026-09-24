@@ -65,7 +65,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=1000
-trigger1=root,var(1)=10
+trigger1=root,time=10
 var(21)=60
 ignorehitpause=1
 
@@ -254,18 +254,6 @@ flag=invisible
 ignorehitpause=1
 
 [state ]
-type=parentvarset
-trigger1=root,time=1
-var(1)=0
-ignorehitpause=1
-
-[state ]
-type=parentvaradd
-trigger1=root,time!=1
-var(1)=1
-ignorehitpause=1
-
-[state ]
 type=changestate
 trigger1=1
 value=99004002
@@ -282,7 +270,7 @@ anim=99004
 [state ]
 type=changestate
 trigger1=(root,stateno=4001)||(root,stateno=4002)||(root,stateno=4003)
-trigger1=root,var(1)=0
+trigger1=root,time=1
 trigger1=(var(0)&1)=0
 value=99004011+(root,stateno=4002)+(root,stateno=4003)*2
 ignorehitpause=1
@@ -485,7 +473,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=300
-trigger1=root,var(1)=0
+trigger1=root,time=1
 trigger1=abs(root,animtime)>0
 var(3)=abs(root,animtime)
 ignorehitpause=1
@@ -493,7 +481,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=300
-trigger1=root,var(1)=0
+trigger1=root,time=1
 trigger1=var(16)>0
 var(4)=var(16)
 ignorehitpause=1
@@ -529,14 +517,14 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=302
-trigger1=root,var(1)=0
+trigger1=root,time=1
 var(9)=16
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=root,stateno=100
-trigger1=root,var(1)=0
+trigger1=root,time=1
 trigger1=abs(root,animtime)>0
 var(10)=abs(root,animtime)
 ignorehitpause=1
@@ -544,7 +532,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=100
-trigger1=root,var(1)=0
+trigger1=root,time=1
 trigger1=var(16)>0
 var(23)=var(16)
 ignorehitpause=1
@@ -1007,7 +995,7 @@ type=varset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
 trigger1=root,stateno!=300
-trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,stateno=[1000,1999])||(root,statetype=a)
 fvar(13)=6*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
@@ -2359,6 +2347,11 @@ trigger1=1
 value=0
 
 [state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
 type=destroyself
 trigger1=time>=var(1)
 trigger2=roundstate!=2
@@ -2584,6 +2577,16 @@ var(41)=502010
 [state ]
 type=varset
 trigger1=1
+var(42)=25
+
+[state ]
+type=varset
+trigger1=1
+var(43)=-70
+
+[state ]
+type=varset
+trigger1=1
 fvar(2)=0.75
 
 [state ]
@@ -2682,6 +2685,12 @@ movetype=I
 physics=N
 ctrl=0
 velset=0,0
+
+[state ]
+type=bindtoroot
+trigger1=root,stateno=1100
+time=1
+pos=var(42),var(43)
 
 [state ]
 type=changeanim
@@ -2921,7 +2930,7 @@ supermovetime=99990000000
 [state ]
 type=helper
 trigger1=var(0)>=var(1)
-trigger1=var(0)<var(2)-var(30)-var(40)
+trigger1=var(0)<var(2)-var(30)
 trigger1=!((var(0)-var(1))%var(40))
 name="gravity_sphere_fibonacci_light"
 id=var(41)
@@ -2972,6 +2981,11 @@ time=1
 type=screenbound
 trigger1=1
 value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
 
 [state ]
 type=destroyself
@@ -3808,14 +3822,14 @@ ignorehitpause=1
 type=offset
 trigger1=root,movetype!=h
 trigger1=root,statetype!=c
-trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,statetype=a)
+trigger1=(root,stateno=0)||(root,stateno=20)||(root,stateno=21)||(root,stateno=[60,61])||(root,stateno=[1000,1999])||(root,statetype=a)
 y=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
 [state ]
 type=offset
 trigger1=(root,movetype=h)||(root,statetype=c)
-trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,statetype!=a)
+trigger2=(root,stateno!=0)&&(root,stateno!=20)&&(root,stateno!=21)&&(root,stateno!=[60,61])&&(root,stateno!=[1000,1999])&&(root,statetype!=a)
 y=0
 ignorehitpause=1
 

@@ -20,4 +20,4 @@
 
 ## 結果
 
-`private-gametime`、`private-time`、AfterImage制御用 `var(10)` などの通常処理用変数はラウンドごとに初期化される。一方、`var(50)`～`var(59)` はラウンド間の特殊演出用スロットとして確保される。
+`private-gametime`、AfterImage制御用 `var(10)` などの通常処理用変数はラウンドごとに初期化される。一方、`var(50)`～`var(59)` はラウンド間の特殊演出用スロットとして確保される。

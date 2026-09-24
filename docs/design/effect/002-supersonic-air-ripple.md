@@ -104,7 +104,7 @@ Helper自身は`HitDef`を使用しない。用途別に攻撃性が必要な場
 - 小波紋右円弧：Helper ID・初動StateDef `500001`
 - ダッシュ時左円弧：Helper ID・初動StateDef `500010`
 - ダッシュ時右円弧：Helper ID・初動StateDef `500011`
-- ダッシュ時生成周期：StateDef進入時に一組、その後は`private-time`が8tick進むごとに一組
+- ダッシュ時生成周期：StateDef進入時に一組、その後は`time`が8tick進むごとに一組
 - 地面隣接浮遊時左円弧：Helper ID・初動StateDef `500020`
 - 地面隣接浮遊時右円弧：Helper ID・初動StateDef `500021`
 - 左円弧共通管理：StateDef `500900`

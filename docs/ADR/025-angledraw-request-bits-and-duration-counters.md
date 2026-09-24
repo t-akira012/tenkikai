@@ -41,7 +41,7 @@ RootのStateNoはAngleDraw演出の開始または更新要求を検出するた
 
 前方ダッシュと後方ダッシュは、RootがStateDef `110`または`111`にいる各tickで対応するカウンターを1tickへ更新する。これは手入力による細かなStateDef変動へ追従する1tickのリースとする。該当StateDefを離れると更新を停止し、最後のリース終了後に通常角度へ戻す。
 
-異形回避の再出現はStateDef `302`への進入を開始信号とし、Helperが確実に観測できる`private-time=0`で固定16tickのカウンターを設定する。StateDef `302`は2frameで終了し、Rootは操作可能な別StateDefへ移る。全身の縦長復元だけをStateNoと無関係に16tick継続する。
+異形回避の再出現はStateDef `302`への進入を開始信号とし、Helperが確実に観測できる`root,time=1`で固定16tickのカウンターを設定する。StateDef `302`は2frameで終了し、Rootは操作可能な別StateDefへ移る。全身の縦長復元だけをStateNoと無関係に16tick継続する。
 
 ### 完成値と適用対象
 

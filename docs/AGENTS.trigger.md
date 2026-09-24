@@ -27,3 +27,5 @@ WinMUGENでは、キャラクターはオートメーションで操作される
 ## 時間トリガー
 
 キャラクター固有の時間管理には通常の `gametime` を使用せず、`private-gametime`（[ADR 002](ADR/002-private-gametime.md)）を使用する。
+
+StateDefの経過時間には`time`を使用する。

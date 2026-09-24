@@ -95,8 +95,8 @@ ignorehitpause=1
 [state ]
 type=displaytoclipboard
 trigger1=!ishelper
-text="private-time: %d\npos y: %f"
-params=var(1),pos y
+text="time: %d\npos y: %f"
+params=time,pos y
 ignorehitpause=1
 
 ;; 地面隣接浮遊時の足元波紋
@@ -765,7 +765,7 @@ type=offset
 trigger1=!ishelper
 trigger1=movetype!=h
 trigger1=statetype!=c
-trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(stateno=[60,61])||(statetype=a)
+trigger1=(stateno=0)||(stateno=20)||(stateno=21)||(stateno=[60,61])||(stateno=[1000,1999])||(statetype=a)
 y=8*(fvar(0)*(0.9+0.1*abs(fvar(0)))+1.6*fvar(0)*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0))*(1-fvar(0)*fvar(0)))+2
 ignorehitpause=1
 
@@ -774,7 +774,7 @@ type=offset
 trigger1=!ishelper
 trigger1=(movetype=h)||(statetype=c)
 trigger2=!ishelper
-trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(statetype!=a)
+trigger2=(stateno!=0)&&(stateno!=20)&&(stateno!=21)&&(stateno!=[60,61])&&(stateno!=[1000,1999])&&(statetype!=a)
 y=0
 ignorehitpause=1
 

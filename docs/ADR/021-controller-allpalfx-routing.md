@@ -16,7 +16,7 @@ TENKIKAIの技では、画面全体を暗くする、明るくする、フラッ
 
 ### 責務とルーティング
 
-画面全体へ適用する`AllPalFX`暗転は`the_controller`が管理する。RootのStateDef、`private-time`、その他の確定した条件を`the_controller`が監視し、発動条件が成立した時点で暗転番号と残り時間を保存する。
+画面全体へ適用する`AllPalFX`暗転は`the_controller`が管理する。RootのStateDef、`time`、その他の確定した条件を`the_controller`が監視し、発動条件が成立した時点で暗転番号と残り時間を保存する。
 
 暗転処理は、暗転個別挙動ルーターから暗転番号に対応する色指定個別挙動へ遷移する。色指定個別挙動は、残り時間が正の間、対応する`AllPalFX`を1tickずつ適用する。Root側の技StateDefへ`AllPalFX`の色指定や時間減算を分散させない。
 
