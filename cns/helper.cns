@@ -1101,6 +1101,37 @@ ignorehitpause=1
 
 [state ]
 type=changestate
+trigger1=(var(21)&65535)>0
+trigger1=((var(21)/65536)&31)=1
+value=99004101
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004999
+ignorehitpause=1
+
+;; 暗転番号1 青暗転
+
+[statedef 99004101]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+[state ]
+type=allpalfx
+trigger1=(var(21)&65535)>0
+time=1
+mul=10,105,135
+add=140-(((60-((var(21)&65535)%60))%60)*8),190-(((60-((var(21)&65535)%60))%60)*8),180-(((60-((var(21)&65535)%60))%60)*8)
+color=180
+invertall=0
+ignorehitpause=1
+
+[state ]
+type=changestate
 trigger1=1
 value=99004999
 ignorehitpause=1
@@ -1916,55 +1947,217 @@ movetype=I
 physics=N
 ctrl=0
 anim=18552
-velset=3,0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=0
+
+[state ]
+type=varset
+trigger1=1
+var(2)=100
+
+[state ]
+type=varset
+trigger1=1
+var(4)=0
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=posset
+trigger1=1
+x=root,pos x+45*root,facing
+y=root,pos y-50
+
+[state ]
+type=selfstate
+trigger1=1
+value=501900
+
+[statedef 501900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=18552
+velset=0,0
+
+[state ]
+type=explod
+trigger1=!var(5)
+anim=16000
+id=501010
+bindtime=-1
+removetime=-1
+scale=0.75,0.75
+sprpriority=13
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=sub
+
+[state ]
+type=explod
+trigger1=!var(5)
+anim=16000
+id=501011
+bindtime=-1
+removetime=-1
+scale=0.65,0.65
+sprpriority=10
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=addalpha
+alpha=128,256
+
+[state ]
+type=explod
+trigger1=!var(5)
+anim=16000
+id=501012
+bindtime=-1
+removetime=-1
+scale=0.89,0.89
+sprpriority=6
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=sub
 
 [state ]
 type=afterimage
-trigger1=!time
-time=120
-length=12
-timegap=1
-framegap=2
-trans=sub
-palcolor=0
-palbright=0,0,0
-palcontrast=256,256,256
-palpostbright=0,0,0
-paladd=0,0,0
-palmul=1,1,1
+trigger1=1
+time=0
 
 [state ]
 type=trans
 trigger1=1
-trans=sub
+trans=add
+
+[state ]
+type=palfx
+trigger1=1
+time=1
+mul=255,485,545
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501010
+facing=ifelse(random%2,1,-1)
+vfacing=ifelse(random%2,1,-1)
+scale=(0.65+sin(var(0)%90)*0.04)*(1-cos(pi*var(5)/12.0))/2.0,(0.65+sin(var(0)%90)*0.04)*(1-cos(pi*var(5)/12.0))/2.0
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501011
+facing=ifelse(random%2,1,-1)
+vfacing=ifelse(random%2,1,-1)
+trans=addalpha
+alpha=128,256
+scale=0.65*(1-cos(pi*var(5)/12.0))/2.0,0.65*(1-cos(pi*var(5)/12.0))/2.0
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501012
+scale=0.89*(1-cos(pi*var(5)/12.0))/2.0,0.89*(1-cos(pi*var(5)/12.0))/2.0
+
+[state ]
+type=varset
+trigger1=!(var(4)%60)
+var(2)=100
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)<20
+var(2)=-3
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)=[20,30]
+var(2)=2
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)=[31,40]
+trigger1=var(4)%2
+var(2)=1
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)>40
+trigger1=var(2)>0
+var(2)=-2
+
+[state ]
+type=angleadd
+trigger1=!(var(4)%60)
+value=-random%360
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)<10
+value=-4
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)=[10,45]
+value=-7
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)=[46,55]
+value=-2
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)>10
+trigger1=var(4)%2
+value=-1
 
 [state ]
 type=angledraw
 trigger1=1
-scale=0.25,0.25
+scale=var(2)*0.007*(1-cos(pi*var(5)/12.0))/2.0,var(2)*0.007*(1-cos(pi*var(5)/12.0))/2.0
+
+[state ]
+type=posadd
+trigger1=1
+y=3*(sin((var(0)+1)*2*pi/48.0)-sin(var(0)*2*pi/48.0))
 
 [state ]
 type=sprpriority
 trigger1=1
-value=5
+value=11
 
 [state ]
-type=explod
-triggerall=time<120
-trigger1=!(time%2)
-anim=18553
-id=501100
-postype=p1
-pos=floor(28*cos(time*24*pi/180.0)),floor(18*sin(time*24*pi/180.0))
-velocity=0.8*cos(time*24*pi/180.0)-1.5*sin(time*24*pi/180.0),0.8*sin(time*24*pi/180.0)+1.5*cos(time*24*pi/180.0)
-scale=0.25,0.25
-sprpriority=ifelse(sin(time*24*pi/180.0)>0,6,4)
-bindtime=0
-removetime=-2
-supermovetime=99990000000
-pausemovetime=99990000000
-ownpal=1
-trans=add
+type=varadd
+trigger1=1
+var(0)=1
+
+[state ]
+type=varadd
+trigger1=1
+var(4)=1
+
+[state ]
+type=varadd
+trigger1=1
+var(5)=1
+
+[state ]
+type=selfstate
+trigger1=var(5)>=12
+value=501901
 
 [state ]
 type=playerpush
@@ -1989,7 +2182,365 @@ flag=noshadow
 
 [state ]
 type=destroyself
-trigger1=time>=120
+trigger1=roundstate!=2
+
+[statedef 501901]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=18552
+velset=0,0
+
+[state ]
+type=afterimage
+trigger1=1
+time=0
+
+[state ]
+type=trans
+trigger1=1
+trans=add
+
+[state ]
+type=palfx
+trigger1=1
+time=1
+mul=255,485,545
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501010
+facing=ifelse(random%2,1,-1)
+vfacing=ifelse(random%2,1,-1)
+scale=0.65+sin(var(0)%90)*0.04,0.65+sin(var(0)%90)*0.04
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501011
+facing=ifelse(random%2,1,-1)
+vfacing=ifelse(random%2,1,-1)
+trans=addalpha
+alpha=128,256
+scale=0.65,0.65
+
+[state ]
+type=modifyexplod
+trigger1=1
+id=501012
+scale=0.89,0.89
+
+[state ]
+type=varset
+trigger1=!(var(4)%60)
+var(2)=100
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)<20
+var(2)=-3
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)=[20,30]
+var(2)=2
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)=[31,40]
+trigger1=var(4)%2
+var(2)=1
+
+[state ]
+type=varadd
+trigger1=(var(4)%60)>40
+trigger1=var(2)>0
+var(2)=-2
+
+[state ]
+type=angleadd
+trigger1=!(var(4)%60)
+value=-random%360
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)<10
+value=-4
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)=[10,45]
+value=-7
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)=[46,55]
+value=-2
+
+[state ]
+type=angleadd
+trigger1=(var(4)%60)>10
+trigger1=var(4)%2
+value=-1
+
+[state ]
+type=angledraw
+trigger1=1
+scale=var(2)*0.007,var(2)*0.007
+
+[state ]
+type=posadd
+trigger1=1
+y=3*(sin((var(0)+1)*2*pi/48.0)-sin(var(0)*2*pi/48.0))
+
+[state ]
+type=sprpriority
+trigger1=1
+value=11
+
+[state ]
+type=varadd
+trigger1=1
+var(0)=1
+
+[state ]
+type=varadd
+trigger1=1
+var(4)=1
+
+[state ]
+type=varadd
+trigger1=1
+var(5)=1
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=var(5)>=600
+trigger2=roundstate!=2
+
+[statedef 502000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=-1100
+
+[state ]
+type=varset
+trigger1=1
+var(1)=3
+
+[state ]
+type=varset
+trigger1=1
+var(2)=37
+
+[state ]
+type=varset
+trigger1=1
+var(3)=30
+
+[state ]
+type=varset
+trigger1=1
+var(4)=600
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=137.509549
+
+[state ]
+type=selfstate
+trigger1=1
+value=502900
+
+[statedef 502900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varadd
+trigger1=1
+var(0)=var(1)
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=(pi/180)*var(0)*fvar(0)
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=fvar(1)*cos(fvar(1))
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=fvar(1)*sin(fvar(1))
+
+[state ]
+type=explod
+trigger1=1
+anim=18553
+id=502100
+postype=p1
+pos=floor(fvar(2)*0.1),floor(fvar(3)*0.1)
+scale=0.4,0.4
+facing=facing
+bindtime=1
+velocity=-fvar(2)*0.0004,-fvar(3)*0.0004
+accel=-fvar(2)*0.00015,-fvar(3)*0.00015
+removetime=var(3)
+sprpriority=20
+ontop=1
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=0
+
+[state ]
+type=varadd
+trigger1=1
+var(5)=1
+
+[state ]
+type=selfstate
+trigger1=var(5)<var(2)
+value=stateno
+persistent=256
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varadd
+trigger1=1
+var(6)=1
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=var(6)>=var(4)
+trigger2=roundstate!=2
+
+[statedef 503000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=16998
+velset=0,0
+
+[state ]
+type=varset
+trigger1=!time
+var(0)=50
+
+[state ]
+type=selfstate
+trigger1=1
+value=503900
+
+[statedef 503900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=16998
+velset=0,0
+
+[state ]
+type=angledraw
+trigger1=1
+scale=var(0)*0.01,var(0)*0.01
+
+[state ]
+type=sprpriority
+trigger1=1
+value=5
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=screenbound
+trigger1=1
+value=0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=animtime=0
 trigger2=roundstate!=2
 
 [statedef 99001000]

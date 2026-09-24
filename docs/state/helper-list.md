@@ -21,7 +21,11 @@
 | `500011` | `dash_elliptical_shockwave_right` | `500011` | ダッシュ波紋の右円弧。増強した残像を設定してStateDef `500901`へ遷移 |
 | `500020` | `ground_floating_ripple_left` | `500020` | 足元波紋の左円弧。横長倍率と静止速度を設定してStateDef `500900`へ遷移 |
 | `500021` | `ground_floating_ripple_right` | `500021` | 足元波紋の右円弧。横長倍率と静止速度を設定してStateDef `500901`へ遷移 |
-| `501000` | `gravity_sphere` | `501000` | 漆黒の球体を前方へ移動させ、周囲へ回転・発散する光Explodを生成する |
+| `501000` | `gravity_sphere` | `501000` | StateDef `501900`で12tick出現し、`501901`で三層の内部流動と浮遊を維持する |
+| `502000` | `fibonacci_light` | `502000` | 黄金角係数を保存し、StateDef `502900`で全画面へ光粒子を展開する |
+| `503000` | `center_shockwave` | `503000` | 表示倍率を保存し、StateDef `503900`で中心から円形衝撃波を広げる |
 
 楕円衝撃波の詳細は[楕円衝撃波Helper](helper-500000-elliptical-shockwave.md)を参照する。
 重力球の詳細は[重力球Helper](helper-501000-gravity-sphere.md)を参照する。
+フィボナッチ・ライトの詳細は[フィボナッチ・ライトHelper](helper-502000-fibonacci-light.md)を参照する。
+中心衝撃波の詳細は[中心衝撃波Helper](helper-503000-center-shockwave.md)を参照する。
