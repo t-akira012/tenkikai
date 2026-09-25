@@ -1,6 +1,6 @@
 ---
 name: create-waza
-description: TENKIKAIの技、攻撃、特殊移動、技に伴う演出を新規作成または変更する。WinMUGENのCNS、CMD、AIR、Helper、Explod、Projectile、入力、オートメーション、the_controller連携を扱う技作業で使用する。
+description: TENKIKAIの技、攻撃、特殊移動、技に伴う演出を自然言語から設計し、新規作成または変更する。版付きKFMデフォルトによる仕様解決、ユーザー承認、WinMUGENのCNS、CMD、AIR、Helper、Explod、Projectile、入力、オートメーション、the_controller連携を扱う技作業で使用する。
 ---
 
 # Create Waza
@@ -10,9 +10,10 @@ TENKIKAI固有の設計とWinMUGENの実行順を維持する。関連文書は�
 ## 調査範囲を決める
 
 1. ルートの`AGENTS.md`へ従う。
-2. 入力、移動、攻撃判定、アニメーション、Helper、全体演出のうち対象要素を特定し、`rg`で関連するStateDef、Action、変数、文書を探す。
-3. `docs/DESIGN.md`、`docs/design/`、後述の条件別文書から該当箇所だけを読む。
-4. 対象コードと`docs/state/`を照合する。差異は自動解消せず、具体的にユーザーへ提示する。
+2. [技仕様文書の作業規則](../../../docs/attacks/AGENTS.md)、[階層スキーマ](../../../docs/attacks/structure.md)、[仕様解決手順](../../../docs/attacks/specification-resolution.md)を読む。
+3. 入力、移動、攻撃判定、アニメーション、Helper、全体演出のうち対象要素を特定し、`rg`で関連するStateDef、Action、変数、文書を探す。
+4. `docs/DESIGN.md`、`docs/design/`、後述の条件別文書から該当箇所だけを読む。
+5. 対象コードと`docs/state/`を照合する。差異は自動解消せず、具体的にユーザーへ提示する。
 
 上位設計にない見た目、時間、速度、ダメージ、無敵、色、軌道を推測で確定しない。美的判断またはゲームバランスの判断が必要な場合は実装前に確認する。
 
@@ -70,13 +71,29 @@ TENKIKAI固有の設計とWinMUGENの実行順を維持する。関連文書は�
 
 ## 技を設計する
 
-実装前に次を確定する。既存の確定事項から求められない項目だけをユーザーへ確認する。
+ユーザー入力は自然言語で受ける。JSONまたはYAMLへの書き直しを要求しない。技仕様の正本はMarkdownとする。
+
+次の順で仕様を解決する。
+
+1. ユーザー要求を自然言語のまま個別技文書へ記録する。
+2. 技分類を決め、`common-v1`、分類プロファイル、ユーザー指定の順に適用する。
+3. [State Controller対応](../../../docs/attacks/state-controller-map.md)を使い、実装責務を割り当てる。
+4. 全項目を「デフォルト適用」「ユーザー指定」「対象外」「ユーザー承認済み」のいずれかへ解決する。
+5. 承認必須項目と、複数プロファイル間の競合をユーザーへ提示する。
+6. 演出と攻撃定義の時刻、位置、持続、命中時演出が同期することを確認する。
+7. 解決済み仕様をユーザーが承認してから実装する。
+
+分類デフォルトは[デフォルト一覧](../../../docs/attacks/defaults/README.md)から必要なものだけを読む。数値デフォルトは`../kfm/kfm.cns`と`../kfm/kfm.cmd`を根拠とし、KFMに対応実装がないProjectileとReversalDefを推測で補完しない。デフォルト版を個別技文書へ明記し、既存技へ新版を自動適用しない。
+
+実装前に次を確定する。既存の確定事項と版付きデフォルトから求められない項目だけをユーザーへ確認する。
 
 - StateDef、遷移元・遷移先、終了・中断時の復帰先
 - 入力ビット、オートメーション判断、Action、素材、表示要素
 - StateType、MoveType、Physics、Ctrl、座標、速度、時間、移動式
 - HitDef、Helper、Explod、Projectile、ダメージ、Power、無敵、PlayerPush
 - `the_controller`へ渡す演出要求と発動時刻
+
+ガード不能、ガードクラッシュ、アーマー・無敵・Projectile防御の貫通、ReversalDef、長時間または完全無敵、相手State奪取、即死級ダメージ、外部キャラクター固有仕様への依存は、実装前にユーザー承認を得る。防御突破は単なる有無ではなく、無視、軽減不適用、消費、破壊、ダメージ通過などの作用を確定する。
 
 新しいエフェクト種別または表現パターンは、CNS実装前に一覧へ登録し、個別設計文書を作成または更新する。
 

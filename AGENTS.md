@@ -26,6 +26,7 @@ Codexの動作環境はmacOS上である。WinMUGENはWindows 11 on VMware上で
 - [オートメーション規約](docs/AGENTS.automation.md)
 - [エフェクト作業規則](docs/AGENTS.effect.md)
 - [共通エフェクト設計・実装規約](docs/design/effect/AGENTS.md)
+- [技仕様文書の作業規則](docs/attacks/AGENTS.md)
 - [技作成スキル](.agents/skills/create-waza/SKILL.md)
 - [共通エフェクト作成スキル](.agents/skills/create-effect/SKILL.md)
 - [設計判断記録](docs/ADR/)
@@ -61,6 +62,7 @@ CNSの都合、一般的な実装慣習、構造化の都合だけで、`docs/DE
 | 配置 | 定義 |
 | --- | --- |
 | `docs/AGENTS.*.md` | エージェントが従う固定的な作業規則および実装契約。ユーザーの明示的な承認なしに、確定済みの方針や割り当てを変更しない。 |
+| `docs/attacks/` | 自然言語による技要求、版付きデフォルト、解決済み技仕様、State Controllerとの対応を管理する。作業規則は`docs/attacks/AGENTS.md`に置く。 |
 | `docs/automation/` | オートメーション中の行動ごとに、距離、位置、State、時間などを用いる具体的な自動判断を記録する。共通の有効化・入力切替規約は`docs/AGENTS.automation.md`に置く。 |
 | `docs/ADR/` | 採用した設計判断の背景、決定、結果を残す履歴。現在の実装一覧ではなく、判断の理由を記録する。 |
 | `docs/issues/` | 不具合の症状、原因、修正内容、確認事項を記録する。 |
@@ -78,7 +80,7 @@ WinMUGEN は LLM 学習データが不足している。一方で、ユーザー
 
 ### 技作成
 
-TENKIKAIの技、攻撃、特殊移動、または技に伴う演出を新規作成・変更する場合は、リポジトリ内の`create-waza`スキルを使用する。スキルは必要な文書だけを選択して参照し、`the_controller`の固定遷移契約と演出責務に従って技を実装する。
+TENKIKAIの技、攻撃、特殊移動、または技に伴う演出を新規作成・変更する場合は、リポジトリ内の`create-waza`スキルを使用する。自然言語要求を`docs/attacks/`の階層スキーマと版付きデフォルトによって解決してから、`the_controller`の固定遷移契約と演出責務に従って技を実装する。
 
 ### 一般のプログラミングパラダイムを不採用とする
 
