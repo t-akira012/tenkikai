@@ -4,11 +4,9 @@
 
 KFM StateDef `3000`のTriple Kung Fu Palmを多段型、StateDef `3050`のSmash Kung Fu Upperを単発型の基準とする。
 
-## 共通デフォルト
+## 共通試験候補
 
 - State属性：`S, HA`
-- Power消費：`1000`
-- GetPower：`0`
 - SuperPause：使用する
 - ガード可能
 - 防御突破、アーマー、ReversalDef：なし

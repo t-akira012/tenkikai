@@ -4,11 +4,10 @@
 
 KFM StateDef `1050`のLight Kung Fu Upperを基準とする。
 
-## デフォルト
+## 試験候補
 
 - State属性：`A, SA`
 - Damage：`80, 4`
-- Power加算：`110`
 - Juggle：`4`
 - GuardFlag：`MA`
 - PauseTime：`12, 12`

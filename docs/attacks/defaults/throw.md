@@ -4,7 +4,7 @@
 
 KFM StateDef `800`の投げ始動、StateDef `810`の投げ実行、StateDef `820`・`821`の被投げ処理を基準とする。
 
-## デフォルト
+## 試験候補
 
 - State属性：`S, NT`
 - HitFlag：`M-`

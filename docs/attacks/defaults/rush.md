@@ -4,11 +4,10 @@
 
 KFM StateDef `1020`のFast Kung Fu Palmを基準とする。
 
-## デフォルト
+## 試験候補
 
 - State属性：`S, SA`
 - Damage：`95, 5`
-- Power消費：`330`
 - Juggle：`6`
 - GuardFlag：`MA`
 - PauseTime：`8, 7`

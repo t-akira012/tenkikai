@@ -8,7 +8,6 @@ KFM StateDef `200`の立ち弱パンチを軽攻撃、StateDef `210`の立ち強
 
 - State属性：`S, NA`
 - Damage：`23, 0`
-- Power加算：`20`
 - Juggle：`1`
 - GuardFlag：`MA`
 - HitFlag：`MAF`
@@ -25,7 +24,6 @@ KFM StateDef `200`の立ち弱パンチを軽攻撃、StateDef `210`の立ち強
 
 - State属性：`S, NA`
 - Damage：`57, 0`
-- Power加算：`65`
 - Juggle：`4`
 - GuardFlag：`MA`
 - Priority：既定値
