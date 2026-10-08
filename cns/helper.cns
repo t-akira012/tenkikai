@@ -2756,6 +2756,31 @@ fvar(23)=0.0072
 [state ]
 type=varset
 trigger1=1
+fvar(25)=0.2
+
+[state ]
+type=varset
+trigger1=1
+fvar(26)=0.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(29)=0.6
+
+[state ]
+type=varset
+trigger1=1
+fvar(30)=0.03
+
+[state ]
+type=varset
+trigger1=1
+fvar(31)=7.2
+
+[state ]
+type=varset
+trigger1=1
 fvar(10)=-4
 
 [state ]
@@ -2899,12 +2924,39 @@ trigger1=var(0)>=var(2)-var(30)
 fvar(14)=(1+cos(pi*(var(0)-(var(2)-var(30)))/var(30)))/2.0
 
 [state ]
+type=varset
+trigger1=1
+fvar(32)=0
+
+[state ]
+type=varset
+trigger1=1.0*var(0)/var(1)>=fvar(25)
+trigger1=1.0*var(0)/var(1)<fvar(26)
+fvar(32)=(1.0*var(0)/var(1)-fvar(25))/(fvar(26)-fvar(25))
+
+[state ]
+type=varset
+trigger1=1.0*var(0)/var(1)>=fvar(26)
+trigger1=1.0*var(0)/var(1)<fvar(29)
+fvar(32)=(fvar(29)-1.0*var(0)/var(1))/(fvar(29)-fvar(26))
+
+[state ]
+type=varset
+trigger1=1
+fvar(27)=1-(1-fvar(30))*fvar(32)*fvar(32)
+
+[state ]
+type=varset
+trigger1=1
+fvar(28)=1+(fvar(31)-1)*fvar(32)*fvar(32)
+
+[state ]
 type=modifyexplod
 trigger1=1
 id=501010
 facing=ifelse(random%2,1,-1)
 vfacing=ifelse(random%2,1,-1)
-scale=(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14),(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14)
+scale=(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14)*fvar(27),(fvar(3)+sin(var(0)%var(27))*fvar(4))*fvar(14)*fvar(28)
 
 [state ]
 type=modifyexplod
@@ -2914,13 +2966,13 @@ facing=ifelse(random%2,1,-1)
 vfacing=ifelse(random%2,1,-1)
 trans=addalpha
 alpha=var(15),var(16)
-scale=fvar(5)*fvar(14),fvar(5)*fvar(14)
+scale=fvar(5)*fvar(14)*fvar(27),fvar(5)*fvar(14)*fvar(28)
 
 [state ]
 type=modifyexplod
 trigger1=1
 id=501012
-scale=fvar(6)*fvar(14),fvar(6)*fvar(14)
+scale=fvar(6)*fvar(14)*fvar(27),fvar(6)*fvar(14)*fvar(28)
 
 [state ]
 type=varset
@@ -2989,7 +3041,7 @@ value=fvar(13)
 [state ]
 type=angledraw
 trigger1=1
-scale=var(4)*fvar(7)*fvar(14),var(4)*fvar(7)*fvar(14)
+scale=var(4)*fvar(7)*fvar(14)*fvar(27),var(4)*fvar(7)*fvar(14)*fvar(28)
 
 [state ]
 type=varset

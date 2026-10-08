@@ -1068,7 +1068,7 @@ velset=0,0
 
 [state ]
 type=helper
-trigger1=time=7
+trigger1=time=3
 name="gravity_sphere"
 id=501000
 stateno=501000
@@ -1083,7 +1083,7 @@ supermovetime=99990000000
 
 [state ]
 type=changestate
-trigger1=time>=24
+trigger1=time>=12
 value=0
 ctrl=1
 
