@@ -28,3 +28,5 @@
 - [ADR 026: 連続運動の速度管理と位置操作の役割分担](026-velocity-based-continuous-movement.md)
 - [ADR 027: Head眼球表示をControllerで完成させる](027-controller-managed-head-eye-selection.md)
 - [ADR 028: the_controllerの同一寿命値をビットフィールドへ集約する](028-controller-variable-bit-packing.md)
+- [ADR 029: the_controllerによる本体自由傾斜管理](029-body-free-tilt-request.md)
+- [ADR 030: the_controllerによるRoot画面外移動許可](030-controller-managed-root-screenbound.md)

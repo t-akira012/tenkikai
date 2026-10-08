@@ -8,6 +8,7 @@
 | --- | --- |
 | 自動運用 | `var(2)`のbit 31を管理する。常時有効化は無効で、パレット`6`〜`12`で有効 |
 | ライフ | Controllerの保留ダメージを反映する。ライフ1/4以下では半減、最低1。保留なし・生存中は毎tick 1回復 |
+| ScreenBound同期 | ControllerのRoot画面外移動許可booleanが有効な間だけ本体の`ScreenBound`を無効化し、カメラを追従させない。無効時は通常の画面内拘束とカメラ移動を許可する |
 | 時間・デバッグ | `private-gametime`などの変数とデバッグ表示を更新する |
 | Body変換 | 通常AngleDrawとOffsetを初期化し、Controllerの適用フラグが有効な場合だけ完成値を使う |
 | 地面隣接浮遊時の足元波紋 | `Pos Y>=-20`かつ`abs(Vel X)<1`の間、24tickごとにHelper ID `500020`・`500021`を一組生成する。`postype=p1`の`pos=0,-pos y+26`で生成時のRoot直下にあるステージ地面へSprite軸補正を加えて置き、生成後はRootへ追従させない。`abs(Vel X)>=1`では波紋も砂埃も生成しない |

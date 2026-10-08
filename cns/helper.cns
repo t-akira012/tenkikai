@@ -1,6 +1,13 @@
 [statedef 99000]
 
 [state ]
+type=screenbound
+trigger1=1
+value=0
+movecamera=0,0
+ignorehitpause=1
+
+[state ]
 type=selfstate
 trigger1=ishelper(99001)
 value=99001000
@@ -31,6 +38,20 @@ physics=n
 anim=99004
 
 ;; the_controller集約処理
+
+;; Root画面外移動許可
+
+[state ]
+type=varset
+trigger1=1
+var(8)=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=[1200,1204]
+var(8)=1
+ignorehitpause=1
 
 ;; Rootアニメーション時間保持
 
@@ -145,7 +166,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])
+trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])||(root,stateno=[1200,1204])
 var(11)=var(11)|16777216
 ignorehitpause=1
 
@@ -545,14 +566,8 @@ ignorehitpause=1
 
 [state ]
 type=varadd
-trigger1=var(7)>0
+trigger1=(var(7)&511)>0
 var(7)=-1
-ignorehitpause=1
-
-[state ]
-type=varadd
-trigger1=var(8)>0
-var(8)=-1
 ignorehitpause=1
 
 [state ]
@@ -604,19 +619,57 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=110
-var(7)=1
+fvar(19)=-56.16
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=110
+var(7)=(var(7)&-65536)+14849
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=root,stateno=111
-var(8)=1
+fvar(19)=30
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=111
+var(7)=(var(7)&-65536)+7681
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1200
+fvar(19)=30
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1200
+var(7)=(var(7)&-65536)+7681
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1201
+fvar(19)=-85
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1201
+var(7)=(var(7)&-65536)+14849
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=root,stateno=302
 trigger1=root,time=1
+trigger2=root,stateno=1202
+trigger2=root,time=1
 var(9)=16
 ignorehitpause=1
 
@@ -634,6 +687,36 @@ trigger1=root,stateno=100
 trigger1=root,time=1
 trigger1=var(16)>0
 var(23)=var(16)
+ignorehitpause=1
+
+;; 本体自由傾斜角度更新
+
+[state ]
+type=varset
+trigger1=(var(7)&511)>0
+trigger1=fvar(7)<fvar(19)
+fvar(7)=ifelse(fvar(7)+(var(7)&65024)/512*0.5>fvar(19),fvar(19),fvar(7)+(var(7)&65024)/512*0.5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(var(7)&511)>0
+trigger1=fvar(7)>fvar(19)
+fvar(7)=ifelse(fvar(7)-(var(7)&65024)/512*0.5<fvar(19),fvar(19),fvar(7)-(var(7)&65024)/512*0.5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(var(7)&511)=0
+trigger1=fvar(7)>0
+fvar(7)=ifelse(fvar(7)-(var(7)&65024)/512*0.5<0,0,fvar(7)-(var(7)&65024)/512*0.5)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=(var(7)&511)=0
+trigger1=fvar(7)<0
+fvar(7)=ifelse(fvar(7)+(var(7)&65024)/512*0.5>0,0,fvar(7)+(var(7)&65024)/512*0.5)
 ignorehitpause=1
 
 ;; AngleDraw要求bit完成
@@ -658,14 +741,9 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(7)>0
+trigger1=(var(7)&511)>0
+trigger2=fvar(7)!=0
 var(2)=var(2)|4
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=var(8)>0
-var(2)=var(2)|8
 ignorehitpause=1
 
 [state ]
@@ -692,12 +770,6 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(6)=1
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-fvar(7)=0
 ignorehitpause=1
 
 [state ]
@@ -780,23 +852,9 @@ trigger1=(var(2)&2)!=0
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2-48.0*(1.0-fvar(6))
 ignorehitpause=1
 
-;; 前後ダッシュBody傾斜
-
 [state ]
 type=varset
 trigger1=(var(2)&4)!=0
-fvar(7)=-56.16
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=(var(2)&8)!=0
-fvar(7)=30
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=(var(2)&12)!=0
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
@@ -870,14 +928,8 @@ ignorehitpause=1
 
 [state ]
 type=changestate
-trigger1=root,stateno=110
+trigger1=fvar(7)!=0
 value=99004022
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=root,stateno=111
-value=99004023
 ignorehitpause=1
 
 [state ]
@@ -930,44 +982,18 @@ movetype=i
 physics=n
 anim=99004
 
-;; 前方ダッシュHead位置補正
+;; 本体自由傾斜Head位置補正
 
 [state ]
 type=varset
 trigger1=1
-fvar(16)=55
+fvar(16)=ifelse(fvar(7)<0,-66*sin(fvar(7)*pi/180.0),-61*sin(fvar(7)*pi/180.0))
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=1
-fvar(17)=26
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004007
-ignorehitpause=1
-
-[statedef 99004023]
-type=s
-movetype=i
-physics=n
-anim=99004
-
-;; 後方ダッシュHead位置補正
-
-[state ]
-type=varset
-trigger1=1
-fvar(16)=-35
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-fvar(17)=6
+fvar(17)=61*(1-cos(fvar(7)*pi/180.0))
 ignorehitpause=1
 
 [state ]
@@ -2145,6 +2171,200 @@ type=selfstate
 trigger1=1
 value=500902
 
+[statedef 500040]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=13
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=54
+
+[state ]
+type=varset
+trigger1=1
+var(7)=48
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.05
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.19
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.8568
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=2.142
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500900
+
+[statedef 500041]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=13
+
+[state ]
+type=varset
+trigger1=1
+var(2)=4
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=10
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=54
+
+[state ]
+type=varset
+trigger1=1
+var(7)=48
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=-1.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.05
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0.19
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.8568
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=2.142
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500901
+
 [statedef 500900]
 type=a
 movetype=I
@@ -2224,11 +2444,6 @@ type=nothitby
 trigger1=1
 value=sca
 time=1
-
-[state ]
-type=screenbound
-trigger1=1
-value=0
 
 [state ]
 type=assertspecial
@@ -2319,11 +2534,6 @@ type=nothitby
 trigger1=1
 value=sca
 time=1
-
-[state ]
-type=screenbound
-trigger1=1
-value=0
 
 [state ]
 type=assertspecial
@@ -2439,11 +2649,6 @@ type=nothitby
 trigger1=1
 value=sca
 time=1
-
-[state ]
-type=screenbound
-trigger1=1
-value=0
 
 [state ]
 type=assertspecial
@@ -3141,11 +3346,6 @@ value=sca
 time=1
 
 [state ]
-type=screenbound
-trigger1=1
-value=0
-
-[state ]
 type=assertspecial
 trigger1=1
 flag=noshadow
@@ -3581,11 +3781,6 @@ value=sca
 time=1
 
 [state ]
-type=screenbound
-trigger1=1
-value=0
-
-[state ]
 type=assertspecial
 trigger1=1
 flag=invisible
@@ -3662,11 +3857,6 @@ value=sca
 time=1
 
 [state ]
-type=screenbound
-trigger1=1
-value=0
-
-[state ]
 type=assertspecial
 trigger1=1
 flag=noshadow
@@ -3687,6 +3877,11 @@ velset=0,0
 ;; 青暗転設定
 
 [state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
 type=varset
 trigger1=1
 var(0)=0
@@ -3704,52 +3899,297 @@ var(2)=60
 [state ]
 type=varset
 trigger1=1
-var(3)=10
+var(3)=0
 
 [state ]
 type=varset
 trigger1=1
-var(4)=105
+var(4)=0
 
 [state ]
 type=varset
 trigger1=1
-var(5)=135
+var(5)=60
 
 [state ]
 type=varset
 trigger1=1
-var(6)=140
+var(6)=10
 
 [state ]
 type=varset
 trigger1=1
-var(7)=190
+var(7)=105
 
 [state ]
 type=varset
 trigger1=1
-var(8)=180
+var(8)=135
 
 [state ]
 type=varset
 trigger1=1
-var(9)=8
+var(9)=10
 
 [state ]
 type=varset
 trigger1=1
-var(10)=180
+var(10)=105
 
 [state ]
 type=varset
 trigger1=1
-var(11)=0
+var(11)=135
 
 [state ]
 type=varset
 trigger1=1
-var(12)=2
+var(12)=10
+
+[state ]
+type=varset
+trigger1=1
+var(13)=105
+
+[state ]
+type=varset
+trigger1=1
+var(14)=135
+
+[state ]
+type=varset
+trigger1=1
+var(15)=140
+
+[state ]
+type=varset
+trigger1=1
+var(16)=190
+
+[state ]
+type=varset
+trigger1=1
+var(17)=180
+
+[state ]
+type=varset
+trigger1=1
+var(18)=-340
+
+[state ]
+type=varset
+trigger1=1
+var(19)=-290
+
+[state ]
+type=varset
+trigger1=1
+var(20)=-300
+
+[state ]
+type=varset
+trigger1=1
+var(21)=140
+
+[state ]
+type=varset
+trigger1=1
+var(22)=190
+
+[state ]
+type=varset
+trigger1=1
+var(23)=180
+
+[state ]
+type=varset
+trigger1=1
+var(24)=180
+
+[state ]
+type=varset
+trigger1=1
+var(25)=180
+
+[state ]
+type=varset
+trigger1=1
+var(26)=180
+
+[state ]
+type=varset
+trigger1=1
+var(27)=0
+
+[state ]
+type=varset
+trigger1=1
+var(28)=2
+
+[state ]
+type=selfstate
+trigger1=1
+value=504900
+
+[statedef 504010]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+;; 突進用黒背景暗転設定
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=varset
+trigger1=1
+var(0)=0
+
+[state ]
+type=varset
+trigger1=1
+var(1)=11
+
+[state ]
+type=varset
+trigger1=1
+var(2)=3
+
+[state ]
+type=varset
+trigger1=1
+var(3)=5
+
+[state ]
+type=varset
+trigger1=1
+var(4)=3
+
+[state ]
+type=varset
+trigger1=1
+var(5)=11
+
+[state ]
+type=varset
+trigger1=1
+var(6)=256
+
+[state ]
+type=varset
+trigger1=1
+var(7)=256
+
+[state ]
+type=varset
+trigger1=1
+var(8)=256
+
+[state ]
+type=varset
+trigger1=1
+var(9)=64
+
+[state ]
+type=varset
+trigger1=1
+var(10)=64
+
+[state ]
+type=varset
+trigger1=1
+var(11)=64
+
+[state ]
+type=varset
+trigger1=1
+var(12)=256
+
+[state ]
+type=varset
+trigger1=1
+var(13)=256
+
+[state ]
+type=varset
+trigger1=1
+var(14)=256
+
+[state ]
+type=varset
+trigger1=1
+var(15)=0
+
+[state ]
+type=varset
+trigger1=1
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+var(17)=0
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+
+[state ]
+type=varset
+trigger1=1
+var(19)=0
+
+[state ]
+type=varset
+trigger1=1
+var(20)=0
+
+[state ]
+type=varset
+trigger1=1
+var(21)=0
+
+[state ]
+type=varset
+trigger1=1
+var(22)=0
+
+[state ]
+type=varset
+trigger1=1
+var(23)=0
+
+[state ]
+type=varset
+trigger1=1
+var(24)=256
+
+[state ]
+type=varset
+trigger1=1
+var(25)=256
+
+[state ]
+type=varset
+trigger1=1
+var(26)=256
+
+[state ]
+type=varset
+trigger1=1
+var(27)=0
+
+[state ]
+type=varset
+trigger1=1
+var(28)=2
 
 [state ]
 type=selfstate
@@ -3768,12 +4208,32 @@ velset=0,0
 
 [state ]
 type=bgpalfx
-trigger1=1
-time=var(12)
-mul=var(3),var(4),var(5)
-add=var(6)-(var(0)%var(2))*var(9),var(7)-(var(0)%var(2))*var(9),var(8)-(var(0)%var(2))*var(9)
-color=var(10)
-invertall=var(11)
+trigger1=(var(0)%var(5))<var(2)
+time=var(28)
+mul=var(6)+(var(9)-var(6))*(var(0)%var(5))/var(2),var(7)+(var(10)-var(7))*(var(0)%var(5))/var(2),var(8)+(var(11)-var(8))*(var(0)%var(5))/var(2)
+add=var(15)+(var(18)-var(15))*(var(0)%var(5))/var(2),var(16)+(var(19)-var(16))*(var(0)%var(5))/var(2),var(17)+(var(20)-var(17))*(var(0)%var(5))/var(2)
+color=var(24)+(var(25)-var(24))*(var(0)%var(5))/var(2)
+invertall=var(27)
+
+[state ]
+type=bgpalfx
+trigger1=(var(0)%var(5))>=var(2)
+trigger1=(var(0)%var(5))<var(2)+var(3)
+time=var(28)
+mul=var(9),var(10),var(11)
+add=var(18),var(19),var(20)
+color=var(25)
+invertall=var(27)
+
+[state ]
+type=bgpalfx
+trigger1=(var(0)%var(5))>=var(2)+var(3)
+trigger1=(var(0)%var(5))<var(2)+var(3)+var(4)
+time=var(28)
+mul=var(9)+(var(12)-var(9))*((var(0)%var(5))-var(2)-var(3)+1)/var(4),var(10)+(var(13)-var(10))*((var(0)%var(5))-var(2)-var(3)+1)/var(4),var(11)+(var(14)-var(11))*((var(0)%var(5))-var(2)-var(3)+1)/var(4)
+add=var(18)+(var(21)-var(18))*((var(0)%var(5))-var(2)-var(3)+1)/var(4),var(19)+(var(22)-var(19))*((var(0)%var(5))-var(2)-var(3)+1)/var(4),var(20)+(var(23)-var(20))*((var(0)%var(5))-var(2)-var(3)+1)/var(4)
+color=var(25)+(var(26)-var(25))*((var(0)%var(5))-var(2)-var(3)+1)/var(4)
+invertall=var(27)
 
 [state ]
 type=varadd
@@ -3792,11 +4252,6 @@ value=sca
 time=1
 
 [state ]
-type=screenbound
-trigger1=1
-value=0
-
-[state ]
 type=assertspecial
 trigger1=1
 flag=invisible
@@ -3811,17 +4266,250 @@ type=destroyself
 trigger1=var(0)>=var(1)
 trigger2=roundstate!=2
 
-[statedef 99001000]
-anim=99001
+[statedef 505000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
 
-;; 画面外移動許可
+;; 画面横断突進用横線形衝撃波設定
 
 [state ]
-type=screenbound
+type=varset
+trigger1=1
+var(0)=505000
+
+[state ]
+type=varset
+trigger1=1
+var(1)=22
+
+[state ]
+type=varset
+trigger1=1
+var(2)=22
+
+[state ]
+type=varset
+trigger1=1
+var(3)=2
+
+[state ]
+type=varset
+trigger1=1
+var(4)=20
+
+[state ]
+type=varset
+trigger1=1
+var(5)=256
+
+[state ]
+type=varset
+trigger1=1
+var(6)=0
+
+[state ]
+type=varset
+trigger1=1
+var(7)=0
+
+[state ]
+type=varset
+trigger1=1
+var(8)=256
+
+[state ]
+type=varset
+trigger1=1
+var(9)=-5
+
+[state ]
+type=varset
+trigger1=1
+var(10)=160
+
+[state ]
+type=varset
+trigger1=1
+var(11)=163
+
+[state ]
+type=varset
+trigger1=1
+var(12)=2
+
+[state ]
+type=varset
+trigger1=1
+var(13)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=30.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.02
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=6.4
+
+[state ]
+type=selfstate
+trigger1=1
+value=505900
+
+[statedef 505900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+;; 横線形衝撃波共通実行
+
+[state ]
+type=changeanim
+trigger1=anim!=var(0)
+value=var(0)
+
+[state ]
+type=posadd
+trigger1=1
+x=(var(10)-screenpos x)*facing
+y=var(11)-screenpos y
+
+[state ]
+type=varset
+triggerall=var(2)>1
+trigger1=time<var(2)-1
+fvar(6)=time*1.0/(var(2)-1)
+
+[state ]
+type=varset
+triggerall=var(13)=0
+triggerall=var(2)>1
+trigger1=time<var(2)-1
+fvar(3)=fvar(1)+(fvar(2)-fvar(1))*fvar(6)
+
+[state ]
+type=varset
+triggerall=var(13)=1
+triggerall=var(2)>1
+trigger1=time<var(2)-1
+fvar(3)=fvar(1)+(fvar(2)-fvar(1))*(2*fvar(6)-fvar(6)*fvar(6))
+
+[state ]
+type=varset
+triggerall=var(13)=2
+triggerall=var(2)>1
+trigger1=time<var(2)-1
+fvar(3)=fvar(1)+(fvar(2)-fvar(1))*(3*fvar(6)-3*fvar(6)*fvar(6)+fvar(6)*fvar(6)*fvar(6))
+
+[state ]
+type=varset
+trigger1=var(2)<=1
+trigger2=time>=var(2)-1
+fvar(3)=fvar(2)
+
+[state ]
+type=varset
+trigger1=time<var(3)
+fvar(4)=var(5)
+
+[state ]
+type=varset
+trigger1=time<var(3)
+fvar(5)=var(7)
+
+[state ]
+type=varset
+triggerall=var(4)>0
+trigger1=time>=var(3)
+trigger1=time<var(3)+var(4)
+fvar(4)=var(5)+(var(6)-var(5))*(time-var(3)+1)*1.0/var(4)
+
+[state ]
+type=varset
+triggerall=var(4)>0
+trigger1=time>=var(3)
+trigger1=time<var(3)+var(4)
+fvar(5)=var(7)+(var(8)-var(7))*(time-var(3)+1)*1.0/var(4)
+
+[state ]
+type=varset
+trigger1=(var(4)<=0)&&(time>=var(3))
+trigger2=(var(4)>0)&&(time>=var(3)+var(4))
+fvar(4)=var(6)
+
+[state ]
+type=varset
+trigger1=(var(4)<=0)&&(time>=var(3))
+trigger2=(var(4)>0)&&(time>=var(3)+var(4))
+fvar(5)=var(8)
+
+[state ]
+type=angledraw
+trigger1=1
+scale=fvar(0),fvar(3)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=var(9)
+
+[state ]
+type=trans
+trigger1=var(12)=0
+trans=default
+
+[state ]
+type=trans
+trigger1=var(12)=1
+trans=add
+
+[state ]
+type=trans
+trigger1=var(12)=2
+trans=addalpha
+alpha=floor(fvar(4)),floor(fvar(5))
+
+[state ]
+type=trans
+trigger1=var(12)=3
+trans=sub
+
+[state ]
+type=playerpush
 trigger1=1
 value=0
-movecamera=0,0
-ignorehitpause=1
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=destroyself
+trigger1=time>=var(1)
+trigger2=roundstate!=2
+
+[statedef 99001000]
+anim=99001
 
 [state ]
 type=posset
@@ -4064,15 +4752,6 @@ value=5150
 ignorehitpause=1
 
 [statedef 99003000]
-
-;; 画面外移動許可
-
-[state ]
-type=screenbound
-trigger1=1
-value=0
-movecamera=0,0
-ignorehitpause=1
 
 [state ]
 type=posset

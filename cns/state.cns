@@ -1088,3 +1088,441 @@ value=0
 ctrl=1
 
 ;-------------------------------------------------
+
+[statedef 1200]
+type=a
+movetype=I
+physics=N
+juggle=6
+ctrl=0
+anim=21
+sprpriority=2
+
+[state ]
+type=varset
+trigger1=1
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=varset
+trigger1=time<5
+trigger1=((facing=1)&&(screenpos x>-40))||((facing=-1)&&(screenpos x<360))
+fvar(1)=-ifelse(facing=1,(screenpos x+40)/(5-time),(360-screenpos x)/(5-time))
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=1000
+
+[state ]
+type=varset
+trigger1=(facing=1)&&(screenpos x<=-40)
+trigger2=(facing=-1)&&(screenpos x>=360)
+trigger3=time>=5
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=(facing=1)&&(screenpos x<=-40)
+trigger2=(facing=-1)&&(screenpos x>=360)
+trigger3=time>=5
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(13)=0
+
+[state ]
+type=velset
+trigger1=1
+y=0
+
+[state ]
+type=changestate
+trigger1=(facing=1)&&(screenpos x<=-40)
+trigger2=(facing=-1)&&(screenpos x>=360)
+trigger3=time>=5
+value=1203
+
+;-------------------------------------------------
+
+[statedef 1201]
+type=a
+movetype=A
+physics=N
+juggle=6
+ctrl=0
+anim=1201
+sprpriority=2
+
+[state ]
+type=varset
+trigger1=1
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=!time
+var(11)=0
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=30
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=1000
+
+[state ]
+type=posadd
+trigger1=!time
+y=170-screenpos y
+
+[state ]
+type=helper
+triggerall=numhelper(504010)=0
+trigger1=(facing=1)&&(screenpos x>=0)&&(screenpos x-vel x<0)
+trigger2=(facing=-1)&&(screenpos x<=320)&&(screenpos x+vel x>320)
+name="rush_background_darkening"
+id=504010
+stateno=504010
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+ignorehitpause=1
+
+[state ]
+type=helper
+triggerall=numhelper(505000)=0
+trigger1=(facing=1)&&(screenpos x>=0)&&(screenpos x-vel x<0)
+trigger2=(facing=-1)&&(screenpos x<=320)&&(screenpos x+vel x>320)
+name="rush_horizontal_linear_shockwave"
+id=505000
+stateno=505000
+helpertype=normal
+pos=(160-screenpos x)*facing,170-screenpos y
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+ignorehitpause=1
+
+[state ]
+type=helper
+trigger1=!time
+trigger2=time>1
+trigger2=!(time%3)
+name="rush_elliptical_shockwave_left"
+id=500040
+stateno=500040
+helpertype=normal
+pos=-6,-45
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=!time
+trigger2=time>1
+trigger2=!(time%3)
+name="rush_elliptical_shockwave_right"
+id=500041
+stateno=500041
+helpertype=normal
+pos=-6,-45
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=varset
+trigger1=1
+var(13)=0
+
+[state ]
+type=velset
+trigger1=(var(2)&4)!=0
+y=-21
+
+[state ]
+type=velset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+y=21
+
+[state ]
+type=velset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+y=0
+
+[state ]
+type=hitdef
+trigger1=!time
+attr=A,SA
+animtype=hard
+damage=95,5
+getpower=0,0
+priority=4,hit
+guardflag=MA
+hitflag=MAF
+pausetime=8,7
+sparkxy=-10,-60
+ground.type=low
+ground.slidetime=20
+ground.hittime=20
+ground.velocity=-8,-7
+guard.velocity=-7
+air.velocity=-8,-7
+airguard.velocity=-5,-4
+fall=1
+
+[state ]
+type=changestate
+trigger1=(facing=1)&&(screenpos x>=360)
+trigger2=(facing=-1)&&(screenpos x<=-40)
+value=1204
+
+;-------------------------------------------------
+
+[statedef 1202]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=0
+velset=0,0
+
+[state ]
+type=posadd
+trigger1=!time
+x=ifelse(facing=1,40-screenpos x,280-screenpos x)*facing
+
+[state ]
+type=varset
+trigger1=!time
+var(8)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(9)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(13)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(14)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(3)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(4)=0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=varset
+trigger1=!time
+var(10)=0
+
+[state ]
+type=varset
+trigger1=time>=2
+var(11)=0
+
+[state ]
+type=varset
+trigger1=time>=2
+var(12)=0
+
+[state ]
+type=changestate
+trigger1=time>=2
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
+[statedef 1203]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=21
+velset=0,0
+sprpriority=2
+
+[state ]
+type=varset
+trigger1=!time
+var(8)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(9)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(13)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(14)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(3)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(4)=0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=changestate
+trigger1=time>=30
+value=1201
+
+;-------------------------------------------------
+
+[statedef 1204]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=1201
+sprpriority=2
+
+[state ]
+type=varset
+trigger1=1
+var(8)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=30
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=1000
+
+[state ]
+type=varset
+trigger1=1
+var(13)=0
+
+[state ]
+type=velset
+trigger1=1
+y=0
+
+[state ]
+type=velset
+trigger1=time>=45
+x=0
+y=0
+
+[state ]
+type=changestate
+trigger1=time>=45
+value=1202
+
+;-------------------------------------------------

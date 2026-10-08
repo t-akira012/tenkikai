@@ -8,6 +8,12 @@ Helperから同じRootに属する別のHelperを参照する場合は、`helper
 
 Helperの実行順は存在順に依存する。先に存在するHelperの挙動が完了した後に、後続のHelperが同tickで実行される。後続Helperから先行Helperの値を参照する場合は、先行Helperが同tickに更新した値となる。
 
+## RootとHelperの実行順
+
+tick内部ではRootが先に処理され、その後にHelperが処理される。Rootが常駐Helperの完成値を参照する場合、そのtickの後段でHelperが更新する値ではなく、前tickまでに完成していた値を使用する。
+
+本体自由傾斜では`the_controller`が更新した角度を、次tickのRoot StateDef `-2`がAngleDrawへ適用する。この1tickの遅延は許容する。
+
 ## Helper消滅後のBind先
 
 WinMUGENのHelperは配列構造で配置される。HelperへBindしたExplodのBind先は、Helperの個体を永続的に識別するものではなく、そのHelperが配置された配列indexに依存する。

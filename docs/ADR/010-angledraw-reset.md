@@ -10,11 +10,13 @@ WinMUGENの`AngleDraw`は、別のStateDefへ移動しただけでは前の傾�
 
 ## 決定
 
-AngleDrawの値と適用フラグは`the_controller`が管理する。個別StateDefはAngleDrawの値や有効状態を管理しない。
+AngleDrawの値と適用フラグは`the_controller`が管理する。個別StateDefはAngleDrawの値や有効状態を管理しない。本体自由傾斜では、`the_controller`がRootの状態を監視して目標角度、角速度および残存時間を自身へ登録する。
 
 RootのStateDef `-2`は毎tick、AngleDrawを中立値へ設定して前tickの傾斜と倍率を解除する。その後、`the_controller`のBody適用フラグが有効な場合だけ、Controllerが保持する完成角度と完成倍率をRootへ適用する。
 
 AngleDrawを必要とする挙動は、`the_controller`で完成値と適用フラグを設定する。Rootの個別StateDefへAngleDrawまたは専用フラグを追加してはならない。
+
+RootはHelperより先に処理されるため、StateDef `-2`は`the_controller`が前tickに完成させた値を使用する。この1tick遅延は許容し、Root側へ補償用のAngleDraw状態を追加しない。
 
 Body AuraはControllerのBody Aura適用フラグを参照し、Controllerが保持するBody系の完成角度と完成倍率を使用する。RootとAuraで独立した計算式や符号補正は追加しない。Aura Bound中はBoundを優先する。
 

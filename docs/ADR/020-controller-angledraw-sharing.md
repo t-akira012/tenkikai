@@ -38,13 +38,15 @@ Aura Boundと同期AngleDrawが同一tickで成立する場合は、Head系とBo
 
 Body系の完成角度を`the_controller`の`fvar(7)`、X倍率を`fvar(5)`、Y倍率を`fvar(6)`、完成Y Offsetを`fvar(8)`へ保持し、Body適用フラグを`var(22)`のbit 6、Body Aura適用フラグをbit 7とする。Body系はHead用角度`fvar(2)`を使用しない。
 
+本体自由傾斜では`fvar(7)`を現在角度としてtick間で保持し、`fvar(19)`の目標角度へ`var(7)`から復元した角速度で近づける。要求終了後は同じ角速度で0へ戻す。自由傾斜の変数と更新契約は[ADR 029](029-body-free-tilt-request.md)に従う。
+
 Bodyの縮小はアニメーション要素5の開始時点から行う。要素5開始時の残存`AnimTime`を持続カウンターへ保存し、StateNoと独立した進捗率を求める。進捗率0では倍率1、終了時には倍率0.05とし、余弦曲線によって後半ほど縮小速度を上げる。X倍率とY倍率には同じ完成値を設定する。
 
 Scaleの中心となるSprite axisがBody中心より下にあるため、縮小時はBody中心が下方向へ移動する。異形回避では通常の浮遊Offsetへ`-48*(1-Y倍率)`を加えた値を完成Y Offsetとし、BodyとBody Auraへ同じ値を適用する。倍率1では補正を行わず、倍率0.05では上方向へ45.6px補正する。
 
 BodyはRootのStateDef `-2`にある共通適用口で、`var(22)`のbit 6が有効な場合だけ`fvar(7)`、`fvar(5)`、`fvar(6)`を使用する。Body AuraはAura Boundフラグが無効で、かつ`var(22)`のbit 7が有効な場合だけ同じ完成値を使用する。
 
-現在の異形回避ではBody系完成角度を`0`とし、Scaleだけを変化させる。Body系の角度同期能力は汎用基盤として保持し、今後Body AngleDrawを必要とする挙動も個別StateDefへ実装せず、`the_controller`が同じ完成値と適用フラグを設定する。
+現在の異形回避ではScaleだけを変化させる。本体自由傾斜が同時に成立する場合は、自由傾斜の現在角度と異形回避のScaleをプロパティごとに合成する。今後Body AngleDrawを必要とする挙動も個別StateDefへ実装せず、`the_controller`が同じ完成値と適用フラグを設定する。
 
 具体的なX位置、Trans、アニメーション同期は本ADRの対象としない。
 

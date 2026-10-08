@@ -54,6 +54,15 @@ trigger1=ishelper
 value=99000
 ignorehitpause=1
 
+;; ScreenBound同期
+
+[state ]
+type=screenbound
+trigger1=!ishelper
+value=ifelse((helper(99004),var(8))=1,0,1)
+movecamera=ifelse((helper(99004),var(8))=1,0,1),ifelse((helper(99004),var(8))=1,0,1)
+ignorehitpause=1
+
 ;; 変数更新とデバッグ表示
 
 ;; Body AngleDraw適用

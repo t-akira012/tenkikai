@@ -20,7 +20,7 @@ CNS上のStateDef、Controller、Trigger、変数、ルーティングなどの�
 
 キャラクターやエフェクトの色を維持し、背景だけへ適用する暗転、発光、色変化を扱う。
 
-- [背景色変更](effect/004-blue-darkening.md)：基本パターンとして青暗転を登録
+- [背景色変更](effect/004-background-color.md)：青暗転、突進用黒暗転および将来の背景暗転を、個別数値で同じ共通モデルへ渡す
 
 ### 画面運動エフェクト
 
@@ -30,10 +30,11 @@ CNS上のStateDef、Controller、Trigger、変数、ルーティングなどの�
 
 キャラクター、飛び道具、エネルギーなどの高速運動へ付随し、画面内の局所領域へ表示する表現を扱う。
 
-- [超高速射出空気波紋](effect/002-supersonic-air-ripple.md)：極めて高速な射出または通過に伴う汎用的な楕円形空気波紋
+- [超高速射出空気波紋](effect/002-supersonic-air-ripple.md)：極めて高速な射出または通過に伴う汎用的な楕円形空気波紋。ダッシュ用と突進用を独立した用途別パターンとして持つ
 - [重力球](effect/003-gravity-sphere.md)：漆黒の球体と周回・発散する光で構成する汎用エネルギー体
 - [フィボナッチ・ライト](effect/005-fibonacci-light.md)：黄金角を用いて全画面または局所エネルギー体へ光粒子を分散する汎用エフェクト
 - [中心衝撃波](effect/006-center-shockwave.md)：中心から画面規模へ広がる円形衝撃波
+- [横線形衝撃波](effect/007-horizontal-linear-shockwave.md)：画面を横断する細い水平線を上下対称へ拡大し、高速通過の直線的な圧力を残す
 
 ## 番号空間
 

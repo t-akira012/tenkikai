@@ -26,8 +26,8 @@ RootのStateNoはAngleDraw演出の開始または更新要求を検出するた
 | ---: | ---: | --- |
 | 0 | `1` | 異形回避中のHead回転・縮小 |
 | 1 | `2` | 異形回避中のBody縮小 |
-| 2 | `4` | 前方ダッシュのBody傾斜 |
-| 3 | `8` | 後方ダッシュのBody傾斜 |
+| 2 | `4` | 本体自由傾斜 |
+| 3 | `8` | 未使用 |
 | 4 | `16` | 異形回避再出現後の全身縦長復元 |
 | 5 | `32` | 前方短距離ワープのBody変形 |
 
@@ -39,7 +39,7 @@ RootのStateNoはAngleDraw演出の開始または更新要求を検出するた
 
 前方短距離ワープはStateDef `100`への進入時に、Controllerが保持したRootアニメーション残り時間を全体時間と残り時間へ保存する。既存の要素進行に対応する二段階のBody変形をカウンター経過時間へ置き換え、StateNoを完成値の継続条件にしない。
 
-前方ダッシュと後方ダッシュは、RootがStateDef `110`または`111`にいる各tickで対応するカウンターを1tickへ更新する。これは手入力による細かなStateDef変動へ追従する1tickのリースとする。該当StateDefを離れると更新を停止し、最後のリース終了後に通常角度へ戻す。
+本体自由傾斜は`the_controller`の`var(7)`下位9bitを残存時間として使用する。ControllerがRootの対象状態を観測している間は、目標角度、角速度および短いリースを更新する。対象状態を離れると更新を停止し、残存時間が0になった後は最後の角速度で通常角度へ戻す。詳細は[ADR 029](029-body-free-tilt-request.md)に従う。
 
 異形回避の再出現はStateDef `302`への進入を開始信号とし、Helperが確実に観測できる`root,time=1`で固定16tickのカウンターを設定する。StateDef `302`は2frameで終了し、Rootは操作可能な別StateDefへ移る。全身の縦長復元だけをStateNoと無関係に16tick継続する。
 
@@ -47,7 +47,7 @@ RootのStateNoはAngleDraw演出の開始または更新要求を検出するた
 
 要求bitと持続カウンターからAngleDraw完成値を生成する責務は`the_controller`に置く。Body、Head、Body Aura、Head AuraはRootのStateNoや持続カウンターを参照せず、[ADR 020](020-controller-angledraw-sharing.md)で割り当てられた完成値と適用フラグだけを使用する。
 
-再出現後の縦長復元はBody、Head、Body Aura、Head Auraへ同じ進行率を適用する。前後ダッシュの要求と同時に成立した場合は、ダッシュ由来の角度と再出現由来のX・Y倍率を合成する。
+再出現後の縦長復元はBody、Head、Body Aura、Head Auraへ同じ進行率を適用する。本体自由傾斜と同時に成立した場合は、自由傾斜由来の角度と再出現由来のX・Y倍率を合成する。
 
 Aura Boundは要求bitと持続カウンターへ含めず、従来どおり独立して管理する。Aura Boundと共有AngleDrawが同時に成立する場合の優先関係はADR 020に従う。
 
@@ -55,4 +55,4 @@ Aura Boundは要求bitと持続カウンターへ含めず、従来どおり独�
 
 Rootの操作可能期間とAngleDraw演出の持続期間を分離できる。StateDef `302`の2frame経過後も再出現変形を継続でき、変形中は移動、攻撃、被弾を含む通常のStateDef遷移を妨げない。
 
-前後ダッシュは1tickリースによって入力方向の変化へ追従し、再出現Scaleとダッシュ角度はプロパティ単位で共存する。StateNo固有の条件と進行式は表示要素へ分散せず、`the_controller`へ集約される。
+本体自由傾斜は有限寿命によってRootの状態変化へ追従し、再出現Scaleと自由傾斜角度はプロパティ単位で共存する。StateNo固有の条件と進行式は表示要素へ分散せず、`the_controller`へ集約される。

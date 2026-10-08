@@ -324,11 +324,11 @@ trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
 
-;; オーラバウンド確認
+;; 画面横断突進
 
 [state ]
 type=changestate
-value=4001
+value=1200
 triggerall=(var(2)&16)!=0
 triggerall=(var(2)&1)=0
 triggerall=(var(2)&2)=0

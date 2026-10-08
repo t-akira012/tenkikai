@@ -282,6 +282,74 @@ class FormatterTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, r"RemapPal"):
             formatter.verify_state_controller_types_in_lines("cns/state.cns", source)
 
+    def test_screenbound_is_allowed_once_at_each_fixed_location(self) -> None:
+        files = {
+            "cns/observ.cns": [
+                "[statedef -2]",
+                "[state ]",
+                "type=screenbound",
+            ],
+            "cns/helper.cns": [
+                "[statedef 99000]",
+                "[state ]",
+                "type=screenbound",
+            ],
+        }
+
+        formatter.verify_screenbound_locations_in_files(files)
+
+    def test_screenbound_is_rejected_outside_fixed_locations(self) -> None:
+        files = {
+            "cns/observ.cns": [
+                "[statedef -2]",
+                "[state ]",
+                "type=screenbound",
+            ],
+            "cns/helper.cns": [
+                "[statedef 99000]",
+                "[state ]",
+                "type=screenbound",
+                "[statedef 500000]",
+                "[state ]",
+                "type=screenbound",
+            ],
+        }
+
+        with self.assertRaisesRegex(RuntimeError, r"StateDef 500000"):
+            formatter.verify_screenbound_locations_in_files(files)
+
+    def test_screenbound_is_required_at_both_fixed_locations(self) -> None:
+        files = {
+            "cns/observ.cns": [
+                "[statedef -2]",
+                "[state ]",
+                "type=screenbound",
+            ],
+            "cns/helper.cns": ["[statedef 99000]"],
+        }
+
+        with self.assertRaisesRegex(RuntimeError, r"検出数=0"):
+            formatter.verify_screenbound_locations_in_files(files)
+
+    def test_screenbound_is_rejected_when_fixed_location_has_duplicates(self) -> None:
+        files = {
+            "cns/observ.cns": [
+                "[statedef -2]",
+                "[state ]",
+                "type=screenbound",
+                "[state ]",
+                "type=screenbound",
+            ],
+            "cns/helper.cns": [
+                "[statedef 99000]",
+                "[state ]",
+                "type=screenbound",
+            ],
+        }
+
+        with self.assertRaisesRegex(RuntimeError, r"検出数=2"):
+            formatter.verify_screenbound_locations_in_files(files)
+
 
 if __name__ == "__main__":
     unittest.main()
