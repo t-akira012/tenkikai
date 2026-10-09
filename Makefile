@@ -1,4 +1,19 @@
-.PHONY: fmt fmt-check test-fmt makedocs makedocs-check run check hooks sprite-export sprite-build pal-commonizer pallet-maker commit
+ZIP_ROOT=tenkikai
+ZIP_OUTPUT=dist/tenkikai.zip
+ZIP_RUNTIME_FILES= \
+	tenkikai.def \
+	cns/command.cmd \
+	cns/constants.cns \
+	cns/state.cns \
+	cns/observ.cns \
+	cns/helper.cns \
+	cns/common1.cns \
+	cns/anim.air \
+	binary/sprite.sff \
+	binary/sound.snd \
+	binary/pal1.act
+
+.PHONY: fmt fmt-check test-fmt makedocs makedocs-check run check hooks sprite-export sprite-build pal-commonizer pallet-maker zip commit
 
 fmt:
 	uv run python -B scripts/formatter/formatter.py
@@ -51,6 +66,11 @@ pallet-maker:
 	uv run python -B scripts/pallet-maker/pallet_maker.py \
 		--input assets/sprites/ \
 		--output binary/pal1.act
+
+zip:
+	mkdir -p dist
+	rm -f "$(ZIP_OUTPUT)"
+	cd .. && zip -9 "$(ZIP_ROOT)/$(ZIP_OUTPUT)" $(addprefix $(ZIP_ROOT)/,$(ZIP_RUNTIME_FILES))
 
 commit: # sync to git
 	git pull origin main
