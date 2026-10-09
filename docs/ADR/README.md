@@ -30,3 +30,4 @@
 - [ADR 028: the_controllerの同一寿命値をビットフィールドへ集約する](028-controller-variable-bit-packing.md)
 - [ADR 029: the_controllerによる本体自由傾斜管理](029-body-free-tilt-request.md)
 - [ADR 030: the_controllerによるRoot画面外移動許可](030-controller-managed-root-screenbound.md)
+- [ADR 031: 本体アニメーション変更・時間付き処理予約](031-root-animation-timed-processing-request.md)

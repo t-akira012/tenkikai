@@ -497,7 +497,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=1
-var(1)=40
+var(1)=7
 ignorehitpause=1
 
 [state ]
@@ -521,7 +521,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=1
-fvar(18)=0.0095
+fvar(18)=0.38/7.0
 ignorehitpause=1
 
 [state ]
@@ -571,9 +571,19 @@ var(7)=-1
 ignorehitpause=1
 
 [state ]
+type=varset
+triggerall=(var(9)&8126464)>0
+trigger1=(var(9)&261632)=0
+trigger2=(var(9)&511)>=(var(9)&261632)/512-1
+var(9)=var(9)&-8388608
+ignorehitpause=1
+
+[state ]
 type=varadd
-trigger1=var(9)>0
-var(9)=-1
+triggerall=(var(9)&8126464)>0
+triggerall=(var(9)&261632)>0
+trigger1=(var(9)&511)<(var(9)&261632)/512-1
+var(9)=1
 ignorehitpause=1
 
 [state ]
@@ -668,9 +678,14 @@ ignorehitpause=1
 type=varset
 trigger1=root,stateno=302
 trigger1=root,time=1
-trigger2=root,stateno=1202
-trigger2=root,time=1
-var(9)=16
+var(9)=(var(9)&-8388608)+(16*512)+(1*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1202
+trigger1=root,time=1
+var(9)=(var(9)&-8388608)+(5*512)+(2*262144)
 ignorehitpause=1
 
 [state ]
@@ -748,7 +763,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=var(9)>0
+trigger1=(var(9)&8126464)>0
 var(2)=var(2)|16
 ignorehitpause=1
 
@@ -862,31 +877,77 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(var(2)&16)!=0
-fvar(3)=0.2+0.8*(16-var(9))/15.0
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=262144
+trigger1=(var(9)&261632)>0
+fvar(3)=0.2+0.8*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(var(2)&16)!=0
-fvar(4)=3.0-2.0*(16-var(9))/15.0
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=262144
+trigger1=(var(9)&261632)>0
+fvar(4)=3.0-2.0*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(var(2)&16)!=0
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=262144
 fvar(5)=fvar(3)
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(var(2)&16)!=0
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=262144
 fvar(6)=fvar(4)
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(var(2)&16)!=0
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=262144
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+;; 突進再出現後の全身縦長復元
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=524288
+trigger1=(var(9)&261632)>0
+fvar(3)=0.2+0.8*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=524288
+trigger1=(var(9)&261632)>0
+fvar(4)=3.0-2.0*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=524288
+fvar(5)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=524288
+fvar(6)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=524288
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
