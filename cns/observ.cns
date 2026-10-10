@@ -10,6 +10,16 @@ trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1
 
+;; Root試合終了直後Ctrl有効化
+
+[state ]
+type=ctrlset
+trigger1=!ishelper
+trigger1=roundstate=3
+trigger1=stateno!=303
+value=1
+ignorehitpause=1
+
 ;; 常駐Helper自動最大ライフ
 
 [state ]
@@ -149,6 +159,18 @@ supermovetime=99990000000
 ignorehitpause=1
 
 [statedef -3]
+
+;; 試合終了時の接地復帰
+
+[state ]
+type=changestate
+trigger1=!ishelper
+trigger1=roundstate=[3,4]
+trigger1=pos y<0
+trigger1=stateno<200
+value=303
+ctrl=0
+ignorehitpause=1
 
 ;; 浮遊移動と状態変更
 

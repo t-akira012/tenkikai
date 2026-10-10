@@ -962,6 +962,88 @@ ctrl=1
 
 ;-------------------------------------------------
 
+[statedef 303]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=!time
+var(8)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(9)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(13)=0
+
+[state ]
+type=varset
+trigger1=!time
+var(14)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(1)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(3)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(4)=0
+
+[state ]
+type=varset
+trigger1=!time
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+var(11)=var(0)+2
+
+[state ]
+type=varset
+trigger1=1
+var(12)=var(0)+2
+
+[state ]
+type=posset
+trigger1=1
+y=0
+
+[state ]
+type=velset
+trigger1=1
+x=0
+y=0
+
+[state ]
+type=changestate
+trigger1=time>=4
+value=0
+ctrl=1
+
+;-------------------------------------------------
+
 [statedef 180]
 type=s
 

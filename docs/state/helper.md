@@ -2,7 +2,7 @@
 
 ## 共通ルーター
 
-StateDef `99000`はHelper IDを専用処理へ振り分ける。
+StateDef `99000`は常駐HelperのCtrlを毎tick無効化し、Helper IDを専用処理へ振り分ける。
 
 | Helper | 処理StateDef | 最終StateDef | 詳細 |
 | --- | --- | --- | --- |

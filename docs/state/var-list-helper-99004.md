@@ -65,7 +65,7 @@
 | 18〜22 | 処理type、0〜31 |
 | 23〜31 | 未使用 |
 
-処理type `0`は予約なし、`1`は異形回避再出現後の16tick復帰、`2`は画面横断突進再出現後の5tick復帰とする。共通時間処理は経過tickだけを更新し、type別の完成値計算は独立したControllerで行う。本予約は最大約5秒とするRoot本体アニメーション変更に伴う処理だけに使用し、長時間化し得るHelperや背景などへ使用しない。詳細は[ADR 031](../ADR/031-root-animation-timed-processing-request.md)に従う。
+処理type `0`は予約なし、`1`は異形回避再出現後の16tick復帰、`2`は画面横断突進再出現後の5tick復帰、`3`はラウンド終了時接地後の4tick復帰とする。共通時間処理は経過tickだけを更新し、type別の完成値計算は独立したControllerで行う。本予約は最大約5秒とするRoot本体アニメーション変更に伴う処理だけに使用し、長時間化し得るHelperや背景などへ使用しない。詳細は[ADR 031](../ADR/031-root-animation-timed-processing-request.md)に従う。
 
 ### `var(7)` bit割当
 

@@ -1,6 +1,12 @@
 [statedef 99000]
 
 [state ]
+type=ctrlset
+trigger1=1
+value=0
+ignorehitpause=1
+
+[state ]
 type=screenbound
 trigger1=1
 value=0
@@ -166,13 +172,13 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,302])||(root,stateno=[1200,1204])
+trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,303])||(root,stateno=[1200,1204])
 var(11)=var(11)|16777216
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])||(root,stateno=[300,302])
+trigger1=(root,stateno=[100,102])||(root,stateno=[105,107])||(root,stateno=[300,303])
 var(11)=var(11)|33554432
 ignorehitpause=1
 
@@ -690,6 +696,13 @@ ignorehitpause=1
 
 [state ]
 type=varset
+trigger1=root,stateno=303
+trigger1=root,time=1
+var(9)=(var(9)&-8388608)+(4*512)+(3*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
 trigger1=root,stateno=100
 trigger1=root,time=1
 trigger1=abs(root,animtime)>0
@@ -948,6 +961,45 @@ ignorehitpause=1
 type=varset
 triggerall=(var(2)&16)!=0
 trigger1=(var(9)&8126464)=524288
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+;; 試合終了時接地後の全身縦長復元
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=786432
+trigger1=(var(9)&261632)>0
+fvar(3)=0.2+0.8*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=786432
+trigger1=(var(9)&261632)>0
+fvar(4)=3.0-2.0*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=786432
+fvar(5)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=786432
+fvar(6)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=786432
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 

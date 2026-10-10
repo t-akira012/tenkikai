@@ -32,5 +32,6 @@
 | `300` | Action `300`でHead系を回転し、Body系を要素5以降に余弦曲線で5%まで縮小する。水平要求は前`6`・後`-4`・左右未入力`-2`を4tickで目標速度へ移行する。垂直軸は排他処理で入力由来の慣性と6次曲線の上昇速度を合成し、六ボタンの再入力を`var(6)`へ保存する |
 | `301` | 8tick非表示にして選択位置へ移動する。列の`ScreenPos X`は`53`、`160`、`267`、段の`Pos Y`は`-60`、`-90`。未選択時は相手の50px背後へ移り、画面外では反対端の`20`または`300`へ回り込む |
 | `302` | Action `0`と残像を再開し、Controllerが観測する`root,time=1`で全身の16tick縦長復元を開始して、2frame後に操作可能なStateDef `0`へ戻る。変形はStateDef `302`終了後もControllerの持続カウンターで継続する |
+| `303` | ラウンド終了時の接地復帰。移動要求を解除し、4tickの間、位置を`Y=0`、速度を`0,0`へ固定する。Controllerへ4tickの全身縦長復元を予約し、終了後は操作可能なStateDef `0`へ戻る |
 
-StateDef `300`〜`302`ではPlayerPushとHelper Armorの攻撃受付を無効化する。変換と位置補正の詳細は[異形回避設計](../design/006-alien-rotation-evasion.md)を参照する。
+StateDef `300`〜`303`ではPlayerPushとHelper Armorの攻撃受付を無効化する。StateDef `300`〜`302`の変換と位置補正の詳細は[異形回避設計](../design/006-alien-rotation-evasion.md)を参照する。
