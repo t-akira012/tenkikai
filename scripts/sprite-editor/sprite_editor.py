@@ -29,6 +29,7 @@ def read_sff(path):
         visited.add(offset)
         next_offset, length = struct.unpack_from("<II", data, offset)
         x_axis, y_axis, group, index = struct.unpack_from("<hhHH", data, offset + 8)
+        linked_index = struct.unpack_from("<H", data, offset + 16)[0]
         palette_shared = struct.unpack_from("<H", data, offset + 18)[0] != 0
         start = offset + SUBHEADER_SIZE
         end = start + length
@@ -41,6 +42,7 @@ def read_sff(path):
             "y": y_axis,
             "group": group,
             "index": index,
+            "linked_index": linked_index,
             "palette_shared": palette_shared,
             "pcx": data[start:end],
         })
@@ -48,6 +50,19 @@ def read_sff(path):
             break
         offset = next_offset
     return data[:HEADER_SIZE], records
+
+
+def resolve_pcx(records, number):
+    visited = set()
+    while not records[number]["pcx"]:
+        if number in visited:
+            raise ValueError("SFF linked sprite chain contains a cycle")
+        visited.add(number)
+        linked_index = records[number]["linked_index"]
+        if linked_index >= len(records):
+            raise ValueError("SFF linked sprite index is invalid")
+        number = linked_index
+    return records[number]["pcx"]
 
 
 def read_pcx_palette(data):
@@ -92,15 +107,16 @@ def export_sff(sff_path, json_path, image_dir):
     previous_palette = None
     for number, record in enumerate(records):
         filename = "{:04d}_{:04d}.png".format(record["group"], record["index"])
+        pcx = resolve_pcx(records, number)
         if record["palette_shared"]:
             if previous_palette is None:
                 palette = fallback_palette
             else:
                 palette = previous_palette
         else:
-            palette = read_pcx_palette(record["pcx"])
+            palette = read_pcx_palette(pcx)
             previous_palette = palette
-        write_png(record, image_dir / filename, palette)
+        write_png({"pcx": pcx}, image_dir / filename, palette)
         sprites.append({
             "group": record["group"],
             "index": record["index"],
@@ -145,10 +161,12 @@ def read_png_palette(path):
 
 
 def encode_pcx(path, palette):
-    image = Image.open(path).convert("RGBA")
+    source = Image.open(path)
+    has_alpha = "A" in source.getbands()
+    image = source.convert("RGBA")
     top_left = image.getpixel((0, 0))
     transparent = top_left[:3]
-    use_transparent_rgb = top_left[3] != 0
+    use_transparent_rgb = not has_alpha
     pixels = image.load()
     indexes = []
     cache = {}
@@ -185,6 +203,7 @@ def import_sff(json_path, image_root, output):
         raise ValueError("sprites must be a list")
     output_data = bytearray(header)
     shared_palette = read_act(DEFAULT_PALETTE)
+    shared_palette_written = False
     offsets = []
     for sprite in sprites:
         image_path = image_root / Path(sprite["image"])
@@ -192,8 +211,11 @@ def import_sff(json_path, image_root, output):
             image_path = image_root.parent / Path(sprite["image"])
         if not image_path.is_file():
             raise FileNotFoundError(str(image_path))
-        shared_group = int(sprite["group"]) < 10000
-        shared = shared_group and len(offsets) > 0
+        group = int(sprite["group"])
+        shared_group = group < 10000 and group != 9000
+        shared = shared_group and shared_palette_written
+        if shared_group:
+            shared_palette_written = True
         image_palette = read_png_palette(image_path)
         if shared_group:
             palette = shared_palette
