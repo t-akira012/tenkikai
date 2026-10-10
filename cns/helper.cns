@@ -262,16 +262,48 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=gethitvar(damage)>0
-trigger1=((var(11)/65536)&255)=0
+triggerall=gethitvar(damage)>0
+triggerall=((var(11)/65536)&255)=0
+triggerall=((var(12)/1048576)&4095)>0
+trigger1=gethitvar(damage)>=ifelse(((var(12)/1048576)&4095)>32,32,((var(12)/1048576)&4095))*100
 var(11)=var(11)|ifelse(gethitvar(damage)>65535,65535,gethitvar(damage))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=gethitvar(damage)>0
+triggerall=((var(11)/65536)&255)=0
+triggerall=((var(12)/128)&31)>0
+trigger1=((var(12)/1048576)&4095)=0
+trigger2=gethitvar(damage)<ifelse(((var(12)/1048576)&4095)>32,32,((var(12)/1048576)&4095))*100
+fvar(20)=(root,life)*1.0/(root,lifemax)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=gethitvar(damage)>0
+triggerall=((var(11)/65536)&255)=0
+triggerall=((var(12)/128)&31)>0
+trigger1=((var(12)/1048576)&4095)=0
+trigger2=gethitvar(damage)<ifelse(((var(12)/1048576)&4095)>32,32,((var(12)/1048576)&4095))*100
+fvar(21)=ifelse(gethitvar(damage)>65535,65535,gethitvar(damage))*ifelse(((var(12)/128)&31)>25,25,((var(12)/128)&31))/25.0*fvar(20)*(2.0-fvar(20))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=gethitvar(damage)>0
+triggerall=((var(11)/65536)&255)=0
+triggerall=((var(12)/128)&31)>0
+trigger1=((var(12)/1048576)&4095)=0
+trigger2=gethitvar(damage)<ifelse(((var(12)/1048576)&4095)>32,32,((var(12)/1048576)&4095))*100
+var(11)=var(11)|ifelse(floor(fvar(21))>0,floor(fvar(21)),1)
 ignorehitpause=1
 
 [state ]
 type=varset
 trigger1=gethitvar(damage)>0
 trigger1=((var(11)/65536)&255)=0
-var(11)=var(11)+ifelse(gethitvar(damage)>255,255,gethitvar(damage))*65536
+var(11)=var(11)+((var(12)/4096)&127)*65536
 ignorehitpause=1
 
 [state ]

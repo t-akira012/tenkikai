@@ -24,4 +24,4 @@ Head系表示、Head Aura非同期、Body系AngleDraw適用を`var(22)`へ集約
 
 ## 結果
 
-前後ダッシュ専用の後方リースに使用していた`var(8)`は未使用へ戻した後、[ADR 030](030-controller-managed-root-screenbound.md)でRoot画面外移動許可booleanへ再割当した。`var(12)`〜`var(14)`、`var(17)`〜`var(20)`が未使用である。各ビットフィールドの割当、初期化時期、保持期間、部分更新契約は変数一覧を正本とする。
+前後ダッシュ専用の後方リースに使用していた`var(8)`は未使用へ戻した後、[ADR 030](030-controller-managed-root-screenbound.md)でRoot画面外移動許可booleanへ再割当した。`var(12)`は[ADR 033](033-helper-armor-config-and-damage-attenuation.md)でHelper Armor configへ再割当した。`var(13)`、`var(14)`、`var(17)`〜`var(20)`が未使用である。各ビットフィールドの割当、初期化時期、保持期間、部分更新契約は変数一覧を正本とする。

@@ -1,5 +1,8 @@
 [statedef -2]
 
+;; ----------------------------------------------------------------------------
+;; 各種コンフィグ
+;; ----------------------------------------------------------------------------
 ;; 自動運用フラグ 利用したい場合は trigger1=1 に指定
 
 [state ]
@@ -9,6 +12,51 @@ trigger1=0
 trigger2=palno=[6,12]
 var(2)=var(2)|-2147483648
 ignorehitpause=1
+
+;; ----------------------------------------------------------------------------
+;;  防御・ライフ性能
+;; ----------------------------------------------------------------------------
+;; Helper Armor config
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+var(12)=0
+ignorehitpause=1
+
+;; 自動回復量（最大127）
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+var(12)=var(12)|(1*0)
+ignorehitpause=1
+
+;; ダメージ減衰率（最大25、1段階4%）
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+var(12)=var(12)|(128*4)
+ignorehitpause=1
+
+;; 無敵時間（最大127tick）
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+var(12)=var(12)|(4096*30)
+ignorehitpause=1
+
+;; 極大Damage閾値（最大32、1段階100Damage）
+
+[state ]
+type=varset
+trigger1=ishelper(99004)
+var(12)=var(12)|(1048576*30)
+ignorehitpause=1
+
+;; ----------------------------------------------------------------------------
 
 ;; Root試合終了直後Ctrl有効化
 
@@ -32,7 +80,7 @@ ignorehitpause=1
 type=lifeadd
 trigger1=!ishelper
 trigger1=((helper(99004),var(11))&65535)>0
-value=-ifelse(life<=lifemax/4,ifelse(((helper(99004),var(11))&65535)>1,((helper(99004),var(11))&65535)/2,1),((helper(99004),var(11))&65535))
+value=-((helper(99004),var(11))&65535)
 kill=1
 absolute=1
 ignorehitpause=1
@@ -43,7 +91,8 @@ trigger1=!ishelper
 trigger1=alive
 trigger1=life<lifemax
 trigger1=((helper(99004),var(11))&65535)=0
-value=1
+trigger1=((helper(99004),var(12))&127)>0
+value=(helper(99004),var(12))&127
 kill=0
 absolute=1
 ignorehitpause=1

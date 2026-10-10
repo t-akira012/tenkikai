@@ -32,3 +32,4 @@
 - [ADR 030: the_controllerによるRoot画面外移動許可](030-controller-managed-root-screenbound.md)
 - [ADR 031: 本体アニメーション変更・時間付き処理予約](031-root-animation-timed-processing-request.md)
 - [ADR 032: ラウンド終了後のCtrl制御と接地復帰](032-disable-control-after-round-over.md)
+- [ADR 033: Helper Armor configと連続ダメージ減衰](033-helper-armor-config-and-damage-attenuation.md)

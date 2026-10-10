@@ -7,8 +7,9 @@
 | 機能 | 動作 |
 | --- | --- |
 | 自動運用 | `var(2)`のbit 31を管理する。常時有効化は無効で、パレット`6`〜`12`で有効 |
+| Helper Armor config | AI設定欄でHelper ID `99004`だけを対象に`var(12)`を初期化し、自動回復量、ダメージ減衰率、被弾後無敵時間、極大Damage閾値を項目別ControllerからビットORする |
 | Root試合終了直後Ctrl有効化 | `RoundState=3`かつStateDef `303`以外では、RootのCtrlを毎tick有効化する |
-| ライフ | Controllerの保留ダメージを反映する。ライフ1/4以下では半減、最低1。保留なし・生存中は毎tick 1回復 |
+| ライフ | Controllerが倍率・Life二次曲線・極大Damage判定から解決した保留ダメージをそのまま反映する。保留ダメージなし・生存中・最大Life未満で、Controllerの自動回復量configが正の場合だけ設定量を回復する。現在の回復量は`0` |
 | ScreenBound同期 | ControllerのRoot画面外移動許可booleanが有効な間だけ本体の`ScreenBound`を無効化し、カメラを追従させない。無効時は通常の画面内拘束とカメラ移動を許可する |
 | 時間・デバッグ | `private-gametime`などの変数とデバッグ表示を更新する |
 | Body変換 | 通常AngleDrawとOffsetを初期化し、Controllerの適用フラグが有効な場合だけ完成値を使う |
