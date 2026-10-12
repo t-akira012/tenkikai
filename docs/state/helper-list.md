@@ -15,25 +15,28 @@
 
 | ID | 名前 | 初期StateDef | 主な機能 |
 | --- | --- | --- | --- |
-| `500000` | `elliptical_shockwave_left` | `500000` | 楕円衝撃波の左円弧。StateDef `500900`で運動・変形・残像・寿命を管理 |
-| `500001` | `elliptical_shockwave_right` | `500001` | 楕円衝撃波の右円弧。StateDef `500901`で運動・変形・残像・寿命を管理 |
-| `500010` | `dash_elliptical_shockwave_left` | `500010` | ダッシュ波紋の左円弧。増強した残像を設定してStateDef `500900`へ遷移 |
-| `500011` | `dash_elliptical_shockwave_right` | `500011` | ダッシュ波紋の右円弧。増強した残像を設定してStateDef `500901`へ遷移 |
-| `500020` | `ground_floating_ripple_left` | `500020` | 足元波紋の左円弧。横長倍率と静止速度を設定してStateDef `500900`へ遷移 |
-| `500021` | `ground_floating_ripple_right` | `500021` | 足元波紋の右円弧。横長倍率と静止速度を設定してStateDef `500901`へ遷移 |
-| `500030` | `gravity_sphere_planetary_ring_left` | `500030` | 重力球惑星リングの背面円弧。暗色・収縮・角度揺動を設定してStateDef `500902`へ遷移 |
-| `500031` | `gravity_sphere_planetary_ring_right` | `500031` | 重力球惑星リングの前面円弧。暗色・収縮・角度揺動を設定してStateDef `500902`へ遷移 |
-| `500040` | `rush_elliptical_shockwave_left` | `500040` | 突進波紋の左円弧。ダッシュ波紋の1.8倍の終了倍率を設定してStateDef `500900`へ遷移 |
-| `500041` | `rush_elliptical_shockwave_right` | `500041` | 突進波紋の右円弧。ダッシュ波紋の1.8倍の終了倍率を設定してStateDef `500901`へ遷移 |
-| `501000` | `gravity_sphere` | `501000` | 全設定値を保存し、StateDef `501900`で出現・三層内部流動・浮遊・寿命を共通実行する |
-| `502000` | `fibonacci_light` | `502000` | 黄金角係数を保存し、StateDef `502900`で全画面へ光粒子を展開する |
-| `502010` | `gravity_sphere_fibonacci_light` | `502010` | 黄金角係数と局所倍率を保存し、StateDef `502900`で重力球内部へ光粒子を展開する |
-| `503000` | `center_shockwave` | `503000` | 表示倍率を保存し、StateDef `503900`で中心から円形衝撃波を広げる |
-| `504000` | `blue_background_darkening` | `504000` | 青暗転値を保存し、StateDef `504900`の背景色変更共通モデルへ遷移する |
-| `504010` | `rush_background_darkening` | `504010` | 突進用黒暗転値を保存し、StateDef `504900`の背景色変更共通モデルへ遷移する |
+| `500000` | `elliptical_shockwave_left` | `500000` | 楕円衝撃波の左円弧。StateDef `500990`から共通基盤へ接続する |
+| `500001` | `elliptical_shockwave_right` | `500001` | 楕円衝撃波の右円弧。StateDef `500990`から共通基盤へ接続する |
+| `500010` | `dash_elliptical_shockwave_left` | `500010` | ダッシュ波紋の左円弧。増強した残像を設定して共通基盤へ接続する |
+| `500011` | `dash_elliptical_shockwave_right` | `500011` | ダッシュ波紋の右円弧。増強した残像を設定して共通基盤へ接続する |
+| `500020` | `ground_floating_ripple_left` | `500020` | 足元波紋の左円弧。横長倍率と静止速度を設定して共通基盤へ接続する |
+| `500021` | `ground_floating_ripple_right` | `500021` | 足元波紋の右円弧。横長倍率と静止速度を設定して共通基盤へ接続する |
+| `500030` | `gravity_sphere_planetary_ring_left` | `500030` | 重力球惑星リングの背面円弧。暗色・収縮・角度揺動を設定して共通基盤へ接続する |
+| `500031` | `gravity_sphere_planetary_ring_right` | `500031` | 重力球惑星リングの前面円弧。暗色・収縮・角度揺動を設定して共通基盤へ接続する |
+| `500040` | `rush_elliptical_shockwave_left` | `500040` | 突進波紋の左円弧。突進専用の倍率と残像を設定して共通基盤へ接続する |
+| `500041` | `rush_elliptical_shockwave_right` | `500041` | 突進波紋の右円弧。突進専用の倍率と残像を設定して共通基盤へ接続する |
+| `501000` | `gravity_sphere` | `501000` | 全設定値を保存し、StateDef `501990`から共通基盤へ接続する |
+| `502000` | `fibonacci_light` | `502000` | 黄金角係数を保存し、StateDef `502990`から共通基盤へ接続する |
+| `502010` | `gravity_sphere_fibonacci_light` | `502010` | 黄金角係数と局所倍率を保存し、StateDef `502990`から共通基盤へ接続する |
+| `503000` | `center_shockwave` | `503000` | 表示倍率を保存し、StateDef `503990`から共通基盤へ接続する |
+| `504000` | `blue_background_darkening` | `504000` | 青暗転値を保存し、StateDef `504990`から共通基盤へ接続する |
+| `504010` | `rush_background_darkening` | `504010` | 突進用黒暗転値を保存し、StateDef `504990`から共通基盤へ接続する |
+| `505000` | `rush_horizontal_linear_shockwave` | `505000` | 横線形衝撃波値を保存し、StateDef `505990`から共通基盤へ接続する |
 
 楕円衝撃波の詳細は[楕円衝撃波Helper](helper-500000-elliptical-shockwave.md)を参照する。
 重力球の詳細は[重力球Helper](helper-501000-gravity-sphere.md)を参照する。
 フィボナッチ・ライトの詳細は[フィボナッチ・ライトHelper](helper-502000-fibonacci-light.md)を参照する。
 中心衝撃波の詳細は[中心衝撃波Helper](helper-503000-center-shockwave.md)を参照する。
 背景色変更の詳細は[背景色変更Helper](helper-504000-background-color.md)を参照する。
+横線形衝撃波の詳細は[横線形衝撃波Helper](helper-505000-horizontal-linear-shockwave.md)を参照する。
+非常駐Helperの共通遷移は[非常駐Helper共通実行基盤](helper-599000-transient-helper-router.md)を参照する。

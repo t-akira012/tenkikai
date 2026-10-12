@@ -33,3 +33,5 @@
 - [ADR 031: 本体アニメーション変更・時間付き処理予約](031-root-animation-timed-processing-request.md)
 - [ADR 032: ラウンド終了後のCtrl制御と接地復帰](032-disable-control-after-round-over.md)
 - [ADR 033: Helper Armor configと連続ダメージ減衰](033-helper-armor-config-and-damage-attenuation.md)
+- [ADR 034: 非常駐Helperの責務ビットルーティング](034-transient-helper-responsibility-routing.md)
+- [ADR 035: CNSを文書同期の正本とする](035-cns-documentation-source-of-truth.md)

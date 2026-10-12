@@ -41,11 +41,12 @@
 - 青背景暗転Helper ID・用途別出現StateDef：`504000`
 - 突進用黒背景暗転Helper ID・用途別出現StateDef：`504010`
 - 将来の用途別出現StateDef：`504020`から10刻み
+- 共通基盤接続StateDef：`504990`
 - 背景色変更共通実行StateDef：`504900`
 - 共通時間区間：暗転開始からピーク、ピーク維持、背景復帰
 - 値の保持：各用途別出現StateDefがHelper自身の変数へ全個別数値を保存
 
-各用途別出現StateDefは、初期化と同じtickに共通実行StateDef `504900`へ遷移する。
+各用途別出現StateDefは、初期化と同じtickに共通基盤接続StateDef `504990`へ遷移し、責務マスク`16`でStateDef `599000`から共通実行StateDef `504900`を通る。
 
 ### 青背景暗転
 

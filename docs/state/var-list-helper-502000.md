@@ -1,6 +1,6 @@
 # フィボナッチ・ライトHelper変数
 
-StateDef `502000`・`502010`が用途別の全設定値を保存し、StateDef `502900`が同じ変数契約で共通実行する。
+StateDef `502000`・`502010`が用途別の全設定値を保存し、StateDef `502990`から共通基盤へ接続してStateDef `502900`が同じ変数契約で実行する。経過tick、責務bitmapおよび終了状態は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
 
 ## 通常変数
 
@@ -12,7 +12,6 @@ StateDef `502000`・`502010`が用途別の全設定値を保存し、StateDef `
 | `var(3)` | 粒子寿命 |
 | `var(4)` | Helper寿命 |
 | `var(5)` | 同一tick生成カウンター |
-| `var(6)` | Helper経過tick |
 | `var(7)`、`var(8)` | 粒子ActionとExplod ID |
 | `var(9)` | 描画優先順位 |
 | `var(10)` | Bind時間 |

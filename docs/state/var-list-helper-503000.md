@@ -1,6 +1,6 @@
 # 中心衝撃波Helper変数
 
-StateDef `503000`が全設定値を保存し、StateDef `503900`が同じ変数契約で共通実行する。
+StateDef `503000`が全設定値を保存し、StateDef `503990`から共通基盤へ接続してStateDef `503900`が同じ変数契約で実行する。責務bitmap、終了状態およびアニメーション終了型の指定は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
 
 ## 通常変数
 

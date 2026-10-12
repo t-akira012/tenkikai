@@ -50,6 +50,12 @@ Helperの役割は固定しない。Helperは、変数管理、時間・状態�
 
 `99000`番台は常駐Helper用とし、非常駐Helperへ割り当てない。汎用非常駐Helperは`500000`以降を使用する。個別機能が使用する具体的な予約範囲、Helper ID、StateDefおよび動作契約は、その機能の設計文書で管理する。
 
+## 非常駐Helperの共通ルーティング
+
+汎用非常駐Helperは、用途別初期化後にStateDef `599000`〜`599999`の共通実行基盤を毎tick通る。`sysvar(0)`の責務bitmapに従い、楕円衝撃波、重力球、フィボナッチ・ライト、中心衝撃波、背景色変更、横線形衝撃波の順で有効な責務だけを実行する。
+
+各責務StateDefは、処理後に専用起点へ戻らず、次の共通責務ルーターへ遷移する。最後の責務から共通寿命判定と終端へ進み、終端だけが`time>=1`で次tickのStateDef `599000`へ戻る。経過時間は`sysvar(2)`へ保持し、個別StateDefの`time`へ依存しない。共通`sysvar`契約とStateDef割り当ては[非常駐Helper共通実行基盤](design/014-transient-helper-runtime.md)に従う。
+
 ## 常駐Helperの時間Trigger
 
 常駐Helperは`StateDef -2`の共通ルーティングを毎フレーム通るため、Helper自身の`time`を時間基準として使用してはならない。ルーティング後のStateDefではHelperの`time=0`が安定した発動条件にならず、個別処理や最終処理の起点として機能しない。

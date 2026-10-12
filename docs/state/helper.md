@@ -13,6 +13,14 @@ StateDef `99000`は常駐HelperのCtrlを毎tick無効化し、Helper IDを専�
 
 各最終StateDefは`SelfState value=5150`を実行する。
 
+## 非常駐Helper共通ルーター
+
+StateDef `599000`〜`599999`は有限寿命の非常駐Helperが毎tick共有する。責務bitmapに応じて楕円衝撃波、重力球、フィボナッチ・ライト、中心衝撃波、背景色変更、横線形衝撃波を固定順に処理し、共通寿命判定と終端を通る。
+
+| 起点 | 責務ルーター | 寿命判定 | 終端 | 詳細 |
+| --- | --- | --- | --- | --- |
+| `599000` | `599010`〜`599060` | `599900` | `599999` | [非常駐Helper共通実行基盤](helper-599000-transient-helper-router.md) |
+
 ## the_controller内部StateDef
 
 | StateDef | 機能 |
