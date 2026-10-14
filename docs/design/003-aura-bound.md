@@ -69,12 +69,12 @@ the_controller
 
 ## 現在の設定値
 
-### StateDef 1100
+### StateDef 1000・1100
 
-- 発動監視：RootのStateDef `1100`、`root,time=1`
+- 発動監視：RootのStateDef `1000`または`1100`、`root,time=1`
 - 個別定義StateDef：`99004014`
-- 拡大時間：40tick
+- 拡大時間：7tick
 - 最大拡大量：`0.38`
-- 毎tick拡大量：`0.0095`
+- 毎tick拡大量：`0.38 / 7`
 - 最大値到達後の毎tick消費量：`0.075`
 - 最大値到達後の縮小時間：約6tick

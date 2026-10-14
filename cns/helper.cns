@@ -75,27 +75,6 @@ trigger2=var(15)!=root,anim
 var(15)=root,anim
 ignorehitpause=1
 
-;; 暗転保持値更新・発動監視
-
-[state ]
-type=varadd
-trigger1=(var(21)&65535)>0
-var(21)=-1
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=(var(21)&65535)=0
-var(21)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=1000
-trigger1=root,time=10
-var(21)=60
-ignorehitpause=1
-
 ;; Head基準AngleDraw・Body AngleDraw共有値
 
 [state ]
@@ -328,7 +307,7 @@ anim=99004
 
 [state ]
 type=changestate
-trigger1=root,stateno=1100
+trigger1=(root,stateno=1000)||(root,stateno=1100)
 trigger1=root,time=1
 trigger1=(var(0)&1)=0
 value=99004014
@@ -1334,80 +1313,6 @@ ignorehitpause=1
 type=varset
 trigger1=(var(22)&32)!=0
 fvar(11)=fvar(10)
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004003
-ignorehitpause=1
-
-[statedef 99004003]
-type=s
-movetype=i
-physics=n
-anim=99004
-
-;; 暗転個別挙動ルーティング
-
-[state ]
-type=changestate
-trigger1=(var(21)&65535)>0
-trigger1=((var(21)/65536)&31)=0
-value=99004100
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004999
-ignorehitpause=1
-
-;; 暗転番号0 全画面黒
-
-[statedef 99004100]
-type=s
-movetype=i
-physics=n
-anim=99004
-
-[state ]
-type=varset
-trigger1=1
-var(25)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(26)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(27)=0
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004190
-ignorehitpause=1
-
-;; 暗転共通実行
-
-[statedef 99004190]
-type=s
-movetype=i
-physics=n
-anim=99004
-
-[state ]
-type=allpalfx
-trigger1=(var(21)&65535)>0
-time=1
-mul=var(25),var(26),var(27)
 ignorehitpause=1
 
 [state ]
@@ -3885,6 +3790,168 @@ type=selfstate
 trigger1=1
 value=502990
 
+[statedef 502020]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=0
+
+[state ]
+type=varset
+trigger1=1
+var(1)=-3
+
+[state ]
+type=varset
+trigger1=1
+var(2)=1
+
+[state ]
+type=varset
+trigger1=1
+var(3)=9
+
+[state ]
+type=varset
+trigger1=1
+var(4)=(parent,sysvar(3))-(parent,sysvar(2))+1
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(7)=18553
+
+[state ]
+type=varset
+trigger1=1
+var(8)=502120
+
+[state ]
+type=varset
+trigger1=1
+var(9)=parent,var(14)
+
+[state ]
+type=varset
+trigger1=1
+var(10)=1
+
+[state ]
+type=varset
+trigger1=1
+var(11)=0
+
+[state ]
+type=varset
+trigger1=1
+var(12)=0
+
+[state ]
+type=varset
+trigger1=1
+var(13)=1
+
+[state ]
+type=varset
+trigger1=1
+var(14)=0
+
+[state ]
+type=varset
+trigger1=1
+var(15)=0
+
+[state ]
+type=varset
+trigger1=1
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+var(17)=0
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+
+[state ]
+type=varset
+trigger1=1
+var(19)=0
+
+[state ]
+type=varset
+trigger1=1
+var(20)=3
+
+[state ]
+type=varset
+trigger1=1
+var(21)=506000+(parent,var(10))
+
+[state ]
+type=varset
+trigger1=1
+var(22)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=137.509549
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.0035
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.045
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=0.00025
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=0.00005
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=0
+
+[state ]
+type=selfstate
+trigger1=1
+value=502990
+
 [statedef 502990]
 type=a
 movetype=I
@@ -3929,8 +3996,29 @@ ctrl=0
 velset=0,0
 
 [state ]
+type=varset
+trigger1=var(22)
+trigger1=!(root,numhelper(var(21)))
+sysvar(1)=sysvar(1)|2
+
+[state ]
+type=varset
+trigger1=var(22)
+trigger1=root,numhelper(var(21))
+trigger1=sin((parent,fvar(9))*pi/180.0)<0
+var(9)=parent,var(13)
+
+[state ]
+type=varset
+trigger1=var(22)
+trigger1=root,numhelper(var(21))
+trigger1=sin((parent,fvar(9))*pi/180.0)>=0
+var(9)=parent,var(14)
+
+[state ]
 type=bindtoparent
 trigger1=var(13)
+trigger1=(var(22)=0)||(root,numhelper(var(21)))
 time=1
 pos=0,0
 
@@ -3961,6 +4049,7 @@ fvar(3)=fvar(1)*sin(fvar(1))
 
 [state ]
 type=explod
+triggerall=(sysvar(1)&2)=0
 trigger1=!var(14)
 trigger1=!((var(5)+sysvar(2))%var(20))
 anim=var(7)
@@ -3981,6 +4070,7 @@ ownpal=var(12)
 
 [state ]
 type=explod
+triggerall=(sysvar(1)&2)=0
 trigger1=var(14)
 trigger1=!((var(5)+sysvar(2))%var(20))
 anim=var(7)
@@ -4849,6 +4939,1210 @@ flag=noshadow
 [state ]
 type=changestate
 trigger1=1
+value=599070
+
+;; 明光弾
+
+[statedef 506000]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=0
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506001]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506002]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=2
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506003]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=3
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506004]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=4
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506005]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(10)=5
+
+[state ]
+type=selfstate
+trigger1=1
+value=506100
+
+[statedef 506100]
+type=a
+movetype=A
+physics=N
+ctrl=0
+anim=506000
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=506000
+
+[state ]
+type=varset
+trigger1=1
+var(1)=0
+
+[state ]
+type=varset
+trigger1=1
+var(2)=12
+
+[state ]
+type=varset
+trigger1=1
+var(3)=20
+
+[state ]
+type=varset
+trigger1=1
+var(4)=192
+
+[state ]
+type=varset
+trigger1=1
+var(5)=256
+
+[state ]
+type=varset
+trigger1=1
+var(32)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(33)=8
+
+[state ]
+type=varset
+trigger1=1
+var(34)=2
+
+[state ]
+type=varset
+trigger1=1
+var(35)=2
+
+[state ]
+type=varset
+trigger1=1
+var(36)=128
+
+[state ]
+type=varset
+trigger1=1
+var(37)=0
+
+[state ]
+type=varset
+trigger1=1
+var(38)=0
+
+[state ]
+type=varset
+trigger1=1
+var(39)=0
+
+[state ]
+type=varset
+trigger1=1
+var(40)=0
+
+[state ]
+type=varset
+trigger1=1
+var(41)=96
+
+[state ]
+type=varset
+trigger1=1
+var(42)=128
+
+[state ]
+type=varset
+trigger1=1
+var(43)=192
+
+[state ]
+type=varset
+trigger1=1
+var(44)=0
+
+[state ]
+type=varset
+trigger1=1
+var(45)=0
+
+[state ]
+type=varset
+trigger1=1
+var(46)=0
+
+[state ]
+type=varset
+trigger1=1
+var(47)=502020
+
+[state ]
+type=varset
+trigger1=1
+var(48)=var(2)-1
+
+[state ]
+type=varset
+trigger1=1
+var(49)=0
+
+[state ]
+type=varset
+trigger1=1
+var(50)=120
+
+[state ]
+type=varset
+trigger1=1
+var(51)=180
+
+[state ]
+type=varset
+trigger1=1
+var(52)=60
+
+[state ]
+type=varset
+trigger1=1
+var(53)=90
+
+[state ]
+type=varset
+trigger1=1
+var(54)=30
+
+[state ]
+type=varset
+trigger1=1
+var(55)=300
+
+[state ]
+type=varset
+trigger1=1
+var(56)=600
+
+[state ]
+type=varset
+trigger1=1
+var(57)=80
+
+[state ]
+type=varset
+trigger1=1
+var(11)=12
+
+[state ]
+type=varset
+trigger1=1
+var(12)=120
+
+[state ]
+type=varset
+trigger1=1
+var(13)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(14)=1
+
+[state ]
+type=varset
+trigger1=1
+var(15)=0
+
+[state ]
+type=varset
+trigger1=1
+var(16)=-55
+
+[state ]
+type=varset
+trigger1=1
+var(17)=parent,sysvar(2)
+
+[state ]
+type=varset
+trigger1=1
+var(18)=parent,var(6)
+
+[state ]
+type=varset
+trigger1=1
+var(19)=0
+
+[state ]
+type=varset
+trigger1=1
+var(20)=20
+
+[state ]
+type=varset
+trigger1=1
+var(21)=3
+
+[state ]
+type=varset
+trigger1=1
+var(22)=3
+
+[state ]
+type=varset
+trigger1=1
+var(23)=4
+
+[state ]
+type=varset
+trigger1=1
+var(24)=4
+
+[state ]
+type=varset
+trigger1=1
+var(25)=8
+
+[state ]
+type=varset
+trigger1=1
+var(26)=10
+
+[state ]
+type=varset
+trigger1=1
+var(27)=10
+
+[state ]
+type=varset
+trigger1=1
+var(28)=12
+
+[state ]
+type=varset
+trigger1=1
+var(29)=0
+
+[state ]
+type=varset
+trigger1=1
+var(30)=20
+
+[state ]
+type=varset
+trigger1=1
+var(31)=506000+var(10)
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0.30
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=0.30
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.30
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.45
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=60
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=20
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=var(10)*60+360.0*var(17)/var(12)
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=fvar(8)
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=3
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=3
+
+[state ]
+type=varset
+trigger1=1
+fvar(13)=30
+
+[state ]
+type=varset
+trigger1=1
+fvar(14)=6
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=-4
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=-3
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=-2.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(19)=-3.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(20)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(21)=fvar(6)
+
+[state ]
+type=varset
+trigger1=1
+fvar(22)=fvar(7)
+
+[state ]
+type=varset
+trigger1=1
+fvar(23)=160
+
+[state ]
+type=varset
+trigger1=1
+fvar(24)=100
+
+[state ]
+type=varset
+trigger1=1
+fvar(25)=12
+
+[state ]
+type=varset
+trigger1=1
+fvar(26)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(27)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(28)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(29)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(30)=0
+
+[state ]
+type=changeanim
+trigger1=1
+value=var(0)
+
+[state ]
+type=selfstate
+trigger1=1
+value=506990
+
+[statedef 506990]
+type=a
+movetype=A
+physics=N
+ctrl=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(0)=448
+
+[state ]
+type=varset
+trigger1=1
+sysvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(3)=parent,var(2)-var(17)-1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(4)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=599000
+
+[statedef 506900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=changeanim
+trigger1=anim!=var(0)
+value=var(0)
+
+[state ]
+type=varset
+trigger1=sysvar(2)<var(2)
+fvar(2)=(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(2)
+trigger1=sysvar(2)<sysvar(3)-var(3)+1
+fvar(2)=1
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=sysvar(3)-var(3)+1
+fvar(2)=(1+cos(pi*(sysvar(2)-(sysvar(3)-var(3)+1))/(var(3)-1)))/2.0
+
+[state ]
+type=angledraw
+trigger1=1
+scale=fvar(0)*fvar(2),fvar(1)*fvar(2)
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=var(4),var(5)
+
+[state ]
+type=palfx
+trigger1=1
+time=1
+invertall=var(1)
+
+[state ]
+type=afterimage
+trigger1=!var(49)
+trigger1=sysvar(2)>=var(48)
+trigger1=sysvar(2)<sysvar(3)-var(3)+1
+time=var(32)
+length=var(33)
+palcolor=var(36)
+palinvertall=var(37)
+palbright=var(38),var(39),var(40)
+palcontrast=var(41),var(42),var(43)
+palpostbright=var(44),var(45),var(46)
+palmul=fvar(3),fvar(4),fvar(5)
+timegap=var(34)
+framegap=var(35)
+trans=add
+
+[state ]
+type=varset
+trigger1=!var(49)
+trigger1=sysvar(2)>=var(48)
+var(49)=1
+
+[state ]
+type=helper
+trigger1=sysvar(2)=var(48)
+name="bright_energy_projectile_fibonacci_light"
+id=var(47)
+stateno=var(47)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=changestate
+trigger1=1
+value=599080
+
+;; 三次元巡回移動
+
+[statedef 507900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=root,numhelper(509000)
+var(18)=parent,var(6)
+
+[state ]
+type=varset
+trigger1=(var(18)=1)||(var(18)=3)
+sysvar(3)=var(55)-var(17)-1
+
+[state ]
+type=varset
+trigger1=var(18)=2
+sysvar(3)=var(56)-var(17)-1
+
+[state ]
+type=varset
+trigger1=sysvar(2)<var(11)
+fvar(10)=(1-cos(pi*sysvar(2)/(var(11)-1)))/2.0
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(11)
+fvar(10)=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=fvar(11)
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(51)
+fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(51)-1)))/2.0
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(51)
+fvar(12)=fvar(11)+(fvar(13)-fvar(11))*fvar(30)
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=(sysvar(2)+var(17))>=var(50)+var(51)
+fvar(12)=fvar(13)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)
+fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(52)-1)))/2.0
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)
+fvar(12)=fvar(11)+(fvar(14)-fvar(11))*fvar(30)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
+fvar(12)=fvar(14)
+
+[state ]
+type=varset
+trigger1=1
+fvar(21)=fvar(6)
+
+[state ]
+type=varset
+trigger1=1
+fvar(22)=fvar(7)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)
+fvar(21)=fvar(6)+(fvar(23)-fvar(6))*fvar(30)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)
+fvar(22)=fvar(7)+(fvar(24)-fvar(7))*fvar(30)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)
+fvar(21)=fvar(23)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)
+fvar(22)=fvar(24)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
+fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-(var(50)+var(52)+var(53)))/(var(54)-1)))/2.0
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
+fvar(21)=fvar(23)+(fvar(6)-fvar(23))*fvar(30)
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
+trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
+fvar(22)=fvar(24)+(fvar(7)-fvar(24))*fvar(30)
+
+[state ]
+type=varset
+trigger1=1
+fvar(28)=fvar(21)*fvar(10)*cos(fvar(9)*pi/180.0)
+
+[state ]
+type=varset
+trigger1=1
+fvar(29)=fvar(22)*fvar(10)*sin(fvar(9)*pi/180.0)
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=!var(19)
+trigger1=(sysvar(2)+var(17))>=var(55)
+fvar(26)=(fvar(28)-fvar(15))+fvar(25)*cos(fvar(9)*pi/180.0)
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=!var(19)
+trigger1=(sysvar(2)+var(17))>=var(55)
+fvar(27)=(fvar(29)-fvar(20))+fvar(25)*sin(fvar(9)*pi/180.0)
+
+[state ]
+type=varset
+trigger1=var(18)=2
+trigger1=!var(19)
+trigger1=(sysvar(2)+var(17))>=var(55)
+var(19)=1
+
+[state ]
+type=posset
+trigger1=!var(19)
+x=root,pos x+var(15)+fvar(28)
+y=root,pos y+var(16)+fvar(29)
+
+[state ]
+type=posset
+trigger1=var(19)
+x=pos x+fvar(26)
+y=pos y+fvar(27)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=ifelse(sin(fvar(9)*pi/180.0)<0,var(13),var(14))
+
+[state ]
+type=varset
+trigger1=var(19)
+trigger1=(screenpos x<-var(57))||(screenpos x>320+var(57))||(screenpos y<-var(57))||(screenpos y>240+var(57))
+sysvar(1)=sysvar(1)|2
+
+[state ]
+type=varset
+trigger1=!var(19)
+fvar(15)=fvar(28)
+
+[state ]
+type=varset
+trigger1=!var(19)
+fvar(20)=fvar(29)
+
+[state ]
+type=varadd
+trigger1=!var(19)
+fvar(9)=fvar(12)
+
+[state ]
+type=changestate
+trigger1=1
+value=599090
+
+;; 明光弾攻撃判定
+
+[statedef 508900]
+type=a
+movetype=A
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=movecontact
+var(29)=1
+
+[state ]
+type=varset
+trigger1=var(29)=1
+sysvar(1)=sysvar(1)|2
+
+[state ]
+type=turn
+trigger1=p2dist x<0
+
+[state ]
+type=hitdef
+trigger1=var(29)=0
+trigger1=sysvar(2)>=var(28)
+trigger1=sysvar(2)<sysvar(3)-var(30)+1
+attr=A,SP
+animtype=light
+damage=var(20),var(21)
+priority=var(22),hit
+guardflag=MA
+hitflag=MAF
+pausetime=var(23),var(24)
+sparkxy=0,0
+ground.type=high
+ground.slidetime=var(25)
+ground.hittime=var(26)
+ground.velocity=fvar(16),0
+guard.velocity=fvar(19)
+air.hittime=var(27)
+air.velocity=fvar(17),fvar(18)
+airguard.velocity=fvar(17),fvar(18)
+fall=0
+id=var(31)
+hitonce=1
+p1stateno=508910
+
+[state ]
+type=changestate
+trigger1=1
+value=599100
+
+[statedef 508910]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=sysvar(1)|2
+
+[state ]
+type=selfstate
+trigger1=1
+value=599900
+
+;; 両手光弾発出管理
+
+[statedef 509000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=6
+
+[state ]
+type=varset
+trigger1=1
+var(1)=3
+
+[state ]
+type=varset
+trigger1=1
+var(2)=600
+
+[state ]
+type=varset
+trigger1=1
+var(3)=60
+
+[state ]
+type=varset
+trigger1=1
+var(4)=506000
+
+[state ]
+type=varset
+trigger1=1
+var(5)=-55
+
+[state ]
+type=varset
+trigger1=1
+var(6)=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=509990
+
+[statedef 509990]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(0)=512
+
+[state ]
+type=varset
+trigger1=1
+sysvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(3)=var(3)-1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(4)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=599000
+
+[statedef 509900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=varset
+trigger1=root,stateno=1000
+trigger1=(root,var(2)&128)!=0
+var(6)=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1000
+trigger1=(root,var(2)&256)!=0
+var(6)=2
+
+[state ]
+type=varset
+trigger1=root,stateno=1000
+trigger1=(root,var(2)&512)!=0
+var(6)=3
+
+[state ]
+type=posset
+trigger1=1
+x=root,pos x
+y=root,pos y+var(5)
+
+[state ]
+type=helper
+trigger1=sysvar(2)=0
+name="two_handed_energy_projectile_phase_0"
+id=506000
+stateno=var(4)
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=0
+name="two_handed_energy_projectile_phase_3"
+id=506003
+stateno=var(4)+3
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=var(0)
+name="two_handed_energy_projectile_phase_1"
+id=506001
+stateno=var(4)+1
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=var(0)
+name="two_handed_energy_projectile_phase_4"
+id=506004
+stateno=var(4)+4
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=var(0)*(var(1)-1)
+name="two_handed_energy_projectile_phase_2"
+id=506002
+stateno=var(4)+2
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=var(0)*(var(1)-1)
+name="two_handed_energy_projectile_phase_5"
+id=506005
+stateno=var(4)+5
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=changestate
+trigger1=1
 value=599900
 
 ;; 非常駐Helper共通実行基盤
@@ -4958,6 +6252,70 @@ ctrl=0
 type=changestate
 trigger1=(sysvar(0)&32)!=0
 value=505900
+
+[state ]
+type=changestate
+trigger1=1
+value=599070
+
+[statedef 599070]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&64)!=0
+value=506900
+
+[state ]
+type=changestate
+trigger1=1
+value=599080
+
+[statedef 599080]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&128)!=0
+value=507900
+
+[state ]
+type=changestate
+trigger1=1
+value=599090
+
+[statedef 599090]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&256)!=0
+value=508900
+
+[state ]
+type=changestate
+trigger1=1
+value=599100
+
+[statedef 599100]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&512)!=0
+value=509900
 
 [state ]
 type=changestate

@@ -1133,8 +1133,23 @@ anim=1000
 velset=0,0
 
 [state ]
+type=helper
+trigger1=!time
+name="two_handed_energy_projectile_emitter"
+id=509000
+stateno=509000
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
 type=changestate
-trigger1=time>=60
+trigger1=time>=8
 value=0
 ctrl=1
 

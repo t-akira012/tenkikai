@@ -1,6 +1,6 @@
 # フィボナッチ・ライトHelper変数
 
-StateDef `502000`・`502010`が用途別の全設定値を保存し、StateDef `502990`から共通基盤へ接続してStateDef `502900`が同じ変数契約で実行する。経過tick、責務bitmapおよび終了状態は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
+StateDef `502000`・`502010`・`502020`が用途別の全設定値を保存し、StateDef `502990`から共通基盤へ接続してStateDef `502900`が同じ変数契約で実行する。経過tick、責務bitmapおよび終了状態は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
 
 ## 通常変数
 
@@ -23,6 +23,8 @@ StateDef `502000`・`502010`が用途別の全設定値を保存し、StateDef `
 | `var(16)` | `k`揺動周期 |
 | `var(17)`〜`var(19)` | 初期位相用LCGの法、乗数および加算値 |
 | `var(20)` | Explod化する論理サンプルの間引き数 |
+| `var(21)` | 親存在監視に使用するHelper ID。明光弾用途では`506000`〜`506005` |
+| `var(22)` | 親存在監視・描画優先順位追従フラグ |
 
 ## 浮動小数点変数
 

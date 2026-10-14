@@ -32,7 +32,7 @@
 
 エフェクト番号を新規割当する場合は、`docs/design/008-effects.md`、`docs/design/effect/`の個別文書、対象CNS、`docs/state/`の実装文書、変数一覧を検索し、同じ分類の既存番号との衝突がないことを確認する。文書番号とCNSで使用するエフェクト番号を同一の番号空間として扱わない。
 
-画面全体へ適用する`AllPalFX`暗転、発光、色変更は`the_controller`の責務とし、Rootの技StateDefへ色指定や時間管理を分散させない。[ADR 021: AllPalFX暗転のController管理](ADR/021-controller-allpalfx-routing.md)と[Helperルーティング規約](AGENTS.helper.md)に従い、固定順の挙動塊へルーターと個別挙動StateDefを追加する。
+画面全体へ適用する`AllPalFX`暗転、発光、色変更は現在実装されていない。新規導入時はRootの技StateDefへ色指定や時間管理を直接追加せず、実行主体、要求保持および複数要求の優先順位を先に設計してADRへ記録する。廃止済みの旧実装と判断理由は[ADR 021: AllPalFX暗転のController管理](ADR/021-controller-allpalfx-routing.md)を参照する。
 
 ## 実装後の文書同期
 

@@ -362,6 +362,13 @@ trigger2=ctrl
 type=changestate
 value=1000
 triggerall=(var(2)&128)!=0
+triggerall=!numhelper(509000)
+triggerall=!numhelper(506000)
+triggerall=!numhelper(506001)
+triggerall=!numhelper(506002)
+triggerall=!numhelper(506003)
+triggerall=!numhelper(506004)
+triggerall=!numhelper(506005)
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
