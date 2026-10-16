@@ -5182,7 +5182,7 @@ var(49)=0
 [state ]
 type=varset
 trigger1=1
-var(50)=120
+var(50)=parent,var(8)
 
 [state ]
 type=varset
@@ -5212,7 +5212,7 @@ var(55)=300
 [state ]
 type=varset
 trigger1=1
-var(56)=600
+var(56)=360
 
 [state ]
 type=varset
@@ -5533,11 +5533,6 @@ ctrl=0
 velset=0,0
 
 [state ]
-type=varset
-trigger1=parent,ishelper(509000)
-var(18)=parent,var(6)
-
-[state ]
 type=changeanim
 trigger1=anim!=var(0)
 value=var(0)
@@ -5645,18 +5640,30 @@ velset=0,0
 
 [state ]
 type=varset
-trigger1=root,numhelper(509000)
+trigger1=parent,ishelper(509000)
 var(18)=parent,var(6)
 
 [state ]
 type=varset
-trigger1=(var(18)=1)||(var(18)=3)
+trigger1=parent,ishelper(509000)
+var(50)=parent,var(8)
+
+[state ]
+type=varset
+trigger1=var(18)=1
 sysvar(3)=var(55)-var(17)-1
 
 [state ]
 type=varset
 trigger1=var(18)=2
-sysvar(3)=var(56)-var(17)-1
+trigger1=var(50)>=0
+sysvar(3)=var(50)+var(56)-var(17)-1
+
+[state ]
+type=varset
+trigger1=var(18)=3
+trigger1=var(50)>=0
+sysvar(3)=var(50)+var(52)+var(53)+var(54)-var(17)-1
 
 [state ]
 type=varset
@@ -5676,6 +5683,7 @@ fvar(12)=fvar(11)
 [state ]
 type=varset
 trigger1=var(18)=2
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(51)
 fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(51)-1)))/2.0
@@ -5683,6 +5691,7 @@ fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(51)-1)))/2.0
 [state ]
 type=varset
 trigger1=var(18)=2
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(51)
 fvar(12)=fvar(11)+(fvar(13)-fvar(11))*fvar(30)
@@ -5690,12 +5699,14 @@ fvar(12)=fvar(11)+(fvar(13)-fvar(11))*fvar(30)
 [state ]
 type=varset
 trigger1=var(18)=2
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(51)
 fvar(12)=fvar(13)
 
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)
 fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(52)-1)))/2.0
@@ -5703,6 +5714,7 @@ fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-var(50))/(var(52)-1)))/2.0
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)
 fvar(12)=fvar(11)+(fvar(14)-fvar(11))*fvar(30)
@@ -5710,6 +5722,7 @@ fvar(12)=fvar(11)+(fvar(14)-fvar(11))*fvar(30)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
 fvar(12)=fvar(14)
 
@@ -5726,6 +5739,7 @@ fvar(22)=fvar(7)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)
 fvar(21)=fvar(6)+(fvar(23)-fvar(6))*fvar(30)
@@ -5733,6 +5747,7 @@ fvar(21)=fvar(6)+(fvar(23)-fvar(6))*fvar(30)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)
 fvar(22)=fvar(7)+(fvar(24)-fvar(7))*fvar(30)
@@ -5740,6 +5755,7 @@ fvar(22)=fvar(7)+(fvar(24)-fvar(7))*fvar(30)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)
 fvar(21)=fvar(23)
@@ -5747,6 +5763,7 @@ fvar(21)=fvar(23)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)
 fvar(22)=fvar(24)
@@ -5754,6 +5771,7 @@ fvar(22)=fvar(24)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
 fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-(var(50)+var(52)+var(53)))/(var(54)-1)))/2.0
@@ -5761,6 +5779,7 @@ fvar(30)=(1-cos(pi*((sysvar(2)+var(17))-(var(50)+var(52)+var(53)))/(var(54)-1)))
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
 fvar(21)=fvar(23)+(fvar(6)-fvar(23))*fvar(30)
@@ -5768,6 +5787,7 @@ fvar(21)=fvar(23)+(fvar(6)-fvar(23))*fvar(30)
 [state ]
 type=varset
 trigger1=var(18)=3
+trigger1=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)+var(52)+var(53)
 trigger1=(sysvar(2)+var(17))<var(50)+var(52)+var(53)+var(54)
 fvar(22)=fvar(24)+(fvar(7)-fvar(24))*fvar(30)
@@ -5786,21 +5806,24 @@ fvar(29)=fvar(22)*fvar(10)*sin(fvar(9)*pi/180.0)
 type=varset
 trigger1=var(18)=2
 trigger1=!var(19)
-trigger1=(sysvar(2)+var(17))>=var(55)
+trigger1=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)+var(51)
 fvar(26)=(fvar(28)-fvar(15))+fvar(25)*cos(fvar(9)*pi/180.0)
 
 [state ]
 type=varset
 trigger1=var(18)=2
 trigger1=!var(19)
-trigger1=(sysvar(2)+var(17))>=var(55)
+trigger1=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)+var(51)
 fvar(27)=(fvar(29)-fvar(20))+fvar(25)*sin(fvar(9)*pi/180.0)
 
 [state ]
 type=varset
 trigger1=var(18)=2
 trigger1=!var(19)
-trigger1=(sysvar(2)+var(17))>=var(55)
+trigger1=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)+var(51)
 var(19)=1
 
 [state ]
@@ -5940,12 +5963,12 @@ var(1)=3
 [state ]
 type=varset
 trigger1=1
-var(2)=600
+var(2)=540
 
 [state ]
 type=varset
 trigger1=1
-var(3)=60
+var(3)=182
 
 [state ]
 type=varset
@@ -5966,6 +5989,11 @@ var(6)=1
 type=varset
 trigger1=1
 var(7)=0
+
+[state ]
+type=varset
+trigger1=1
+var(8)=-1
 
 [state ]
 type=selfstate
@@ -6042,12 +6070,24 @@ var(6)=3
 type=varset
 trigger1=var(7)=1
 trigger1=(root,var(2)&896)!=0
+var(8)=sysvar(2)
+
+[state ]
+type=varset
+trigger1=var(7)=1
+trigger1=(root,var(2)&896)!=0
 var(7)=0
 
 [state ]
 type=varset
 trigger1=var(7)=1
-trigger1=sysvar(2)>=30
+trigger1=sysvar(2)>=180
+var(8)=sysvar(2)
+
+[state ]
+type=varset
+trigger1=var(7)=1
+trigger1=sysvar(2)>=180
 var(7)=0
 
 [state ]

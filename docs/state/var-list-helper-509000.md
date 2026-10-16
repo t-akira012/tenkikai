@@ -6,13 +6,14 @@
 | --- | --- |
 | `var(0)` | 二個一組の生成間隔`6tick` |
 | `var(1)` | 生成組数`3` |
-| `var(2)` | 各明光弾の発出開始基準の安全上限`600tick` |
-| `var(3)` | 発出管理Helper寿命`60tick` |
+| `var(2)` | 各明光弾の発出開始基準の最長実行上限`540tick` |
+| `var(3)` | 発出管理Helper寿命`182tick`。共通経過tick `181`は最終伝達用 |
 | `var(4)` | 最初の明光弾入口StateDef `506000` |
 | `var(5)` | Root基準の発出中心Y Offset `-55px` |
 | `var(6)` | A/B/C分岐選択。`1`はA、`2`はB、`3`はC。初期値は`1` |
-| `var(7)` | 分岐選択窓。`1`は受付中、`0`は開始前または受付終了。共通経過tick `1`で開き、最初のA/B/Cまたは`30tick`の時間切れで閉じる |
+| `var(7)` | 分岐選択窓。`1`は受付中、`0`は開始前または受付終了。共通経過tick `1`で開き、最初のA/B/Cまたは`180tick`の時間切れで閉じる |
+| `var(8)` | A/B/C選択時刻。未選択は`-1`、選択時は発出管理Helperの共通経過tick |
 
 ## 共通ヘッダー
 
-`sysvar`は[非常駐Helper共通変数](var-list-helper-transient-common.md)に従う。責務bitmapは`512`、最終実行tickは`59`とする。
+`sysvar`は[非常駐Helper共通変数](var-list-helper-transient-common.md)に従う。責務bitmapは`512`、最終実行tickは`181`とする。
