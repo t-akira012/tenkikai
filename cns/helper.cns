@@ -5533,6 +5533,11 @@ ctrl=0
 velset=0,0
 
 [state ]
+type=varset
+trigger1=parent,ishelper(509000)
+var(18)=parent,var(6)
+
+[state ]
 type=changeanim
 trigger1=anim!=var(0)
 value=var(0)
@@ -5958,6 +5963,11 @@ trigger1=1
 var(6)=1
 
 [state ]
+type=varset
+trigger1=1
+var(7)=0
+
+[state ]
 type=selfstate
 trigger1=1
 value=509990
@@ -6007,21 +6017,38 @@ velset=0,0
 
 [state ]
 type=varset
-trigger1=root,stateno=1000
+trigger1=sysvar(2)=1
+var(7)=1
+
+[state ]
+type=varset
+trigger1=var(7)=1
 trigger1=(root,var(2)&128)!=0
 var(6)=1
 
 [state ]
 type=varset
-trigger1=root,stateno=1000
+trigger1=var(7)=1
 trigger1=(root,var(2)&256)!=0
 var(6)=2
 
 [state ]
 type=varset
-trigger1=root,stateno=1000
+trigger1=var(7)=1
 trigger1=(root,var(2)&512)!=0
 var(6)=3
+
+[state ]
+type=varset
+trigger1=var(7)=1
+trigger1=(root,var(2)&896)!=0
+var(7)=0
+
+[state ]
+type=varset
+trigger1=var(7)=1
+trigger1=sysvar(2)>=30
+var(7)=0
 
 [state ]
 type=posset

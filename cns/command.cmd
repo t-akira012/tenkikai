@@ -223,6 +223,7 @@ type=changestate
 value=100
 triggerall=stateno=0
 triggerall=pos y>=0
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&1)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x>0))
 trigger1=(var(2)&-2147483648)!=0
@@ -233,6 +234,7 @@ trigger2=ctrl
 type=changestate
 value=100
 triggerall=stateno=20
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&1)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x>0))
 trigger1=(var(2)&-2147483648)!=0
@@ -243,6 +245,7 @@ trigger2=ctrl
 type=changestate
 value=100
 triggerall=stateno=60
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&1)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x>0))
 trigger1=(var(2)&-2147483648)!=0
@@ -253,6 +256,7 @@ trigger2=ctrl
 type=changestate
 value=100
 triggerall=stateno=61
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&1)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x>0))
 trigger1=(var(2)&-2147483648)!=0
@@ -264,6 +268,7 @@ type=changestate
 value=100
 triggerall=stateno=0
 triggerall=pos y<0
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&1)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x>0))
 trigger1=(var(2)&-2147483648)!=0
@@ -277,6 +282,7 @@ type=changestate
 value=105
 triggerall=stateno=0
 triggerall=pos y>=0
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
 trigger1=(var(2)&-2147483648)!=0
@@ -287,6 +293,7 @@ trigger2=ctrl
 type=changestate
 value=105
 triggerall=stateno=20
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
 trigger1=(var(2)&-2147483648)!=0
@@ -297,6 +304,7 @@ trigger2=ctrl
 type=changestate
 value=105
 triggerall=stateno=60
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
 trigger1=(var(2)&-2147483648)!=0
@@ -307,6 +315,7 @@ trigger2=ctrl
 type=changestate
 value=105
 triggerall=stateno=61
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
 trigger1=(var(2)&-2147483648)!=0
@@ -318,6 +327,7 @@ type=changestate
 value=105
 triggerall=stateno=0
 triggerall=pos y<0
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
 trigger1=(var(2)&-2147483648)!=0
@@ -378,6 +388,7 @@ trigger2=ctrl
 [state ]
 type=changestate
 value=1100
+triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&256)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
