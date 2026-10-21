@@ -681,16 +681,8 @@ ignorehitpause=1
 
 [state ]
 type=varset
-triggerall=root,stateno=1201
-trigger1=(root,fvar(10))!=275
-fvar(19)=-85-(root,fvar(10))
-ignorehitpause=1
-
-[state ]
-type=varset
-triggerall=root,stateno=1201
-trigger1=(root,fvar(10))=275
-fvar(19)=-270
+trigger1=root,stateno=1201
+fvar(19)=ifelse((root,fvar(10))>180,275-(root,fvar(10)),-85-(root,fvar(10)))
 ignorehitpause=1
 
 [state ]
@@ -2324,7 +2316,7 @@ fvar(9)=0
 [state ]
 type=varset
 trigger1=1
-fvar(17)=parent,fvar(10)
+fvar(17)=(parent,fvar(10))*(parent,facing)
 
 [state ]
 type=changestate
@@ -2426,7 +2418,7 @@ fvar(9)=0
 [state ]
 type=varset
 trigger1=1
-fvar(17)=parent,fvar(10)
+fvar(17)=(parent,fvar(10))*(parent,facing)
 
 [state ]
 type=changestate
@@ -5353,12 +5345,12 @@ var(31)=506000+var(10)
 [state ]
 type=varset
 trigger1=1
-fvar(0)=1.20
+fvar(0)=4.80
 
 [state ]
 type=varset
 trigger1=1
-fvar(1)=1.20
+fvar(1)=4.80
 
 [state ]
 type=varset
@@ -5595,7 +5587,7 @@ triggerall=(var(18)=2)||(var(18)=3)
 triggerall=var(50)>=0
 trigger1=(sysvar(2)+var(17))>=var(50)
 trigger1=(sysvar(2)+var(17))<var(50)+4
-fvar(2)=ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1)+(0.833333333-ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1))*((1-cos(pi*((sysvar(2)+var(17))-var(50))/3.0))/2.0)
+fvar(2)=ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1)+(0.208333333-ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1))*((1-cos(pi*((sysvar(2)+var(17))-var(50))/3.0))/2.0)
 
 [state ]
 type=varset

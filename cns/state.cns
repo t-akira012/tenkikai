@@ -1407,7 +1407,7 @@ fvar(26)=0
 [state ]
 type=varset
 trigger1=1
-fvar(27)=fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180)
+fvar(27)=facing*(fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180))
 
 [state ]
 type=varset
@@ -1557,7 +1557,7 @@ velset=0,0
 type=posadd
 trigger1=!time
 x=(fvar(13)-screenpos x)*facing+fvar(19)
-y=0
+y=fvar(14)-screenpos y
 
 [state ]
 type=varset
@@ -1752,13 +1752,13 @@ fvar(10)=45
 type=varset
 triggerall=var(15)=2
 trigger1=1
-fvar(10)=90
+fvar(10)=270
 
 [state ]
 type=varset
 triggerall=var(15)=3
 trigger1=1
-fvar(10)=275
+fvar(10)=225
 
 [state ]
 type=changestate
@@ -1793,7 +1793,7 @@ fvar(26)=0
 [state ]
 type=varset
 trigger1=1
-fvar(27)=fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180)
+fvar(27)=facing*(fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180))
 
 [state ]
 type=varset
