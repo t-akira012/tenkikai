@@ -3827,7 +3827,7 @@ var(2)=1
 [state ]
 type=varset
 trigger1=1
-var(3)=9
+var(3)=18
 
 [state ]
 type=varset
@@ -3932,12 +3932,12 @@ fvar(4)=0.0035
 [state ]
 type=varset
 trigger1=1
-fvar(5)=0.045
+fvar(5)=0.0675
 
 [state ]
 type=varset
 trigger1=1
-fvar(6)=0.00025
+fvar(6)=0.000375
 
 [state ]
 type=varset
@@ -5205,32 +5205,32 @@ var(50)=parent,var(8)
 [state ]
 type=varset
 trigger1=1
-var(51)=180
+var(51)=110
 
 [state ]
 type=varset
 trigger1=1
-var(52)=60
+var(52)=30
 
 [state ]
 type=varset
 trigger1=1
-var(53)=90
+var(53)=45
 
 [state ]
 type=varset
 trigger1=1
-var(54)=30
+var(54)=15
 
 [state ]
 type=varset
 trigger1=1
-var(55)=300
+var(55)=110
 
 [state ]
 type=varset
 trigger1=1
-var(56)=360
+var(56)=180
 
 [state ]
 type=varset
@@ -5345,12 +5345,12 @@ var(31)=506000+var(10)
 [state ]
 type=varset
 trigger1=1
-fvar(0)=0.30
+fvar(0)=1.20
 
 [state ]
 type=varset
 trigger1=1
-fvar(1)=0.30
+fvar(1)=1.20
 
 [state ]
 type=varset

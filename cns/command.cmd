@@ -27,7 +27,12 @@ time=10
 
 [Command]
 name="rush"
-command=D,DF,F,x
+command=D,DF,F,a
+time=30
+
+[Command]
+name="rush_26"
+command=D,F,a
 time=30
 
 [Command]
@@ -203,6 +208,12 @@ var(2)=var(2)|8192
 type=varset
 trigger1=(var(2)&-2147483648)=0
 trigger1=command="rush"
+var(2)=var(2)|16384
+
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="rush_26"
 var(2)=var(2)|16384
 
 [state ]

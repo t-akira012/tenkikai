@@ -8,23 +8,24 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 AUTOMATION_MASK = -2147483648
 INPUTS = (
-    ("holdfwd", "/$F", 1),
-    ("holdback", "/$B", 2),
-    ("holdup", "/$U", 4),
-    ("holddown", "/$D", 8),
-    ("x", "x", 16),
-    ("y", "y", 32),
-    ("z", "z", 64),
-    ("a", "a", 128),
-    ("b", "b", 256),
-    ("c", "c", 512),
-    ("s", "s", 1024),
-    ("recovery", "x+y", 2048),
-    ("FF", "F,F", 4096),
-    ("BB", "B,B", 8192),
-    ("rush", "D,DF,F,x", 16384),
-    ("two_handed_projectile", "D,D,a", 32768),
-    ("one_handed_projectile", "D,D,b", 65536),
+    (0, "holdfwd", "/$F", 1),
+    (1, "holdback", "/$B", 2),
+    (2, "holdup", "/$U", 4),
+    (3, "holddown", "/$D", 8),
+    (4, "x", "x", 16),
+    (5, "y", "y", 32),
+    (6, "z", "z", 64),
+    (7, "a", "a", 128),
+    (8, "b", "b", 256),
+    (9, "c", "c", 512),
+    (10, "s", "s", 1024),
+    (11, "recovery", "x+y", 2048),
+    (12, "FF", "F,F", 4096),
+    (13, "BB", "B,B", 8192),
+    (14, "rush", "D,DF,F,a", 16384),
+    (14, "rush_26", "D,F,a", 16384),
+    (15, "two_handed_projectile", "D,D,a", 32768),
+    (16, "one_handed_projectile", "D,D,b", 65536),
 )
 
 
@@ -44,7 +45,7 @@ class InputMapTest(unittest.TestCase):
                 re.MULTILINE,
             )
         }
-        expected = {name: input_definition for name, input_definition, _ in INPUTS}
+        expected = {name: input_definition for _, name, input_definition, _ in INPUTS}
 
         self.assertEqual(actual, expected)
 
@@ -56,7 +57,7 @@ class InputMapTest(unittest.TestCase):
         reset = f"var(2)=var(2)&{AUTOMATION_MASK}"
         self.assertEqual(state_minus_one.count(reset), 1)
         self.assertLess(state_minus_one.index(reset), first_change_state)
-        for name, _, mask in INPUTS:
+        for _, name, _, mask in INPUTS:
             conversion = (
                 "type=varset\n"
                 f"trigger1=(var(2)&{AUTOMATION_MASK})=0\n"
@@ -91,7 +92,7 @@ class InputMapTest(unittest.TestCase):
 
     def test_fixed_document_contains_each_bit_assignment(self) -> None:
         document = (ROOT / "docs/AGENTS.input-map.md").read_text(encoding="utf-8")
-        for bit, (name, input_definition, mask) in enumerate(INPUTS):
+        for bit, name, input_definition, mask in INPUTS:
             row = f"| {bit} | `{mask}` | `{name}` | `{input_definition}` |"
             self.assertIn(row, document)
 
