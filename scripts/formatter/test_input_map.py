@@ -22,6 +22,9 @@ INPUTS = (
     ("recovery", "x+y", 2048),
     ("FF", "F,F", 4096),
     ("BB", "B,B", 8192),
+    ("rush", "D,DF,F,x", 16384),
+    ("two_handed_projectile", "D,D,a", 32768),
+    ("one_handed_projectile", "D,D,b", 65536),
 )
 
 

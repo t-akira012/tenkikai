@@ -123,7 +123,7 @@
 ### 最初の適用対象
 
 - 発出元：StateDef `1100`
-- テスト入力：Bボタン、入力bit 8
+- テスト入力：`22+B`（`D,D,b`、Command受付30tick）、入力bit 16
 - 発出時刻：StateDef `1100`の`time=3`
 - 発出位置：Root前方25px、上方70px
 - 形成中追従：生成時の追従ラッチが有効で、RootがStateDef `1100`にいる間、同じ相対位置へ`BindToRoot`

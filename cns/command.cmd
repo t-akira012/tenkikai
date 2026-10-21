@@ -25,6 +25,21 @@ name="BB"
 command=B,B
 time=10
 
+[Command]
+name="rush"
+command=D,DF,F,x
+time=30
+
+[Command]
+name="two_handed_projectile"
+command=D,D,a
+time=30
+
+[Command]
+name="one_handed_projectile"
+command=D,D,b
+time=30
+
 ;-------------------------------------------------
 [Command]
 name="recovery"
@@ -184,7 +199,35 @@ trigger1=(var(2)&-2147483648)=0
 trigger1=command="BB"
 var(2)=var(2)|8192
 
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="rush"
+var(2)=var(2)|16384
+
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="two_handed_projectile"
+var(2)=var(2)|32768
+
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="one_handed_projectile"
+var(2)=var(2)|65536
+
 ;; 入力ビットによる状態遷移
+
+;; 画面横断突進
+
+[state ]
+type=changestate
+value=1200
+triggerall=(var(2)&16384)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
 
 ;; 異形回避
 
@@ -334,18 +377,6 @@ trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
 
-;; 画面横断突進
-
-[state ]
-type=changestate
-value=1200
-triggerall=(var(2)&16)!=0
-triggerall=(var(2)&1)=0
-triggerall=(var(2)&2)=0
-trigger1=(var(2)&-2147483648)!=0
-trigger2=(var(2)&-2147483648)=0
-trigger2=ctrl
-
 ;; オーラバウンド保持確認
 
 [state ]
@@ -371,7 +402,7 @@ trigger2=ctrl
 [state ]
 type=changestate
 value=1000
-triggerall=(var(2)&128)!=0
+triggerall=(var(2)&32768)!=0
 triggerall=!numhelper(509000)
 triggerall=!numhelper(506000)
 triggerall=!numhelper(506001)
@@ -389,7 +420,7 @@ trigger2=ctrl
 type=changestate
 value=1100
 triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
-triggerall=(var(2)&256)!=0
+triggerall=(var(2)&65536)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl

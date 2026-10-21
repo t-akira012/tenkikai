@@ -1202,6 +1202,11 @@ type=varset
 trigger1=!time
 var(15)=0
 
+[state ]
+type=varset
+trigger1=!time
+var(17)=0
+
 ;; 突進パターン0：現行の横方向突進
 
 [state ]
@@ -1702,6 +1707,60 @@ type=velset
 trigger1=1
 x=0
 y=0
+
+;; 突進角度分岐受付
+
+[state ]
+type=varset
+triggerall=time<30
+triggerall=var(17)=0
+trigger1=(var(2)&15)=0
+var(17)=1
+
+[state ]
+type=varset
+triggerall=time<30
+triggerall=var(17)=1
+triggerall=var(15)=0
+trigger1=(var(2)&1)!=0
+trigger1=(var(2)&14)=0
+var(15)=1
+
+[state ]
+type=varset
+triggerall=time<30
+triggerall=var(17)=1
+triggerall=var(15)=0
+trigger1=(var(2)&4)!=0
+trigger1=(var(2)&11)=0
+var(15)=2
+
+[state ]
+type=varset
+triggerall=time<30
+triggerall=var(17)=1
+triggerall=var(15)=0
+trigger1=(var(2)&2)!=0
+trigger1=(var(2)&13)=0
+var(15)=3
+
+[state ]
+type=varset
+triggerall=var(15)=1
+trigger1=1
+fvar(10)=45
+
+[state ]
+type=varset
+triggerall=var(15)=2
+trigger1=1
+fvar(10)=90
+
+[state ]
+type=varset
+triggerall=var(15)=3
+trigger1=1
+fvar(10)=275
 
 [state ]
 type=changestate
