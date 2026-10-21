@@ -35,3 +35,4 @@
 - [ADR 033: Helper Armor configと連続ダメージ減衰](033-helper-armor-config-and-damage-attenuation.md)
 - [ADR 034: 非常駐Helperの責務ビットルーティング](034-transient-helper-responsibility-routing.md)
 - [ADR 035: CNSを文書同期の正本とする](035-cns-documentation-source-of-truth.md)
+- [ADR 036: 接地許可フラグによる共通接地処理](036-ground-contact-flag.md)

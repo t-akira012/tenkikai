@@ -1554,15 +1554,10 @@ anim=0
 velset=0,0
 
 [state ]
-type=varset
-trigger1=!time
-fvar(24)=-facing*(screenpos x-fvar(13))*sin(fvar(10)*pi/180)+(screenpos y-fvar(14))*cos(fvar(10)*pi/180)
-
-[state ]
 type=posadd
 trigger1=!time
-x=(fvar(13)-screenpos x)*facing+fvar(19)*cos(fvar(10)*pi/180)-fvar(24)*sin(fvar(10)*pi/180)
-y=fvar(14)-screenpos y+fvar(19)*sin(fvar(10)*pi/180)+fvar(24)*cos(fvar(10)*pi/180)
+x=(fvar(13)-screenpos x)*facing+fvar(19)
+y=0
 
 [state ]
 type=varset
@@ -1722,8 +1717,9 @@ type=varset
 triggerall=time<30
 triggerall=var(17)=1
 triggerall=var(15)=0
-trigger1=(var(2)&1)!=0
-trigger1=(var(2)&14)=0
+triggerall=(var(2)&1)!=0
+triggerall=(var(2)&14)=0
+trigger1=1
 var(15)=1
 
 [state ]
@@ -1731,8 +1727,9 @@ type=varset
 triggerall=time<30
 triggerall=var(17)=1
 triggerall=var(15)=0
-trigger1=(var(2)&4)!=0
-trigger1=(var(2)&11)=0
+triggerall=(var(2)&4)!=0
+triggerall=(var(2)&11)=0
+trigger1=1
 var(15)=2
 
 [state ]
@@ -1740,8 +1737,9 @@ type=varset
 triggerall=time<30
 triggerall=var(17)=1
 triggerall=var(15)=0
-trigger1=(var(2)&2)!=0
-trigger1=(var(2)&13)=0
+triggerall=(var(2)&2)!=0
+triggerall=(var(2)&13)=0
+trigger1=1
 var(15)=3
 
 [state ]

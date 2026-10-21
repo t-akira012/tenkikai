@@ -681,8 +681,16 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=1201
-fvar(19)=-85+(root,fvar(10))*(root,facing)
+triggerall=root,stateno=1201
+trigger1=(root,fvar(10))!=275
+fvar(19)=-85-(root,fvar(10))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=root,stateno=1201
+trigger1=(root,fvar(10))=275
+fvar(19)=-270
 ignorehitpause=1
 
 [state ]
@@ -5225,7 +5233,7 @@ var(54)=15
 [state ]
 type=varset
 trigger1=1
-var(55)=110
+var(55)=60
 
 [state ]
 type=varset
@@ -5557,6 +5565,16 @@ value=var(0)
 
 [state ]
 type=varset
+trigger1=parent,ishelper(509000)
+var(18)=parent,var(6)
+
+[state ]
+type=varset
+trigger1=parent,ishelper(509000)
+var(50)=parent,var(8)
+
+[state ]
+type=varset
 trigger1=sysvar(2)<var(2)
 fvar(2)=(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0
 
@@ -5570,6 +5588,31 @@ fvar(2)=1
 type=varset
 trigger1=sysvar(2)>=sysvar(3)-var(3)+1
 fvar(2)=(1+cos(pi*(sysvar(2)-(sysvar(3)-var(3)+1))/(var(3)-1)))/2.0
+
+[state ]
+type=varset
+triggerall=(var(18)=2)||(var(18)=3)
+triggerall=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)
+trigger1=(sysvar(2)+var(17))<var(50)+4
+fvar(2)=ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1)+(0.833333333-ifelse(sysvar(2)<var(2),(1-cos(pi*sysvar(2)/(var(2)-1)))/2.0,1))*((1-cos(pi*((sysvar(2)+var(17))-var(50))/3.0))/2.0)
+
+[state ]
+type=varset
+triggerall=(var(18)=2)||(var(18)=3)
+triggerall=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)+4
+trigger1=sysvar(2)<sysvar(3)-var(3)+1
+fvar(0)=1
+fvar(1)=1
+
+[state ]
+type=varset
+triggerall=(var(18)=2)||(var(18)=3)
+triggerall=var(50)>=0
+trigger1=(sysvar(2)+var(17))>=var(50)+4
+trigger1=sysvar(2)<sysvar(3)-var(3)+1
+fvar(2)=1
 
 [state ]
 type=angledraw
@@ -5655,16 +5698,6 @@ movetype=I
 physics=N
 ctrl=0
 velset=0,0
-
-[state ]
-type=varset
-trigger1=parent,ishelper(509000)
-var(18)=parent,var(6)
-
-[state ]
-type=varset
-trigger1=parent,ishelper(509000)
-var(50)=parent,var(8)
 
 [state ]
 type=varset

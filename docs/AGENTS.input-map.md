@@ -42,6 +42,7 @@ var(2)=var(2)&-2147483648
 | 14 | `16384` | `rush_26` | `D,F,a` | 画面横断突進 |
 | 15 | `32768` | `two_handed_projectile` | `D,D,a` | 両手光弾 |
 | 16 | `65536` | `one_handed_projectile` | `D,D,b` | 片手光弾 |
+| 17 | `131072` | 接地許可フラグ | StateDef `-3`がStateDef `1200`〜`1204`以外で設定 | 内部状態 |
 
 複合Commandの`time`は`30tick`とする。
 

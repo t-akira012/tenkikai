@@ -12,7 +12,7 @@
 | `var(3)` | 消滅時間`20tick` |
 | `var(4)`、`var(5)` | `addalpha`のAlpha `192,256` |
 | `fvar(0)`、`fvar(1)` | 基準X・Y倍率`1.20` |
-| `fvar(2)` | 出現・消滅の現在倍率係数 |
+| `fvar(2)` | A/B/C表示scaleの出現・分岐補間・消滅係数 |
 
 ## AfterImage・放出粒子
 

@@ -209,6 +209,22 @@ ignorehitpause=1
 
 [statedef -3]
 
+;; 接地許可フラグ
+
+[state ]
+type=varset
+trigger1=!ishelper
+var(2)=var(2)&-131073
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=!ishelper
+trigger1=stateno<1200
+trigger2=stateno>1204
+var(2)=var(2)|131072
+ignorehitpause=1
+
 ;; 試合終了時の接地復帰
 
 [state ]
@@ -226,6 +242,7 @@ ignorehitpause=1
 [state ]
 type=posset
 trigger1=!ishelper
+trigger1=(var(2)&131072)!=0
 trigger1=pos y>=0
 trigger1=(var(2)&4)=0
 y=0
@@ -762,6 +779,7 @@ ignorehitpause=1
 [state ]
 type=velset
 trigger1=!ishelper
+trigger1=(var(2)&131072)!=0
 trigger1=pos y>=0
 trigger1=(var(2)&4)=0
 y=0
@@ -770,6 +788,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=!ishelper
+trigger1=(var(2)&131072)!=0
 trigger1=pos y>=0
 trigger1=(var(2)&4)=0
 var(9)=0
@@ -815,6 +834,7 @@ ignorehitpause=1
 [state ]
 type=statetypeset
 trigger1=!ishelper
+trigger1=(var(2)&131072)!=0
 trigger1=pos y>=0
 trigger1=(var(2)&8)!=0
 statetype=c
@@ -824,6 +844,7 @@ ignorehitpause=1
 [state ]
 type=statetypeset
 trigger1=!ishelper
+trigger1=(var(2)&131072)!=0
 trigger1=pos y>=0
 trigger1=(var(2)&8)=0
 trigger1=(var(2)&4)=0
