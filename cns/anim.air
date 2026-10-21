@@ -587,5 +587,5 @@ LoopStart
 
 [Begin Action 1201]
 Clsn1Default: 1
- Clsn1[0] = 0,-50,125,10
+ Clsn1[0] = -65,-65,65,65
 20,0, 0,0, -1

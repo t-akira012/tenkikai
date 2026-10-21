@@ -682,7 +682,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=root,stateno=1201
-fvar(19)=-85
+fvar(19)=-85+(root,fvar(10))*(root,facing)
 ignorehitpause=1
 
 [state ]
@@ -2314,6 +2314,11 @@ trigger1=1
 fvar(9)=0
 
 [state ]
+type=varset
+trigger1=1
+fvar(17)=parent,fvar(10)
+
+[state ]
 type=changestate
 trigger1=1
 value=500990
@@ -2411,6 +2416,11 @@ trigger1=1
 fvar(9)=0
 
 [state ]
+type=varset
+trigger1=1
+fvar(17)=parent,fvar(10)
+
+[state ]
 type=changestate
 trigger1=1
 value=500990
@@ -2481,8 +2491,8 @@ ctrl=0
 [state ]
 type=velset
 trigger1=!sysvar(2)
-x=fvar(0)
-y=0
+x=fvar(0)*cos(fvar(17)*pi/180)
+y=fvar(0)*sin(fvar(17)*pi/180)
 
 [state ]
 type=afterimage
@@ -2517,6 +2527,7 @@ fvar(7)=fvar(2)+(fvar(4)-fvar(2))*fvar(5)
 [state ]
 type=angledraw
 trigger1=1
+value=fvar(17)*facing
 scale=fvar(6),fvar(7)
 
 [state ]
@@ -2570,8 +2581,8 @@ ctrl=0
 [state ]
 type=velset
 trigger1=!sysvar(2)
-x=fvar(0)
-y=0
+x=fvar(0)*cos(fvar(17)*pi/180)
+y=fvar(0)*sin(fvar(17)*pi/180)
 
 [state ]
 type=afterimage
@@ -2606,6 +2617,7 @@ fvar(7)=fvar(2)+(fvar(4)-fvar(2))*fvar(5)
 [state ]
 type=angledraw
 trigger1=1
+value=fvar(17)*facing
 scale=fvar(6),fvar(7)
 
 [state ]
@@ -4727,16 +4739,6 @@ var(9)=-5
 [state ]
 type=varset
 trigger1=1
-var(10)=160
-
-[state ]
-type=varset
-trigger1=1
-var(11)=163
-
-[state ]
-type=varset
-trigger1=1
 var(12)=2
 
 [state ]
@@ -4758,6 +4760,21 @@ fvar(1)=0.02
 type=varset
 trigger1=1
 fvar(2)=6.4
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=(parent,fvar(13))-(parent,facing)*(parent,fvar(20))*sin((parent,fvar(10))*pi/180)
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=(parent,fvar(14))+(parent,fvar(20))*cos((parent,fvar(10))*pi/180)
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=(parent,fvar(10))*(parent,facing)
 
 [state ]
 type=selfstate
@@ -4817,8 +4834,8 @@ value=var(0)
 [state ]
 type=posadd
 trigger1=1
-x=(var(10)-screenpos x)*facing
-y=var(11)-screenpos y
+x=(fvar(7)-screenpos x)*facing
+y=fvar(8)-screenpos y
 
 [state ]
 type=varset
@@ -4892,6 +4909,7 @@ fvar(5)=var(8)
 [state ]
 type=angledraw
 trigger1=1
+value=fvar(9)
 scale=fvar(0),fvar(3)
 
 [state ]

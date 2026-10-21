@@ -32,7 +32,7 @@ CNS上のStateDef、Controller、Trigger、変数、ルーティングなどの�
 - [重力球](effect/003-gravity-sphere.md)：漆黒の球体と周回・発散する光で構成する汎用エネルギー体
 - [フィボナッチ・ライト](effect/005-fibonacci-light.md)：黄金角を用いて全画面または局所エネルギー体へ光粒子を分散する汎用エフェクト
 - [中心衝撃波](effect/006-center-shockwave.md)：中心から画面規模へ広がる円形衝撃波
-- [横線形衝撃波](effect/007-horizontal-linear-shockwave.md)：画面を横断する細い水平線を上下対称へ拡大し、高速通過の直線的な圧力を残す
+- [横線形衝撃波](effect/007-horizontal-linear-shockwave.md)：画面を横断する細い線を進行角度へ回転し、法線方向へ対称に拡大して高速通過の直線的な圧力を残す
 - [明光弾](effect/008-bright-energy-projectile.md)：既存のエネルギー核素材を加算表示し、薄い残像と外向き粒子光を伴う明るい光弾として、他の運動責務および攻撃判定と合成する
 - [三次元巡回移動](effect/009-three-dimensional-orbit.md)：任意のHelperをRoot周囲の楕円へ巡回させ、奥行きに応じた描画優先順位の切替、角速度・軌道半径の時間変化および慣性射出を共通化する
 

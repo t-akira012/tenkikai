@@ -1195,6 +1195,99 @@ ctrl=0
 anim=21
 sprpriority=2
 
+;; 突進パターン選択
+
+[state ]
+type=varset
+trigger1=!time
+var(15)=0
+
+;; 突進パターン0：現行の横方向突進
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(10)=0
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(11)=30
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(12)=1000
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(13)=160
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(14)=170
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(15)=-200
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(16)=0
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(17)=-160
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(18)=200
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(19)=-120
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(20)=-7
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(21)=-6
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(22)=-45
+
+[state ]
+type=varset
+trigger1=!time
+trigger1=var(15)=0
+fvar(23)=21
+
 [state ]
 type=varset
 trigger1=1
@@ -1265,8 +1358,8 @@ var(8)=var(0)+2
 
 [state ]
 type=varset
-trigger1=!time
-var(11)=0
+trigger1=1
+var(11)=var(0)+2
 
 [state ]
 type=varset
@@ -1274,25 +1367,75 @@ trigger1=1
 var(12)=var(0)+2
 
 [state ]
-type=varset
-trigger1=1
-fvar(1)=30
-
-[state ]
-type=varset
-trigger1=1
-fvar(2)=1000
-
-[state ]
 type=posadd
 trigger1=!time
-y=170-screenpos y
+x=(fvar(13)-screenpos x)*facing+fvar(15)*cos(fvar(10)*pi/180)-fvar(16)*sin(fvar(10)*pi/180)
+y=fvar(14)-screenpos y+fvar(15)*sin(fvar(10)*pi/180)+fvar(16)*cos(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=!time
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(25)=facing*(screenpos x-fvar(13))*cos(fvar(10)*pi/180)+(screenpos y-fvar(14))*sin(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=(var(2)&4)!=0
+fvar(26)=-fvar(23)
+
+[state ]
+type=varset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)!=0
+fvar(26)=fvar(23)
+
+[state ]
+type=varset
+trigger1=(var(2)&4)=0
+trigger1=(var(2)&8)=0
+fvar(26)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(27)=fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=1
+fvar(28)=fvar(11)*sin(fvar(10)*pi/180)+fvar(26)*cos(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=vel x=fvar(27)
+fvar(29)=pi/2
+
+[state ]
+type=varset
+trigger1=vel x!=fvar(27)
+fvar(29)=atan(abs((fvar(28)-vel y)/(fvar(27)-vel x)))
+
+[state ]
+type=velset
+trigger1=(fvar(27)-vel x)*(fvar(27)-vel x)+(fvar(28)-vel y)*(fvar(28)-vel y)<=fvar(12)*fvar(12)
+x=fvar(27)
+y=fvar(28)
+
+[state ]
+type=veladd
+trigger1=(fvar(27)-vel x)*(fvar(27)-vel x)+(fvar(28)-vel y)*(fvar(28)-vel y)>fvar(12)*fvar(12)
+x=ifelse(fvar(27)=vel x,0,ifelse(fvar(27)>vel x,1,-1)*fvar(12)*cos(fvar(29)))
+y=ifelse(fvar(28)=vel y,0,ifelse(fvar(28)>vel y,1,-1)*fvar(12)*sin(fvar(29)))
 
 [state ]
 type=helper
 triggerall=numhelper(504010)=0
-trigger1=(facing=1)&&(screenpos x>=0)&&(screenpos x-vel x<0)
-trigger2=(facing=-1)&&(screenpos x<=320)&&(screenpos x+vel x>320)
+triggerall=var(16)=0
+trigger1=fvar(25)>=fvar(17)
 name="rush_background_darkening"
 id=504010
 stateno=504010
@@ -1309,13 +1452,13 @@ ignorehitpause=1
 [state ]
 type=helper
 triggerall=numhelper(505000)=0
-trigger1=(facing=1)&&(screenpos x>=0)&&(screenpos x-vel x<0)
-trigger2=(facing=-1)&&(screenpos x<=320)&&(screenpos x+vel x>320)
+triggerall=var(16)=0
+trigger1=fvar(25)>=fvar(17)
 name="rush_horizontal_linear_shockwave"
 id=505000
 stateno=505000
 helpertype=normal
-pos=(160-screenpos x)*facing,170-screenpos y
+pos=(fvar(13)-screenpos x)*facing-fvar(20)*sin(fvar(10)*pi/180),fvar(14)-screenpos y+fvar(20)*cos(fvar(10)*pi/180)
 postype=p1
 facing=1
 keyctrl=0
@@ -1333,7 +1476,7 @@ name="rush_elliptical_shockwave_left"
 id=500040
 stateno=500040
 helpertype=normal
-pos=-6,-45
+pos=fvar(21)*cos(fvar(10)*pi/180)-fvar(22)*sin(fvar(10)*pi/180),fvar(21)*sin(fvar(10)*pi/180)+fvar(22)*cos(fvar(10)*pi/180)
 postype=p1
 facing=1
 keyctrl=0
@@ -1350,7 +1493,7 @@ name="rush_elliptical_shockwave_right"
 id=500041
 stateno=500041
 helpertype=normal
-pos=-6,-45
+pos=fvar(21)*cos(fvar(10)*pi/180)-fvar(22)*sin(fvar(10)*pi/180),fvar(21)*sin(fvar(10)*pi/180)+fvar(22)*cos(fvar(10)*pi/180)
 postype=p1
 facing=1
 keyctrl=0
@@ -1360,25 +1503,14 @@ supermovetime=99990000000
 
 [state ]
 type=varset
+trigger1=var(16)=0
+trigger1=fvar(25)>=fvar(17)
+var(16)=1
+
+[state ]
+type=varset
 trigger1=1
 var(13)=0
-
-[state ]
-type=velset
-trigger1=(var(2)&4)!=0
-y=-21
-
-[state ]
-type=velset
-trigger1=(var(2)&4)=0
-trigger1=(var(2)&8)!=0
-y=21
-
-[state ]
-type=velset
-trigger1=(var(2)&4)=0
-trigger1=(var(2)&8)=0
-y=0
 
 [state ]
 type=hitdef
@@ -1403,8 +1535,7 @@ fall=1
 
 [state ]
 type=changestate
-trigger1=(facing=1)&&(screenpos x>=360)
-trigger2=(facing=-1)&&(screenpos x<=-40)
+trigger1=fvar(25)>=fvar(18)
 value=1204
 
 ;-------------------------------------------------
@@ -1418,9 +1549,15 @@ anim=0
 velset=0,0
 
 [state ]
+type=varset
+trigger1=!time
+fvar(24)=-facing*(screenpos x-fvar(13))*sin(fvar(10)*pi/180)+(screenpos y-fvar(14))*cos(fvar(10)*pi/180)
+
+[state ]
 type=posadd
 trigger1=!time
-x=ifelse(facing=1,40-screenpos x,280-screenpos x)*facing
+x=(fvar(13)-screenpos x)*facing+fvar(19)*cos(fvar(10)*pi/180)-fvar(24)*sin(fvar(10)*pi/180)
+y=fvar(14)-screenpos y+fvar(19)*sin(fvar(10)*pi/180)+fvar(24)*cos(fvar(10)*pi/180)
 
 [state ]
 type=varset
@@ -1584,7 +1721,7 @@ sprpriority=2
 [state ]
 type=varset
 trigger1=1
-var(8)=var(0)+2
+var(11)=var(0)+2
 
 [state ]
 type=varset
@@ -1594,22 +1731,44 @@ var(12)=var(0)+2
 [state ]
 type=varset
 trigger1=1
-fvar(1)=30
+fvar(26)=0
 
 [state ]
 type=varset
 trigger1=1
-fvar(2)=1000
+fvar(27)=fvar(11)*cos(fvar(10)*pi/180)-fvar(26)*sin(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=1
+fvar(28)=fvar(11)*sin(fvar(10)*pi/180)+fvar(26)*cos(fvar(10)*pi/180)
+
+[state ]
+type=varset
+trigger1=vel x=fvar(27)
+fvar(29)=pi/2
+
+[state ]
+type=varset
+trigger1=vel x!=fvar(27)
+fvar(29)=atan(abs((fvar(28)-vel y)/(fvar(27)-vel x)))
+
+[state ]
+type=velset
+trigger1=(fvar(27)-vel x)*(fvar(27)-vel x)+(fvar(28)-vel y)*(fvar(28)-vel y)<=fvar(12)*fvar(12)
+x=fvar(27)
+y=fvar(28)
+
+[state ]
+type=veladd
+trigger1=(fvar(27)-vel x)*(fvar(27)-vel x)+(fvar(28)-vel y)*(fvar(28)-vel y)>fvar(12)*fvar(12)
+x=ifelse(fvar(27)=vel x,0,ifelse(fvar(27)>vel x,1,-1)*fvar(12)*cos(fvar(29)))
+y=ifelse(fvar(28)=vel y,0,ifelse(fvar(28)>vel y,1,-1)*fvar(12)*sin(fvar(29)))
 
 [state ]
 type=varset
 trigger1=1
 var(13)=0
-
-[state ]
-type=velset
-trigger1=1
-y=0
 
 [state ]
 type=velset
