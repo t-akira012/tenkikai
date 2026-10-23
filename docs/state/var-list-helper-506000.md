@@ -11,8 +11,8 @@
 | `var(2)` | 出現時間`12tick` |
 | `var(3)` | 消滅時間`20tick` |
 | `var(4)`、`var(5)` | `addalpha`のAlpha `192,256` |
-| `fvar(0)`、`fvar(1)` | 基準X・Y倍率`4.80` |
-| `fvar(2)` | A/B/C表示scaleの出現・分岐補間・消滅係数 |
+| `fvar(0)`、`fvar(1)` | 基準X・Y倍率`0.80`。B/Cは分岐後もこの基準値を維持 |
+| `fvar(2)` | A/B/C表示scaleの出現・分岐補間・消滅係数。B/Cは4tickで`1.5`へ補間 |
 
 ## AfterImage・放出粒子
 
