@@ -127,6 +127,13 @@ ignorehitpause=1
 ;; Body AngleDraw適用
 
 [state ]
+type=assertspecial
+trigger1=!ishelper
+trigger1=((helper(99004),var(22))&256)!=0
+flag=invisible
+ignorehitpause=1
+
+[state ]
 type=angledraw
 trigger1=!ishelper
 value=0
@@ -220,6 +227,7 @@ ignorehitpause=1
 [state ]
 type=varset
 triggerall=!ishelper
+triggerall=stateno!=[1300,1305]
 trigger1=stateno<1200
 trigger2=stateno>1204
 var(2)=var(2)|131072
@@ -946,16 +954,43 @@ supermovetime=99990000000
 
 [state ]
 type=trans
-trigger1=!ishelper
+triggerall=!ishelper
+triggerall=((helper(99004),var(22))&512)=0
+trigger1=1
 trans=addalpha
 alpha=128,128
+ignorehitpause=1
+
+[state ]
+type=trans
+triggerall=!ishelper
+triggerall=((helper(99004),var(22))&512)!=0
+trigger1=time=0
+trigger2=time=1
+trigger3=time>=2
+trans=addalpha
+alpha=ifelse(time=0,128,ifelse(time=1,64,0)),ifelse(time=0,128,ifelse(time=1,192,256))
 ignorehitpause=1
 
 ;; 本体残像
 
 [state ]
 type=afterimage
-triggerall=stateno!=301
+trigger1=!ishelper
+trigger1=((helper(99004),var(22))&256)!=0
+time=0
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=!ishelper
+trigger1=((helper(99004),var(22))&256)!=0
+var(10)=0
+ignorehitpause=1
+
+[state ]
+type=afterimage
+triggerall=((helper(99004),var(22))&256)=0
 trigger1=!ishelper
 trigger1=!var(10)
 trigger1=var(10):=1||1

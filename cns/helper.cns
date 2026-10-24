@@ -55,7 +55,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=[1200,1204]
+trigger1=(root,stateno=[1200,1204])||(root,stateno=[1300,1307])
 var(8)=1
 ignorehitpause=1
 
@@ -131,14 +131,8 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=301
-var(22)=var(22)|3
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=301
-var(22)=var(22)|12
+trigger1=(root,stateno=102)||(root,stateno=107)||(root,stateno=301)||(root,stateno=1303)||(root,stateno=1305)
+var(22)=var(22)|256
 ignorehitpause=1
 
 ;; Helper Armor状態フラグ
@@ -151,7 +145,7 @@ ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,303])||(root,stateno=[1200,1204])
+trigger1=(root,stateno=100)||(root,stateno=105)||(root,stateno=110)||(root,stateno=111)||(root,stateno=[300,303])||(root,stateno=[1200,1204])||(root,stateno=[1300,1307])
 var(11)=var(11)|16777216
 ignorehitpause=1
 
@@ -315,10 +309,10 @@ ignorehitpause=1
 
 [state ]
 type=changestate
-trigger1=(root,stateno=4001)||(root,stateno=4002)||(root,stateno=4003)
+trigger1=(root,stateno=4001)||(root,stateno=4003)
 trigger1=root,time=1
 trigger1=(var(0)&1)=0
-value=99004011+(root,stateno=4002)+(root,stateno=4003)*2
+value=99004011+(root,stateno=4003)*2
 ignorehitpause=1
 
 ;; オーラバウンド共通消費
@@ -413,46 +407,6 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(1)=0.05
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-fvar(18)=0
-ignorehitpause=1
-
-[state ]
-type=changestate
-trigger1=1
-value=99004006
-ignorehitpause=1
-
-;; 4002 バウンド定義
-
-[statedef 99004012]
-
-[state ]
-type=varset
-trigger1=1
-var(1)=0
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-var(0)=17
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-fvar(0)=1.125
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=1
-fvar(1)=0.2
 ignorehitpause=1
 
 [state ]
@@ -693,9 +647,63 @@ ignorehitpause=1
 
 [state ]
 type=varset
+trigger1=root,stateno=1301
+trigger2=root,stateno=1307
+fvar(19)=20
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1301
+trigger2=root,stateno=1307
+var(7)=(var(7)&-65536)+(5*512)+1
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1306
+trigger1=root,time<3
+var(22)=var(22)|512
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1307
+trigger1=root,time<3
+var(22)=var(22)|512
+ignorehitpause=1
+
+[state ]
+type=varset
 trigger1=root,stateno=302
 trigger1=root,time=1
 var(9)=(var(9)&-8388608)+(16*512)+(1*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1300
+trigger1=root,time=1
+var(9)=(var(9)&-8388608)+(8*512)+(4*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1301
+var(9)=(var(9)&-8388608)+(1*512)+(5*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1307
+var(9)=(var(9)&-8388608)+(1*512)+(5*262144)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=root,stateno=1304
+trigger1=root,time=1
+var(9)=(var(9)&-8388608)+(8*512)+(1*262144)
 ignorehitpause=1
 
 [state ]
@@ -1014,7 +1022,90 @@ trigger1=(var(9)&8126464)=786432
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
+;; 回避復帰モーション初期出現後の上下反転復元
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=1048576
+trigger1=(var(9)&261632)>0
+fvar(3)=0.2+0.8*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+triggerall=(var(9)&8126464)=1048576
+trigger1=(var(9)&261632)>0
+fvar(4)=-(3.0-2.0*((var(9)&511)+(((var(9)&261632)/512)=1))*1.0/(((var(9)&261632)/512)-1+(((var(9)&261632)/512)=1)))
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1048576
+fvar(5)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1048576
+fvar(6)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1048576
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
+;; 回避復帰モーション落下中の上下反転
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1310720
+fvar(3)=1
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1310720
+fvar(4)=-1
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1310720
+fvar(5)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1310720
+fvar(6)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(var(2)&16)!=0
+trigger1=(var(9)&8126464)=1310720
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
 ;; Body系AngleDraw適用
+
+[state ]
+type=varset
+triggerall=(var(2)&4)!=0
+trigger1=root,stateno=1301
+fvar(2)=fvar(7)
+ignorehitpause=1
 
 [state ]
 type=varset
@@ -1041,6 +1132,12 @@ physics=n
 anim=99004
 
 ;; Head位置補正ルーティング
+
+[state ]
+type=changestate
+trigger1=(root,stateno=[1300,1301])||(root,stateno=1307)
+value=99004023
+ignorehitpause=1
 
 [state ]
 type=changestate
@@ -1118,6 +1215,32 @@ ignorehitpause=1
 type=varset
 trigger1=1
 fvar(17)=61*(1-cos(fvar(7)*pi/180.0))
+ignorehitpause=1
+
+[state ]
+type=changestate
+trigger1=1
+value=99004007
+ignorehitpause=1
+
+[statedef 99004023]
+type=s
+movetype=i
+physics=n
+anim=99004
+
+;; 上下反転中のHead位置補正
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=(122*sin(fvar(7)*pi/180.0)-fvar(7))*(root,facing)
+ignorehitpause=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=122*cos(fvar(7)*pi/180.0)
 ignorehitpause=1
 
 [state ]
@@ -6536,31 +6659,42 @@ ignorehitpause=1
 
 [state ]
 type=trans
+triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,128
 ignorehitpause=1
 
 [state ]
+type=trans
+triggerall=((helper(99004),var(22))&512)!=0
+trigger1=(root,time)=0
+trigger2=(root,time)=1
+trigger3=(root,time)>=2
+trans=addalpha
+alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),ifelse((root,time)=0,128,ifelse((root,time)=1,192,256))
+ignorehitpause=1
+
+[state ]
 type=assertspecial
-trigger1=((helper(99004),var(22))&1)!=0
+trigger1=((helper(99004),var(22))&257)!=0
 flag=invisible
 
 [state ]
-type=afterimagetime
-trigger1=((helper(99004),var(22))&4)!=0
+type=afterimage
+trigger1=((helper(99004),var(22))&256)!=0
 time=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=((helper(99004),var(22))&4)!=0
+trigger1=((helper(99004),var(22))&256)!=0
 var(10)=0
 ignorehitpause=1
 
 [state ]
 type=afterimage
-triggerall=((helper(99004),var(22))&4)=0
+triggerall=((helper(99004),var(22))&256)=0
 trigger1=!var(10)
 trigger1=var(10):=1||1
 trigger2=!(root,var(0)%600)
@@ -6661,34 +6795,45 @@ ignorehitpause=1
 
 [state ]
 type=trans
+triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,256
+ignorehitpause=1
+
+[state ]
+type=trans
+triggerall=((helper(99004),var(22))&512)!=0
+trigger1=(root,time)=0
+trigger2=(root,time)=1
+trigger3=(root,time)>=2
+trans=addalpha
+alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),256
 ignorehitpause=1
 
 ;; Aura残像
 
 [state ]
 type=assertspecial
-trigger1=root,stateno=301
+trigger1=((helper(99004),var(22))&256)!=0
 flag=invisible
 ignorehitpause=1
 
 [state ]
-type=afterimagetime
-trigger1=root,stateno=301
+type=afterimage
+trigger1=((helper(99004),var(22))&256)!=0
 time=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=root,stateno=302
+trigger1=((helper(99004),var(22))&256)!=0
 var(10)=0
 ignorehitpause=1
 
 [state ]
 type=afterimage
-triggerall=root,stateno!=301
+triggerall=((helper(99004),var(22))&256)=0
 trigger1=!var(10)
 trigger1=var(10):=1||1
 time=-1
@@ -6755,32 +6900,43 @@ ignorehitpause=1
 
 [state ]
 type=trans
+triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,256
 ignorehitpause=1
 
 [state ]
+type=trans
+triggerall=((helper(99004),var(22))&512)!=0
+trigger1=(root,time)=0
+trigger2=(root,time)=1
+trigger3=(root,time)>=2
+trans=addalpha
+alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),256
+ignorehitpause=1
+
+[state ]
 type=assertspecial
-trigger1=((helper(99004),var(22))&2)!=0
+trigger1=((helper(99004),var(22))&256)!=0
 flag=invisible
 ignorehitpause=1
 
 [state ]
-type=afterimagetime
-trigger1=((helper(99004),var(22))&8)!=0
+type=afterimage
+trigger1=((helper(99004),var(22))&256)!=0
 time=0
 ignorehitpause=1
 
 [state ]
 type=varset
-trigger1=((helper(99004),var(22))&8)!=0
+trigger1=((helper(99004),var(22))&256)!=0
 var(10)=0
 ignorehitpause=1
 
 [state ]
 type=afterimage
-triggerall=((helper(99004),var(22))&8)=0
+triggerall=((helper(99004),var(22))&256)=0
 trigger1=!var(10)
 trigger1=var(10):=1||1
 time=-1

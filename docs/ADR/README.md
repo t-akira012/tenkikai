@@ -36,3 +36,5 @@
 - [ADR 034: 非常駐Helperの責務ビットルーティング](034-transient-helper-responsibility-routing.md)
 - [ADR 035: CNSを文書同期の正本とする](035-cns-documentation-source-of-truth.md)
 - [ADR 036: 接地許可フラグによる共通接地処理](036-ground-contact-flag.md)
+- [ADR 037: 検収済み文書と試験実装の分離](037-accepted-documentation-and-trial-implementation.md)
+- [ADR 038: Controller管理の全体非表示フラグ](038-controller-managed-unified-invisibility.md)

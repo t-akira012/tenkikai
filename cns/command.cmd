@@ -388,11 +388,11 @@ trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
 
-;; オーラバウンド保持確認
+;; 石の自由落下を思わせる回避復帰モーション
 
 [state ]
 type=changestate
-value=4002
+value=1306
 triggerall=(var(2)&32)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
