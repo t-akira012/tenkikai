@@ -135,15 +135,6 @@ trigger1=(root,stateno=102)||(root,stateno=107)||(root,stateno=301)||(root,state
 var(22)=var(22)|256
 ignorehitpause=1
 
-;; 回避復帰モーションの3tick消失中は、全体非表示bitではなく透過bitを使う
-
-[state ]
-type=varset
-trigger1=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
-var(22)=var(22)|512
-ignorehitpause=1
-
 ;; Helper Armor状態フラグ
 
 [state ]
@@ -796,6 +787,13 @@ ignorehitpause=1
 
 [state ]
 type=varset
+trigger1=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+var(2)=var(2)|16
+ignorehitpause=1
+
+[state ]
+type=varset
 trigger1=var(10)>0
 var(2)=var(2)|32
 ignorehitpause=1
@@ -1093,12 +1091,50 @@ trigger1=(var(9)&8126464)=1310720
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
+;; 異形回避復帰の全身倍率を3tickで逆方向へ適用
+
+[state ]
+type=varset
+triggerall=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+fvar(3)=1.0-0.8*(root,time)/2.0
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+fvar(4)=ifelse((root,stateno)=1307,-1,1)*(1.0+2.0*(root,time)/2.0)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+fvar(5)=fvar(3)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+fvar(6)=fvar(4)
+ignorehitpause=1
+
+[state ]
+type=varset
+triggerall=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
+ignorehitpause=1
+
 ;; Body系AngleDraw適用
 
 [state ]
 type=varset
 triggerall=(var(2)&4)!=0
 trigger1=root,stateno=1301
+trigger2=root,stateno=1307
 fvar(2)=fvar(7)
 ignorehitpause=1
 
@@ -6654,20 +6690,9 @@ ignorehitpause=1
 
 [state ]
 type=trans
-triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,128
-ignorehitpause=1
-
-[state ]
-type=trans
-triggerall=((helper(99004),var(22))&512)!=0
-trigger1=(root,time)=0
-trigger2=(root,time)=1
-trigger3=(root,time)>=2
-trans=addalpha
-alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),ifelse((root,time)=0,128,ifelse((root,time)=1,192,256))
 ignorehitpause=1
 
 [state ]
@@ -6790,20 +6815,9 @@ ignorehitpause=1
 
 [state ]
 type=trans
-triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,256
-ignorehitpause=1
-
-[state ]
-type=trans
-triggerall=((helper(99004),var(22))&512)!=0
-trigger1=(root,time)=0
-trigger2=(root,time)=1
-trigger3=(root,time)>=2
-trans=addalpha
-alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),256
 ignorehitpause=1
 
 ;; Aura残像
@@ -6895,20 +6909,9 @@ ignorehitpause=1
 
 [state ]
 type=trans
-triggerall=((helper(99004),var(22))&512)=0
 trigger1=1
 trans=addalpha
 alpha=128,256
-ignorehitpause=1
-
-[state ]
-type=trans
-triggerall=((helper(99004),var(22))&512)!=0
-trigger1=(root,time)=0
-trigger2=(root,time)=1
-trigger3=(root,time)>=2
-trans=addalpha
-alpha=ifelse((root,time)=0,128,ifelse((root,time)=1,64,0)),256
 ignorehitpause=1
 
 [state ]

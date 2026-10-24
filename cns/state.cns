@@ -1993,7 +1993,7 @@ type=a
 movetype=I
 physics=N
 ctrl=0
-anim=101
+anim=0
 velset=0,0
 
 [state ]
