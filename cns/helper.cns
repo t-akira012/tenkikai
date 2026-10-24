@@ -1265,7 +1265,7 @@ anim=99004
 [state ]
 type=varset
 trigger1=1
-fvar(16)=(122*sin(fvar(7)*pi/180.0)-fvar(7))*(root,facing)
+fvar(16)=122*sin(fvar(7)*pi/180.0)-fvar(7)
 ignorehitpause=1
 
 [state ]
@@ -6632,6 +6632,10 @@ sysvar(2)=1
 anim=99001
 
 [state ]
+type=turn
+trigger1=facing!=root,facing
+
+[state ]
 type=posset
 trigger1=1
 x=root,pos x
@@ -6653,10 +6657,6 @@ trigger1=1
 value=(helper(99004),fvar(2))
 scale=(helper(99004),fvar(3)),(helper(99004),fvar(4))
 ignorehitpause=1
-
-[state ]
-type=turn
-trigger1=facing!=root,facing
 
 ;; 相手位置へのHead視線追従
 
