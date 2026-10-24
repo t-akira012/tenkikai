@@ -4,11 +4,11 @@
 
 | 機能 | 実装 |
 | --- | --- |
-| 位置 | Root位置へ追従し、Controllerの`fvar(16)`、`fvar(17)`をPos補正として加える |
+| 位置 | Root位置へ追従し、Controllerの`fvar(16)`、`fvar(17)`をPos補正として加える。上下反転中は`0,122`の完成補正でRoot位置の反対側へ配置する |
 | Offset | Controllerの`fvar(12)`、`fvar(13)`を適用する |
 | 向き・Action | Rootの向きへ同期し、Controllerの`var(24)`で完成した前方・正面・後方視線からAction `99001`、`99011`、`99012`を選択する |
-| AngleDraw | Controllerの`fvar(2)`〜`fvar(4)`を適用する |
-| 表示・残像 | Controllerの`var(22)`にあるHead用ビットへ従う |
+| AngleDraw | Controllerの`fvar(2)`〜`fvar(4)`を適用する。上下反転中はBodyと同じY倍率を使い、落下中はBodyと同じ傾斜角を適用する |
+| 表示・残像 | Controllerの`var(22)`にあるHead専用bit 0と全体非表示bit 8へ従う |
 | 画面外 | `ScreenBound value=0`、カメラ追従なし |
 
 Head自身はRootのStateDefから変換値を計算しない。処理後はStateDef `99001999`から`5150`へ移る。

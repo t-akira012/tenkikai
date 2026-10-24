@@ -2,7 +2,7 @@
 
 ## 状態
 
-採用
+一部廃止。試験実装と検収済み文書の関係は[ADR 037](037-accepted-documentation-and-trial-implementation.md)へ移管。
 
 ## 背景
 

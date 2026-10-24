@@ -8,7 +8,7 @@
 | Offset | Controllerの`fvar(14)`、`fvar(15)`を適用する |
 | 向き・Action | Rootの向きとHeadのアニメーション番号・要素位置へ同期する |
 | AngleDraw | Controllerの`fvar(9)`〜`fvar(11)`を適用する |
-| 表示・残像 | Controllerの`var(22)`にあるHead Aura用ビットへ従う |
+| 表示・残像 | Controllerの`var(22)`にある全体非表示bit 8へ従う |
 | 画面外 | `ScreenBound value=0`、カメラ追従なし |
 
 同期値と非同期値はControllerが確定し、Head Aura自身はRootのStateDefから計算しない。処理後はStateDef `99003999`から`5150`へ移る。
