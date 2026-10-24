@@ -135,6 +135,15 @@ trigger1=(root,stateno=102)||(root,stateno=107)||(root,stateno=301)||(root,state
 var(22)=var(22)|256
 ignorehitpause=1
 
+;; 回避復帰モーションの3tick消失中は、全体非表示bitではなく透過bitを使う
+
+[state ]
+type=varset
+trigger1=(root,stateno=1306)||(root,stateno=1307)
+trigger1=root,time<3
+var(22)=var(22)|512
+ignorehitpause=1
+
 ;; Helper Armor状態フラグ
 
 [state ]
@@ -657,20 +666,6 @@ type=varset
 trigger1=root,stateno=1301
 trigger2=root,stateno=1307
 var(7)=(var(7)&-65536)+(5*512)+1
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=1306
-trigger1=root,time<3
-var(22)=var(22)|512
-ignorehitpause=1
-
-[state ]
-type=varset
-trigger1=root,stateno=1307
-trigger1=root,time<3
-var(22)=var(22)|512
 ignorehitpause=1
 
 [state ]
