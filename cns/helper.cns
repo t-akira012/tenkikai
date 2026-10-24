@@ -788,7 +788,7 @@ ignorehitpause=1
 [state ]
 type=varset
 trigger1=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
+trigger1=root,time<8
 var(2)=var(2)|16
 ignorehitpause=1
 
@@ -1091,40 +1091,40 @@ trigger1=(var(9)&8126464)=1310720
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 
-;; 異形回避復帰の全身倍率を3tickで逆方向へ適用
+;; 異形回避復帰の全身倍率を8tickで逆方向へ適用
 
 [state ]
 type=varset
 triggerall=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
-fvar(3)=1.0-0.8*(root,time)/2.0
+trigger1=root,time<8
+fvar(3)=1.0-0.8*(root,time)/7.0
 ignorehitpause=1
 
 [state ]
 type=varset
 triggerall=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
-fvar(4)=ifelse((root,stateno)=1307,-1,1)*(1.0+2.0*(root,time)/2.0)
+trigger1=root,time<8
+fvar(4)=ifelse((root,stateno)=1307,-1,1)*(1.0+2.0*(root,time)/7.0)
 ignorehitpause=1
 
 [state ]
 type=varset
 triggerall=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
+trigger1=root,time<8
 fvar(5)=fvar(3)
 ignorehitpause=1
 
 [state ]
 type=varset
 triggerall=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
+trigger1=root,time<8
 fvar(6)=fvar(4)
 ignorehitpause=1
 
 [state ]
 type=varset
 triggerall=(root,stateno=1306)||(root,stateno=1307)
-trigger1=root,time<3
+trigger1=root,time<8
 fvar(8)=8*((root,fvar(0))*(0.9+0.1*abs(root,fvar(0)))+1.6*(root,fvar(0))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0)))*(1-(root,fvar(0))*(root,fvar(0))))+2
 ignorehitpause=1
 

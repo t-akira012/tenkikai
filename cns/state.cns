@@ -2008,7 +2008,7 @@ var(12)=var(0)+2
 
 [state ]
 type=changestate
-trigger1=time>=3
+trigger1=time>=8
 value=1305
 
 ;-------------------------------------------------
@@ -2031,7 +2031,7 @@ var(12)=var(0)+2
 
 [state ]
 type=changestate
-trigger1=time>=3
+trigger1=time>=8
 value=1303
 
 ;-------------------------------------------------
