@@ -6487,7 +6487,7 @@ var(21)=10
 [state ]
 type=varset
 trigger1=1
-var(22)=8
+var(22)=4
 
 [state ]
 type=varset
@@ -6778,7 +6778,7 @@ postype=left
 pos=floor(root,screenpos x)+var(16)+floor(fvar(28)),floor(root,screenpos y)+var(17)+floor(fvar(31))
 bindtime=0
 velocity=fvar(29)*cos(fvar(0))-fvar(30)*sin(fvar(0)),fvar(17)*(fvar(29)*sin(fvar(0))+fvar(30)*cos(fvar(0)))
-removetime=ifelse(var(20)%5=0,var(4)-sysvar(2)-var(0)*var(12),var(22))
+removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12),var(22))
 scale=fvar(5),fvar(5)
 sprpriority=var(10)
 supermovetime=99990000000
@@ -6869,7 +6869,7 @@ postype=left
 pos=floor(root,screenpos x)+var(16)+floor(fvar(28)),floor(root,screenpos y)+var(17)+floor(fvar(31))
 bindtime=0
 velocity=fvar(29)*cos(fvar(34))-fvar(30)*sin(fvar(34)),fvar(17)*(fvar(29)*sin(fvar(34))+fvar(30)*cos(fvar(34)))
-removetime=ifelse(var(20)%5=0,var(4)-sysvar(2)-var(0)*var(12)-var(3),var(22))
+removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12)-var(3),var(22))
 scale=fvar(5)*fvar(25),fvar(5)*fvar(25)
 sprpriority=var(10)
 supermovetime=99990000000
