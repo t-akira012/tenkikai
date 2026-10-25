@@ -32,6 +32,8 @@
 
 エフェクト番号を新規割当する場合は、`docs/design/008-effects.md`、`docs/design/effect/`の個別文書、対象CNS、`docs/state/`の実装文書、変数一覧を検索し、同じ分類の既存番号との衝突がないことを確認する。文書番号とCNSで使用するエフェクト番号を同一の番号空間として扱わない。
 
+AIRのAction番号を割り当てる場合は、現行AIRでの使用状況に加え、登録済みSpriteの構成と、そのSpriteへ今後割り当てるAction番号を確認する。Action番号とSpriteのGroup・Image番号は別の番号空間であり、AIRには参照するSpriteを明示する。Action番号が現時点で未使用という理由だけで採番せず、別のSpriteに割り当て得る番号を避ける。同じSpriteの表示違いに別Actionを設ける場合も、この確認を行う。
+
 画面全体へ適用する`AllPalFX`暗転、発光、色変更は現在実装されていない。新規導入時はRootの技StateDefへ色指定や時間管理を直接追加せず、実行主体、要求保持および複数要求の優先順位を先に設計してADRへ記録する。廃止済みの旧実装と判断理由は[ADR 021: AllPalFX暗転のController管理](ADR/021-controller-allpalfx-routing.md)を参照する。
 
 ## 実装後の文書同期

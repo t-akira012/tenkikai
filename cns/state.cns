@@ -1839,7 +1839,7 @@ sprpriority=2
 [state ]
 type=posadd
 trigger1=!time
-x=40*facing
+x=40
 y=20-screenpos y
 
 [state ]
@@ -1868,20 +1868,46 @@ anim=1000
 sprpriority=2
 
 [state ]
+type=helper
+trigger1=time=10
+persistent=0
+name="branching_electricity"
+id=510000
+stateno=510000
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=superpause
+trigger1=time=10
+persistent=0
+time=20
+movetime=0
+anim=-1
+sound=-1
+darken=0
+
+[state ]
 type=velset
 trigger1=!time
-x=-0.975*facing
+x=-3.65625
 
 [state ]
 type=veladd
-trigger1=time<30
-y=0.125
+trigger1=time<8
+y=1.6145833333333333
 
 [state ]
 type=velset
-trigger1=time=30
-x=-0.0975*facing
-y=0.375
+trigger1=time=8
+x=-0.40625
+y=1.5625
 
 [state ]
 type=varset
@@ -1895,7 +1921,7 @@ var(12)=var(0)+2
 
 [state ]
 type=changestate
-trigger1=time>=80
+trigger1=time>=20
 value=1307
 
 ;-------------------------------------------------
