@@ -6507,12 +6507,32 @@ var(25)=6
 [state ]
 type=varset
 trigger1=1
+var(26)=1500
+
+[state ]
+type=varset
+trigger1=1
 var(27)=random%3
 
 [state ]
 type=varset
 trigger1=1
 var(28)=ifelse(var(27)=0,38,ifelse(var(27)=1,143,303))
+
+[state ]
+type=varset
+trigger1=1
+var(29)=3000
+
+[state ]
+type=varset
+trigger1=1
+var(30)=3000
+
+[state ]
+type=varset
+trigger1=1
+var(31)=700
 
 [state ]
 type=varset
@@ -6587,12 +6607,12 @@ fvar(25)=0.66666666666667
 [state ]
 type=varset
 trigger1=1
-fvar(29)=0.20
+fvar(29)=0.35
 
 [state ]
 type=varset
 trigger1=1
-fvar(30)=0.04
+fvar(30)=0.15
 
 [state ]
 type=varset
@@ -6770,6 +6790,16 @@ trigger1=1
 fvar(5)=fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2)
 
 [state ]
+type=varset
+trigger1=1
+fvar(23)=ifelse(!(var(20)%2),fvar(29)+fvar(30)*(random-500)/500.0,(var(29)+var(30)*random/1000.0)/1000.0)
+
+[state ]
+type=varset
+trigger1=1
+fvar(24)=(random-500)*ifelse(!(var(20)%2),var(31),var(26))/500000.0
+
+[state ]
 type=explod
 trigger1=1
 anim=var(6)
@@ -6777,7 +6807,7 @@ id=var(8)
 postype=left
 pos=floor(root,screenpos x)+var(16)+floor(fvar(28)),floor(root,screenpos y)+var(17)+floor(fvar(31))
 bindtime=0
-velocity=fvar(29)*cos(fvar(0))-fvar(30)*sin(fvar(0)),fvar(17)*(fvar(29)*sin(fvar(0))+fvar(30)*cos(fvar(0)))
+velocity=fvar(23)*cos(fvar(0)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(0)+fvar(24))
 removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12),var(22))
 scale=fvar(5),fvar(5)
 sprpriority=var(10)
@@ -6861,6 +6891,16 @@ trigger1=sysvar(2)>=var(3)
 fvar(31)=fvar(36)+fvar(17)*fvar(26)*(fvar(8)*fvar(18)*sin(fvar(34))+fvar(27)*cos(fvar(34)))
 
 [state ]
+type=varset
+trigger1=sysvar(2)>=var(3)
+fvar(23)=ifelse(!(var(20)%2),fvar(29)+fvar(30)*(random-500)/500.0,(var(29)+var(30)*random/1000.0)/1000.0)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)
+fvar(24)=(random-500)*ifelse(!(var(20)%2),var(31),var(26))/500000.0
+
+[state ]
 type=explod
 trigger1=sysvar(2)>=var(3)
 anim=var(6)
@@ -6868,7 +6908,7 @@ id=var(8)
 postype=left
 pos=floor(root,screenpos x)+var(16)+floor(fvar(28)),floor(root,screenpos y)+var(17)+floor(fvar(31))
 bindtime=0
-velocity=fvar(29)*cos(fvar(34))-fvar(30)*sin(fvar(34)),fvar(17)*(fvar(29)*sin(fvar(34))+fvar(30)*cos(fvar(34)))
+velocity=fvar(23)*cos(fvar(34)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(34)+fvar(24))
 removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12)-var(3),var(22))
 scale=fvar(5)*fvar(25),fvar(5)*fvar(25)
 sprpriority=var(10)
@@ -6968,6 +7008,20 @@ trigger1=var(20)<var(25)
 fvar(31)=fvar(36)+fvar(17)*fvar(26)*(fvar(8)*fvar(18)*fvar(18)*sin(fvar(23))+fvar(27)*cos(fvar(23)))
 
 [state ]
+type=varset
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=!(var(0)%2)
+trigger1=var(20)<var(25)
+fvar(19)=(var(29)+var(30)*random/1000.0)/1000.0
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=!(var(0)%2)
+trigger1=var(20)<var(25)
+fvar(20)=(random-500)*var(26)/500000.0
+
+[state ]
 type=explod
 trigger1=sysvar(2)>=var(3)+var(23)
 trigger1=!(var(0)%2)
@@ -6977,7 +7031,7 @@ id=var(8)
 postype=left
 pos=floor(root,screenpos x)+var(16)+floor(fvar(28)),floor(root,screenpos y)+var(17)+floor(fvar(31))
 bindtime=0
-velocity=fvar(29)*cos(fvar(23))-fvar(30)*sin(fvar(23)),fvar(17)*(fvar(29)*sin(fvar(23))+fvar(30)*cos(fvar(23)))
+velocity=fvar(19)*cos(fvar(23)+fvar(20)),fvar(17)*fvar(19)*sin(fvar(23)+fvar(20))
 removetime=var(22)
 scale=fvar(5)*fvar(25)*fvar(25),fvar(5)*fvar(25)*fvar(25)
 sprpriority=var(10)
