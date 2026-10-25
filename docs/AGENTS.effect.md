@@ -4,8 +4,6 @@
 
 この規則は、暗転、発光、色変化、フラッシュなどの画面効果、および複数の技から利用する視覚エフェクトの追加・変更に適用する。
 
-表現品質の受入査定は、[表現品質の査定規則](AGENTS.expression-quality.md)に従う。
-
 エフェクト文書群の入口と登録状況は[エフェクト設計](design/008-effects.md)、各エフェクトの表現設計と現在の設定値は`docs/design/effect/`の個別文書で管理する。CNS上のStateDef、Controller、Trigger、変数、Helper、Explodなどの実装内容は`docs/state/`の対応文書で管理する。
 
 共通エフェクトの1000番予約、用途別出現StateDef、変数による全設定値の保持、および末尾`900`〜`999`の共通実行領域は[共通エフェクト設計・実装規約](design/effect/AGENTS.md)に従う。

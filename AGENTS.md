@@ -25,7 +25,6 @@ CNS/CMD/AIRは現在の実装内容の正本とする。`docs/`はユーザー�
 - [移動・速度管理規約](docs/AGENTS.movement.md)
 - [オートメーション規約](docs/AGENTS.automation.md)
 - [エフェクト作業規則](docs/AGENTS.effect.md)
-- [表現品質の査定規則](docs/AGENTS.expression-quality.md)
 - [共通エフェクト設計・実装規約](docs/design/effect/AGENTS.md)
 - [技仕様文書の作業規則](docs/attacks/AGENTS.md)
 - [技作成スキル](.agents/skills/create-waza/SKILL.md)
