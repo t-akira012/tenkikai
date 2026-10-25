@@ -6420,6 +6420,16 @@ anim=-1
 velset=0,0
 
 [state ]
+type=posset
+trigger1=1
+x=root,pos x
+y=root,pos y
+
+[state ]
+type=turn
+trigger1=facing!=1
+
+[state ]
 type=varset
 trigger1=1
 var(1)=8
