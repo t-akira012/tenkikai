@@ -6420,16 +6420,6 @@ anim=-1
 velset=0,0
 
 [state ]
-type=posset
-trigger1=1
-x=root,pos x
-y=root,pos y
-
-[state ]
-type=turn
-trigger1=facing!=1
-
-[state ]
 type=varset
 trigger1=1
 var(1)=8
@@ -6688,6 +6678,27 @@ ctrl=0
 velset=0,0
 
 [state ]
+type=varset
+trigger1=var(14)=-1
+var(32)=floor(root,pos x)
+
+[state ]
+type=varset
+trigger1=var(14)=-1
+var(33)=floor(root,pos y)
+
+[state ]
+type=posset
+trigger1=var(14)=-1
+x=var(32)
+y=var(33)
+
+[state ]
+type=turn
+trigger1=var(14)=-1
+trigger1=facing!=1
+
+[state ]
 type=playerpush
 trigger1=1
 value=0
@@ -6808,8 +6819,8 @@ type=explod
 trigger1=1
 anim=var(6)
 id=var(8)
-postype=p1
-pos=var(16)+floor(fvar(28)),var(17)+floor(fvar(31))
+postype=none
+pos=var(32)+var(16)+floor(fvar(28)),var(33)+var(17)+floor(fvar(31))
 bindtime=0
 velocity=fvar(23)*cos(fvar(0)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(0)+fvar(24))
 removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12),var(22))
@@ -6909,8 +6920,8 @@ type=explod
 trigger1=sysvar(2)>=var(3)
 anim=var(6)
 id=var(8)
-postype=p1
-pos=var(16)+floor(fvar(28)),var(17)+floor(fvar(31))
+postype=none
+pos=var(32)+var(16)+floor(fvar(28)),var(33)+var(17)+floor(fvar(31))
 bindtime=0
 velocity=fvar(23)*cos(fvar(34)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(34)+fvar(24))
 removetime=ifelse(!(var(20)%2),var(4)-sysvar(2)-var(0)*var(12)-var(3),var(22))
@@ -7032,8 +7043,8 @@ trigger1=!(var(0)%2)
 trigger1=var(20)<var(25)
 anim=var(6)
 id=var(8)
-postype=p1
-pos=var(16)+floor(fvar(28)),var(17)+floor(fvar(31))
+postype=none
+pos=var(32)+var(16)+floor(fvar(28)),var(33)+var(17)+floor(fvar(31))
 bindtime=0
 velocity=fvar(19)*cos(fvar(23)+fvar(20)),fvar(17)*fvar(19)*sin(fvar(23)+fvar(20))
 removetime=var(22)
