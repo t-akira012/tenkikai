@@ -6572,12 +6572,12 @@ fvar(12)=1.31
 [state ]
 type=varset
 trigger1=1
-fvar(13)=0.26
+fvar(13)=0.13
 
 [state ]
 type=varset
 trigger1=1
-fvar(14)=0.08
+fvar(14)=0.04
 
 [state ]
 type=varset
