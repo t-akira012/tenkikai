@@ -4773,92 +4773,92 @@ var(5)=20
 [state ]
 type=varset
 trigger1=1
-var(6)=105
+var(6)=84
 
 [state ]
 type=varset
 trigger1=1
-var(7)=134
+var(7)=107
 
 [state ]
 type=varset
 trigger1=1
-var(8)=143
+var(8)=149
 
 [state ]
 type=varset
 trigger1=1
-var(9)=105
+var(9)=84
 
 [state ]
 type=varset
 trigger1=1
-var(10)=134
+var(10)=107
 
 [state ]
 type=varset
 trigger1=1
-var(11)=143
+var(11)=149
 
 [state ]
 type=varset
 trigger1=1
-var(12)=105
+var(12)=84
 
 [state ]
 type=varset
 trigger1=1
-var(13)=134
+var(13)=107
 
 [state ]
 type=varset
 trigger1=1
-var(14)=143
+var(14)=149
 
 [state ]
 type=varset
 trigger1=1
-var(15)=42
+var(15)=34
 
 [state ]
 type=varset
 trigger1=1
-var(16)=57
+var(16)=46
 
 [state ]
 type=varset
 trigger1=1
-var(17)=54
+var(17)=56
 
 [state ]
 type=varset
 trigger1=1
-var(18)=-102
+var(18)=-82
 
 [state ]
 type=varset
 trigger1=1
-var(19)=-87
+var(19)=-70
 
 [state ]
 type=varset
 trigger1=1
-var(20)=-90
+var(20)=-94
 
 [state ]
 type=varset
 trigger1=1
-var(21)=42
+var(21)=34
 
 [state ]
 type=varset
 trigger1=1
-var(22)=57
+var(22)=46
 
 [state ]
 type=varset
 trigger1=1
-var(23)=54
+var(23)=56
 
 [state ]
 type=varset
@@ -4974,12 +4974,12 @@ y=120-screenpos y
 type=angledraw
 trigger1=ishelper(504020)
 value=0
-scale=20,20
+scale=40,40
 
 [state ]
 type=sprpriority
 trigger1=ishelper(504020)
-value=9999
+value=32767
 
 [state ]
 type=trans
@@ -5002,7 +5002,8 @@ type=assertspecial
 trigger1=!ishelper(504020)
 trigger2=sysvar(2)<2
 trigger3=sysvar(2)>=10
-trigger4=(sysvar(2)-2)%3!=0
+trigger4=sysvar(2)=5
+trigger5=(sysvar(2)>6)&&((sysvar(2)-6)%3!=0)
 flag=invisible
 
 [state ]
@@ -6622,7 +6623,7 @@ var(3)=4
 [state ]
 type=varset
 trigger1=1
-var(4)=33
+var(4)=34
 
 [state ]
 type=varset
@@ -6737,12 +6738,12 @@ var(48)=50
 [state ]
 type=varset
 trigger1=1
-var(38)=floor(1000000*0.55*var(3)*var(3)*var(3)*(60-15*var(3)+var(3)*var(3))/1296.0)
+var(38)=floor(1000000*1.125*var(3)/(var(3)+4.5))
 
 [state ]
 type=varset
 trigger1=1
-var(39)=floor(1000000*(0.55+0.2475*(var(3)+var(23)-6)/13.0+0.2025*(var(3)+var(23)-6)*(var(3)+var(23)-6)/169.0))
+var(39)=floor(1000000*(0.825+0.099*(var(3)+var(23)-10)+0.0045*(var(3)+var(23)-10)*(var(3)+var(23)-11)))
 
 [state ]
 type=varset
@@ -6752,12 +6753,12 @@ fvar(6)=var(24)*pi/2
 [state ]
 type=varset
 trigger1=1
-fvar(7)=12
+fvar(7)=7.8
 
 [state ]
 type=varset
 trigger1=1
-fvar(8)=16
+fvar(8)=10.4
 
 [state ]
 type=varset
@@ -6772,12 +6773,12 @@ fvar(12)=1.31
 [state ]
 type=varset
 trigger1=1
-fvar(13)=0.6663515625
+fvar(13)=0.5006965640625
 
 [state ]
 type=varset
 trigger1=1
-fvar(14)=0.20503125
+fvar(14)=0.15406048125
 
 [state ]
 type=varset
@@ -6787,7 +6788,7 @@ fvar(15)=0.55
 [state ]
 type=varset
 trigger1=1
-fvar(16)=6
+fvar(16)=3.9
 
 [state ]
 type=varset
@@ -6878,6 +6879,15 @@ ctrl=0
 velset=0,0
 
 [state ]
+type=removeexplod
+trigger1=root,stateno=1300
+id=-1
+
+[state ]
+type=destroyself
+trigger1=root,stateno=1300
+
+[state ]
 type=varset
 trigger1=var(14)=-1
 var(32)=floor(root,pos x)
@@ -6965,35 +6975,35 @@ var(34)=sysvar(2)+1
 
 [state ]
 type=varset
-trigger1=sysvar(2)<=6
-var(36)=floor(1000000*0.55*sysvar(2)*sysvar(2)*sysvar(2)*(60-15*sysvar(2)+sysvar(2)*sysvar(2))/1296.0)
+trigger1=sysvar(2)<=9
+var(36)=floor(1000000*1.125*sysvar(2)/(sysvar(2)+4.5))
 
 [state ]
 type=varset
-trigger1=sysvar(2)>6
-trigger1=sysvar(2)<var(2)
-var(36)=floor(1000000*(0.55+0.2475*(sysvar(2)-6)/13.0+0.2025*(sysvar(2)-6)*(sysvar(2)-6)/169.0))
+trigger1=sysvar(2)>9
+trigger1=sysvar(2)<=var(2)
+var(36)=floor(1000000*(0.825+0.099*(sysvar(2)-10)+0.0045*(sysvar(2)-10)*(sysvar(2)-11)))
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=var(2)
-var(36)=1000000
+trigger1=sysvar(2)>var(2)
+var(36)=2040000
 
 [state ]
 type=varset
-trigger1=var(34)<=6
-var(37)=floor(1000000*0.55*var(34)*var(34)*var(34)*(60-15*var(34)+var(34)*var(34))/1296.0)
+trigger1=var(34)<=9
+var(37)=floor(1000000*1.125*var(34)/(var(34)+4.5))
 
 [state ]
 type=varset
-trigger1=var(34)>6
-trigger1=var(34)<var(2)
-var(37)=floor(1000000*(0.55+0.2475*(var(34)-6)/13.0+0.2025*(var(34)-6)*(var(34)-6)/169.0))
+trigger1=var(34)>9
+trigger1=var(34)<=var(2)
+var(37)=floor(1000000*(0.825+0.099*(var(34)-10)+0.0045*(var(34)-10)*(var(34)-11)))
 
 [state ]
 type=varset
-trigger1=var(34)>=var(2)
-var(37)=1000000
+trigger1=var(34)>var(2)
+var(37)=2040000
 
 [state ]
 type=varset
@@ -7008,12 +7018,12 @@ fvar(38)=(var(0)+var(28))*2.47
 [state ]
 type=varset
 trigger1=1
-fvar(9)=27
+fvar(9)=17.55
 
 [state ]
 type=varset
 trigger1=1
-fvar(10)=13.5
+fvar(10)=8.775
 
 [state ]
 type=varset
@@ -7078,11 +7088,27 @@ var(43)=1+floor(0.5775*(abs(fvar(20)-fvar(2))+abs(fvar(19)-fvar(1)))/6.0)
 [state ]
 type=varset
 trigger1=var(43)>var(21)
+trigger1=var(20)=0
 var(21)=var(43)
 
 [state ]
 type=varset
 trigger1=sysvar(2)>=var(2)
+var(21)=1
+
+[state ]
+type=varset
+trigger1=var(20)=0
+var(43)=var(21)
+
+[state ]
+type=varset
+trigger1=var(20)=0
+var(21)=var(43)
+
+[state ]
+type=varset
+trigger1=var(21)<1
 var(21)=1
 
 [state ]
@@ -7147,19 +7173,20 @@ fvar(1)=3*(var(20)-(var(21)-1)/2.0)*(0.84-0.42*sysvar(2)/var(2))/var(21)+(random
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=13
+trigger1=sysvar(2)>=11
 var(34)=random%1000
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=13
-var(35)=300+10*(random%16)
+trigger1=sysvar(2)>=11
+var(35)=195+6.5*(random%16)
 
 [state ]
 type=modifyexplod
-trigger1=sysvar(2)>=13
-id=var(8)+(sysvar(2)-13)*1000+var(0)*100+var(20)*3+0
-vel=var(35)*cos(2*pi*var(34)/1000.0),var(35)*sin(2*pi*var(34)/1000.0)
+trigger1=sysvar(2)>=11
+id=var(8)+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+0
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
 type=explod
@@ -7278,11 +7305,30 @@ var(43)=1+floor(0.5775*(abs(fvar(2))+abs(fvar(27)))/5.0)
 type=varset
 trigger1=sysvar(2)>=var(3)
 trigger1=var(43)>var(42)
+trigger1=var(20)=0
 var(42)=var(43)
 
 [state ]
 type=varset
 trigger1=sysvar(2)>=var(2)
+var(42)=1
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)
+trigger1=var(20)=0
+var(43)=var(42)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)
+trigger1=var(20)=0
+var(42)=var(43)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)
+trigger1=var(42)<1
 var(42)=1
 
 [state ]
@@ -7317,19 +7363,20 @@ fvar(1)=fvar(25)*(3*(var(20)-(var(42)-1)/2.0)*(0.84-0.42*sysvar(2)/var(2))/var(4
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=var(3)+13
+trigger1=sysvar(2)>=var(3)+11
 var(34)=random%1000
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=var(3)+13
-var(35)=300+10*(random%16)
+trigger1=sysvar(2)>=var(3)+11
+var(35)=195+6.5*(random%16)
 
 [state ]
 type=modifyexplod
-trigger1=sysvar(2)>=var(3)+13
-id=var(8)+(sysvar(2)-13)*1000+var(0)*100+var(20)*3+1
-vel=var(35)*cos(2*pi*var(34)/1000.0),var(35)*sin(2*pi*var(34)/1000.0)
+trigger1=sysvar(2)>=var(3)+11
+id=var(8)+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+1
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
 type=explod
@@ -7453,12 +7500,34 @@ type=varset
 trigger1=sysvar(2)>=var(3)+var(23)
 trigger1=!(var(0)%2)
 trigger1=var(20)<var(25)
+trigger1=var(20)=0
 var(25)=ifelse(var(43)>var(44),var(43),var(44))
 
 [state ]
 type=varset
 trigger1=sysvar(2)>=var(2)
 trigger1=!(var(0)%2)
+var(25)=1
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=!(var(0)%2)
+trigger1=var(20)=0
+var(43)=var(25)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=!(var(0)%2)
+trigger1=var(20)=0
+var(25)=var(43)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=!(var(0)%2)
+trigger1=var(25)<1
 var(25)=1
 
 [state ]
@@ -7505,22 +7574,23 @@ fvar(1)=fvar(25)*fvar(25)*(3*(var(20)-(var(25)-1)/2.0)*(0.84-0.42*sysvar(2)/var(
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=var(3)+var(23)+13
+trigger1=sysvar(2)>=var(3)+var(23)+11
 trigger1=!(var(0)%2)
 var(34)=random%1000
 
 [state ]
 type=varset
-trigger1=sysvar(2)>=var(3)+var(23)+13
+trigger1=sysvar(2)>=var(3)+var(23)+11
 trigger1=!(var(0)%2)
-var(35)=300+10*(random%16)
+var(35)=195+6.5*(random%16)
 
 [state ]
 type=modifyexplod
-trigger1=sysvar(2)>=var(3)+var(23)+13
+trigger1=sysvar(2)>=var(3)+var(23)+11
 trigger1=!(var(0)%2)
-id=var(8)+(sysvar(2)-13)*1000+var(0)*100+var(20)*3+2
-vel=var(35)*cos(2*pi*var(34)/1000.0),var(35)*sin(2*pi*var(34)/1000.0)
+id=var(8)+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+2
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
 type=explod
@@ -7559,6 +7629,12 @@ trigger1=sysvar(2)>=var(3)+var(23)
 trigger1=!(var(0)%2)
 trigger1=var(25)>var(47)
 var(47)=var(25)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=11
+trigger1=var(47)<20
+var(47)=20
 
 [state ]
 type=varadd
