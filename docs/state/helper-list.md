@@ -36,7 +36,7 @@
 | `505000` | `rush_horizontal_linear_shockwave` | `505000` | 突進角度と線形衝撃波値を保存し、StateDef `505990`から共通基盤へ接続する |
 | `506000`〜`506005` | `two_handed_energy_projectile_phase_N` | `506000`〜`506005` | 位相番号を保存し、明光弾表示・A/B/C三次元巡回・攻撃判定を同じHelperで実行する |
 | `509000` | `two_handed_energy_projectile_emitter` | `509000` | RootのStateDefから独立して、A/B/C選択を保持し、対向する明光弾二個を三組生成する |
-| `510000` | `branching_electricity` | `510000` | Y技の主枝・派生枝に沿って光球Explodを発出する |
+| `510000` | `branching_electricity` | `510000` | Y技の主枝・派生枝に沿って、同じ発出ループから優先順位4の主光球と優先順位3の背後光球を生成する |
 
 楕円衝撃波の詳細は[楕円衝撃波Helper](helper-500000-elliptical-shockwave.md)を参照する。
 重力球の詳細は[重力球Helper](helper-501000-gravity-sphere.md)を参照する。
