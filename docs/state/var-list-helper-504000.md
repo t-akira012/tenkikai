@@ -1,6 +1,6 @@
 # 背景色変更Helper変数
 
-StateDef `504000`、`504010`および将来の用途別出現StateDefが、暗転開始からピーク、ピーク維持、背景復帰の時間と各区間の色変更値を同じ変数契約で保存し、StateDef `504990`から共通基盤へ接続してStateDef `504900`で実行する。経過tick、責務bitmapおよび終了状態は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
+StateDef `504000`、`504010`、`504020`および将来の用途別出現StateDefが、暗転開始からピーク、ピーク維持、背景復帰の時間と各区間の色変更値を同じ変数契約で保存し、StateDef `504990`から共通基盤へ接続してStateDef `504900`で実行する。経過tick、責務bitmapおよび終了状態は[非常駐Helper共通変数](var-list-helper-transient-common.md)を使用する。
 
 ## 通常変数
 

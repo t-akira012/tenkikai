@@ -38,3 +38,4 @@
 - [ADR 036: 接地許可フラグによる共通接地処理](036-ground-contact-flag.md)
 - [ADR 037: 検収済み文書と試験実装の分離](037-accepted-documentation-and-trial-implementation.md)
 - [ADR 038: Controller管理の全体非表示フラグ](038-controller-managed-unified-invisibility.md)
+- [ADR 039: 全画面白フラッシュを背景暗転Helper本体で表示する](039-helper-fullscreen-white-flash.md)
