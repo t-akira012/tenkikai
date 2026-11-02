@@ -1884,6 +1884,22 @@ pausemovetime=99990000000
 supermovetime=99990000000
 
 [state ]
+type=helper
+trigger1=time=10
+persistent=0
+name="reversal_blue_background_darkening"
+id=504020
+stateno=504020
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
 type=superpause
 trigger1=time=10
 persistent=0
