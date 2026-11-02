@@ -6638,7 +6638,7 @@ var(8)=510000
 [state ]
 type=varset
 trigger1=1
-var(10)=0
+var(10)=4
 
 [state ]
 type=varset
@@ -7189,7 +7189,16 @@ vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-50
 accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
+type=modifyexplod
+triggerall=((sysvar(2)-11)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)>=11
+id=var(8)+100000+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+0
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+
+[state ]
 type=explod
+triggerall=(sysvar(2)+2*var(0)+var(20))%3!=0
 trigger1=sysvar(2)<=var(2)
 trigger1=var(20)<var(21)
 anim=var(6)
@@ -7201,6 +7210,25 @@ vel=fvar(23)*cos(fvar(0)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(0)+fvar(24))
 removetime=var(22)
 scale=fvar(5),fvar(5)
 sprpriority=var(10)
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=add
+
+[state ]
+type=explod
+triggerall=(sysvar(2)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)<=var(2)
+trigger1=var(20)<var(21)
+anim=var(6)
+id=var(8)+100000+sysvar(2)*1000+var(0)*100+var(20)*3+0
+postype=p1
+pos=var(16)+15*(root,facing)+floor(fvar(28)*0.5775-fvar(1)*1.25*sin(fvar(0))+(random-500)*0.000133333333334),var(17)-15+floor(fvar(31)*0.5775+fvar(1)*1.25*cos(fvar(0))+(random-500)*0.000133333333334)
+bindtime=1
+vel=fvar(23)*cos(fvar(0)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(0)+fvar(24))
+removetime=var(22)
+scale=(fvar(5))+0.5,(fvar(5))+0.5
+sprpriority=var(10)-1
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1
@@ -7379,7 +7407,16 @@ vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-50
 accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
+type=modifyexplod
+triggerall=((sysvar(2)-11)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)>=var(3)+11
+id=var(8)+100000+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+1
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+
+[state ]
 type=explod
+triggerall=(sysvar(2)+2*var(0)+var(20))%3!=0
 trigger1=sysvar(2)>=var(3)
 trigger1=sysvar(2)<=var(2)
 trigger1=var(20)<var(42)
@@ -7392,6 +7429,26 @@ vel=fvar(23)*cos(fvar(34)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(34)+fvar(24))
 removetime=var(22)
 scale=(fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*fvar(25)*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)),(fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*fvar(25)*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1))
 sprpriority=var(10)
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=add
+
+[state ]
+type=explod
+triggerall=(sysvar(2)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)>=var(3)
+trigger1=sysvar(2)<=var(2)
+trigger1=var(20)<var(42)
+anim=var(6)
+id=var(8)+100000+sysvar(2)*1000+var(0)*100+var(20)*3+1
+postype=p1
+pos=var(16)+15*(root,facing)+floor(fvar(28)*0.5775-fvar(1)*1.25*sin(fvar(34))+(random-500)*0.000133333333334*fvar(25)),var(17)-15+floor(fvar(31)*0.5775+fvar(1)*1.25*cos(fvar(34))+(random-500)*0.000133333333334*fvar(25))
+bindtime=1
+vel=fvar(23)*cos(fvar(34)+fvar(24)),fvar(17)*fvar(23)*sin(fvar(34)+fvar(24))
+removetime=var(22)
+scale=((fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*fvar(25)*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)))+0.5,((fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*fvar(25)*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)))+0.5
+sprpriority=var(10)-1
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1
@@ -7593,7 +7650,17 @@ vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-50
 accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
 
 [state ]
+type=modifyexplod
+triggerall=((sysvar(2)-11)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)>=var(3)+var(23)+11
+trigger1=!(var(0)%2)
+id=var(8)+100000+(sysvar(2)-11)*1000+var(0)*100+var(20)*3+2
+vel=var(35)*cos(fvar(0)+(var(34)-500)*pi/1500.0),var(35)*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+accel=195*cos(fvar(0)+(var(34)-500)*pi/1500.0),195*sin(fvar(0)+(var(34)-500)*pi/1500.0)
+
+[state ]
 type=explod
+triggerall=(sysvar(2)+2*var(0)+var(20))%3!=0
 trigger1=sysvar(2)>=var(3)+var(23)
 trigger1=sysvar(2)<=var(2)
 trigger1=!(var(0)%2)
@@ -7607,6 +7674,27 @@ vel=fvar(19)*cos(fvar(23)+fvar(20)),fvar(17)*fvar(19)*sin(fvar(23)+fvar(20))
 removetime=var(22)
 scale=(fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*var(45)/100.0*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)),(fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*var(45)/100.0*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1))
 sprpriority=var(10)
+supermovetime=99990000000
+pausemovetime=99990000000
+ownpal=1
+trans=add
+
+[state ]
+type=explod
+triggerall=(sysvar(2)*7+var(0)*3+var(20))%10=0
+trigger1=sysvar(2)>=var(3)+var(23)
+trigger1=sysvar(2)<=var(2)
+trigger1=!(var(0)%2)
+trigger1=var(20)<var(25)
+anim=var(6)
+id=var(8)+100000+sysvar(2)*1000+var(0)*100+var(20)*3+2
+postype=p1
+pos=var(16)+15*(root,facing)+floor(fvar(28)*0.5775-fvar(1)*1.25*sin(fvar(23))+(random-500)*0.000133333333334*fvar(25)*fvar(25)),var(17)-15+floor(fvar(31)*0.5775+fvar(1)*1.25*cos(fvar(23))+(random-500)*0.000133333333334*fvar(25)*fvar(25))
+bindtime=1
+vel=fvar(19)*cos(fvar(23)+fvar(20)),fvar(17)*fvar(19)*sin(fvar(23)+fvar(20))
+removetime=var(22)
+scale=((fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*var(45)/100.0*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)))+0.5,((fvar(13)+(fvar(14)-fvar(13))*sysvar(2)/var(2))*var(45)/100.0*ifelse(sysvar(2)>=19,0.8,ifelse(sysvar(2)>=18,0.9,1)))+0.5
+sprpriority=var(10)-1
 supermovetime=99990000000
 pausemovetime=99990000000
 ownpal=1

@@ -1868,6 +1868,18 @@ anim=1000
 sprpriority=2
 
 [state ]
+type=sprpriority
+trigger1=time=10
+persistent=0
+value=5
+
+[state ]
+type=sprpriority
+trigger1=time=11
+persistent=0
+value=2
+
+[state ]
 type=helper
 trigger1=time=10
 persistent=0
