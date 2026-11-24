@@ -8292,7 +8292,7 @@ fvar(11)=0.33
 [state ]
 type=varset
 trigger1=1
-fvar(12)=2
+fvar(12)=0.6
 
 [state ]
 type=varset
@@ -8302,7 +8302,7 @@ fvar(13)=6
 [state ]
 type=varset
 trigger1=1
-fvar(14)=0.5
+fvar(14)=0.2
 
 [state ]
 type=varset
@@ -8314,7 +8314,24 @@ fvar(15)=1.5
 [state ]
 type=varset
 trigger1=1
-fvar(16)=40
+fvar(16)=25
+
+;; 根元光球の頂点までの時間（寿命に対する割合）と発出位置の高低差
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=0.45
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=0.8
+
+[state ]
+type=varset
+trigger1=1
+fvar(19)=4
 
 ;; 伸長の8標本：高さ、先端の発出数、根元の発出数
 
@@ -8401,42 +8418,42 @@ var(27)=0
 [state ]
 type=varset
 trigger1=1
-var(28)=4
+var(28)=12
 
 [state ]
 type=varset
 trigger1=1
-var(29)=4
+var(29)=12
 
 [state ]
 type=varset
 trigger1=1
-var(30)=12
+var(30)=36
 
 [state ]
 type=varset
 trigger1=1
-var(31)=16
+var(31)=48
 
 [state ]
 type=varset
 trigger1=1
-var(32)=6
+var(32)=18
 
 [state ]
 type=varset
 trigger1=1
-var(33)=4
+var(33)=12
 
 [state ]
 type=varset
 trigger1=1
-var(34)=2
+var(34)=6
 
 [state ]
 type=varset
 trigger1=1
-var(35)=2
+var(35)=6
 
 [state ]
 type=varset
@@ -8733,12 +8750,22 @@ trans=add
 pausemovetime=99990000000
 supermovetime=99990000000
 
-;; 根元の光球は寿命の間、接地点の近くで低い弧を描く
+;; 根元の各粒で上向き初速、頂点時刻、横方向の減速率を別々に抽選する
 
 [state ]
 type=varset
 trigger1=var(39)<var(38)
-fvar(38)=fvar(14)+(fvar(15)-fvar(14))*fvar(36)
+fvar(38)=fvar(14)+(fvar(15)-fvar(14))*random/999.0
+
+[state ]
+type=varset
+trigger1=var(39)<var(38)
+fvar(39)=var(3)*(fvar(17)+(fvar(18)-fvar(17))*random/999.0)
+
+[state ]
+type=varset
+trigger1=var(39)<var(38)
+fvar(28)=ifelse(fvar(34)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(35))
 
 [state ]
 type=explod
@@ -8746,10 +8773,10 @@ trigger1=var(39)<var(38)
 anim=var(8)
 id=var(15)
 postype=p1
-pos=floor(fvar(34)*fvar(0)/2),floor(fvar(16))
+pos=floor(fvar(34)*fvar(0)/2),floor(fvar(16)-fvar(19)*random/999.0)
 bindtime=1
-vel=ifelse(fvar(34)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(35)),-fvar(38)
-accel=0,2*fvar(38)/var(3)
+vel=fvar(28),-fvar(38)
+accel=-fvar(28)*random/(999.0*var(3)),fvar(38)/fvar(39)
 scale=fvar(10)+(fvar(11)-fvar(10))*fvar(36),fvar(10)+(fvar(11)-fvar(10))*fvar(36)
 removetime=var(3)
 sprpriority=var(6)
