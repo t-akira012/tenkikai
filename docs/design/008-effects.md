@@ -36,6 +36,7 @@ CNS上のStateDef、Controller、Trigger、変数、ルーティングなどの�
 - [明光弾](effect/008-bright-energy-projectile.md)：既存のエネルギー核素材を加算表示し、薄い残像と外向き粒子光を伴う明るい光弾として、他の運動責務および攻撃判定と合成する
 - [三次元巡回移動](effect/009-three-dimensional-orbit.md)：任意のHelperをRoot周囲の楕円へ巡回させ、奥行きに応じた描画優先順位の切替、角速度・軌道半径の時間変化および慣性射出を共通化する
 - [分岐電撃](effect/010-branching-electricity.md)：本体から全方位へ折れ曲がりながら枝分かれする電撃を、短い発出期間と長い残存期間で描く
+- [光柱](effect/011-light-pillar.md)：技ごとに指定した地面位置から細い光の柱を突き上げ、先端から上方へ噴き出す光球と地面付近へ散る光球を伴う汎用エフェクト
 
 ## 番号空間
 
