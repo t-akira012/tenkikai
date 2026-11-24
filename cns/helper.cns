@@ -8178,12 +8178,12 @@ fvar(0)=40
 [state ]
 type=varset
 trigger1=1
-fvar(1)=screenpos y
+fvar(1)=(root,screenpos y)-(root,pos y)
 
 [state ]
 type=varset
 trigger1=1
-fvar(2)=100
+fvar(2)=50
 
 [state ]
 type=varset
@@ -8258,7 +8258,7 @@ fvar(16)=0.25
 [state ]
 type=varset
 trigger1=1
-fvar(17)=0
+fvar(17)=pos x
 
 [state ]
 type=varset
@@ -8308,6 +8308,7 @@ fvar(27)=1.5
 [state ]
 type=posset
 trigger1=1
+x=fvar(17)
 y=0
 
 [state ]
@@ -8363,6 +8364,29 @@ ctrl=0
 velset=0,0
 
 [state ]
+type=posset
+trigger1=1
+x=fvar(17)
+y=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(37)=(root,screenpos x)+fvar(17)-(root,pos x)
+
+[state ]
+type=varset
+trigger1=1
+fvar(38)=(root,screenpos y)-(root,pos y)
+
+[state ]
+type=palfx
+trigger1=1
+time=1
+mul=0,0,0
+add=255,255,255
+
+[state ]
 type=assertspecial
 trigger1=1
 flag=invisible
@@ -8414,13 +8438,13 @@ type=explod
 trigger1=sysvar(2)=0
 anim=var(16)
 id=var(7)
-postype=p1
-pos=0,0
-bindtime=-1
+postype=left
+pos=floor(fvar(37)),floor(fvar(38)-fvar(31)/2)
+bindtime=1
 removetime=var(0)+var(1)
 scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
 sprpriority=var(4)
-ownpal=1
+ownpal=0
 trans=none
 pausemovetime=99990000000
 supermovetime=99990000000
@@ -8429,6 +8453,9 @@ supermovetime=99990000000
 type=modifyexplod
 trigger1=sysvar(2)<var(0)+var(1)
 id=var(7)
+postype=left
+pos=floor(fvar(37)),floor(fvar(38)-fvar(31)/2)
+bindtime=1
 scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
 
 [state ]
@@ -8436,13 +8463,13 @@ type=explod
 trigger1=sysvar(2)=0
 anim=var(16)
 id=var(8)
-postype=p1
-pos=0,0
-bindtime=-1
+postype=left
+pos=floor(fvar(37)),floor(fvar(38)-fvar(31)/2)
+bindtime=1
 removetime=var(0)+var(1)
 scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
 sprpriority=var(5)
-ownpal=1
+ownpal=0
 trans=addalpha
 alpha=var(12),var(13)
 pausemovetime=99990000000
@@ -8452,6 +8479,9 @@ supermovetime=99990000000
 type=modifyexplod
 trigger1=sysvar(2)<var(0)+var(1)
 id=var(8)
+postype=left
+pos=floor(fvar(37)),floor(fvar(38)-fvar(31)/2)
+bindtime=1
 scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
 
 [state ]
@@ -8500,17 +8530,17 @@ var(39)=ifelse(sysvar(2)<var(0),var(28+var(36)),0)
 
 [state ]
 type=varset
-trigger1=(screenpos y-fvar(31)<0)||(screenpos y-fvar(31)>var(51))
+trigger1=(fvar(38)-fvar(31)<0)||(fvar(38)-fvar(31)>var(51))
 var(38)=0
 
 [state ]
 type=varset
-trigger1=(screenpos x<0)||(screenpos x>var(50))
+trigger1=(fvar(37)<0)||(fvar(37)>var(50))
 var(38)=0
 
 [state ]
 type=varset
-trigger1=(screenpos x<0)||(screenpos x>var(50))||(screenpos y<0)||(screenpos y>var(51))
+trigger1=(fvar(37)<0)||(fvar(37)>var(50))||(fvar(38)<0)||(fvar(38)>var(51))
 var(39)=0
 
 [state ]
@@ -8554,8 +8584,8 @@ type=explod
 trigger1=var(58)<var(38)
 anim=var(9)
 id=var(10)
-postype=p1
-pos=floor(fvar(33)*fvar(0)/2),-floor(fvar(31))
+postype=left
+pos=floor(fvar(37)+fvar(33)*fvar(0)/2),floor(fvar(38)-fvar(31))
 bindtime=0
 vel=fvar(33)*fvar(9),-fvar(7)-(fvar(8)-fvar(7))*fvar(34)
 removetime=var(2)
@@ -8571,8 +8601,8 @@ type=explod
 trigger1=var(58)<var(39)
 anim=var(9)
 id=var(11)
-postype=p1
-pos=floor(fvar(33)*fvar(0)/2),0
+postype=left
+pos=floor(fvar(37)+fvar(33)*fvar(0)/2),floor(fvar(38))
 bindtime=0
 vel=ifelse(fvar(33)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(34)),-fvar(14)-(fvar(15)-fvar(14))*fvar(35)
 accel=0,fvar(16)
