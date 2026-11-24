@@ -43,6 +43,7 @@ var(2)=var(2)&-2147483648
 | 15 | `32768` | `two_handed_projectile` | `D,D,a` | 両手光弾 |
 | 16 | `65536` | `one_handed_projectile` | `D,D,b` | 片手光弾 |
 | 17 | `131072` | 接地許可フラグ | StateDef `-3`がStateDef `1200`〜`1204`以外で設定 | 内部状態 |
+| 18 | `262144` | `bachibachi` | `D,D,y` | バチバチ |
 
 複合Commandの`time`は`30tick`とする。
 

@@ -26,6 +26,7 @@ INPUTS = (
     (14, "rush_26", "D,F,a", 16384),
     (15, "two_handed_projectile", "D,D,a", 32768),
     (16, "one_handed_projectile", "D,D,b", 65536),
+    (18, "bachibachi", "D,D,y", 262144),
 )
 
 

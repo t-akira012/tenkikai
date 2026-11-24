@@ -45,6 +45,11 @@ name="one_handed_projectile"
 command=D,D,b
 time=30
 
+[Command]
+name="bachibachi"
+command=D,D,y
+time=30
+
 ;-------------------------------------------------
 [Command]
 name="recovery"
@@ -228,6 +233,12 @@ trigger1=(var(2)&-2147483648)=0
 trigger1=command="one_handed_projectile"
 var(2)=var(2)|65536
 
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="bachibachi"
+var(2)=var(2)|262144
+
 ;; 入力ビットによる状態遷移
 
 ;; 画面横断突進
@@ -236,6 +247,16 @@ var(2)=var(2)|65536
 type=changestate
 value=1200
 triggerall=(var(2)&16384)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; バチバチ
+
+[state ]
+type=changestate
+value=1306
+triggerall=(var(2)&262144)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
@@ -384,16 +405,6 @@ triggerall=pos y<0
 triggerall=(numhelper(509000)=0)||(helper(509000),var(7)=0)
 triggerall=(var(2)&512)!=0
 triggerall=((var(2)&2)!=0)||(((var(2)&1)=0)&&((var(2)&2)=0)&&(vel x<0))
-trigger1=(var(2)&-2147483648)!=0
-trigger2=(var(2)&-2147483648)=0
-trigger2=ctrl
-
-;; 石の自由落下を思わせる回避復帰モーション
-
-[state ]
-type=changestate
-value=1306
-triggerall=(var(2)&32)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl
