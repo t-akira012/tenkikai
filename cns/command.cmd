@@ -50,6 +50,11 @@ name="bachibachi"
 command=D,D,y
 time=30
 
+[Command]
+name="light_pillar"
+command=D,D,x
+time=30
+
 ;-------------------------------------------------
 [Command]
 name="recovery"
@@ -239,6 +244,12 @@ trigger1=(var(2)&-2147483648)=0
 trigger1=command="bachibachi"
 var(2)=var(2)|262144
 
+[state ]
+type=varset
+trigger1=(var(2)&-2147483648)=0
+trigger1=command="light_pillar"
+var(2)=var(2)|524288
+
 ;; 入力ビットによる状態遷移
 
 ;; 画面横断突進
@@ -257,6 +268,16 @@ trigger2=ctrl
 type=changestate
 value=1306
 triggerall=(var(2)&262144)!=0
+trigger1=(var(2)&-2147483648)!=0
+trigger2=(var(2)&-2147483648)=0
+trigger2=ctrl
+
+;; 光柱
+
+[state ]
+type=changestate
+value=1400
+triggerall=(var(2)&524288)!=0
 trigger1=(var(2)&-2147483648)!=0
 trigger2=(var(2)&-2147483648)=0
 trigger2=ctrl

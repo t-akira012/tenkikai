@@ -623,3 +623,6 @@ LoopStart
 Clsn1Default: 1
  Clsn1[0] = -65,-65,65,65
 20,0, 0,0, -1
+
+[Begin Action 511000]
+10000,5, 0,-50, -1

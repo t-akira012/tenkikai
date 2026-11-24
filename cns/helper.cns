@@ -2579,6 +2579,220 @@ type=changestate
 trigger1=1
 value=500990
 
+[statedef 500050]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500000
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=11
+
+[state ]
+type=varset
+trigger1=1
+var(2)=0
+
+[state ]
+type=varset
+trigger1=1
+var(3)=0
+
+[state ]
+type=varset
+trigger1=1
+var(4)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=0
+
+[state ]
+type=varset
+trigger1=1
+var(7)=2
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+var(10)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=40.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=8.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=120.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=20.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500990
+
+[statedef 500051]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=500001
+
+[state ]
+type=varset
+trigger1=1
+var(0)=1
+
+[state ]
+type=varset
+trigger1=1
+var(1)=11
+
+[state ]
+type=varset
+trigger1=1
+var(2)=0
+
+[state ]
+type=varset
+trigger1=1
+var(3)=1
+
+[state ]
+type=varset
+trigger1=1
+var(4)=4
+
+[state ]
+type=varset
+trigger1=1
+var(5)=0
+
+[state ]
+type=varset
+trigger1=1
+var(6)=0
+
+[state ]
+type=varset
+trigger1=1
+var(7)=2
+
+[state ]
+type=varset
+trigger1=1
+var(8)=1
+
+[state ]
+type=varset
+trigger1=1
+var(9)=1
+
+[state ]
+type=varset
+trigger1=1
+var(10)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=40.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=8.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=120.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=20.0/300
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=500990
+
 [statedef 500990]
 type=a
 movetype=I
@@ -7754,6 +7968,636 @@ persistent=256
 [state ]
 type=changestate
 trigger1=1
+value=599120
+
+;; 光柱
+
+[statedef 511000]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=301
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=8
+
+[state ]
+type=varset
+trigger1=1
+var(1)=4
+
+[state ]
+type=varset
+trigger1=1
+var(2)=12
+
+[state ]
+type=varset
+trigger1=1
+var(3)=8
+
+[state ]
+type=varset
+trigger1=1
+var(4)=-1
+
+[state ]
+type=varset
+trigger1=1
+var(5)=4
+
+[state ]
+type=varset
+trigger1=1
+var(6)=4
+
+[state ]
+type=varset
+trigger1=1
+var(7)=511000
+
+[state ]
+type=varset
+trigger1=1
+var(8)=511001
+
+[state ]
+type=varset
+trigger1=1
+var(9)=18554
+
+[state ]
+type=varset
+trigger1=1
+var(10)=511002
+
+[state ]
+type=varset
+trigger1=1
+var(11)=511003
+
+[state ]
+type=varset
+trigger1=1
+var(12)=97
+
+[state ]
+type=varset
+trigger1=1
+var(13)=159
+
+[state ]
+type=varset
+trigger1=1
+var(14)=500050
+
+[state ]
+type=varset
+trigger1=1
+var(15)=500051
+
+[state ]
+type=varset
+trigger1=1
+var(16)=511000
+
+[state ]
+type=varset
+trigger1=1
+var(17)=2
+
+[state ]
+type=varset
+trigger1=1
+var(18)=4
+
+[state ]
+type=varset
+trigger1=1
+var(19)=8
+
+[state ]
+type=varset
+trigger1=1
+var(50)=320
+
+[state ]
+type=varset
+trigger1=1
+var(51)=240
+
+[state ]
+type=varset
+trigger1=1
+var(20)=4
+
+[state ]
+type=varset
+trigger1=1
+var(21)=6
+
+[state ]
+type=varset
+trigger1=1
+var(22)=18
+
+[state ]
+type=varset
+trigger1=1
+var(23)=24
+
+[state ]
+type=varset
+trigger1=1
+var(24)=10
+
+[state ]
+type=varset
+trigger1=1
+var(25)=8
+
+[state ]
+type=varset
+trigger1=1
+var(26)=0
+
+[state ]
+type=varset
+trigger1=1
+var(27)=0
+
+[state ]
+type=varset
+trigger1=1
+var(28)=4
+
+[state ]
+type=varset
+trigger1=1
+var(29)=4
+
+[state ]
+type=varset
+trigger1=1
+var(30)=12
+
+[state ]
+type=varset
+trigger1=1
+var(31)=16
+
+[state ]
+type=varset
+trigger1=1
+var(32)=6
+
+[state ]
+type=varset
+trigger1=1
+var(33)=4
+
+[state ]
+type=varset
+trigger1=1
+var(34)=2
+
+[state ]
+type=varset
+trigger1=1
+var(35)=2
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=40
+
+[state ]
+type=varset
+trigger1=1
+fvar(1)=screenpos y
+
+[state ]
+type=varset
+trigger1=1
+fvar(2)=100
+
+[state ]
+type=varset
+trigger1=1
+fvar(3)=0.12
+
+[state ]
+type=varset
+trigger1=1
+fvar(4)=0.24
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.2
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=0.35
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=4
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=10
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=4
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=0.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=0.22
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=2
+
+[state ]
+type=varset
+trigger1=1
+fvar(13)=6
+
+[state ]
+type=varset
+trigger1=1
+fvar(14)=0.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=1.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(17)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(18)=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(20)=0.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(21)=0.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(22)=0.53
+
+[state ]
+type=varset
+trigger1=1
+fvar(23)=0.55
+
+[state ]
+type=varset
+trigger1=1
+fvar(24)=0.62
+
+[state ]
+type=varset
+trigger1=1
+fvar(25)=0.8
+
+[state ]
+type=varset
+trigger1=1
+fvar(26)=1.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(27)=1.5
+
+[state ]
+type=posset
+trigger1=1
+y=0
+
+[state ]
+type=turn
+trigger1=facing!=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=511990
+
+[statedef 511990]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(0)=2048
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(3)=var(0)+ifelse(var(1)>ifelse(var(2)>var(3),var(2),var(3)),var(1),ifelse(var(2)>var(3),var(2),var(3)))-1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(4)=0
+
+[state ]
+type=selfstate
+trigger1=1
+value=599000
+
+[statedef 511900]
+type=a
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+flag2=noshadow
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=varset
+trigger1=1
+fvar(30)=ifelse(sysvar(2)<var(0),(sysvar(2)+1)*1.0*var(19)/var(0)-1,var(19)-1)
+
+[state ]
+type=varset
+trigger1=fvar(30)<0
+fvar(30)=0
+
+[state ]
+type=varset
+trigger1=1
+var(36)=floor(fvar(30))
+
+[state ]
+type=varset
+trigger1=1
+var(37)=ifelse(var(36)<var(19)-1,var(36)+1,var(36))
+
+[state ]
+type=varset
+trigger1=1
+fvar(31)=fvar(1)*(fvar(20+var(36))+(fvar(20+var(37))-fvar(20+var(36)))*(fvar(30)-var(36)))
+
+[state ]
+type=varset
+trigger1=1
+fvar(32)=fvar(0)*ifelse(sysvar(2)<var(0),1,ifelse(sysvar(2)<var(0)+var(1),1-(sysvar(2)-var(0)+1)*1.0/var(1),0))
+
+[state ]
+type=explod
+trigger1=sysvar(2)=0
+anim=var(16)
+id=var(7)
+postype=p1
+pos=0,0
+bindtime=-1
+removetime=var(0)+var(1)
+scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
+sprpriority=var(4)
+ownpal=1
+trans=none
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=modifyexplod
+trigger1=sysvar(2)<var(0)+var(1)
+id=var(7)
+scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
+
+[state ]
+type=explod
+trigger1=sysvar(2)=0
+anim=var(16)
+id=var(8)
+postype=p1
+pos=0,0
+bindtime=-1
+removetime=var(0)+var(1)
+scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
+sprpriority=var(5)
+ownpal=1
+trans=addalpha
+alpha=var(12),var(13)
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=modifyexplod
+trigger1=sysvar(2)<var(0)+var(1)
+id=var(8)
+scale=fvar(32)/fvar(2),fvar(31)/fvar(2)
+
+[state ]
+type=helper
+trigger1=sysvar(2)=0
+name="light_pillar_ground_ripple"
+id=var(14)
+stateno=var(14)
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=sysvar(2)=0
+name="light_pillar_ground_ripple"
+id=var(15)
+stateno=var(15)
+helpertype=normal
+pos=0,0
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=varset
+trigger1=1
+var(38)=ifelse(sysvar(2)<var(0),var(20+var(36)),0)
+
+[state ]
+type=varset
+trigger1=1
+var(39)=ifelse(sysvar(2)<var(0),var(28+var(36)),0)
+
+[state ]
+type=varset
+trigger1=(screenpos y-fvar(31)<0)||(screenpos y-fvar(31)>var(51))
+var(38)=0
+
+[state ]
+type=varset
+trigger1=(screenpos x<0)||(screenpos x>var(50))
+var(38)=0
+
+[state ]
+type=varset
+trigger1=(screenpos x<0)||(screenpos x>var(50))||(screenpos y<0)||(screenpos y>var(51))
+var(39)=0
+
+[state ]
+type=varset
+trigger1=1
+var(58)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=511910
+
+[statedef 511910]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=varset
+trigger1=1
+fvar(33)=(random-500)/500.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(34)=random/1000.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(35)=random/1000.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(36)=ifelse((var(36)>=var(17))&&(var(36)<var(18)),fvar(5)+(fvar(6)-fvar(5))*fvar(35),fvar(3)+(fvar(4)-fvar(3))*fvar(35))
+
+[state ]
+type=explod
+trigger1=var(58)<var(38)
+anim=var(9)
+id=var(10)
+postype=p1
+pos=floor(fvar(33)*fvar(0)/2),-floor(fvar(31))
+bindtime=0
+vel=fvar(33)*fvar(9),-fvar(7)-(fvar(8)-fvar(7))*fvar(34)
+removetime=var(2)
+scale=fvar(36),fvar(36)
+sprpriority=var(6)
+ownpal=1
+trans=add
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=explod
+trigger1=var(58)<var(39)
+anim=var(9)
+id=var(11)
+postype=p1
+pos=floor(fvar(33)*fvar(0)/2),0
+bindtime=0
+vel=ifelse(fvar(33)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(34)),-fvar(14)-(fvar(15)-fvar(14))*fvar(35)
+accel=0,fvar(16)
+removetime=var(3)
+scale=fvar(10)+(fvar(11)-fvar(10))*fvar(35),fvar(10)+(fvar(11)-fvar(10))*fvar(35)
+sprpriority=var(6)
+ownpal=1
+trans=add
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=varadd
+trigger1=1
+var(58)=1
+
+[state ]
+type=selfstate
+trigger1=(var(58)<var(38))||(var(58)<var(39))
+value=511910
+persistent=256
+
+[state ]
+type=changestate
+trigger1=1
 value=599900
 
 ;; 非常駐Helper共通実行基盤
@@ -7943,6 +8787,22 @@ ctrl=0
 type=changestate
 trigger1=(sysvar(0)&1024)!=0
 value=510900
+
+[state ]
+type=changestate
+trigger1=1
+value=599120
+
+[statedef 599120]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&2048)!=0
+value=511900
 
 [state ]
 type=changestate

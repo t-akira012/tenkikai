@@ -2089,3 +2089,34 @@ trigger1=time>=8
 value=1303
 
 ;-------------------------------------------------
+
+[statedef 1400]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=0
+
+[state ]
+type=helper
+trigger1=!time
+persistent=0
+name="light_pillar"
+id=511000
+stateno=511000
+helpertype=normal
+pos=80,-pos y
+postype=p1
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=changestate
+trigger1=time>=1
+value=0
+ctrl=1

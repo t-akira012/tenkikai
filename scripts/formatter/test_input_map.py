@@ -27,6 +27,7 @@ INPUTS = (
     (15, "two_handed_projectile", "D,D,a", 32768),
     (16, "one_handed_projectile", "D,D,b", 65536),
     (18, "bachibachi", "D,D,y", 262144),
+    (19, "light_pillar", "D,D,x", 524288),
 )
 
 
