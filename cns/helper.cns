@@ -5104,6 +5104,166 @@ type=selfstate
 trigger1=1
 value=504990
 
+[statedef 504030]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=-1
+velset=0,0
+
+;; 光柱用背景暗転設定
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=invisible
+
+[state ]
+type=varset
+trigger1=1
+var(1)=parent,var(16)
+
+[state ]
+type=varset
+trigger1=1
+var(2)=0
+
+[state ]
+type=varset
+trigger1=1
+var(3)=var(1)
+
+[state ]
+type=varset
+trigger1=1
+var(4)=0
+
+[state ]
+type=varset
+trigger1=1
+var(5)=var(1)
+
+[state ]
+type=varset
+trigger1=1
+var(6)=256
+
+[state ]
+type=varset
+trigger1=1
+var(7)=256
+
+[state ]
+type=varset
+trigger1=1
+var(8)=256
+
+[state ]
+type=varset
+trigger1=1
+var(9)=64
+
+[state ]
+type=varset
+trigger1=1
+var(10)=64
+
+[state ]
+type=varset
+trigger1=1
+var(11)=64
+
+[state ]
+type=varset
+trigger1=1
+var(12)=256
+
+[state ]
+type=varset
+trigger1=1
+var(13)=256
+
+[state ]
+type=varset
+trigger1=1
+var(14)=256
+
+[state ]
+type=varset
+trigger1=1
+var(15)=0
+
+[state ]
+type=varset
+trigger1=1
+var(16)=0
+
+[state ]
+type=varset
+trigger1=1
+var(17)=0
+
+[state ]
+type=varset
+trigger1=1
+var(18)=0
+
+[state ]
+type=varset
+trigger1=1
+var(19)=0
+
+[state ]
+type=varset
+trigger1=1
+var(20)=0
+
+[state ]
+type=varset
+trigger1=1
+var(21)=0
+
+[state ]
+type=varset
+trigger1=1
+var(22)=0
+
+[state ]
+type=varset
+trigger1=1
+var(23)=0
+
+[state ]
+type=varset
+trigger1=1
+var(24)=256
+
+[state ]
+type=varset
+trigger1=1
+var(25)=256
+
+[state ]
+type=varset
+trigger1=1
+var(26)=256
+
+[state ]
+type=varset
+trigger1=1
+var(27)=0
+
+[state ]
+type=varset
+trigger1=1
+var(28)=1
+
+[state ]
+type=selfstate
+trigger1=1
+value=504990
+
 [statedef 504990]
 type=a
 movetype=I
@@ -7970,15 +8130,22 @@ type=changestate
 trigger1=1
 value=599120
 
-;; 光柱
+;; 光柱：技が指定したXを生成位置とし、原点を地面へ置く
 
 [statedef 511000]
 type=a
 movetype=I
 physics=N
 ctrl=0
-anim=511000
+anim=301
 velset=0,0
+
+[state ]
+type=posset
+trigger1=1
+y=0
+
+;; 伸長・縮小時間、光球寿命、素材と表示順
 
 [state ]
 type=varset
@@ -8003,22 +8170,22 @@ var(3)=8
 [state ]
 type=varset
 trigger1=1
-var(4)=-1
+var(4)=505000
 
 [state ]
 type=varset
 trigger1=1
-var(5)=4
+var(5)=-1
 
 [state ]
 type=varset
 trigger1=1
-var(6)=511000
+var(6)=4
 
 [state ]
 type=varset
 trigger1=1
-var(7)=511001
+var(7)=97
 
 [state ]
 type=varset
@@ -8028,62 +8195,164 @@ var(8)=18554
 [state ]
 type=varset
 trigger1=1
-var(9)=511002
+var(9)=500050
 
 [state ]
 type=varset
 trigger1=1
-var(10)=511003
+var(10)=500051
 
 [state ]
 type=varset
 trigger1=1
-var(11)=97
+var(11)=504030
 
 [state ]
 type=varset
 trigger1=1
-var(12)=159
+var(12)=511001
 
 [state ]
 type=varset
 trigger1=1
-var(13)=2
+var(13)=511002
 
 [state ]
 type=varset
 trigger1=1
-var(14)=4
+var(14)=511010
 
 [state ]
 type=varset
 trigger1=1
-var(15)=8
+var(15)=511011
 
 [state ]
 type=varset
 trigger1=1
-var(16)=500050
+fvar(0)=40
 
 [state ]
 type=varset
 trigger1=1
-var(17)=500051
+fvar(1)=240
 
 [state ]
 type=varset
 trigger1=1
-var(40)=255
+fvar(2)=50
 
 [state ]
 type=varset
 trigger1=1
-var(41)=0
+fvar(3)=0.12
 
 [state ]
 type=varset
 trigger1=1
-var(42)=1
+fvar(4)=0.24
+
+[state ]
+type=varset
+trigger1=1
+fvar(5)=0.2
+
+[state ]
+type=varset
+trigger1=1
+fvar(6)=0.35
+
+[state ]
+type=varset
+trigger1=1
+fvar(7)=4
+
+[state ]
+type=varset
+trigger1=1
+fvar(8)=10
+
+[state ]
+type=varset
+trigger1=1
+fvar(9)=4
+
+[state ]
+type=varset
+trigger1=1
+fvar(10)=0.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(11)=0.22
+
+[state ]
+type=varset
+trigger1=1
+fvar(12)=2
+
+[state ]
+type=varset
+trigger1=1
+fvar(13)=6
+
+[state ]
+type=varset
+trigger1=1
+fvar(14)=0.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(15)=1.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(16)=0.25
+
+;; 伸長の8標本：高さ、先端の発出数、根元の発出数
+
+[state ]
+type=varset
+trigger1=1
+fvar(20)=0.25
+
+[state ]
+type=varset
+trigger1=1
+fvar(21)=0.5
+
+[state ]
+type=varset
+trigger1=1
+fvar(22)=0.53
+
+[state ]
+type=varset
+trigger1=1
+fvar(23)=0.55
+
+[state ]
+type=varset
+trigger1=1
+fvar(24)=0.62
+
+[state ]
+type=varset
+trigger1=1
+fvar(25)=0.8
+
+[state ]
+type=varset
+trigger1=1
+fvar(26)=1.1
+
+[state ]
+type=varset
+trigger1=1
+fvar(27)=1.5
 
 [state ]
 type=varset
@@ -8168,144 +8437,15 @@ var(35)=2
 [state ]
 type=varset
 trigger1=1
-fvar(0)=40
+var(16)=var(0)+var(1)
 
 [state ]
 type=varset
 trigger1=1
-fvar(1)=240
+var(17)=var(0)+ifelse(var(2)>var(3),var(2),var(3))
 
 [state ]
-type=varset
-trigger1=1
-fvar(2)=50
-
-[state ]
-type=varset
-trigger1=1
-fvar(3)=pos x
-
-[state ]
-type=varset
-trigger1=1
-fvar(7)=0.12
-
-[state ]
-type=varset
-trigger1=1
-fvar(8)=0.24
-
-[state ]
-type=varset
-trigger1=1
-fvar(9)=0.2
-
-[state ]
-type=varset
-trigger1=1
-fvar(10)=0.35
-
-[state ]
-type=varset
-trigger1=1
-fvar(11)=4
-
-[state ]
-type=varset
-trigger1=1
-fvar(12)=10
-
-[state ]
-type=varset
-trigger1=1
-fvar(13)=4
-
-[state ]
-type=varset
-trigger1=1
-fvar(14)=0.1
-
-[state ]
-type=varset
-trigger1=1
-fvar(15)=0.22
-
-[state ]
-type=varset
-trigger1=1
-fvar(16)=2
-
-[state ]
-type=varset
-trigger1=1
-fvar(17)=6
-
-[state ]
-type=varset
-trigger1=1
-fvar(18)=0.5
-
-[state ]
-type=varset
-trigger1=1
-fvar(19)=1.5
-
-[state ]
-type=varset
-trigger1=1
-fvar(28)=0.25
-
-[state ]
-type=varset
-trigger1=1
-fvar(20)=0.25
-
-[state ]
-type=varset
-trigger1=1
-fvar(21)=0.5
-
-[state ]
-type=varset
-trigger1=1
-fvar(22)=0.53
-
-[state ]
-type=varset
-trigger1=1
-fvar(23)=0.55
-
-[state ]
-type=varset
-trigger1=1
-fvar(24)=0.62
-
-[state ]
-type=varset
-trigger1=1
-fvar(25)=0.8
-
-[state ]
-type=varset
-trigger1=1
-fvar(26)=1.1
-
-[state ]
-type=varset
-trigger1=1
-fvar(27)=1.5
-
-[state ]
-type=posset
-trigger1=1
-y=0
-
-[state ]
-type=turn
-trigger1=facing!=1
-
-[state ]
-type=selfstate
+type=changestate
 trigger1=1
 value=511990
 
@@ -8333,7 +8473,7 @@ sysvar(2)=0
 [state ]
 type=varset
 trigger1=1
-sysvar(3)=var(0)+ifelse(var(2)>var(1),var(2),var(1))-1
+sysvar(3)=ifelse(var(16)>var(17),var(16),var(17))-1
 
 [state ]
 type=varset
@@ -8341,7 +8481,7 @@ trigger1=1
 sysvar(4)=0
 
 [state ]
-type=selfstate
+type=changestate
 trigger1=1
 value=599000
 
@@ -8350,91 +8490,6 @@ type=a
 movetype=I
 physics=N
 ctrl=0
-velset=0,0
-
-;; 地面原点と柱の完成寸法
-
-[state ]
-type=posset
-trigger1=1
-x=fvar(3)
-y=0
-
-[state ]
-type=changeanim
-trigger1=anim!=var(6)
-value=var(6)
-
-[state ]
-type=varset
-trigger1=1
-fvar(33)=ifelse(sysvar(2)<var(0),(sysvar(2)+1)*1.0*var(15)/var(0)-1,var(15)-1)
-
-[state ]
-type=varset
-trigger1=fvar(33)<0
-fvar(33)=0
-
-[state ]
-type=varset
-trigger1=1
-var(18)=floor(fvar(33))
-
-[state ]
-type=varset
-trigger1=1
-var(19)=ifelse(var(18)<var(15)-1,var(18)+1,var(18))
-
-[state ]
-type=varset
-trigger1=1
-fvar(4)=fvar(1)*(fvar(20+var(18))+(fvar(20+var(19))-fvar(20+var(18)))*(fvar(33)-var(18)))
-
-[state ]
-type=varset
-trigger1=1
-fvar(5)=fvar(0)*ifelse(sysvar(2)<var(0),1,ifelse(sysvar(2)<var(0)+var(1),1-(sysvar(2)-var(0)+1)*1.0/var(1),0))
-
-;; 背面の柱はHelper本体を描画し、下辺を地面へ固定
-
-[state ]
-type=offset
-trigger1=1
-x=0
-y=-fvar(4)/2
-
-[state ]
-type=angledraw
-trigger1=1
-value=0
-scale=fvar(5)/fvar(2),fvar(4)/fvar(2)
-
-[state ]
-type=sprpriority
-trigger1=1
-value=var(4)
-
-[state ]
-type=palfx
-trigger1=1
-time=var(42)
-mul=var(41),var(41),var(41)
-add=var(40),var(40),var(40)
-
-[state ]
-type=trans
-trigger1=1
-trans=none
-
-[state ]
-type=assertspecial
-trigger1=sysvar(2)>=var(0)+var(1)
-flag=invisible
-
-[state ]
-type=assertspecial
-trigger1=1
-flag=noshadow
 
 [state ]
 type=playerpush
@@ -8447,42 +8502,69 @@ trigger1=1
 value=sca
 time=1
 
-;; 前面の柱も地面原点から高さの半分だけ上へ配置
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
 
 [state ]
-type=explod
-trigger1=sysvar(2)=0
-anim=var(6)
-id=var(7)
-postype=p1
-pos=0,-floor(fvar(4)/2)
-bindtime=-1
-removetime=var(0)+var(1)
-scale=fvar(5)/fvar(2),fvar(4)/fvar(2)
-sprpriority=var(5)
-ownpal=0
-trans=addalpha
-alpha=var(11),var(12)
-pausemovetime=99990000000
-supermovetime=99990000000
+type=posset
+trigger1=1
+y=0
+
+;; 地面を起点とした高さと幅。終了時は幅ゼロ
 
 [state ]
-type=modifyexplod
-trigger1=sysvar(2)<var(0)+var(1)
-id=var(7)
-postype=p1
-pos=0,-floor(fvar(4)/2)
-bindtime=-1
-scale=fvar(5)/fvar(2),fvar(4)/fvar(2)
+type=varset
+trigger1=1
+fvar(30)=(sysvar(2)+1)*8.0/var(0)
 
-;; 根元衝撃波は同じ原点から生成
+[state ]
+type=varset
+trigger1=fvar(30)>8
+fvar(30)=8
+
+[state ]
+type=varset
+trigger1=1
+var(36)=ceil(fvar(30))-1
+
+[state ]
+type=varset
+trigger1=1
+fvar(31)=0
+
+[state ]
+type=varset
+trigger1=var(36)>0
+fvar(31)=fvar(19+var(36))
+
+[state ]
+type=varset
+trigger1=1
+fvar(32)=fvar(1)*(fvar(31)+(fvar(20+var(36))-fvar(31))*(fvar(30)-var(36)))
+
+[state ]
+type=varset
+trigger1=1
+fvar(33)=fvar(0)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(0)
+fvar(33)=fvar(0)*(var(16)-sysvar(2)-1)/var(1)
+
+[state ]
+type=varset
+trigger1=sysvar(2)>=var(16)
+fvar(33)=0
 
 [state ]
 type=helper
-trigger1=sysvar(2)=0
-name="light_pillar_ground_ripple"
-id=var(16)
-stateno=var(16)
+trigger1=!sysvar(2)
+name="pillar_back"
+id=var(12)
+stateno=var(12)
 helpertype=normal
 postype=p1
 pos=0,0
@@ -8496,10 +8578,10 @@ supermovetime=99990000000
 
 [state ]
 type=helper
-trigger1=sysvar(2)=0
-name="light_pillar_ground_ripple"
-id=var(17)
-stateno=var(17)
+trigger1=!sysvar(2)
+name="pillar_front"
+id=var(13)
+stateno=var(13)
 helpertype=normal
 postype=p1
 pos=0,0
@@ -8511,27 +8593,86 @@ size.yscale=1
 pausemovetime=99990000000
 supermovetime=99990000000
 
-;; 光球は先端と根元の二箇所から相対発出
+[state ]
+type=helper
+trigger1=!sysvar(2)
+name="pillar_left_ripple"
+id=var(9)
+stateno=var(9)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=!sysvar(2)
+name="pillar_right_ripple"
+id=var(10)
+stateno=var(10)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=helper
+trigger1=!sysvar(2)
+name="pillar_darkening"
+id=var(11)
+stateno=var(11)
+helpertype=normal
+postype=p1
+pos=0,0
+facing=1
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+pausemovetime=99990000000
+supermovetime=99990000000
+
+[state ]
+type=changestate
+trigger1=sysvar(2)>=var(0)
+value=599900
+
+[state ]
+type=changestate
+trigger1=(frontedgedist<0)||(backedgedist<0)
+value=599900
 
 [state ]
 type=varset
 trigger1=1
-var(37)=ifelse(sysvar(2)<var(0),var(20+var(18)),0)
+var(37)=var(20+var(36))
 
 [state ]
 type=varset
 trigger1=1
-var(38)=ifelse(sysvar(2)<var(0),var(28+var(18)),0)
+var(38)=var(28+var(36))
 
 [state ]
 type=varset
-trigger1=fvar(4)>fvar(1)
+trigger1=1
+var(39)=0
+
+[state ]
+type=varset
+trigger1=fvar(32)>=fvar(1)
 var(37)=0
-
-[state ]
-type=varset
-trigger1=1
-var(36)=0
 
 [state ]
 type=changestate
@@ -8544,38 +8685,45 @@ movetype=I
 physics=N
 ctrl=0
 
-[state ]
-type=varset
-trigger1=1
-fvar(29)=(random-500)/500.0
+;; 初回の1tickだけ原点へBindし、以降は各光球自身の速度で移動
 
 [state ]
 type=varset
 trigger1=1
-fvar(30)=random/1000.0
+fvar(34)=(random-500)/500.0
 
 [state ]
 type=varset
 trigger1=1
-fvar(31)=random/1000.0
+fvar(35)=random/999.0
 
 [state ]
 type=varset
 trigger1=1
-fvar(32)=ifelse((var(18)>=var(13))&&(var(18)<var(14)),fvar(9)+(fvar(10)-fvar(9))*fvar(31),fvar(7)+(fvar(8)-fvar(7))*fvar(31))
+fvar(36)=random/999.0
+
+[state ]
+type=varset
+trigger1=1
+fvar(37)=fvar(3)+(fvar(4)-fvar(3))*fvar(36)
+
+[state ]
+type=varset
+trigger1=var(36)=[2,3]
+fvar(37)=fvar(5)+(fvar(6)-fvar(5))*fvar(36)
 
 [state ]
 type=explod
-trigger1=var(36)<var(37)
+trigger1=var(39)<var(37)
 anim=var(8)
-id=var(9)
+id=var(14)
 postype=p1
-pos=floor(fvar(29)*fvar(0)/2),-floor(fvar(4))
-bindtime=0
-vel=fvar(29)*fvar(13),-fvar(11)-(fvar(12)-fvar(11))*fvar(30)
+pos=floor(fvar(34)*fvar(0)/2),-floor(fvar(32))
+bindtime=1
+vel=fvar(34)*fvar(9),-fvar(7)-(fvar(8)-fvar(7))*fvar(35)
+scale=fvar(37),fvar(37)
 removetime=var(2)
-scale=fvar(32),fvar(32)
-sprpriority=var(5)
+sprpriority=var(6)
 ownpal=1
 trans=add
 pausemovetime=99990000000
@@ -8583,17 +8731,17 @@ supermovetime=99990000000
 
 [state ]
 type=explod
-trigger1=var(36)<var(38)
+trigger1=var(39)<var(38)
 anim=var(8)
-id=var(10)
+id=var(15)
 postype=p1
-pos=floor(fvar(29)*fvar(0)/2),0
-bindtime=0
-vel=ifelse(fvar(29)<0,-1,1)*(fvar(16)+(fvar(17)-fvar(16))*fvar(30)),-fvar(18)-(fvar(19)-fvar(18))*fvar(31)
-accel=0,fvar(28)
+pos=floor(fvar(34)*fvar(0)/2),0
+bindtime=1
+vel=ifelse(fvar(34)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(35)),-fvar(14)-(fvar(15)-fvar(14))*fvar(36)
+accel=0,fvar(16)
+scale=fvar(10)+(fvar(11)-fvar(10))*fvar(36),fvar(10)+(fvar(11)-fvar(10))*fvar(36)
 removetime=var(3)
-scale=fvar(14)+(fvar(15)-fvar(14))*fvar(31),fvar(14)+(fvar(15)-fvar(14))*fvar(31)
-sprpriority=var(5)
+sprpriority=var(6)
 ownpal=1
 trans=add
 pausemovetime=99990000000
@@ -8602,13 +8750,192 @@ supermovetime=99990000000
 [state ]
 type=varadd
 trigger1=1
-var(36)=1
+var(39)=1
 
 [state ]
 type=selfstate
-trigger1=(var(36)<var(37))||(var(36)<var(38))
+trigger1=(var(39)<var(37))||(var(39)<var(38))
 value=511910
 persistent=256
+
+[state ]
+type=changestate
+trigger1=1
+value=599900
+
+[statedef 511001]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=301
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=parent,var(4)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=parent,var(5)
+
+[state ]
+type=varset
+trigger1=1
+var(2)=256
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=parent,fvar(2)
+
+[state ]
+type=varset
+trigger1=1
+sysvar(0)=4096
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(3)=(parent,var(16))-1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(4)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=599000
+
+[statedef 511002]
+type=a
+movetype=I
+physics=N
+ctrl=0
+anim=301
+velset=0,0
+
+[state ]
+type=varset
+trigger1=1
+var(0)=parent,var(4)
+
+[state ]
+type=varset
+trigger1=1
+var(1)=parent,var(6)
+
+[state ]
+type=varset
+trigger1=1
+var(2)=parent,var(7)
+
+[state ]
+type=varset
+trigger1=1
+fvar(0)=parent,fvar(2)
+
+[state ]
+type=varset
+trigger1=1
+sysvar(0)=4096
+
+[state ]
+type=varset
+trigger1=1
+sysvar(1)=1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(2)=0
+
+[state ]
+type=varset
+trigger1=1
+sysvar(3)=(parent,var(16))-1
+
+[state ]
+type=varset
+trigger1=1
+sysvar(4)=0
+
+[state ]
+type=changestate
+trigger1=1
+value=599000
+
+[statedef 511920]
+type=a
+movetype=I
+physics=N
+ctrl=0
+
+;; 突進衝撃波と同じ正方形Actionを各面のHelper自身に描く
+
+[state ]
+type=changeanim
+trigger1=anim!=var(0)
+value=var(0)
+
+[state ]
+type=playerpush
+trigger1=1
+value=0
+
+[state ]
+type=nothitby
+trigger1=1
+value=sca
+time=1
+
+[state ]
+type=assertspecial
+trigger1=1
+flag=noshadow
+
+[state ]
+type=bindtoparent
+trigger1=1
+time=1
+facing=1
+pos=0,-(parent,fvar(32))/2
+
+[state ]
+type=angledraw
+trigger1=1
+value=0
+scale=(parent,fvar(33))/fvar(0),(parent,fvar(32))/fvar(0)
+
+[state ]
+type=sprpriority
+trigger1=1
+value=var(1)
+
+[state ]
+type=trans
+trigger1=1
+trans=addalpha
+alpha=var(2),256-var(2)
+
+[state ]
+type=assertspecial
+trigger1=(parent,fvar(33))<=0
+flag=invisible
 
 [state ]
 type=changestate
@@ -8818,6 +9145,11 @@ ctrl=0
 type=changestate
 trigger1=(sysvar(0)&2048)!=0
 value=511900
+
+[state ]
+type=changestate
+trigger1=(sysvar(0)&4096)!=0
+value=511920
 
 [state ]
 type=changestate
