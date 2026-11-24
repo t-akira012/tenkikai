@@ -8160,12 +8160,12 @@ var(1)=4
 [state ]
 type=varset
 trigger1=1
-var(2)=12
+var(2)=36
 
 [state ]
 type=varset
 trigger1=1
-var(3)=8
+var(3)=32
 
 [state ]
 type=varset
@@ -8230,7 +8230,7 @@ var(15)=511011
 [state ]
 type=varset
 trigger1=1
-fvar(0)=40
+fvar(0)=20
 
 [state ]
 type=varset
@@ -8265,27 +8265,29 @@ fvar(6)=0.35
 [state ]
 type=varset
 trigger1=1
-fvar(7)=4
+fvar(7)=9
 
 [state ]
 type=varset
 trigger1=1
-fvar(8)=10
+fvar(8)=15
+
+;; 先端の発出範囲は柱幅に対する割合。光球の進行方向は真上
 
 [state ]
 type=varset
 trigger1=1
-fvar(9)=4
+fvar(9)=0.4
 
 [state ]
 type=varset
 trigger1=1
-fvar(10)=0.1
+fvar(10)=0.15
 
 [state ]
 type=varset
 trigger1=1
-fvar(11)=0.22
+fvar(11)=0.33
 
 [state ]
 type=varset
@@ -8307,10 +8309,12 @@ type=varset
 trigger1=1
 fvar(15)=1.5
 
+;; 地面原点から表示上の接地点までのY補正
+
 [state ]
 type=varset
 trigger1=1
-fvar(16)=0.25
+fvar(16)=40
 
 ;; 伸長の8標本：高さ、先端の発出数、根元の発出数
 
@@ -8601,7 +8605,7 @@ id=var(9)
 stateno=var(9)
 helpertype=normal
 postype=p1
-pos=0,0
+pos=0,floor(fvar(16))
 facing=1
 keyctrl=0
 ownpal=1
@@ -8618,7 +8622,7 @@ id=var(10)
 stateno=var(10)
 helpertype=normal
 postype=p1
-pos=0,0
+pos=0,floor(fvar(16))
 facing=1
 keyctrl=0
 ownpal=1
@@ -8671,7 +8675,7 @@ var(39)=0
 
 [state ]
 type=varset
-trigger1=fvar(32)>=fvar(1)
+trigger1=fvar(32)-fvar(16)>=fvar(1)
 var(37)=0
 
 [state ]
@@ -8718,9 +8722,9 @@ trigger1=var(39)<var(37)
 anim=var(8)
 id=var(14)
 postype=p1
-pos=floor(fvar(34)*fvar(0)/2),-floor(fvar(32))
+pos=floor(fvar(34)*fvar(0)*fvar(9)/2),floor(fvar(16)-fvar(32))
 bindtime=1
-vel=fvar(34)*fvar(9),-fvar(7)-(fvar(8)-fvar(7))*fvar(35)
+vel=0,-fvar(7)-(fvar(8)-fvar(7))*fvar(35)
 scale=fvar(37),fvar(37)
 removetime=var(2)
 sprpriority=var(6)
@@ -8729,16 +8733,23 @@ trans=add
 pausemovetime=99990000000
 supermovetime=99990000000
 
+;; 根元の光球は寿命の間、接地点の近くで低い弧を描く
+
+[state ]
+type=varset
+trigger1=var(39)<var(38)
+fvar(38)=fvar(14)+(fvar(15)-fvar(14))*fvar(36)
+
 [state ]
 type=explod
 trigger1=var(39)<var(38)
 anim=var(8)
 id=var(15)
 postype=p1
-pos=floor(fvar(34)*fvar(0)/2),0
+pos=floor(fvar(34)*fvar(0)/2),floor(fvar(16))
 bindtime=1
-vel=ifelse(fvar(34)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(35)),-fvar(14)-(fvar(15)-fvar(14))*fvar(36)
-accel=0,fvar(16)
+vel=ifelse(fvar(34)<0,-1,1)*(fvar(12)+(fvar(13)-fvar(12))*fvar(35)),-fvar(38)
+accel=0,2*fvar(38)/var(3)
 scale=fvar(10)+(fvar(11)-fvar(10))*fvar(36),fvar(10)+(fvar(11)-fvar(10))*fvar(36)
 removetime=var(3)
 sprpriority=var(6)
@@ -8913,7 +8924,7 @@ type=bindtoparent
 trigger1=1
 time=1
 facing=1
-pos=0,-(parent,fvar(32))/2
+pos=0,(parent,fvar(16))-(parent,fvar(32))/2
 
 [state ]
 type=angledraw
